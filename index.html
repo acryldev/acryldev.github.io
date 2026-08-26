@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f4ef" />
+    <meta name="description" content="ACRYL is the programmable desktop and package ecosystem for persistent AI agent lifecycles." />
+    <meta property="og:title" content="ACRYL - Agent Context Relay Yielding Lifecycles" />
+    <meta property="og:description" content="Any agent. Any model. One evolving lifecycle." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://acryl.dev/" />
+    <link rel="icon" href="/acryl-logo.png" />
+    <link rel="canonical" href="https://acryl.dev/" />
+    <title>ACRYL - Agent Context Relay Yielding Lifecycles</title>
+    <script>
+      (() => {
+        const saved = localStorage.getItem('acryl-theme')
+        const theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = theme
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
