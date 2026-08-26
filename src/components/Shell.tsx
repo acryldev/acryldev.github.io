@@ -1,4 +1,4 @@
-import { Github, Menu, X } from 'lucide-react'
+import { Github, Menu, MessageCircle, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Brand } from './Brand'
@@ -24,6 +24,10 @@ export function Shell() {
             {nav.map(([label, href]) => (
               <NavLink key={href} to={href} end={href === '/'} onClick={() => setOpen(false)}>{label}</NavLink>
             ))}
+            <a className="community-link" href="https://discord.gg/r7j5PMWv4" target="_blank" rel="noreferrer">
+              <MessageCircle aria-hidden="true" />
+              Join Discord
+            </a>
           </nav>
           <div className="header-actions">
             <ThemeToggle />
@@ -45,6 +49,7 @@ export function Shell() {
           <Link to="/docs">Docs</Link>
           <a href="https://agentcontextrelay.com/">Agent Context Relay</a>
           <a href="https://github.com/acryldev">GitHub</a>
+          <a href="https://discord.gg/r7j5PMWv4" target="_blank" rel="noreferrer">Discord</a>
         </div>
         <p className="footer-note">Built on Cordis and DeepSeek Harness. ACRYL adds capabilities without replacing upstream APIs.</p>
       </footer>

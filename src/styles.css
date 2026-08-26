@@ -64,6 +64,8 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
 .site-nav { display: flex; align-items: center; gap: 28px; }
 .site-nav a { color: var(--muted-foreground); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; transition: color 160ms ease; }
 .site-nav a:hover, .site-nav a.active { color: var(--foreground); }
+.site-nav .community-link { display: inline-flex; align-items: center; gap: 6px; }
+.site-nav .community-link svg { width: 14px; height: 14px; }
 .header-actions { display: flex; justify-self: end; align-items: center; gap: 9px; }
 .icon-button { display: grid; width: 34px; height: 34px; padding: 0; place-items: center; border: 1px solid var(--border); border-radius: 0; background: transparent; cursor: pointer; transition: color 160ms ease, background 160ms ease; }
 .icon-button:hover { background: var(--foreground); color: var(--background); }
