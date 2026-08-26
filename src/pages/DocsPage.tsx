@@ -9,7 +9,7 @@ export function DocsPage() {
         <p className="eyebrow">Documentation · Early preview</p>
         <h1 id="overview">ACRYL developer platform</h1>
         <p className="docs-lede">ACRYL is an agent-agnostic desktop and lifecycle environment built as a clean plugin layer over DeepSeek Harness and Cordis.</p>
-        <div className="docs-notice"><span>PREVIEW</span><p>The package portal currently provides static discovery and install commands. Desktop deep links, compatibility scans, verified badges, and a public registry API are planned.</p></div>
+        <div className="docs-notice"><span>PREVIEW</span><p>The package portal provides live, source-aware discovery with a committed static fallback. Desktop deep links, compatibility scans, ACRYL verification badges, and an ACRYL-owned public API are planned.</p></div>
         <h2 id="install">Install a standard DSH package</h2>
         <p>ACRYL does not translate a DSH package into another format. Standard DSH bundles use the original package mechanism and enter the Cordis Loader composition directly.</p>
         <CommandBox command="dsh plugin --profile desktop add <package-or-git-url>" />

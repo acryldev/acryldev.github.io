@@ -158,7 +158,7 @@ export function PackagesPage() {
   const rangeEnd = Math.min(catalogPage.page * catalogPage.limit, catalogPage.total)
 
   return (
-    <div className="packages-page">
+    <div className="packages-page min-w-0 overflow-clip">
       <section className="directory-intro grid-surface">
         <div className="page-width">
           <p className="eyebrow"><span /> ACRYL package discovery</p>
@@ -197,7 +197,7 @@ export function PackagesPage() {
           <button className="directory-reset" type="button" onClick={reset} disabled={!hasFilters}><X aria-hidden="true" /> Reset</button>
         </div>
 
-        <div className="registry-status" role="status">
+        <div className="registry-status" role="status" aria-live="polite">
           <span className={status}><i /> {status === 'live' ? 'Live DSH registry' : status === 'loading' ? 'Updating results' : 'Static catalog fallback'}</span>
           <span>Source-aware discovery</span>
           {error && <span title={error}>Live source unavailable</span>}

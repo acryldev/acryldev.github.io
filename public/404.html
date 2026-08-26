@@ -3,8 +3,9 @@
 <head><meta charset="utf-8"><title>ACRYL</title></head>
 <body>
 <script>
+  var base = location.hostname === 'acryldev.github.io' ? '/acryldev' : ''
   sessionStorage.setItem('acryl-redirect', location.pathname + location.search + location.hash)
-  location.replace('/')
+  location.replace(base + '/')
 </script>
 </body>
 </html>

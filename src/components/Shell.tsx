@@ -13,7 +13,7 @@ const nav = [
 export function Shell() {
   const [open, setOpen] = useState(false)
   return (
-    <div className="site-shell">
+    <div className="site-shell min-h-dvh bg-canvas text-ink">
       <header className="site-header">
         <div className="site-header-inner">
           <Brand />
@@ -34,7 +34,7 @@ export function Shell() {
           </div>
         </div>
       </header>
-      <main><Outlet /></main>
+      <main className="min-w-0"><Outlet /></main>
       <footer className="site-footer">
         <div>
           <Brand />

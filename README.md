@@ -2,6 +2,8 @@
 
 Public website and source-aware package portal for **ACRYL - Agent Context Relay Yielding Lifecycles**.
 
+Built with React 19, TypeScript, Vite, Tailwind CSS 4, and React Router.
+
 ## Local development
 
 ```bash

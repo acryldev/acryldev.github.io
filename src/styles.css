@@ -1,3 +1,22 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme inline {
+  --font-sans: 'Space Grotesk Variable', Inter, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-violet: var(--violet);
+  --color-cyan: var(--cyan);
+}
+
 :root {
   color-scheme: light;
   --canvas: #f4f4ef;
@@ -55,7 +74,6 @@ svg { width: 19px; height: 19px; stroke-width: 1.8; }
 :focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
 .page-width { width: min(var(--page), calc(100% - 56px)); margin-inline: auto; }
 .grid-surface { background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 32px 32px; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 .site-header { position: sticky; z-index: 20; top: 0; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--canvas) 88%, transparent); backdrop-filter: blur(18px); }
 .site-header-inner { display: grid; width: min(var(--page), calc(100% - 56px)); height: 70px; margin: auto; grid-template-columns: 1fr auto 1fr; align-items: center; }
@@ -192,8 +210,8 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); border-radius: 5px; backg
 .directory-trust svg { width: 15px; height: 15px; color: var(--cyan); }
 .recent-section { padding-block: 50px 28px; }
 .directory-section { padding-block: 36px 110px; }
-.directory-section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 20px; }
-.directory-section-heading p { margin: 0 0 4px; color: var(--violet); font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 650; letter-spacing: .1em; }
+.directory-section-heading { @apply mb-5 flex items-end justify-between; }
+.directory-section-heading p { @apply mb-1 mt-0 font-mono text-[9px] font-semibold tracking-[.1em] text-violet; }
 .directory-section-heading h2 { margin: 0; font-size: 31px; letter-spacing: -.045em; }
 .directory-section-heading > span { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
 .recent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line-strong); border-left: 1px solid var(--line-strong); }
@@ -212,7 +230,7 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); border-radius: 5px; backg
 .directory-action-bar label:has(select) { display: block; }
 .directory-action-bar select { width: 100%; height: 48px; padding: 0 38px 0 13px; border: 1px solid var(--line); border-radius: 0; outline: 0; background: var(--surface-raised); color: var(--ink); cursor: pointer; }
 .directory-action-bar select:focus-visible { border-color: var(--violet); }
-.directory-reset { display: inline-flex; min-width: 95px; height: 48px; align-items: center; justify-content: center; gap: 7px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font-size: 12px; font-weight: 620; }
+.directory-reset { @apply inline-flex h-12 min-w-[95px] cursor-pointer items-center justify-center gap-[7px] border border-line bg-transparent text-xs font-semibold text-ink; }
 .directory-reset:disabled { color: var(--soft); cursor: default; opacity: .65; }
 .directory-reset:not(:disabled):hover { background: var(--accent); color: var(--accent-ink); }
 .directory-reset svg { width: 15px; height: 15px; }
