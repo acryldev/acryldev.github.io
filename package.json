@@ -23,6 +23,7 @@
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@fontsource/jetbrains-mono": "5.2.8",
     "lucide-react": "0.468.0",
+    "qrcode.react": "^4.2.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router-dom": "7.1.1"

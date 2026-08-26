@@ -4,6 +4,7 @@ import { DocsPage } from './pages/DocsPage'
 import { HomePage } from './pages/HomePage'
 import { PackagePage } from './pages/PackagePage'
 import { PackagesPage } from './pages/PackagesPage'
+import { QrPage } from './pages/QrPage'
 
 export function App() {
   return (
@@ -13,6 +14,7 @@ export function App() {
         <Route path="packages" element={<PackagesPage />} />
         <Route path="packages/:owner/*" element={<PackagePage />} />
         <Route path="docs" element={<DocsPage />} />
+        <Route path="qr" element={<QrPage />} />
         <Route path="*" element={<div className="not-found page-width"><span>404</span><h1>Page not found.</h1></div>} />
       </Route>
     </Routes>
