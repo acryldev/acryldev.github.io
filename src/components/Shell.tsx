@@ -1,4 +1,4 @@
-import { Github, Menu, MessageCircle, X } from 'lucide-react'
+import { Github, Menu, MessageCircle, Star, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Brand } from './Brand'
@@ -31,6 +31,9 @@ export function Shell() {
           </nav>
           <div className="header-actions">
             <ThemeToggle />
+            <a className="icon-button" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer" aria-label="Star ACRYL on GitHub">
+              <Star aria-hidden="true" />
+            </a>
             <a className="icon-button" href="https://github.com/acryldev" target="_blank" rel="noreferrer" aria-label="ACRYL on GitHub">
               <Github aria-hidden="true" />
             </a>
@@ -48,6 +51,7 @@ export function Shell() {
           <Link to="/packages">Packages</Link>
           <Link to="/docs">Docs</Link>
           <a href="https://agentcontextrelay.com/">Agent Context Relay</a>
+          <a href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">Star on GitHub</a>
           <a href="https://github.com/acryldev">GitHub</a>
           <a href="https://discord.gg/9bcTjqCa3" target="_blank" rel="noreferrer">Discord</a>
         </div>

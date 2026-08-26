@@ -1,4 +1,4 @@
-import { ArrowRight, Boxes, Braces, Cable, Layers3, Network, RefreshCw } from 'lucide-react'
+import { ArrowRight, Boxes, Braces, Cable, Layers3, MessageCircle, Network, RefreshCw, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
 import { acrylCatalog, catalog } from '../lib/catalog'
@@ -25,6 +25,10 @@ export function HomePage() {
           <div className="hero-cta">
             <Link className="button" to="/packages">Explore {packageCount.toLocaleString()} packages <ArrowRight aria-hidden="true" /></Link>
             <Link className="button secondary" to="/docs">Read the architecture</Link>
+            <a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">
+              <Star aria-hidden="true" />
+              Support ACRYL on GitHub
+            </a>
           </div>
           <CommandBox command="dsh plugin --profile desktop add <package>" label="DeepSeek Harness packages run directly" />
         </div>
@@ -91,7 +95,7 @@ export function HomePage() {
         <p className="eyebrow">Community</p>
         <h2>Publish an atom.<br />Change what agents can do.</h2>
         <p>Publish a public npm package with one keyword. ACRYL discovers it automatically and keeps its source, version, and compatibility evidence explicit.</p>
-        <div><Link className="button" to="/docs#publish">Publish a package <ArrowRight aria-hidden="true" /></Link><Link className="button secondary" to="/packages">Explore the registry</Link></div>
+        <div><Link className="button" to="/docs#publish">Publish a package <ArrowRight aria-hidden="true" /></Link><Link className="button secondary" to="/packages">Explore the registry</Link><a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a><a className="button secondary" href="https://discord.gg/9bcTjqCa3" target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Join Discord</a></div>
       </section>
     </>
   )
