@@ -31,7 +31,7 @@ Only verified npm package commands are offered. Source-only entries remain brows
 
 ## Deployment
 
-`.github/workflows/deploy-pages.yml` builds and deploys the site to GitHub Pages. `public/CNAME` configures `acryl.dev`.
+`.github/workflows/deploy-pages.yml` builds and deploys the organization site at [acryldev.github.io](https://acryldev.github.io). The repository must retain the special `acryldev.github.io` name for this root URL. `public/CNAME` records the intended `acryl.dev` custom domain.
 
 GitHub Pages is sufficient for this read-only release: landing pages, live upstream discovery, static fallback, package detail pages, install commands, and documentation. Authentication, submissions, ACRYL-owned analytics, trust verification, or any public write API will need an ACRYL backend. Cloudflare Worker/D1 is a stronger fit for that phase than moving the static site to Netlify alone.
 

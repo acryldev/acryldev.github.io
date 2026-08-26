@@ -13,11 +13,9 @@ if (redirectedPath) {
   history.replaceState(null, '', redirectedPath)
 }
 
-const basename = location.hostname === 'acryldev.github.io' ? '/acryldev' : undefined
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename={basename}>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </StrictMode>,
