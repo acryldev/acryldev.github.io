@@ -31,10 +31,10 @@ Only verified npm package commands are offered. Source-only entries remain brows
 
 ## Deployment
 
-`.github/workflows/deploy-pages.yml` builds and deploys the organization site at [acryldev.github.io](https://acryldev.github.io). The repository must retain the special `acryldev.github.io` name for this root URL. `public/CNAME` records the intended `acryl.dev` custom domain.
+`.github/workflows/deploy-pages.yml` builds and deploys the organization site at [acryldev.github.io](https://acryldev.github.io). The repository must retain the special `acryldev.github.io` name for this root URL. Keep the Pages custom-domain setting empty until `acryl.dev` DNS points to GitHub Pages. Only then add `public/CNAME` with `acryl.dev` and configure the Pages custom domain.
 
 GitHub Pages is sufficient for this read-only release: landing pages, live upstream discovery, static fallback, package detail pages, install commands, and documentation. Authentication, submissions, ACRYL-owned analytics, trust verification, or any public write API will need an ACRYL backend. Cloudflare Worker/D1 is a stronger fit for that phase than moving the static site to Netlify alone.
 
 ### DNS for `acryl.dev`
 
-Configure the domain provider with GitHub Pages' current apex-domain records and add `www` as a CNAME to `acryldev.github.io`. Verify the exact values in GitHub's Pages documentation before changing DNS. In repository Settings -> Pages, choose **GitHub Actions** as the source and enforce HTTPS after the certificate is issued.
+Configure the domain provider with GitHub Pages' current apex-domain records and add `www` as a CNAME to `acryldev.github.io`. Verify the exact values in GitHub's Pages documentation before changing DNS. Once the records resolve, add `acryl.dev` in repository Settings -> Pages, restore `public/CNAME`, and enforce HTTPS after the certificate is issued. Do not configure the custom domain first: GitHub redirects `acryldev.github.io` to it before the domain resolves.
