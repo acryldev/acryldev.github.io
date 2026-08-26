@@ -7,7 +7,7 @@ Built with React 19, TypeScript, Vite, Tailwind CSS 4, and React Router.
 ## Community
 
 - ⭐ Support ACRYL: [star the project on GitHub](https://github.com/acryldev/acryl)
-- 💬 Join the discussion: [Discord](https://discord.gg/9bcTjqCa3)
+- 💬 Join the discussion: [Discord](https://discord.gg/cY9KXMex69)
 
 ## Local development
 

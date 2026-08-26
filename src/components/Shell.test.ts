@@ -14,7 +14,7 @@ describe('Shell community links', () => {
 
     expect(discordLinks).toHaveLength(2)
     for (const link of discordLinks) {
-      expect(link.getAttribute('href')).toBe('https://discord.gg/9bcTjqCa3')
+      expect(link.getAttribute('href')).toBe('https://discord.gg/cY9KXMex69')
       expect(link.getAttribute('target')).toBe('_blank')
       expect(link.getAttribute('rel')).toContain('noreferrer')
     }

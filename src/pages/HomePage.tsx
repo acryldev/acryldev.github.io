@@ -95,7 +95,7 @@ export function HomePage() {
         <p className="eyebrow">Community</p>
         <h2>Publish an atom.<br />Change what agents can do.</h2>
         <p>Publish a public npm package with one keyword. ACRYL discovers it automatically and keeps its source, version, and compatibility evidence explicit.</p>
-        <div><Link className="button" to="/docs#publish">Publish a package <ArrowRight aria-hidden="true" /></Link><Link className="button secondary" to="/packages">Explore the registry</Link><a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a><a className="button secondary" href="https://discord.gg/9bcTjqCa3" target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Join Discord</a></div>
+        <div><Link className="button" to="/docs#publish">Publish a package <ArrowRight aria-hidden="true" /></Link><Link className="button secondary" to="/packages">Explore the registry</Link><a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a><a className="button secondary" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Join Discord</a></div>
       </section>
     </>
   )

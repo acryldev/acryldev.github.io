@@ -24,7 +24,7 @@ export function Shell() {
             {nav.map(([label, href]) => (
               <NavLink key={href} to={href} end={href === '/'} onClick={() => setOpen(false)}>{label}</NavLink>
             ))}
-            <a className="community-link" href="https://discord.gg/9bcTjqCa3" target="_blank" rel="noreferrer">
+            <a className="community-link" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer">
               <MessageCircle aria-hidden="true" />
               Join Discord
             </a>
@@ -53,7 +53,7 @@ export function Shell() {
           <a href="https://agentcontextrelay.com/">Agent Context Relay</a>
           <a href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">Star on GitHub</a>
           <a href="https://github.com/acryldev">GitHub</a>
-          <a href="https://discord.gg/9bcTjqCa3" target="_blank" rel="noreferrer">Discord</a>
+          <a href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer">Discord</a>
         </div>
         <p className="footer-note">Built on Cordis and DeepSeek Harness. ACRYL adds capabilities without replacing upstream APIs.</p>
       </footer>
