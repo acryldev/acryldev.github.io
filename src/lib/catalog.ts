@@ -1,7 +1,9 @@
+import acrylCatalogJson from '../data/acryl-catalog.json'
 import catalogJson from '../data/catalog.json'
-import type { CatalogDocument, CatalogPlugin } from '../types'
+import type { AcrylCatalogDocument, CatalogDocument, CatalogPlugin } from '../types'
 
 export const catalog = catalogJson as CatalogDocument
+export const acrylCatalog = acrylCatalogJson as AcrylCatalogDocument
 
 export function repositorySlug(repository: string): string {
   return repository.replace(/^https:\/\/github\.com\//, '').replace(/\/$/, '')
@@ -31,5 +33,6 @@ export function packagePath(plugin: CatalogPlugin): string {
 
 export function findPlugin(id: string): CatalogPlugin | undefined {
   const normalized = id.split('/').map(decodeURIComponent).join('/')
-  return catalog.plugins.find(plugin => plugin.id.toLocaleLowerCase() === normalized.toLocaleLowerCase())
+  return [...acrylCatalog.plugins, ...catalog.plugins]
+    .find(plugin => plugin.id.toLocaleLowerCase() === normalized.toLocaleLowerCase())
 }

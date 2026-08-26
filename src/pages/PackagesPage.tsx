@@ -1,7 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Download, Github, PackageSearch, Search, ShieldCheck, Star, X } from 'lucide-react'
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Download, Github, PackageSearch, Search, ShieldCheck, Sparkles, Star, X } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { catalog, filterPlugins, installCommand, packagePath, repositorySlug } from '../lib/catalog'
+import { acrylCatalog, catalog, filterPlugins, installCommand, packagePath, repositorySlug } from '../lib/catalog'
 import { CATALOG_PAGE_SIZE, fetchRegistryPage, type CatalogSort, type RegistryPage } from '../lib/registry'
 import type { CatalogPlugin } from '../types'
 
@@ -67,7 +67,7 @@ function InstallControl({ plugin }: { readonly plugin: CatalogPlugin }) {
 }
 
 function PackageCard({ plugin }: { readonly plugin: CatalogPlugin }) {
-  const author = repositorySlug(plugin.repository).split('/')[0] ?? 'community'
+  const author = plugin.publisher ?? repositorySlug(plugin.repository).split('/')[0] ?? 'community'
   return (
     <article className="discovery-card">
       <div className="discovery-card-main">
@@ -77,6 +77,7 @@ function PackageCard({ plugin }: { readonly plugin: CatalogPlugin }) {
           <p>{plugin.description.en || 'Community package for the DeepSeek Harness ecosystem.'}</p>
           <div className="package-facts">
             <span>{author}</span>
+            <span className={`origin-chip ${plugin.source}`}>{plugin.source === 'acryl' ? 'ACRYL' : 'DSH'}</span>
             <span className="type-chip">{plugin.category}</span>
             {plugin.installCount !== undefined && <span><Download aria-hidden="true" /> {formatMetric(plugin.installCount)}</span>}
             {plugin.stars !== undefined && <span><Star aria-hidden="true" /> {formatMetric(plugin.stars)}</span>}
@@ -167,6 +168,21 @@ export function PackagesPage() {
           <div className="directory-trust"><span><ShieldCheck aria-hidden="true" /> Upstream attribution preserved</span><span>Compatibility is never implied</span></div>
         </div>
       </section>
+
+      {!hasFilters && page === 1 && (
+        <section className="native-section page-width" aria-labelledby="native-heading">
+          <div className="directory-section-heading"><div><p>NATIVE ECOSYSTEM</p><h2 id="native-heading">ACRYL packages</h2></div><Link to="/docs#publish">Publish a package <ArrowUpRight aria-hidden="true" /></Link></div>
+          {acrylCatalog.plugins.length > 0 ? (
+            <div className="discovery-grid native-package-grid">{acrylCatalog.plugins.slice(0, 6).map(plugin => <PackageCard plugin={plugin} key={plugin.id} />)}</div>
+          ) : (
+            <div className="publish-callout">
+              <Sparkles aria-hidden="true" />
+              <div><strong>Be the first ACRYL package publisher.</strong><p>Add one keyword and a small manifest to a public npm package. The catalog discovers it automatically, with no submission PR.</p></div>
+              <Link className="button" to="/docs#publish">Publishing guide <ArrowUpRight aria-hidden="true" /></Link>
+            </div>
+          )}
+        </section>
+      )}
 
       {!hasFilters && page === 1 && (
         <section className="recent-section page-width" aria-labelledby="recent-heading">

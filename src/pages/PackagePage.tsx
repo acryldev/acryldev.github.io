@@ -20,8 +20,10 @@ export function PackagePage() {
 
   useEffect(() => {
     const controller = new AbortController()
-    setPlugin(findPlugin(id))
+    const local = findPlugin(id)
+    setPlugin(local)
     setFailed(false)
+    if (local?.source === 'acryl') return () => controller.abort()
     fetchRegistryPlugin(id, controller.signal)
       .then(setPlugin)
       .catch(() => {
@@ -41,7 +43,7 @@ export function PackagePage() {
       <section className="package-detail-hero">
         <div className="package-detail-icon"><Box aria-hidden="true" /></div>
         <div className="package-detail-title">
-          <p className="eyebrow">DeepSeek Harness ecosystem</p>
+          <p className="eyebrow">{plugin.source === 'acryl' ? 'ACRYL package ecosystem' : 'DeepSeek Harness ecosystem'}</p>
           <h1>{plugin.name}</h1>
           <p>{plugin.description.en}</p>
           <div className="detail-tags">
@@ -81,7 +83,7 @@ export function PackagePage() {
           </section>
         </main>
         <aside className="detail-aside">
-          <section><p className="panel-label">SOURCE</p><dl><dt>Registry</dt><dd>DSH 1024Store</dd><dt>Repository</dt><dd>{repositorySlug(plugin.repository)}</dd><dt>Package license</dt><dd>See upstream</dd><dt>Catalog source</dt><dd>Live API with static fallback</dd><dt>Install status</dt><dd>{command ? 'Verified npm path' : 'Browse only'}</dd></dl></section>
+          <section><p className="panel-label">SOURCE</p><dl><dt>Registry</dt><dd>{plugin.source === 'acryl' ? 'npm · acryl-package' : 'DSH 1024Store'}</dd><dt>Repository</dt><dd>{repositorySlug(plugin.repository)}</dd>{plugin.version && <><dt>Version</dt><dd>{plugin.version}</dd></>}<dt>Package license</dt><dd>See upstream</dd><dt>Catalog source</dt><dd>{plugin.source === 'acryl' ? 'Automated npm discovery' : 'Live API with static fallback'}</dd><dt>Install status</dt><dd>{command ? 'Verified npm path' : 'Browse only'}</dd></dl></section>
           <section className="security-callout"><ShieldAlert aria-hidden="true" /><div><strong>Third-party code</strong><p>Host plugins may access Node.js, files, and network resources. Install only code you trust.</p></div></section>
         </aside>
       </div>

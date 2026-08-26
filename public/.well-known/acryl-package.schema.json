@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://acryl.dev/.well-known/acryl-package.schema.json",
+  "title": "ACRYL package manifest",
+  "description": "The value of the acryl field in a public npm package.json.",
+  "type": "object",
+  "required": ["schemaVersion", "artifacts"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "artifacts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "plugins": { "$ref": "#/$defs/paths" },
+        "extensions": { "$ref": "#/$defs/paths" },
+        "adapters": { "$ref": "#/$defs/paths" },
+        "skills": { "$ref": "#/$defs/paths" },
+        "workflows": { "$ref": "#/$defs/paths" },
+        "blueprints": { "$ref": "#/$defs/paths" },
+        "stemcells": { "$ref": "#/$defs/paths" }
+      }
+    },
+    "runtime": {
+      "enum": ["acryl", "cordis", "dsh", "content"]
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "acryl": { "type": "string", "minLength": 1 },
+        "node": { "type": "string", "minLength": 1 },
+        "hosts": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 120 }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subdirectory": { "$ref": "#/$defs/path" }
+      }
+    },
+    "image": { "type": "string", "format": "uri", "maxLength": 2048 },
+    "video": { "type": "string", "format": "uri", "maxLength": 2048 }
+  },
+  "$defs": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?![A-Za-z]:\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!https?://).+"
+    },
+    "paths": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/path" }
+    }
+  }
+}

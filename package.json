@@ -14,7 +14,9 @@
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run",
     "check": "pnpm typecheck && pnpm test && pnpm build",
-    "catalog:sync": "node scripts/sync-upstream-catalog.mjs"
+    "catalog:sync": "pnpm catalog:sync:dsh && pnpm catalog:sync:acryl",
+    "catalog:sync:dsh": "node scripts/sync-upstream-catalog.mjs",
+    "catalog:sync:acryl": "node scripts/sync-acryl-catalog.mjs"
   },
   "dependencies": {
     "@fontsource-variable/space-grotesk": "5.2.10",
