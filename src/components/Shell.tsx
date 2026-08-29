@@ -1,5 +1,5 @@
 import { Github, Menu, MessageCircle, Star, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
@@ -10,8 +10,33 @@ const nav = [
   ['Docs', '/docs'],
 ] as const
 
+function formatStarCount(stars: number): string {
+  return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 })
+    .format(stars)
+    .toLowerCase()
+}
+
 export function Shell() {
   const [open, setOpen] = useState(false)
+  const [starCount, setStarCount] = useState<string>()
+
+  useEffect(() => {
+    const controller = new AbortController()
+    void fetch('https://api.github.com/repos/acryldev/acryl', {
+      headers: { Accept: 'application/vnd.github+json' },
+      signal: controller.signal,
+    })
+      .then(async response => {
+        if (!response.ok) return undefined
+        const payload: unknown = await response.json()
+        if (typeof payload !== 'object' || payload === null || !('stargazers_count' in payload)) return undefined
+        const stars = payload.stargazers_count
+        return typeof stars === 'number' && Number.isFinite(stars) && stars >= 0 ? formatStarCount(stars) : undefined
+      })
+      .then(count => { if (count !== undefined) setStarCount(count) })
+      .catch(() => undefined)
+    return () => controller.abort()
+  }, [])
   return (
     <div className="site-shell min-h-dvh bg-canvas text-ink">
       <header className="site-header">
@@ -31,8 +56,15 @@ export function Shell() {
           </nav>
           <div className="header-actions">
             <ThemeToggle />
-            <a className="icon-button" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer" aria-label="Star ACRYL on GitHub">
+            <a
+              className="icon-button github-stars"
+              href="https://github.com/acryldev/acryl"
+              target="_blank"
+              rel="noreferrer"
+              aria-label={starCount === undefined ? 'Star ACRYL on GitHub' : `Star ACRYL on GitHub - ${starCount} stars`}
+            >
               <Star aria-hidden="true" />
+              {starCount === undefined ? null : <span aria-hidden="true">{starCount}</span>}
             </a>
             <a className="icon-button" href="https://github.com/acryldev" target="_blank" rel="noreferrer" aria-label="ACRYL on GitHub">
               <Github aria-hidden="true" />
