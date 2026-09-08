@@ -30,7 +30,7 @@ export function HomePage() {
               Support ACRYL on GitHub
             </a>
           </div>
-          <CommandBox command="dsh plugin --profile desktop add <package>" label="DeepSeek Harness packages run directly" />
+          <CommandBox command="npm i -g acryl" label="Install ACRYL CLI" />
         </div>
       </section>
 
