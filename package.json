@@ -16,7 +16,8 @@
     "check": "pnpm typecheck && pnpm test && pnpm build",
     "catalog:sync": "pnpm catalog:sync:dsh && pnpm catalog:sync:acryl",
     "catalog:sync:dsh": "node scripts/sync-upstream-catalog.mjs",
-    "catalog:sync:acryl": "node scripts/sync-acryl-catalog.mjs"
+    "catalog:sync:acryl": "node scripts/sync-acryl-catalog.mjs && node scripts/build-market-catalog.mjs",
+    "catalog:market": "node scripts/build-market-catalog.mjs"
   },
   "dependencies": {
     "@fontsource-variable/space-grotesk": "5.2.10",

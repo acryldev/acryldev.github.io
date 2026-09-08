@@ -79,6 +79,16 @@ The keyword makes a package discoverable. It does not make it trusted or compati
 
 Package code is never executed by the catalog synchronization job. ACRYL preserves the npm package identity, publisher, repository link, version, and source status.
 
+## Discovering packages inside ACRYL Desktop
+
+The same catalog is exposed as a standard catalog source for the Desktop market UI. Users register the manifest URL once:
+
+```text
+https://acryl.dev/.well-known/acryl-catalog-source.json
+```
+
+The manifest points at the static page `https://acryl.dev/v1/plugins`, rebuilt by the same synchronization job. The static endpoint answers every query with a single page (the 50 most recently added packages), so the manifest advertises no query features. When the catalog outgrows one page, this artifact is replaced by the filtered API planned in [`../research/pi-package-gallery-publishing.md`](../research/pi-package-gallery-publishing.md).
+
 ## Updating or removing a listing
 
 Publish a new npm version to update metadata. Remove the `acryl-package` keyword from the latest version to leave default discovery. Deprecate unsafe or obsolete versions through npm rather than silently replacing their identity.

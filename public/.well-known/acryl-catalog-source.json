@@ -1,0 +1,22 @@
+{
+  "manifestVersion": "1.0.0",
+  "providerId": "dev.acryl.catalog",
+  "name": "ACRYL Package Catalog",
+  "description": "ACRYL packages auto-discovered on the npm registry via the acryl-package keyword. Static endpoint, refreshed every 15 minutes.",
+  "homepage": "https://acryl.dev/packages",
+  "attribution": {
+    "name": "acryl.dev",
+    "url": "https://acryl.dev/packages"
+  },
+  "transport": {
+    "kind": "https-json",
+    "endpoint": "https://acryl.dev/v1/plugins",
+    "method": "GET"
+  },
+  "query": {
+    "supported": [],
+    "defaultLimit": 50,
+    "maxLimit": 50,
+    "sorts": []
+  }
+}
