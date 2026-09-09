@@ -1,9 +1,46 @@
 {
-  "generatedAt": "2026-08-26T10:50:40.397Z",
+  "generatedAt": "2026-09-09T11:16:50.660Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
     "keyword": "acryl-package"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "id": "dsh-cordis",
+      "name": "dsh-cordis",
+      "repository": "https://github.com/acryldev/dsh-cordis",
+      "category": "plugins",
+      "description": {
+        "en": "Cordis plugin that packages the DeepSeek Harness coding engine for a Loader-managed ACRYL runtime."
+      },
+      "added": "2026-09-09",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add dsh-cordis",
+      "publisher": "acryldev",
+      "version": "0.1.0",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ]
+    },
+    {
+      "id": "acryl-dsh-editor-plugin",
+      "name": "acryl-dsh-editor-plugin",
+      "repository": "https://github.com/acryldev/acryl-dsh-editor-plugin",
+      "category": "plugins",
+      "description": {
+        "en": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff)."
+      },
+      "added": "2026-09-08",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add acryl-dsh-editor-plugin",
+      "publisher": "webboxescom",
+      "version": "0.2.3",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ]
+    }
+  ]
 }

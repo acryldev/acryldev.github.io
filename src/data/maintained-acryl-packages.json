@@ -1,0 +1,18 @@
+[
+  {
+    "id": "dsh-cordis",
+    "name": "dsh-cordis",
+    "repository": "https://github.com/acryldev/dsh-cordis",
+    "category": "plugins",
+    "description": {
+      "en": "Cordis plugin that packages the DeepSeek Harness coding engine for a Loader-managed ACRYL runtime."
+    },
+    "added": "2026-09-09",
+    "source": "acryl",
+    "install": "dsh plugin --profile desktop add dsh-cordis",
+    "publisher": "acryldev",
+    "version": "0.1.0",
+    "manifestStatus": "valid",
+    "kinds": ["plugins"]
+  }
+]

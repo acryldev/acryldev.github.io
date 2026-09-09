@@ -8,6 +8,15 @@ describe('catalog', () => {
     expect(catalog.plugins.every(plugin => plugin.source === 'deepseek-harness')).toBe(true)
   })
 
+  it('keeps maintained ACRYL packages in the native catalog', () => {
+    const plugin = findPlugin('dsh-cordis')
+    expect(plugin).toMatchObject({
+      id: 'dsh-cordis',
+      source: 'acryl',
+      repository: 'https://github.com/acryldev/dsh-cordis',
+    })
+  })
+
   it('filters by category and text without case sensitivity', () => {
     const memory = filterPlugins(catalog.plugins, 'MEMORY', 'memory')
     expect(memory.length).toBeGreaterThan(0)

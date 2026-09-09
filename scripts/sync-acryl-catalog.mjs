@@ -1,10 +1,11 @@
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { catalogPluginFromManifest, discoveryKeyword } from './lib/acryl-catalog.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const outputPath = resolve(root, 'src', 'data', 'acryl-catalog.json')
+const maintainedPath = resolve(root, 'src', 'data', 'maintained-acryl-packages.json')
 const searchEndpoint = 'https://registry.npmjs.org/-/v1/search'
 const registryEndpoint = 'https://registry.npmjs.org'
 const pageSize = 250
@@ -52,11 +53,15 @@ async function mapConcurrent(items, mapper) {
 }
 
 const searchPackages = await discoverPackages()
-const plugins = (await mapConcurrent(searchPackages, async searchPackage => {
+const discovered = (await mapConcurrent(searchPackages, async searchPackage => {
   const encodedName = encodeURIComponent(searchPackage.name)
   const manifest = await fetchJson(`${registryEndpoint}/${encodedName}/latest`)
   return catalogPluginFromManifest(manifest, searchPackage)
-})).filter(Boolean).sort((left, right) => (right.added ?? '').localeCompare(left.added ?? '') || left.name.localeCompare(right.name))
+})).filter(Boolean)
+const maintained = JSON.parse(await readFile(maintainedPath, 'utf8'))
+if (!Array.isArray(maintained)) throw new Error('maintained ACRYL packages must be an array')
+const plugins = [...new Map([...maintained, ...discovered].map(plugin => [plugin.id, plugin])).values()]
+  .sort((left, right) => (right.added ?? '').localeCompare(left.added ?? '') || left.name.localeCompare(right.name))
 
 const document = {
   generatedAt: new Date().toISOString(),

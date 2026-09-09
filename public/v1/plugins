@@ -1,8 +1,57 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-08-26T10:50:40.397Z",
-  "items": [],
+  "generatedAt": "2026-09-09T11:16:50.660Z",
+  "items": [
+    {
+      "id": "dsh-cordis",
+      "name": "dsh-cordis",
+      "displayName": "dsh-cordis",
+      "summary": "Cordis plugin that packages the DeepSeek Harness coding engine for a Loader-managed ACRYL runtime.",
+      "latestVersion": "0.1.0",
+      "repository": {
+        "url": "https://github.com/acryldev/dsh-cordis"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "dsh-cordis"
+      },
+      "publisher": {
+        "name": "acryldev"
+      },
+      "categories": [
+        "plugins"
+      ],
+      "keywords": [
+        "acryl-package",
+        "plugins"
+      ]
+    },
+    {
+      "id": "acryl-dsh-editor-plugin",
+      "name": "acryl-dsh-editor-plugin",
+      "displayName": "acryl-dsh-editor-plugin",
+      "summary": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff).",
+      "latestVersion": "0.2.3",
+      "repository": {
+        "url": "https://github.com/acryldev/acryl-dsh-editor-plugin"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "acryl-dsh-editor-plugin"
+      },
+      "publisher": {
+        "name": "webboxescom"
+      },
+      "categories": [
+        "plugins"
+      ],
+      "keywords": [
+        "acryl-package",
+        "plugins"
+      ]
+    }
+  ],
   "page": {
-    "total": 0
+    "total": 2
   }
 }

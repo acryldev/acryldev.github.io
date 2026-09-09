@@ -171,7 +171,7 @@ export function PackagesPage() {
 
       {!hasFilters && page === 1 && (
         <section className="native-section page-width" aria-labelledby="native-heading">
-          <div className="directory-section-heading"><div><p>NATIVE ECOSYSTEM</p><h2 id="native-heading">ACRYL packages</h2></div><Link to="/docs#publish">Publish a package <ArrowUpRight aria-hidden="true" /></Link></div>
+          <div className="directory-section-heading"><div><p>MAINTAINED FOR THE ACRYL ECOSYSTEM</p><h2 id="native-heading">ACRYL packages</h2></div><Link to="/docs#publish">Publish a package <ArrowUpRight aria-hidden="true" /></Link></div>
           {acrylCatalog.plugins.length > 0 ? (
             <div className="discovery-grid native-package-grid">{acrylCatalog.plugins.slice(0, 6).map(plugin => <PackageCard plugin={plugin} key={plugin.id} />)}</div>
           ) : (
