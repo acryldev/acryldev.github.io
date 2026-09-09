@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-09T11:16:50.660Z",
+  "generatedAt": "2026-09-09T11:27:22.042Z",
   "items": [
     {
       "id": "dsh-cordis",
       "name": "dsh-cordis",
       "displayName": "dsh-cordis",
-      "summary": "Cordis plugin that packages the DeepSeek Harness coding engine for a Loader-managed ACRYL runtime.",
-      "latestVersion": "0.1.0",
+      "summary": "DeepSeek Harness engine as a lifecycle-owned Cordis plugin, extracted from ACRYL.",
+      "latestVersion": "0.1.2",
       "repository": {
         "url": "https://github.com/acryldev/dsh-cordis"
       },
@@ -16,7 +16,7 @@
         "name": "dsh-cordis"
       },
       "publisher": {
-        "name": "acryldev"
+        "name": "webboxescom"
       },
       "categories": [
         "plugins"

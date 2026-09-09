@@ -11,7 +11,7 @@
     "source": "acryl",
     "install": "dsh plugin --profile desktop add dsh-cordis",
     "publisher": "acryldev",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "manifestStatus": "valid",
     "kinds": ["plugins"]
   }
