@@ -1,11 +1,29 @@
 {
-  "generatedAt": "2026-09-09T13:06:10.763Z",
+  "generatedAt": "2026-09-09T14:27:00.881Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
     "keyword": "acryl-package"
   },
   "plugins": [
+    {
+      "id": "acryl-development-canvas",
+      "name": "acryl-development-canvas",
+      "repository": "https://github.com/acryldev/acryl-development-canvas",
+      "category": "plugins",
+      "description": {
+        "en": "ACRYL Host and Client Cordis plugin for a PTY-backed development workspace with terminal, file, browser, and chat tiles."
+      },
+      "added": "2026-09-09",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add acryl-development-canvas",
+      "publisher": "acryldev",
+      "version": "0.1.0",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ]
+    },
     {
       "id": "dsh-cordis",
       "name": "dsh-cordis",

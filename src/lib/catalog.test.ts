@@ -12,6 +12,7 @@ describe('catalog', () => {
     for (const [id, repository] of [
       ['dsh-cordis', 'https://github.com/acryldev/dsh-cordis'],
       ['pi-cordis', 'https://github.com/acryldev/pi-cordis'],
+      ['acryl-development-canvas', 'https://github.com/acryldev/acryl-development-canvas'],
     ]) {
       expect(findPlugin(id)).toMatchObject({ id, source: 'acryl', repository })
     }
