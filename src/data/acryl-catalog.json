@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T11:27:22.042Z",
+  "generatedAt": "2026-09-09T13:06:10.763Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
@@ -18,7 +18,25 @@
       "source": "acryl",
       "install": "dsh plugin --profile desktop add dsh-cordis",
       "publisher": "webboxescom",
-      "version": "0.1.2",
+      "version": "0.1.5",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ]
+    },
+    {
+      "id": "pi-cordis",
+      "name": "pi-cordis",
+      "repository": "https://github.com/acryldev/pi-cordis",
+      "category": "plugins",
+      "description": {
+        "en": "Pi coding agent as a lifecycle-owned Cordis runtime plugin for ACRYL."
+      },
+      "added": "2026-09-09",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add pi-cordis",
+      "publisher": "webboxescom",
+      "version": "0.1.0",
       "manifestStatus": "valid",
       "kinds": [
         "plugins"

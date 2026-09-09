@@ -1,19 +1,43 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-09T11:27:22.042Z",
+  "generatedAt": "2026-09-09T13:06:10.763Z",
   "items": [
     {
       "id": "dsh-cordis",
       "name": "dsh-cordis",
       "displayName": "dsh-cordis",
       "summary": "DeepSeek Harness engine as a lifecycle-owned Cordis plugin, extracted from ACRYL.",
-      "latestVersion": "0.1.2",
+      "latestVersion": "0.1.5",
       "repository": {
         "url": "https://github.com/acryldev/dsh-cordis"
       },
       "package": {
         "registry": "npm",
         "name": "dsh-cordis"
+      },
+      "publisher": {
+        "name": "webboxescom"
+      },
+      "categories": [
+        "plugins"
+      ],
+      "keywords": [
+        "acryl-package",
+        "plugins"
+      ]
+    },
+    {
+      "id": "pi-cordis",
+      "name": "pi-cordis",
+      "displayName": "pi-cordis",
+      "summary": "Pi coding agent as a lifecycle-owned Cordis runtime plugin for ACRYL.",
+      "latestVersion": "0.1.0",
+      "repository": {
+        "url": "https://github.com/acryldev/pi-cordis"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "pi-cordis"
       },
       "publisher": {
         "name": "webboxescom"
@@ -52,6 +76,6 @@
     }
   ],
   "page": {
-    "total": 2
+    "total": 3
   }
 }

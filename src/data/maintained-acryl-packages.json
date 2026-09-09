@@ -14,5 +14,21 @@
     "version": "0.1.2",
     "manifestStatus": "valid",
     "kinds": ["plugins"]
+  },
+  {
+    "id": "pi-cordis",
+    "name": "pi-cordis",
+    "repository": "https://github.com/acryldev/pi-cordis",
+    "category": "plugins",
+    "description": {
+      "en": "Cordis plugin that adapts the Pi coding-agent SDK as a Loader-managed ACRYL runtime engine."
+    },
+    "added": "2026-09-09",
+    "source": "acryl",
+    "install": "dsh plugin --profile desktop add pi-cordis",
+    "publisher": "acryldev",
+    "version": "0.1.0",
+    "manifestStatus": "valid",
+    "kinds": ["plugins"]
   }
 ]

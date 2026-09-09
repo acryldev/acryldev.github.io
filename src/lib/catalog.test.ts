@@ -9,12 +9,12 @@ describe('catalog', () => {
   })
 
   it('keeps maintained ACRYL packages in the native catalog', () => {
-    const plugin = findPlugin('dsh-cordis')
-    expect(plugin).toMatchObject({
-      id: 'dsh-cordis',
-      source: 'acryl',
-      repository: 'https://github.com/acryldev/dsh-cordis',
-    })
+    for (const [id, repository] of [
+      ['dsh-cordis', 'https://github.com/acryldev/dsh-cordis'],
+      ['pi-cordis', 'https://github.com/acryldev/pi-cordis'],
+    ]) {
+      expect(findPlugin(id)).toMatchObject({ id, source: 'acryl', repository })
+    }
   })
 
   it('filters by category and text without case sensitivity', () => {
