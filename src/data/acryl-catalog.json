@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T12:12:28.437Z",
+  "generatedAt": "2026-09-10T12:47:39.633Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
@@ -12,13 +12,13 @@
       "repository": "https://github.com/acryldev/cordis-plugin-graph",
       "category": "plugins",
       "description": {
-        "en": "Adds a 'Plugin graph' tab to Settings: a live, zoomable Cytoscape graph of the running Cordis context. Plugin fibers as phase-coloured nodes; toggleable inject-dependency, resolved-provider, and Loader-tree-nesting edges."
+        "en": "DSH/Cordis Web plugin: a zoomable relation graph of every loaded plugin - dependencies, resolved providers, and Loader-tree nesting - as a Settings tab next to 'Plugin list'."
       },
       "added": "2026-09-10",
       "source": "acryl",
       "install": "dsh plugin --profile desktop add cordis-plugin-graph",
-      "publisher": "acryldev",
-      "version": "0.1.0",
+      "publisher": "webboxescom",
+      "version": "0.2.0",
       "manifestStatus": "valid",
       "kinds": [
         "plugins"
