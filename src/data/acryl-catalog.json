@@ -1,11 +1,29 @@
 {
-  "generatedAt": "2026-09-10T12:47:39.633Z",
+  "generatedAt": "2026-09-10T16:17:09.954Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
     "keyword": "acryl-package"
   },
   "plugins": [
+    {
+      "id": "acryl-dsh-editor-plugin",
+      "name": "acryl-dsh-editor-plugin",
+      "repository": "https://github.com/acryldev/acryl-dsh-editor-plugin",
+      "category": "plugins",
+      "description": {
+        "en": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff)."
+      },
+      "added": "2026-09-10",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add acryl-dsh-editor-plugin",
+      "publisher": "webboxescom",
+      "version": "0.2.4",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ]
+    },
     {
       "id": "cordis-plugin-graph",
       "name": "cordis-plugin-graph",
@@ -73,24 +91,6 @@
       "install": "dsh plugin --profile desktop add pi-cordis",
       "publisher": "webboxescom",
       "version": "0.1.0",
-      "manifestStatus": "valid",
-      "kinds": [
-        "plugins"
-      ]
-    },
-    {
-      "id": "acryl-dsh-editor-plugin",
-      "name": "acryl-dsh-editor-plugin",
-      "repository": "https://github.com/acryldev/acryl-dsh-editor-plugin",
-      "category": "plugins",
-      "description": {
-        "en": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff)."
-      },
-      "added": "2026-09-08",
-      "source": "acryl",
-      "install": "dsh plugin --profile desktop add acryl-dsh-editor-plugin",
-      "publisher": "webboxescom",
-      "version": "0.2.3",
       "manifestStatus": "valid",
       "kinds": [
         "plugins"

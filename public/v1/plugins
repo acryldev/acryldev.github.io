@@ -1,7 +1,31 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-10T12:47:39.633Z",
+  "generatedAt": "2026-09-10T16:17:09.954Z",
   "items": [
+    {
+      "id": "acryl-dsh-editor-plugin",
+      "name": "acryl-dsh-editor-plugin",
+      "displayName": "acryl-dsh-editor-plugin",
+      "summary": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff).",
+      "latestVersion": "0.2.4",
+      "repository": {
+        "url": "https://github.com/acryldev/acryl-dsh-editor-plugin"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "acryl-dsh-editor-plugin"
+      },
+      "publisher": {
+        "name": "webboxescom"
+      },
+      "categories": [
+        "plugins"
+      ],
+      "keywords": [
+        "acryl-package",
+        "plugins"
+      ]
+    },
     {
       "id": "cordis-plugin-graph",
       "name": "cordis-plugin-graph",
@@ -86,30 +110,6 @@
       "package": {
         "registry": "npm",
         "name": "pi-cordis"
-      },
-      "publisher": {
-        "name": "webboxescom"
-      },
-      "categories": [
-        "plugins"
-      ],
-      "keywords": [
-        "acryl-package",
-        "plugins"
-      ]
-    },
-    {
-      "id": "acryl-dsh-editor-plugin",
-      "name": "acryl-dsh-editor-plugin",
-      "displayName": "acryl-dsh-editor-plugin",
-      "summary": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff).",
-      "latestVersion": "0.2.3",
-      "repository": {
-        "url": "https://github.com/acryldev/acryl-dsh-editor-plugin"
-      },
-      "package": {
-        "registry": "npm",
-        "name": "acryl-dsh-editor-plugin"
       },
       "publisher": {
         "name": "webboxescom"
