@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T16:36:35.112Z",
+  "generatedAt": "2026-09-10T16:59:24.924Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
@@ -18,7 +18,7 @@
       "source": "acryl",
       "install": "dsh plugin --profile desktop add acryl-dsh-editor-plugin",
       "publisher": "webboxescom",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "manifestStatus": "valid",
       "kinds": [
         "plugins"

@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-10T16:36:35.112Z",
+  "generatedAt": "2026-09-10T16:59:24.924Z",
   "items": [
     {
       "id": "acryl-dsh-editor-plugin",
       "name": "acryl-dsh-editor-plugin",
       "displayName": "acryl-dsh-editor-plugin",
       "summary": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff).",
-      "latestVersion": "0.2.5",
+      "latestVersion": "0.2.6",
       "repository": {
         "url": "https://github.com/acryldev/acryl-dsh-editor-plugin"
       },
