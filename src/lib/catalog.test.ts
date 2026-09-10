@@ -10,6 +10,7 @@ describe('catalog', () => {
 
   it('keeps maintained ACRYL packages in the native catalog', () => {
     for (const [id, repository] of [
+      ['cordis-plugin-graph', 'https://github.com/acryldev/cordis-plugin-graph'],
       ['dsh-cordis', 'https://github.com/acryldev/dsh-cordis'],
       ['pi-cordis', 'https://github.com/acryldev/pi-cordis'],
       ['acryl-development-canvas', 'https://github.com/acryldev/acryl-development-canvas'],

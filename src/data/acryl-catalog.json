@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T14:27:00.881Z",
+  "generatedAt": "2026-09-10T12:12:28.437Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
@@ -7,17 +7,35 @@
   },
   "plugins": [
     {
+      "id": "cordis-plugin-graph",
+      "name": "cordis-plugin-graph",
+      "repository": "https://github.com/acryldev/cordis-plugin-graph",
+      "category": "plugins",
+      "description": {
+        "en": "Adds a 'Plugin graph' tab to Settings: a live, zoomable Cytoscape graph of the running Cordis context. Plugin fibers as phase-coloured nodes; toggleable inject-dependency, resolved-provider, and Loader-tree-nesting edges."
+      },
+      "added": "2026-09-10",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add cordis-plugin-graph",
+      "publisher": "acryldev",
+      "version": "0.1.0",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ]
+    },
+    {
       "id": "acryl-development-canvas",
       "name": "acryl-development-canvas",
       "repository": "https://github.com/acryldev/acryl-development-canvas",
       "category": "plugins",
       "description": {
-        "en": "ACRYL Host and Client Cordis plugin for a PTY-backed development workspace with terminal, file, browser, and chat tiles."
+        "en": "Standalone Cordis Development Canvas plugin for ACRYL"
       },
       "added": "2026-09-09",
       "source": "acryl",
       "install": "dsh plugin --profile desktop add acryl-development-canvas",
-      "publisher": "acryldev",
+      "publisher": "webboxescom",
       "version": "0.1.0",
       "manifestStatus": "valid",
       "kinds": [

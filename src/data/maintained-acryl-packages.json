@@ -1,5 +1,23 @@
 [
   {
+    "id": "cordis-plugin-graph",
+    "name": "cordis-plugin-graph",
+    "repository": "https://github.com/acryldev/cordis-plugin-graph",
+    "category": "plugins",
+    "description": {
+      "en": "Adds a 'Plugin graph' tab to Settings: a live, zoomable Cytoscape graph of the running Cordis context. Plugin fibers as phase-coloured nodes; toggleable inject-dependency, resolved-provider, and Loader-tree-nesting edges."
+    },
+    "added": "2026-09-10",
+    "source": "acryl",
+    "install": "dsh plugin --profile desktop add cordis-plugin-graph",
+    "publisher": "acryldev",
+    "version": "0.1.0",
+    "manifestStatus": "valid",
+    "kinds": [
+      "plugins"
+    ]
+  },
+  {
     "id": "dsh-cordis",
     "name": "dsh-cordis",
     "repository": "https://github.com/acryldev/dsh-cordis",
@@ -13,7 +31,9 @@
     "publisher": "acryldev",
     "version": "0.1.2",
     "manifestStatus": "valid",
-    "kinds": ["plugins"]
+    "kinds": [
+      "plugins"
+    ]
   },
   {
     "id": "pi-cordis",
@@ -29,7 +49,9 @@
     "publisher": "acryldev",
     "version": "0.1.0",
     "manifestStatus": "valid",
-    "kinds": ["plugins"]
+    "kinds": [
+      "plugins"
+    ]
   },
   {
     "id": "acryl-development-canvas",
@@ -45,6 +67,8 @@
     "publisher": "acryldev",
     "version": "0.1.0",
     "manifestStatus": "valid",
-    "kinds": ["plugins"]
+    "kinds": [
+      "plugins"
+    ]
   }
 ]
