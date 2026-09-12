@@ -1,11 +1,30 @@
 {
-  "generatedAt": "2026-09-10T16:59:24.924Z",
+  "generatedAt": "2026-09-12T22:52:04.166Z",
   "source": {
     "name": "npm public registry",
     "registry": "https://registry.npmjs.org",
     "keyword": "acryl-package"
   },
   "plugins": [
+    {
+      "id": "acryl-dsh-editor-plugin-web",
+      "name": "acryl-dsh-editor-plugin-web",
+      "repository": "https://github.com/acryldev/acryl-dsh-editor-plugin-web",
+      "category": "plugins",
+      "description": {
+        "en": "DSH web plugin: a VS Code-style code editor view (file tree, Monaco, ripgrep search/replace, Markdown preview, git diff)."
+      },
+      "added": "2026-09-12",
+      "source": "acryl",
+      "install": "dsh plugin --profile desktop add acryl-dsh-editor-plugin-web",
+      "publisher": "webboxescom",
+      "version": "0.1.0",
+      "manifestStatus": "valid",
+      "kinds": [
+        "plugins"
+      ],
+      "surfaces": []
+    },
     {
       "id": "acryl-dsh-editor-plugin",
       "name": "acryl-dsh-editor-plugin",
@@ -22,7 +41,8 @@
       "manifestStatus": "valid",
       "kinds": [
         "plugins"
-      ]
+      ],
+      "surfaces": []
     },
     {
       "id": "cordis-plugin-graph",
@@ -40,7 +60,8 @@
       "manifestStatus": "valid",
       "kinds": [
         "plugins"
-      ]
+      ],
+      "surfaces": []
     },
     {
       "id": "acryl-development-canvas",
@@ -58,7 +79,8 @@
       "manifestStatus": "valid",
       "kinds": [
         "plugins"
-      ]
+      ],
+      "surfaces": []
     },
     {
       "id": "dsh-cordis",
@@ -76,7 +98,8 @@
       "manifestStatus": "valid",
       "kinds": [
         "plugins"
-      ]
+      ],
+      "surfaces": []
     },
     {
       "id": "pi-cordis",
@@ -94,7 +117,8 @@
       "manifestStatus": "valid",
       "kinds": [
         "plugins"
-      ]
+      ],
+      "surfaces": []
     }
   ]
 }

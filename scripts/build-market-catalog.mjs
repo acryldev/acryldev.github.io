@@ -2,9 +2,21 @@
 // catalog (scripts/sync-acryl-catalog.mjs), conforming to the
 // dsh-community-market catalog contract:
 //
+//   public/v1/plugins.json
+//     Standard provider page (schema catalog-provider-page 1.0.0), the
+//     canonical endpoint, served by GitHub Pages at
+//     https://acryl.dev/v1/plugins.json. GitHub Pages has no way to set a
+//     custom Content-Type header on an extension-less file, so it serves one
+//     as application/octet-stream - fine for a consumer that tolerates that
+//     (dsh-community-market's own client does, deliberately), but a stricter
+//     third-party client (real-world case: dataelement/dsh-desktop's built-in
+//     market) rejects it outright. A real .json extension gets GitHub Pages'
+//     own correct application/json inference instead, with no server-side
+//     config needed - the only lever we have on a static host.
 //   public/v1/plugins
-//     Standard provider page (schema catalog-provider-page 1.0.0). The file is
-//     served by GitHub Pages at https://acryl.dev/v1/plugins.
+//     The old extension-less path, kept identical to the .json one so a
+//     client that cached this URL before the manifest below pointed
+//     elsewhere still gets readable content.
 //   public/.well-known/acryl-catalog-source.json
 //     Catalog source manifest (schema catalog-source 1.0.0) that users
 //     register in the Desktop market UI: https://acryl.dev/.well-known/acryl-catalog-source.json
@@ -20,13 +32,14 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const catalogPath = resolve(root, 'src', 'data', 'acryl-catalog.json')
-const pagePath = resolve(root, 'public', 'v1', 'plugins')
+const pagePath = resolve(root, 'public', 'v1', 'plugins.json')
+const legacyPagePath = resolve(root, 'public', 'v1', 'plugins')
 const manifestPath = resolve(root, 'public', '.well-known', 'acryl-catalog-source.json')
 
 export const PAGE_LIMIT = 50
 export const MANIFEST_URL = 'https://acryl.dev/.well-known/acryl-catalog-source.json'
 
-const ENDPOINT_URL = 'https://acryl.dev/v1/plugins'
+const ENDPOINT_URL = 'https://acryl.dev/v1/plugins.json'
 const PACKAGES_URL = 'https://acryl.dev/packages'
 
 // Patterns mirrored from dsh-community-market/docs/schemas so emitted
@@ -147,11 +160,15 @@ async function main() {
     console.warn(`Could not read ${catalogPath} (${error.message}); emitting an empty catalog`)
   }
   const page = buildCatalogPage(catalog)
+  const body = `${JSON.stringify(page, null, 2)}\n`
   await mkdir(dirname(pagePath), { recursive: true })
-  await writeFile(pagePath, `${JSON.stringify(page, null, 2)}\n`)
+  await writeFile(pagePath, body)
+  // Identical bytes at the old extension-less path - see this file's own
+  // header comment for why both exist.
+  await writeFile(legacyPagePath, body)
   await mkdir(dirname(manifestPath), { recursive: true })
   await writeFile(manifestPath, `${JSON.stringify(buildSourceManifest(), null, 2)}\n`)
-  console.log(`Built market catalog: ${page.items.length} of ${page.page.total} packages -> public/v1/plugins`)
+  console.log(`Built market catalog: ${page.items.length} of ${page.page.total} packages -> public/v1/plugins.json`)
 }
 
 const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href
