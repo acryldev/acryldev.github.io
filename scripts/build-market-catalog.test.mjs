@@ -14,7 +14,7 @@ const IDENTIFIER = /^[A-Za-z0-9][A-Za-z0-9._:/@+-]*$/
 const CATEGORY_ID = /^[a-z0-9][a-z0-9._:-]*$/
 const HTTPS_URI = /^https:\/\/(?![^/?#]*@)(?![^/?#]*:)[^#]+$/
 const NPM_NAME = /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/
-const ENDPOINT = /^https:\/\/(?![^/?#]*@)(?![^/?#]*:)[^/?#\s]+(?:\/[^?#\s]*)?\/v1\/plugins\.json$/
+const ENDPOINT = /^https:\/\/(?![^/?#]*@)(?![^/?#]*:)[^/?#\s]+(?:\/[^?#\s]*)?\/v1\/plugins$/
 const PROVIDER_ID = /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/
 const ITEM_KEYS = new Set([
   'id', 'name', 'displayName', 'summary', 'description', 'homepage',
@@ -180,7 +180,7 @@ describe('buildSourceManifest', () => {
     expect(manifest.manifestVersion).toBe('1.0.0')
     expect(manifest.providerId).toMatch(PROVIDER_ID)
     expect(manifest.providerId.length).toBeGreaterThanOrEqual(3)
-    expect(manifest.transport).toEqual({ kind: 'https-json', endpoint: 'https://acryl.dev/v1/plugins.json', method: 'GET' })
+    expect(manifest.transport).toEqual({ kind: 'https-json', endpoint: 'https://acryl.dev/v1/plugins', method: 'GET' })
     expect(ENDPOINT.test(manifest.transport.endpoint)).toBe(true)
   })
 

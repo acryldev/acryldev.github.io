@@ -10,7 +10,7 @@
   },
   "transport": {
     "kind": "https-json",
-    "endpoint": "https://acryl.dev/v1/plugins.json",
+    "endpoint": "https://acryl.dev/v1/plugins",
     "method": "GET"
   },
   "query": {
