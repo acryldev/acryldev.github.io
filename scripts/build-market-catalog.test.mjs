@@ -99,6 +99,21 @@ describe('marketItemFromCatalogPlugin', () => {
     const item = marketItemFromCatalogPlugin(catalogPlugin({ description: { en: 'ok\u0000\u202Editor' } }))
     expect(item.summary).toBe('okditor')
   })
+
+  it('carries declared surfaces through to compatibility.hosts', () => {
+    const item = marketItemFromCatalogPlugin(catalogPlugin({ surfaces: ['tui', 'web'] }))
+    expect(item.compatibility).toEqual({ hosts: ['tui', 'web'] })
+  })
+
+  it('omits compatibility when no surfaces are declared', () => {
+    expect(marketItemFromCatalogPlugin(catalogPlugin()).compatibility).toBeUndefined()
+    expect(marketItemFromCatalogPlugin(catalogPlugin({ surfaces: [] })).compatibility).toBeUndefined()
+  })
+
+  it('drops a surface outside the known vocabulary rather than passing it through', () => {
+    const item = marketItemFromCatalogPlugin(catalogPlugin({ surfaces: ['tui', 'browser'] }))
+    expect(item.compatibility).toEqual({ hosts: ['tui'] })
+  })
 })
 
 describe('buildCatalogPage', () => {

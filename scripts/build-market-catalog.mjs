@@ -37,6 +37,9 @@ const CATEGORY_ID = /^[a-z0-9][a-z0-9._:-]*$/
 const HTTPS_URI = /^https:\/\/(?![^/?#]*@)(?![^/?#]*:)[^#]+$/
 const NPM_NAME = /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/
 const DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/
+// Mirrors scripts/lib/acryl-catalog.mjs's own list - the one vocabulary a
+// package's `acryl.surfaces` and the market's `compatibility.hosts` speak.
+const ACRYL_SURFACES = ['tui', 'web', 'desktop']
 
 // Every property the provider-page item schema allows (additionalProperties: false).
 const ITEM_KEYS = new Set([
@@ -83,6 +86,16 @@ export function marketItemFromCatalogPlugin(plugin) {
   const categories = [...new Set([plugin.category, ...(Array.isArray(plugin.kinds) ? plugin.kinds : [])]
     .filter(category => typeof category === 'string' && CATEGORY_ID.test(category)))]
   if (categories.length > 0) item.categories = categories.slice(0, 32)
+
+  // Which ACRYL surfaces (tui/web/desktop) the package declares itself for
+  // (`acryl.surfaces` in its own package.json) - carried straight through
+  // to the provider-page item's own `compatibility.hosts`, a field the
+  // wire schema already reserves for exactly this. Absent means the
+  // package never declared it, not that it targets nothing.
+  if (Array.isArray(plugin.surfaces) && plugin.surfaces.length > 0) {
+    const hosts = plugin.surfaces.filter(surface => ACRYL_SURFACES.includes(surface))
+    if (hosts.length > 0) item.compatibility = { hosts }
+  }
 
   if (Object.keys(item).some(key => !ITEM_KEYS.has(key))) return null
   return item

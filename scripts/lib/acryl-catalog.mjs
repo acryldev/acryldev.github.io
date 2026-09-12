@@ -1,6 +1,10 @@
 const EXACT_KEYWORD = 'acryl-package'
 const RESOURCE_KINDS = ['plugins', 'extensions', 'adapters', 'skills', 'workflows', 'blueprints', 'stemcells']
 const SAFE_PATH = /^(?!\/)(?![A-Za-z]:\\)(?!.*(?:^|\/)\.\.(?:\/|$))(?!https?:\/\/).+/
+// Mirrors acryl-harness-runtime's own `AcrylSurface` union - the one
+// vocabulary a package's `acryl.surfaces` and the market's own
+// `compatibility.hosts` both speak.
+const ACRYL_SURFACES = ['tui', 'web', 'desktop']
 
 function isRecord(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -11,19 +15,26 @@ function stringArray(value) {
 }
 
 export function inspectAcrylManifest(value) {
-  if (value === undefined) return { status: 'missing', kinds: [] }
+  if (value === undefined) return { status: 'missing', kinds: [], surfaces: [] }
   if (!isRecord(value) || value.schemaVersion !== 1 || !isRecord(value.artifacts)) {
-    return { status: 'invalid', kinds: [] }
+    return { status: 'invalid', kinds: [], surfaces: [] }
   }
 
   const keys = Object.keys(value.artifacts)
-  if (keys.length === 0 || keys.some(key => !RESOURCE_KINDS.includes(key))) return { status: 'invalid', kinds: [] }
+  if (keys.length === 0 || keys.some(key => !RESOURCE_KINDS.includes(key))) return { status: 'invalid', kinds: [], surfaces: [] }
   for (const key of keys) {
     const paths = value.artifacts[key]
-    if (!stringArray(paths) || paths.some(path => !SAFE_PATH.test(path))) return { status: 'invalid', kinds: [] }
+    if (!stringArray(paths) || paths.some(path => !SAFE_PATH.test(path))) return { status: 'invalid', kinds: [], surfaces: [] }
   }
-  if (value.capabilities !== undefined && !stringArray(value.capabilities)) return { status: 'invalid', kinds: [] }
-  return { status: 'valid', kinds: keys }
+  if (value.capabilities !== undefined && !stringArray(value.capabilities)) return { status: 'invalid', kinds: [], surfaces: [] }
+  // Optional: which ACRYL surfaces (tui/web/desktop) this package targets.
+  // Absent means "unknown" (an older or surface-agnostic package), not "none".
+  if (value.surfaces !== undefined
+    && (!stringArray(value.surfaces) || value.surfaces.some(surface => !ACRYL_SURFACES.includes(surface)))) {
+    return { status: 'invalid', kinds: [], surfaces: [] }
+  }
+  const surfaces = Array.isArray(value.surfaces) ? [...new Set(value.surfaces)] : []
+  return { status: 'valid', kinds: keys, surfaces }
 }
 
 export function exactDiscoveryKeyword(manifest) {
@@ -65,6 +76,7 @@ export function catalogPluginFromManifest(manifest, searchPackage = {}) {
     version: manifest.version,
     manifestStatus: inspection.status,
     kinds: inspection.kinds,
+    surfaces: inspection.surfaces,
   }
 }
 

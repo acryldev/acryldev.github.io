@@ -21,12 +21,23 @@ describe('ACRYL npm catalog ingestion', () => {
   })
 
   it('validates a versioned manifest without executing package code', () => {
-    expect(inspectAcrylManifest(manifest.acryl)).toEqual({ status: 'valid', kinds: ['skills', 'extensions'] })
+    expect(inspectAcrylManifest(manifest.acryl)).toEqual({ status: 'valid', kinds: ['skills', 'extensions'], surfaces: [] })
   })
 
   it('rejects paths that escape the package', () => {
     expect(inspectAcrylManifest({ schemaVersion: 1, artifacts: { skills: ['../private'] } }).status).toBe('invalid')
     expect(inspectAcrylManifest({ schemaVersion: 1, artifacts: { skills: ['https://example.com/skill'] } }).status).toBe('invalid')
+  })
+
+  it('reads which ACRYL surfaces a package declares itself for', () => {
+    expect(inspectAcrylManifest({ ...manifest.acryl, surfaces: ['web', 'web', 'tui'] }))
+      .toEqual({ status: 'valid', kinds: ['skills', 'extensions'], surfaces: ['web', 'tui'] })
+    expect(catalogPluginFromManifest({ ...manifest, acryl: { ...manifest.acryl, surfaces: ['tui'] } }))
+      .toMatchObject({ surfaces: ['tui'] })
+  })
+
+  it('rejects a surface outside the known vocabulary', () => {
+    expect(inspectAcrylManifest({ ...manifest.acryl, surfaces: ['browser'] }).status).toBe('invalid')
   })
 
   it('indexes missing manifests as candidates without claiming compatibility', () => {
