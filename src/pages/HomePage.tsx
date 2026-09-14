@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Layers3, MessageCircle, Network, RefreshCw, Star } from 'lucide-react'
+import { ArrowLeftRight, ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Globe, Layers3, Layout, MessageCircle, Monitor, Network, RefreshCw, Shield, Star, Terminal, UserCheck, Workflow } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
 import { acrylCatalog, catalog } from '../lib/catalog'
@@ -53,6 +53,44 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="continuity-section">
+        <div className="page-width continuity-grid">
+          <div className="continuity-content">
+            <p className="eyebrow">Continuity</p>
+            <h2>Swap agents.<br />Keep working.</h2>
+            <p>ACRYL treats every coding agent as an interchangeable worker. Claude Code, Codex, OpenCode, Gemini, Pi — the room owns the context, not the agent session. Swap mid-project without losing a decision, a file, or a thought.</p>
+            <div className="continuity-links">
+              <Link className="button inverse" to="/docs#architecture">How it works <ArrowRight aria-hidden="true" /></Link>
+              <a className="button inverse secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">
+                <Star aria-hidden="true" /> Star on GitHub
+              </a>
+            </div>
+          </div>
+          <div className="continuity-features">
+            <article>
+              <ArrowLeftRight aria-hidden="true" />
+              <h3>Swap mid-stream</h3>
+              <p>Claude hits a rate limit? Codex gives a weak answer? Pick another agent and continue from the same context. No restart, no lost history.</p>
+            </article>
+            <article>
+              <Shield aria-hidden="true" />
+              <h3>Rate-limit recovery</h3>
+              <p>Auth expires, tokens run out, a provider goes down — the room survives. Re-auth, switch runtimes, or pick a different model and pick up where you left off.</p>
+            </article>
+            <article>
+              <UserCheck aria-hidden="true" />
+              <h3>Agent identity</h3>
+              <p>Every agent has a name, role, and capability contract. The room tracks who did what, even after the worker process is long gone.</p>
+            </article>
+            <article>
+              <Workflow aria-hidden="true" />
+              <h3>Structured handoffs</h3>
+              <p>One agent finishes its slice, writes a handoff artifact, and the next agent reads it. No dump-the-chat, no lost context, no repeating yourself.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section className="runtime-section">
         <div className="page-width runtime-grid">
           <div>
@@ -74,6 +112,56 @@ export function HomePage() {
     agent: { context: "room" },
   },
 })`}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section className="canvas-section grid-surface" aria-labelledby="canvas-heading">
+        <div className="page-width canvas-content">
+          <div className="section-intro">
+            <div><p className="eyebrow">Development Canvas</p><h2 id="canvas-heading">Your workspace,<br />your way.</h2></div>
+            <p>The workspace is not a single chat pane. Press <kbd>+</kbd> to add tiles — terminals, editors, browsers — alongside your agent conversation. Run Claude Code in one tile, edit a file in another, watch your local dev server in a third.</p>
+          </div>
+          <div className="canvas-showcase">
+            <article className="canvas-card">
+              <div className="canvas-card-header"><Terminal aria-hidden="true" /><span>Terminal</span></div>
+              <p>Spawn a shell, run Claude Code, Codex, or any CLI tool. The Host starts the process, streams I/O into the tile, and disposes it cleanly when you close it.</p>
+            </article>
+            <article className="canvas-card">
+              <div className="canvas-card-header"><Layout aria-hidden="true" /><span>Editor</span></div>
+              <p>Open a text file directly in the canvas. Edit alongside your agent conversation — no alt-tabbing to a separate IDE.</p>
+            </article>
+            <article className="canvas-card">
+              <div className="canvas-card-header"><Globe aria-hidden="true" /><span>Browser</span></div>
+              <p>Preview your local app while an agent works on it. Navigate to any HTTP or HTTPS URL in an embedded view.</p>
+            </article>
+            <article className="canvas-card">
+              <div className="canvas-card-header"><MessageCircle aria-hidden="true" /><span>Chat</span></div>
+              <p>The conversation is always there. Chat tabs stay in the strip, switch between tiles without losing your agent mid-thought.</p>
+            </article>
+          </div>
+          <div className="canvas-surfaces">
+            <div className="canvas-surfaces-intro">
+              <p className="eyebrow">Three surfaces, one runtime</p>
+              <h3>Same engine.<br />Choose your interface.</h3>
+            </div>
+            <div className="surface-cards">
+              <article className="surface-card">
+                <Terminal aria-hidden="true" />
+                <h4>Terminal</h4>
+                <p><code>npm i -g acryl</code> gives you the full TUI experience. pi-tui-powered, direct host, durable sessions.</p>
+              </article>
+              <article className="surface-card">
+                <Monitor aria-hidden="true" />
+                <h4>Desktop</h4>
+                <p>Electron app with the Development Canvas, plugin lifecycle control, and native OS integration.</p>
+              </article>
+              <article className="surface-card">
+                <Globe aria-hidden="true" />
+                <h4>Web</h4>
+                <p>Local web surface — same runtime, same plugins, same durable sessions, served over loopback.</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
