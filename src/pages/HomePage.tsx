@@ -1,4 +1,4 @@
-import { ArrowRight, Boxes, Braces, Cable, Layers3, MessageCircle, Network, RefreshCw, Star } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Layers3, MessageCircle, Network, RefreshCw, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
 import { acrylCatalog, catalog } from '../lib/catalog'
@@ -88,6 +88,17 @@ export function HomePage() {
           <Link to="/packages?category=memory"><strong>Persistent context</strong><span>Memory packages for evolving agent work.</span><em>Explore <ArrowRight aria-hidden="true" /></em></Link>
           <Link to="/packages?category=tools"><strong>Capabilities</strong><span>Tools and integrations that extend the workspace.</span><em>Explore <ArrowRight aria-hidden="true" /></em></Link>
           <Link to="/packages?category=workflow"><strong>Living workflows</strong><span>Repeatable systems that can develop into Blueprints.</span><em>Explore <ArrowRight aria-hidden="true" /></em></Link>
+        </div>
+      </section>
+
+      <section className="portal-section page-width" aria-labelledby="ecosystem-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">Ecosystem</p><h2 id="ecosystem-heading">Two sibling registries,<br />one composable ecosystem.</h2></div>
+          <p>ACRYL is one Blend among many possible ones — the flagship, maxed-out expression of a small, reusable protocol. These two sites are where the rest of that ecosystem lives.</p>
+        </div>
+        <div className="portal-lines">
+          <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer"><strong>ACRYL Blends</strong><span>The Blend registry — complete, pullable Cordis compositions, browsable by a 100-category taxonomy.</span><em>acrylblends.github.io <ArrowUpRight aria-hidden="true" /></em></a>
+          <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer"><strong>Cordis Plugins</strong><span>The plugin registry — every real Cordis plugin this ecosystem has built, the atoms every Blend composes.</span><em>cordisplugins.github.io <ArrowUpRight aria-hidden="true" /></em></a>
         </div>
       </section>
 

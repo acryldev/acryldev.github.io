@@ -83,6 +83,8 @@ export function Shell() {
           <Link to="/packages">Packages</Link>
           <Link to="/docs">Docs</Link>
           <Link to="/qr">QR codes</Link>
+          <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer">ACRYL Blends — the Blend registry</a>
+          <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins — the plugin registry</a>
           <a href="https://agentcontextrelay.com/">Agent Context Relay</a>
           <a href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">Star on GitHub</a>
           <a href="https://github.com/acryldev">GitHub</a>
