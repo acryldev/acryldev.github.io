@@ -3,6 +3,15 @@
  * (spec 038-ui-component-library). The real ACRYL app defines these on `body` from its
  * theme service; this site has neither, so this file gives them real values (light and
  * dark) purely so a component preview looks correct, not styled by this site's own design.
+ *
+ * Dark mode here must match how THIS SITE controls it, not just the OS: `ThemeToggle.tsx`
+ * sets `document.documentElement.dataset.theme` to 'light' or 'dark' explicitly (see
+ * `currentTheme()` there) and does not fall back to `prefers-color-scheme` once it has run.
+ * A real bug shipped from getting this wrong: with only an OS-level media query, toggling
+ * the site's own switch left every registry-component background on its light value while
+ * the surrounding page's text turned light-on-dark - white text on a white card. Fixed by
+ * keying dark mode off `[data-theme="dark"]` (matching the site's own attribute) and kept
+ * the OS media query only as a same-guarded pre-JS fallback.
  */
 :root {
   --dsw-alias-label-primary: #18181b;
@@ -24,7 +33,7 @@
   --pv-surface: #ffffff;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --dsw-alias-label-primary: #fafafa;
     --dsw-alias-label-secondary: #d4d4d8;
     --dsw-alias-label-tertiary: #a1a1aa;
@@ -37,6 +46,19 @@
     --pv-border: #3f3f46;
     --pv-surface: #27272a;
   }
+}
+:root[data-theme="dark"] {
+  --dsw-alias-label-primary: #fafafa;
+  --dsw-alias-label-secondary: #d4d4d8;
+  --dsw-alias-label-tertiary: #a1a1aa;
+  --dsw-alias-label-dimmed: #71717a;
+  --dsw-alias-bg-layer-1: #18181b;
+  --dsw-alias-bg-layer-2: #27272a;
+  --dsw-alias-border-l4: #3f3f46;
+  --acryl-accent: #818CF8;
+  --acryl-reasoning: #A855F7;
+  --pv-border: #3f3f46;
+  --pv-surface: #27272a;
 }
 
 .pv-collapsible-trigger {
