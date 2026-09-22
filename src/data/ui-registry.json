@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-09-22T10:37:53.679Z",
+  "package": "@acryl/ui",
+  "repository": "https://github.com/acryldev/acryl-ui-registry",
+  "items": [
+    {
+      "id": "acryl.ui.card",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "A bordered surface with an optional title, body and footer actions.",
+      "props": [
+        "title",
+        "footer"
+      ],
+      "origin": "extracted (surface only)",
+      "from": "packages/client/ui-settings-plugins/src/client/PluginCard.module.css (.card, .cardOpen)",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.dialog",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "A confirm dialog over the app's Modal, with cancel and confirm actions.",
+      "props": [
+        "open",
+        "title",
+        "onClose",
+        "onConfirm",
+        "confirmLabel",
+        "cancelLabel",
+        "danger"
+      ],
+      "origin": "composed",
+      "from": "the app's Modal and Button primitives (DSH's RiskConfirmation covers the acknowledge-first variant)",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.empty-state",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "Centered message for a list or view with nothing in it yet.",
+      "props": [
+        "title",
+        "description",
+        "action"
+      ],
+      "origin": "gap",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.settings-row",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "A settings-style row: label and description on the left, one control on the right (the layout of the app's own Settings screens).",
+      "props": [
+        "label",
+        "description",
+        "focused"
+      ],
+      "origin": "extracted",
+      "from": "packages/client/ui-permission-presets/src/client/PermissionRow.tsx and .module.css (row layout)",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.sidebar-row",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "The sidebar's New Session bar: icon and label when the sidebar is wide, a plain icon control with a tooltip on the rail (extracted from DSH's sidebar).",
+      "props": [
+        "icon",
+        "label",
+        "wide",
+        "onClick"
+      ],
+      "origin": "extracted",
+      "from": "packages/client/ui-sidebar/src/client/SidebarRoot.tsx and .module.css (the New Session bar)",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.switch-field",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "A switch with a label and optional hint.",
+      "props": [
+        "label",
+        "checked",
+        "onChange",
+        "hint"
+      ],
+      "origin": "composed",
+      "from": "the app's Switch primitive plus fields.module.css .hint",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.tabs",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "Tab strip with the active panel as children.",
+      "props": [
+        "tabs",
+        "value",
+        "onChange",
+        "label"
+      ],
+      "origin": "extracted",
+      "from": "packages/client/ui-settings-plugins/src/client/PluginsSettingsSection.tsx and .module.css (tab strip, panel, keyboard handling)",
+      "source": "deepseek-harness 5dda764ed3"
+    },
+    {
+      "id": "acryl.ui.tool-call-card",
+      "version": "0.1.0",
+      "surfaces": [
+        "web"
+      ],
+      "summary": "A collapsible tool-call row as in the conversation: leading icon or state dot, title, summary, expandable IN/OUT card (extracted from DSH's ToolRow).",
+      "props": [
+        "icon",
+        "title",
+        "summary",
+        "state",
+        "errorSummary",
+        "input",
+        "output",
+        "labels"
+      ],
+      "origin": "extracted (subset)",
+      "from": "packages/client/ui-tool/src/client/tool/components/ToolRow.tsx and .module.css",
+      "source": "deepseek-harness 5dda764ed3"
+    }
+  ]
+}

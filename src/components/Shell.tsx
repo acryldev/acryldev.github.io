@@ -7,6 +7,7 @@ import { ThemeToggle } from './ThemeToggle'
 const nav = [
   ['Product', '/'],
   ['Packages', '/packages'],
+  ['UI', '/ui'],
   ['Docs', '/docs'],
 ] as const
 
