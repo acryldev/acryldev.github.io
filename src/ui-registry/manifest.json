@@ -220,6 +220,24 @@
     "exportName": "Checkbox"
   },
   {
+    "id": "acryl.ui.collapsible",
+    "version": "0.1.0",
+    "summary": "The bare collapsible primitive (trigger + content, no chrome) - ported from shadcn/ui's Collapsible. Distinct from DisclosureRow, which is a fully-chromed row (icon, title, chevron).",
+    "props": {
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `collapsible` (style new-york-v4), https://ui.shadcn.com/docs/components/collapsible, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Collapsible.tsx",
+    "exportName": "Collapsible"
+  },
+  {
     "id": "acryl.ui.dialog",
     "version": "0.1.0",
     "summary": "A confirm dialog over the app's Modal, with cancel and confirm actions.",
@@ -338,6 +356,34 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "Progress.tsx",
     "exportName": "Progress"
+  },
+  {
+    "id": "acryl.ui.radio-group",
+    "version": "0.1.0",
+    "summary": "A classic radio-dot list for a set of mutually exclusive plain-text options (ported from shadcn/ui's RadioGroup; a native input[type=radio] group, no Radix dependency). Distinct from AppearanceCubes/Segmented (icon-and-label tiles).",
+    "props": {
+      "name": {
+        "type": "string",
+        "required": true
+      },
+      "options": {
+        "type": "RadioOption[]",
+        "required": true
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `radio-group` (style new-york-v4), https://ui.shadcn.com/docs/components/radio-group, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "RadioGroup.tsx",
+    "exportName": "RadioGroup"
   },
   {
     "id": "acryl.ui.select-pill",
@@ -589,6 +635,33 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "Toggle.tsx",
     "exportName": "Toggle"
+  },
+  {
+    "id": "acryl.ui.toggle-group",
+    "version": "0.1.0",
+    "summary": "A row of toggle buttons sharing one single- or multiple-selection model (ported from shadcn/ui's ToggleGroup; plain state, no Radix dependency).",
+    "props": {
+      "type": {
+        "type": "'single' | 'multiple'",
+        "required": true
+      },
+      "value": {
+        "type": "string | string[]",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string | string[]) => void",
+        "required": true
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `toggle-group` (style new-york-v4), https://ui.shadcn.com/docs/components/toggle-group, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "ToggleGroup.tsx",
+    "exportName": "ToggleGroup"
   },
   {
     "id": "acryl.ui.tool-call-card",

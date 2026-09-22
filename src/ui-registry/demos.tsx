@@ -31,6 +31,9 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbP
 import { Toggle } from './components/acryl.ui.toggle/Toggle'
 import { ButtonGroup } from './components/acryl.ui.button-group/ButtonGroup'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/acryl.ui.accordion/Accordion'
+import { RadioGroup } from './components/acryl.ui.radio-group/RadioGroup'
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from './components/acryl.ui.collapsible/Collapsible'
+import { ToggleGroup, ToggleGroupItem } from './components/acryl.ui.toggle-group/ToggleGroup'
 
 const toolLabels = { input: 'IN', output: 'OUT', running: 'Running', failed: 'Failed', stopped: 'Stopped' }
 const dot = <span aria-hidden>&#9656;</span>
@@ -170,7 +173,29 @@ function AccordionDemo() {
   </Accordion>
 }
 
+function RadioGroupDemo() {
+  const [value, setValue] = useState('a')
+  return <RadioGroup name="demo-radio" value={value} onChange={setValue} options={[{ id: 'a', label: 'Option A' }, { id: 'b', label: 'Option B' }, { id: 'c', label: 'Option C' }]} />
+}
+function CollapsibleDemo() {
+  return <Collapsible>
+    <CollapsibleTrigger className="pv-collapsible-trigger">Toggle details</CollapsibleTrigger>
+    <CollapsibleContent><p style={{ marginTop: 8 }}>Plain content, no chrome.</p></CollapsibleContent>
+  </Collapsible>
+}
+function ToggleGroupDemo() {
+  const [value, setValue] = useState<string[]>(['bold'])
+  return <ToggleGroup type="multiple" value={value} onChange={(v) => setValue(v as string[])}>
+    <ToggleGroupItem value="bold">B</ToggleGroupItem>
+    <ToggleGroupItem value="italic">I</ToggleGroupItem>
+    <ToggleGroupItem value="underline">U</ToggleGroupItem>
+  </ToggleGroup>
+}
+
 export const demos: Record<string, () => ReactElement> = {
+  'acryl.ui.radio-group': RadioGroupDemo,
+  'acryl.ui.collapsible': CollapsibleDemo,
+  'acryl.ui.toggle-group': ToggleGroupDemo,
   'acryl.ui.label': LabelDemo,
   'acryl.ui.textarea': TextareaDemo,
   'acryl.ui.checkbox': CheckboxDemo,

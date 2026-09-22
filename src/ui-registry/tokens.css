@@ -38,3 +38,12 @@
     --pv-surface: #27272a;
   }
 }
+
+.pv-collapsible-trigger {
+  background: none;
+  border: 1px solid var(--pv-border);
+  border-radius: 6px;
+  padding: 4px 12px;
+  color: inherit;
+  cursor: pointer;
+}
