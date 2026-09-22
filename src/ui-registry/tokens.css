@@ -1,0 +1,40 @@
+/**
+ * Fallback values for the app tokens the registry components' own CSS Modules read
+ * (spec 038-ui-component-library). The real ACRYL app defines these on `body` from its
+ * theme service; this site has neither, so this file gives them real values (light and
+ * dark) purely so a component preview looks correct, not styled by this site's own design.
+ */
+:root {
+  --dsw-alias-label-primary: #18181b;
+  --dsw-alias-label-secondary: #3f3f46;
+  --dsw-alias-label-tertiary: #71717a;
+  --dsw-alias-label-dimmed: #a1a1aa;
+  --dsw-alias-label-primary-foreground: #ffffff;
+  --dsw-alias-bg-layer-1: #ffffff;
+  --dsw-alias-bg-layer-2: #f4f4f5;
+  --dsw-alias-border-l4: #e4e4e7;
+  --dsw-alias-brand-primary: #4F46E5;
+  --dsw-alias-state-success-primary: #16a34a;
+  --dsw-alias-state-warn-primary: #d97706;
+  --dsw-alias-state-error-primary: #dc2626;
+  --dsw-alias-button-info-fill: #2563eb;
+  --acryl-accent: #4F46E5;
+  --acryl-reasoning: #7C3AED;
+  --pv-border: #e4e4e7;
+  --pv-surface: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dsw-alias-label-primary: #fafafa;
+    --dsw-alias-label-secondary: #d4d4d8;
+    --dsw-alias-label-tertiary: #a1a1aa;
+    --dsw-alias-label-dimmed: #71717a;
+    --dsw-alias-bg-layer-1: #18181b;
+    --dsw-alias-bg-layer-2: #27272a;
+    --dsw-alias-border-l4: #3f3f46;
+    --acryl-accent: #818CF8;
+    --acryl-reasoning: #A855F7;
+    --pv-border: #3f3f46;
+    --pv-surface: #27272a;
+  }
+}

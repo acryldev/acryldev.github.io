@@ -1,79 +1,125 @@
-import { useDeferredValue, useMemo, useState } from 'react'
-import { Github, LayoutGrid, PackageSearch, Search } from 'lucide-react'
-import { uiRegistry, type UiRegistryItem } from '../lib/ui-registry'
+import { useMemo, useState } from 'react'
+import { Copy, Check, LayoutGrid, Github } from 'lucide-react'
+import manifestJson from '../ui-registry/manifest.json'
+import categoriesJson from '../ui-registry/categories.json'
+import { demos } from '../ui-registry/demos'
+import '../ui-registry/tokens.css'
 
-function ItemCard({ item }: { readonly item: UiRegistryItem }) {
+interface ManifestEntry {
+  id: string
+  version: string
+  summary: string
+  props: Record<string, unknown>
+  origin: string
+  from: string
+  source: string
+  componentFile: string | null
+  exportName: string | null
+}
+
+interface Category {
+  name: string
+  componentIds: string[]
+}
+
+const manifest = manifestJson as ManifestEntry[]
+const categories = (categoriesJson as { categories: Category[] }).categories
+// categories.json's componentIds are contract names (spec 038's contracts/components.json keys,
+// e.g. "Badge"), not registry item ids (e.g. "acryl.ui.badge") - match by the manifest's own
+// exportName, which is the same name (the two vocabularies exist because the contract is
+// per-component and the registry is per-published-item; most map 1:1, but a contract name with
+// no registry item, e.g. re-exports like Tag/Pill, correctly has no entry here).
+const byExportName = new Map(manifest.map(entry => [entry.exportName, entry]))
+
+function usageSnippet(entry: ManifestEntry): string {
+  const propsList = Object.keys(entry.props).slice(0, 3).map(name => `${name}={...}`).join(' ')
+  return `acryl ui add ${entry.id} .\n\nimport { ${entry.exportName} } from './ui/${entry.id.replace(/^acryl\.ui\./u, '')}/${entry.componentFile}'\n\n<${entry.exportName} ${propsList} />`
+}
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false)
   return (
-    <article className="discovery-card">
-      <div className="discovery-card-main">
-        <div className="package-mark"><LayoutGrid aria-hidden="true" /></div>
-        <div className="discovery-card-copy">
-          <h3>{item.id}</h3>
-          <p>{item.summary}</p>
-          <div className="package-facts">
-            <span>v{item.version}</span>
-            {item.surfaces.map(surface => <span key={surface} className="type-chip">{surface}</span>)}
-            <span className="origin-chip acryl">{item.origin}</span>
-          </div>
-          {item.props.length > 0 && (
-            <p style={{ marginTop: '0.5rem', fontFamily: 'monospace', fontSize: '0.75rem', opacity: 0.7 }}>
-              props: {item.props.join(', ')}
-            </p>
-          )}
-          <div className="package-links">
-            <a href={`${uiRegistry.repository}/tree/main/registry/${item.id}`} target="_blank" rel="noreferrer">
-              <Github aria-hidden="true" /> source
-            </a>
-            <span style={{ fontFamily: 'monospace', fontSize: '0.7rem', opacity: 0.6 }}>{item.source}</span>
-          </div>
+    <button
+      type="button"
+      onClick={() => { void navigator.clipboard.writeText(text); setCopied(true); window.setTimeout(() => { setCopied(false) }, 1600) }}
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, background: 'none', border: '1px solid var(--pv-border, #444)', borderRadius: 6, padding: '2px 8px', cursor: 'pointer', color: 'inherit' }}
+    >
+      {copied ? <Check size={12} /> : <Copy size={12} />}
+      {copied ? 'Copied' : 'Copy usage'}
+    </button>
+  )
+}
+
+function ComponentCard({ entry }: { entry: ManifestEntry }) {
+  const Demo = demos[entry.id]
+  return (
+    <div style={{ border: '1px solid var(--pv-border, #444)', borderRadius: 10, padding: 16, marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+        <div>
+          <h3 style={{ margin: 0, fontSize: 15 }}>{entry.id}</h3>
+          <p style={{ margin: '4px 0 0', fontSize: 13, opacity: 0.75, maxWidth: '38rem' }}>{entry.summary}</p>
         </div>
+        <a href={`https://github.com/acryldev/acryl-ui-registry/tree/main/registry/${entry.id}`} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, opacity: 0.7, whiteSpace: 'nowrap' }}>
+          <Github size={12} /> source
+        </a>
       </div>
-    </article>
+      <div style={{ marginTop: 12, padding: 16, borderRadius: 8, background: 'var(--pv-surface, #fafafa)', border: '1px dashed var(--pv-border, #444)' }}>
+        {Demo !== undefined ? <Demo /> : <span style={{ opacity: 0.6, fontSize: 12 }}>No live demo written yet.</span>}
+      </div>
+      <div style={{ marginTop: 12, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+        <pre style={{ margin: 0, fontSize: 11, fontFamily: 'monospace', whiteSpace: 'pre-wrap', opacity: 0.8, flex: 1 }}>{usageSnippet(entry)}</pre>
+        <CopyButton text={usageSnippet(entry)} />
+      </div>
+      <p style={{ margin: '8px 0 0', fontSize: 11, fontFamily: 'monospace', opacity: 0.6 }}>{entry.origin} &middot; {entry.source}</p>
+    </div>
   )
 }
 
 export function UiPage() {
-  const [query, setQuery] = useState('')
-  const deferredQuery = useDeferredValue(query)
-  const shown = useMemo(
-    () => uiRegistry.items.filter(item =>
-      [item.id, item.summary, item.origin, ...item.surfaces].join(' ').toLowerCase().includes(deferredQuery.toLowerCase())),
-    [deferredQuery],
-  )
+  const [active, setActive] = useState<string | null>(null)
+  const hasRealEntry = (category: Category): boolean => category.componentIds.some(name => byExportName.has(name))
+  const populated = useMemo(() => categories.filter(hasRealEntry), [])
+  const empty = useMemo(() => categories.filter(category => !hasRealEntry(category)), [])
+  const shown = active === null ? categories : categories.filter(category => category.name === active)
+
   return (
-    <div className="page-width">
-      <header style={{ padding: '3rem 0 1.5rem' }}>
-        <h1>UI component registry</h1>
-        <p style={{ maxWidth: '46rem', opacity: 0.8 }}>
-          Source-owned components for <code>@acryl/ui</code> (spec 038-ui-component-library). Copy one with{' '}
-          <code>acryl ui add &lt;id&gt;</code> and own it in your own plugin, or install the whole package as a
-          dependency. Every item's source is extracted from the pinned DeepSeek Harness commit named on its card,
-          never redrawn from scratch.
+    <div className="page-width" style={{ display: 'flex', gap: 32, alignItems: 'flex-start', paddingTop: '2rem' }}>
+      <aside style={{ width: 220, flexShrink: 0, position: 'sticky', top: 90 }}>
+        <h2 style={{ fontSize: 14, margin: '0 0 8px' }}>Categories</h2>
+        <p style={{ fontSize: 11, opacity: 0.6, margin: '0 0 12px' }}>{populated.length} built &middot; {empty.length} not yet built</p>
+        <button type="button" onClick={() => { setActive(null) }} style={{ display: 'block', width: '100%', textAlign: 'left', background: active === null ? 'var(--pv-border, #333)' : 'none', border: 'none', borderRadius: 6, padding: '4px 8px', fontSize: 13, cursor: 'pointer', color: 'inherit' }}>All</button>
+        <div style={{ maxHeight: '70vh', overflowY: 'auto', marginTop: 4 }}>
+          {populated.map(category => (
+            <button key={category.name} type="button" onClick={() => { setActive(category.name) }}
+              style={{ display: 'flex', justifyContent: 'space-between', width: '100%', textAlign: 'left', background: active === category.name ? 'var(--pv-border, #333)' : 'none', border: 'none', borderRadius: 6, padding: '4px 8px', fontSize: 13, cursor: 'pointer', color: 'inherit' }}>
+              {category.name} <span style={{ opacity: 0.5 }}>{category.componentIds.filter(name => byExportName.has(name)).length}</span>
+            </button>
+          ))}
+          <div style={{ margin: '8px 0 4px', fontSize: 11, opacity: 0.5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Not yet built</div>
+          {empty.map(category => (
+            <div key={category.name} style={{ padding: '4px 8px', fontSize: 12, opacity: 0.4 }}>{category.name}</div>
+          ))}
+        </div>
+      </aside>
+      <main style={{ flex: 1, minWidth: 0, paddingBottom: '4rem' }}>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><LayoutGrid size={20} /> UI component registry</h1>
+        <p style={{ maxWidth: '42rem', opacity: 0.8 }}>
+          Source-owned components for <code>@acryl/ui</code>. Copy one with <code>acryl ui add &lt;id&gt;</code> and own it, or install
+          the whole package as a dependency. Categories follow shadcnblocks.com's taxonomy (naming only, no code); every category is shown, built or not.
         </p>
-        <p style={{ fontFamily: 'monospace', fontSize: '0.8rem', opacity: 0.7 }}>
-          {uiRegistry.items.length} items · package <code>{uiRegistry.package}</code> ·{' '}
-          <a href={uiRegistry.repository} target="_blank" rel="noreferrer">{uiRegistry.repository.replace('https://', '')}</a>
-        </p>
-      </header>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid var(--border, #2a2a2a)', paddingBottom: '1.5rem' }}>
-        <Search size={16} aria-hidden="true" />
-        <input
-          value={query}
-          onChange={event => { setQuery(event.target.value) }}
-          placeholder="Search by name, surface or origin"
-          aria-label="Search the UI registry"
-          style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', fontSize: '0.95rem' }}
-        />
-      </div>
-      <div className="discovery-grid" style={{ marginTop: '2rem', display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', paddingBottom: '3rem' }}>
-        {shown.map(item => <ItemCard key={item.id} item={item} />)}
-        {shown.length === 0 && (
-          <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem 0', opacity: 0.6 }}>
-            <PackageSearch aria-hidden="true" />
-            <p>No registry item matches this search.</p>
-          </div>
+        {shown.filter(hasRealEntry).map(category => (
+          <section key={category.name} style={{ marginTop: 24 }}>
+            <h2 style={{ fontSize: 16, borderBottom: '1px solid var(--pv-border, #444)', paddingBottom: 6 }}>{category.name}</h2>
+            {category.componentIds.map((name) => {
+              const entry = byExportName.get(name)
+              return entry === undefined ? null : <ComponentCard key={name} entry={entry} />
+            })}
+          </section>
+        ))}
+        {active !== null && shown.every(category => !hasRealEntry(category)) && (
+          <p style={{ marginTop: 24, opacity: 0.6 }}>Nothing built in this category yet.</p>
         )}
-      </div>
+      </main>
     </div>
   )
 }

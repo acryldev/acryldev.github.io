@@ -1,0 +1,459 @@
+[
+  {
+    "id": "acryl.ui.alert",
+    "version": "0.1.0",
+    "summary": "A titled message box with an optional icon (ported from shadcn/ui's Alert).",
+    "props": {
+      "icon": {
+        "type": "ReactNode"
+      },
+      "title": {
+        "type": "ReactNode"
+      },
+      "children": {
+        "type": "ReactNode"
+      },
+      "variant": {
+        "type": "'default' | 'error'"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `alert` (style new-york-v4), https://ui.shadcn.com/docs/components/alert, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Alert.tsx",
+    "exportName": "Alert"
+  },
+  {
+    "id": "acryl.ui.appearance-cubes",
+    "version": "0.1.0",
+    "summary": "A row of icon-and-label tiles for a small exclusive choice (Light/Dark/System), pressed state on the selected one.",
+    "props": {
+      "title": {
+        "type": "string"
+      },
+      "options": {
+        "type": "CubeOption[]",
+        "required": true
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      }
+    },
+    "origin": "extracted",
+    "from": "packages/client/ui-theme/src/client/AppearanceRow.tsx, AppearanceRow.module.css",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "AppearanceCubes.tsx",
+    "exportName": "AppearanceCubes"
+  },
+  {
+    "id": "acryl.ui.avatar",
+    "version": "0.1.0",
+    "summary": "An image avatar with a fallback shown when there is no image or it fails to load (ported from shadcn/ui's Avatar; no Radix dependency).",
+    "props": {
+      "src": {
+        "type": "string"
+      },
+      "alt": {
+        "type": "string"
+      },
+      "fallback": {
+        "type": "ReactNode",
+        "required": true
+      },
+      "size": {
+        "type": "'sm' | 'default' | 'lg'"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `avatar` (style new-york-v4), https://ui.shadcn.com/docs/components/avatar, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Avatar.tsx",
+    "exportName": "Avatar"
+  },
+  {
+    "id": "acryl.ui.badge",
+    "version": "0.1.0",
+    "summary": "A small status/count pill (ported from shadcn/ui's Badge).",
+    "props": {
+      "children": {
+        "type": "ReactNode"
+      },
+      "variant": {
+        "type": "'default' | 'primary' | 'success' | 'warning' | 'error'"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `badge` (style new-york-v4), https://ui.shadcn.com/docs/components/badge, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Badge.tsx",
+    "exportName": "Badge"
+  },
+  {
+    "id": "acryl.ui.card",
+    "version": "0.1.0",
+    "summary": "A bordered surface with an optional title, body and footer actions.",
+    "props": {
+      "title": {
+        "type": "string"
+      },
+      "footer": {
+        "type": "ReactNode",
+        "description": "actions, right-aligned"
+      }
+    },
+    "origin": "extracted (surface only)",
+    "from": "packages/client/ui-settings-plugins/src/client/PluginCard.module.css (.card, .cardOpen)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Card.tsx",
+    "exportName": "Card"
+  },
+  {
+    "id": "acryl.ui.dialog",
+    "version": "0.1.0",
+    "summary": "A confirm dialog over the app's Modal, with cancel and confirm actions.",
+    "props": {
+      "open": {
+        "type": "boolean",
+        "required": true
+      },
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "onClose": {
+        "type": "() => void",
+        "required": true
+      },
+      "onConfirm": {
+        "type": "() => void",
+        "required": true
+      },
+      "confirmLabel": {
+        "type": "string",
+        "default": "'OK'"
+      },
+      "cancelLabel": {
+        "type": "string",
+        "default": "'Cancel'"
+      },
+      "danger": {
+        "type": "boolean",
+        "default": "false",
+        "description": "terminal only (paints the confirm action with the error role). On the web use the app's RiskConfirmation primitive for destructive confirmations: its Button has no danger variant."
+      }
+    },
+    "origin": "composed",
+    "from": "the app's Modal and Button primitives (DSH's RiskConfirmation covers the acknowledge-first variant)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Dialog.tsx",
+    "exportName": "Dialog"
+  },
+  {
+    "id": "acryl.ui.empty-state",
+    "version": "0.1.0",
+    "summary": "Centered message for a list or view with nothing in it yet.",
+    "props": {
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string"
+      },
+      "action": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "gap",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "EmptyState.tsx",
+    "exportName": "EmptyState"
+  },
+  {
+    "id": "acryl.ui.kbd",
+    "version": "0.1.0",
+    "summary": "One keyboard key or shortcut segment (ported from shadcn/ui's Kbd). Group several with this library's Stack.",
+    "props": {
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `kbd` (style new-york-v4), https://ui.shadcn.com/docs/components/kbd, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Kbd.tsx",
+    "exportName": "Kbd"
+  },
+  {
+    "id": "acryl.ui.progress",
+    "version": "0.1.0",
+    "summary": "A determinate progress bar, 0 to 100 (ported from shadcn/ui's Progress; no Radix dependency).",
+    "props": {
+      "value": {
+        "type": "number",
+        "required": true
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `progress` (style new-york-v4), https://ui.shadcn.com/docs/components/progress, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Progress.tsx",
+    "exportName": "Progress"
+  },
+  {
+    "id": "acryl.ui.select-pill",
+    "version": "0.1.0",
+    "summary": "A pill-shaped dropdown selector built on the app's own Menu.",
+    "props": {
+      "options": {
+        "type": "SelectOption[]",
+        "required": true
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "label": {
+        "type": "string"
+      },
+      "placeholder": {
+        "type": "string"
+      },
+      "disabled": {
+        "type": "boolean"
+      }
+    },
+    "origin": "extracted",
+    "from": "packages/client/ui-permission-presets/src/client/PermissionRow.tsx and .module.css (selector pill over the app's Menu)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "SelectPill.tsx",
+    "exportName": "SelectPill"
+  },
+  {
+    "id": "acryl.ui.separator",
+    "version": "0.1.0",
+    "summary": "A thin dividing line, horizontal or vertical (ported from shadcn/ui's Separator; no Radix dependency).",
+    "props": {
+      "orientation": {
+        "type": "'horizontal' | 'vertical'"
+      },
+      "decorative": {
+        "type": "boolean"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `separator` (style new-york-v4), https://ui.shadcn.com/docs/components/separator, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Separator.tsx",
+    "exportName": "Separator"
+  },
+  {
+    "id": "acryl.ui.settings-row",
+    "version": "0.1.0",
+    "summary": "A settings-style row: label and description on the left, one control on the right (the layout of the app's own Settings screens).",
+    "props": {
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string"
+      },
+      "focused": {
+        "type": "boolean",
+        "description": "terminal only: marks the row that has the keyboard focus"
+      }
+    },
+    "origin": "extracted",
+    "from": "packages/client/ui-permission-presets/src/client/PermissionRow.tsx and .module.css (row layout)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "SettingsRow.tsx",
+    "exportName": "SettingsRow"
+  },
+  {
+    "id": "acryl.ui.sidebar-row",
+    "version": "0.1.0",
+    "summary": "The sidebar's New Session bar: icon and label when the sidebar is wide, a plain icon control with a tooltip on the rail (extracted from DSH's sidebar).",
+    "props": {
+      "icon": {
+        "type": "ReactNode",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true,
+        "description": "visible text when wide, tooltip and accessible name on the rail"
+      },
+      "wide": {
+        "type": "boolean",
+        "required": true
+      },
+      "onClick": {
+        "type": "() => void",
+        "required": true
+      }
+    },
+    "origin": "extracted",
+    "from": "packages/client/ui-sidebar/src/client/SidebarRoot.tsx and .module.css (the New Session bar)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "SidebarRow.tsx",
+    "exportName": "SidebarRow"
+  },
+  {
+    "id": "acryl.ui.skeleton",
+    "version": "0.1.0",
+    "summary": "A pulsing placeholder shape for loading content (ported from shadcn/ui's Skeleton).",
+    "props": {
+      "className": {
+        "type": "string"
+      },
+      "style": {
+        "type": "{ width?, height? }"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `skeleton` (style new-york-v4), https://ui.shadcn.com/docs/components/skeleton, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Skeleton.tsx",
+    "exportName": "Skeleton"
+  },
+  {
+    "id": "acryl.ui.spinner",
+    "version": "0.1.0",
+    "summary": "A rotating loading indicator (ported from shadcn/ui's Spinner; no lucide-react dependency).",
+    "props": {
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `spinner` (style new-york-v4), https://ui.shadcn.com/docs/components/spinner, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Spinner.tsx",
+    "exportName": "Spinner"
+  },
+  {
+    "id": "acryl.ui.switch-field",
+    "version": "0.1.0",
+    "summary": "A switch with a label and optional hint.",
+    "props": {
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "checked": {
+        "type": "boolean",
+        "required": true
+      },
+      "onChange": {
+        "type": "(checked: boolean) => void",
+        "required": true
+      },
+      "hint": {
+        "type": "string"
+      }
+    },
+    "origin": "composed",
+    "from": "the app's Switch primitive plus fields.module.css .hint",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "SwitchField.tsx",
+    "exportName": "SwitchField"
+  },
+  {
+    "id": "acryl.ui.tabs",
+    "version": "0.1.0",
+    "summary": "Tab strip with the active panel as children.",
+    "props": {
+      "tabs": {
+        "type": "Array<{ id: string, label: string }>",
+        "required": true
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(id: string) => void",
+        "required": true
+      },
+      "label": {
+        "type": "string"
+      }
+    },
+    "origin": "extracted",
+    "from": "packages/client/ui-settings-plugins/src/client/PluginsSettingsSection.tsx and .module.css (tab strip, panel, keyboard handling)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Tabs.tsx",
+    "exportName": "Tabs"
+  },
+  {
+    "id": "acryl.ui.tool-call-card",
+    "version": "0.1.0",
+    "summary": "A collapsible tool-call row as in the conversation: leading icon or state dot, title, summary, expandable IN/OUT card (extracted from DSH's ToolRow).",
+    "props": {
+      "icon": {
+        "type": "ReactNode",
+        "required": true
+      },
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "summary": {
+        "type": "string",
+        "required": true
+      },
+      "state": {
+        "type": "'running' | 'ok' | 'error' | 'stopped'",
+        "required": true
+      },
+      "errorSummary": {
+        "type": "string",
+        "description": "replaces the summary on an error row"
+      },
+      "input": {
+        "type": "string"
+      },
+      "output": {
+        "type": "string"
+      },
+      "labels": {
+        "type": "{ input, output, running, failed, stopped }",
+        "required": true,
+        "description": "copy; the run-state labels are visually hidden text"
+      }
+    },
+    "origin": "extracted (subset)",
+    "from": "packages/client/ui-tool/src/client/tool/components/ToolRow.tsx and .module.css",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "ToolCallCard.tsx",
+    "exportName": "ToolCallCard"
+  }
+]

@@ -9,6 +9,13 @@ export default defineConfig({
   // `./asset` fetched afterwards resolves against that nested directory (404).
   base: '/',
   plugins: [react(), tailwindcss()],
+  resolve: {
+    // The UI registry gallery (spec 038-ui-component-library) renders the real registry
+    // component source unmodified; this swaps its one runtime import for a working, plain
+    // stand-in (src/ui-registry/preview-primitives.tsx) instead of the ACRYL app's own
+    // primitives package, which this site cannot pull in (internal, CSS-coupled to the app).
+    alias: { '@deepseek-ai/dsh-client-ui-primitives': '/src/ui-registry/preview-primitives.tsx' },
+  },
   build: {
     target: 'es2022',
     sourcemap: true,

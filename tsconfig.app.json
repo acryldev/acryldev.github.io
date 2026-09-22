@@ -13,6 +13,10 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@deepseek-ai/dsh-client-ui-primitives": ["./src/ui-registry/preview-primitives.tsx"]
+    },
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
