@@ -23,6 +23,14 @@ import { Spinner } from './components/acryl.ui.spinner/Spinner'
 import { SwitchField } from './components/acryl.ui.switch-field/SwitchField'
 import { Tabs } from './components/acryl.ui.tabs/Tabs'
 import { ToolCallCard } from './components/acryl.ui.tool-call-card/ToolCallCard'
+import { Label } from './components/acryl.ui.label/Label'
+import { Textarea } from './components/acryl.ui.textarea/Textarea'
+import { Checkbox } from './components/acryl.ui.checkbox/Checkbox'
+import { AspectRatio } from './components/acryl.ui.aspect-ratio/AspectRatio'
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from './components/acryl.ui.breadcrumb/Breadcrumb'
+import { Toggle } from './components/acryl.ui.toggle/Toggle'
+import { ButtonGroup } from './components/acryl.ui.button-group/ButtonGroup'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/acryl.ui.accordion/Accordion'
 
 const toolLabels = { input: 'IN', output: 'OUT', running: 'Running', failed: 'Failed', stopped: 'Stopped' }
 const dot = <span aria-hidden>&#9656;</span>
@@ -116,7 +124,61 @@ function ToolCallCardDemo() {
   </div>
 }
 
+function LabelDemo() {
+  return <div style={{ display: 'grid', gap: 4 }}>
+    <Label htmlFor="demo-label-input">Name</Label>
+    <input id="demo-label-input" style={{ border: '1px solid var(--pv-border, #444)', borderRadius: 6, padding: '4px 8px', background: 'transparent', color: 'inherit' }} />
+  </div>
+}
+function TextareaDemo() {
+  const [value, setValue] = useState('')
+  return <Textarea value={value} onChange={setValue} placeholder="Type something..." />
+}
+function CheckboxDemo() {
+  const [checked, setChecked] = useState(false)
+  return <Checkbox checked={checked} onChange={setChecked} label="I agree" />
+}
+function AspectRatioDemo() {
+  return <div style={{ width: 240 }}>
+    <AspectRatio ratio={16 / 9}><div style={{ width: '100%', height: '100%', background: 'var(--pv-border, #444)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>16:9</div></AspectRatio>
+  </div>
+}
+function BreadcrumbDemo() {
+  return <Breadcrumb><BreadcrumbList>
+    <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem><BreadcrumbLink href="#">Settings</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem><BreadcrumbPage>UI library</BreadcrumbPage></BreadcrumbItem>
+  </BreadcrumbList></Breadcrumb>
+}
+function ToggleDemo() {
+  const [pressed, setPressed] = useState(false)
+  return <Toggle pressed={pressed} onPressedChange={setPressed} variant="outline">{pressed ? 'Pressed' : 'Not pressed'}</Toggle>
+}
+function ButtonGroupDemo() {
+  return <ButtonGroup>
+    <button type="button" style={{ border: '1px solid var(--pv-border, #444)', padding: '4px 12px', background: 'transparent', color: 'inherit' }}>Left</button>
+    <button type="button" style={{ border: '1px solid var(--pv-border, #444)', padding: '4px 12px', background: 'transparent', color: 'inherit' }}>Middle</button>
+    <button type="button" style={{ border: '1px solid var(--pv-border, #444)', padding: '4px 12px', background: 'transparent', color: 'inherit' }}>Right</button>
+  </ButtonGroup>
+}
+function AccordionDemo() {
+  return <Accordion type="single">
+    <AccordionItem value="a"><AccordionTrigger>Section A</AccordionTrigger><AccordionContent>Content of A.</AccordionContent></AccordionItem>
+    <AccordionItem value="b"><AccordionTrigger>Section B</AccordionTrigger><AccordionContent>Content of B.</AccordionContent></AccordionItem>
+  </Accordion>
+}
+
 export const demos: Record<string, () => ReactElement> = {
+  'acryl.ui.label': LabelDemo,
+  'acryl.ui.textarea': TextareaDemo,
+  'acryl.ui.checkbox': CheckboxDemo,
+  'acryl.ui.aspect-ratio': AspectRatioDemo,
+  'acryl.ui.breadcrumb': BreadcrumbDemo,
+  'acryl.ui.toggle': ToggleDemo,
+  'acryl.ui.button-group': ButtonGroupDemo,
+  'acryl.ui.accordion': AccordionDemo,
   'acryl.ui.alert': AlertDemo,
   'acryl.ui.appearance-cubes': AppearanceCubesDemo,
   'acryl.ui.avatar': AvatarDemo,
