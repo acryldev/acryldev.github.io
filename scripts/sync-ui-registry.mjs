@@ -59,4 +59,13 @@ writeFileSync(join(root, 'src', 'ui-registry', 'manifest.json'), `${JSON.stringi
 const categories = JSON.parse(readFileSync(join(contractsDir, 'categories.json'), 'utf8'))
 writeFileSync(join(root, 'src', 'ui-registry', 'categories.json'), `${JSON.stringify(categories, null, 2)}\n`)
 
-console.log(`synced ${manifest.length} component(s) and ${categories.categories.length} categories into src/ui-registry/`)
+// reexports.json lists every export of @acryl/ui that is NOT a registry item, so the page can tell
+// "a component this package provides" apart from "a registry item" and from "nothing built". It is
+// generated from index.ts by the package's own generate-reexports.mjs; this copies it verbatim.
+const reexportsPath = join(contractsDir, 'reexports.json')
+const providedCount = existsSync(reexportsPath)
+  ? JSON.parse(readFileSync(reexportsPath, 'utf8')).groups.reduce((sum, group) => sum + group.exports.length, 0)
+  : 0
+writeFileSync(join(root, 'src', 'ui-registry', 'reexports.json'), existsSync(reexportsPath) ? readFileSync(reexportsPath, 'utf8') : '{"formatVersion":1,"groups":[],"registryItemExports":[]}\n')
+
+console.log(`synced ${manifest.length} component(s), ${categories.categories.length} categories and ${providedCount} provided export(s) into src/ui-registry/`)
