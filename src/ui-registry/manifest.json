@@ -92,6 +92,30 @@
     "exportName": "AspectRatio"
   },
   {
+    "id": "acryl.ui.attachment",
+    "version": "0.1.0",
+    "summary": "A file chip for a composer: media, title, description, actions and a whole-chip trigger, with idle, uploading, processing, error and done states (ported from shadcn/ui's Attachment).",
+    "props": {
+      "state": {
+        "type": "'idle' | 'uploading' | 'processing' | 'error' | 'done'"
+      },
+      "size": {
+        "type": "'default' | 'sm' | 'xs'"
+      },
+      "orientation": {
+        "type": "'horizontal' | 'vertical'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `attachment` (style new-york-v4), https://ui.shadcn.com/docs/components/attachment, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Attachment.tsx",
+    "exportName": "Attachment"
+  },
+  {
     "id": "acryl.ui.avatar",
     "version": "0.1.0",
     "summary": "An image avatar with a fallback shown when there is no image or it fails to load (ported from shadcn/ui's Avatar; no Radix dependency).",
@@ -156,6 +180,27 @@
     "exportName": "Breadcrumb"
   },
   {
+    "id": "acryl.ui.bubble",
+    "version": "0.1.0",
+    "summary": "A chat bubble with seven variants and a reaction pill, meant to sit inside this library's Message (ported from shadcn/ui's Bubble; no Radix, no cva).",
+    "props": {
+      "variant": {
+        "type": "'default' | 'secondary' | 'muted' | 'tinted' | 'outline' | 'ghost' | 'destructive'"
+      },
+      "align": {
+        "type": "'start' | 'end'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `bubble` (style new-york-v4), https://ui.shadcn.com/docs/components/bubble, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Bubble.tsx",
+    "exportName": "Bubble"
+  },
+  {
     "id": "acryl.ui.button-group",
     "version": "0.1.0",
     "summary": "A row (or column) of controls with merged corners (ported from shadcn/ui's ButtonGroup).",
@@ -172,6 +217,51 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "ButtonGroup.tsx",
     "exportName": "ButtonGroup"
+  },
+  {
+    "id": "acryl.ui.calendar",
+    "version": "0.1.0",
+    "summary": "A month grid that reports the day the reader chooses, or a range of them (ported from shadcn/ui's Calendar; react-day-picker and date-fns are replaced by the platform's own date arithmetic).",
+    "props": {
+      "mode": {
+        "type": "'single' | 'range'"
+      },
+      "selected": {
+        "type": "Date | CalendarRange"
+      },
+      "onSelect": {
+        "type": "(selection: CalendarSelection) => void"
+      },
+      "month": {
+        "type": "Date"
+      },
+      "defaultMonth": {
+        "type": "Date"
+      },
+      "onMonthChange": {
+        "type": "(month: Date) => void"
+      },
+      "showOutsideDays": {
+        "type": "boolean"
+      },
+      "weekStartsOn": {
+        "type": "0 | 1 | 2 | 3 | 4 | 5 | 6"
+      },
+      "locale": {
+        "type": "string"
+      },
+      "disabled": {
+        "type": "(date: Date) => boolean"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `calendar` (style new-york-v4), https://ui.shadcn.com/docs/components/calendar, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Calendar.tsx",
+    "exportName": "Calendar"
   },
   {
     "id": "acryl.ui.card",
@@ -191,6 +281,30 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "Card.tsx",
     "exportName": "Card"
+  },
+  {
+    "id": "acryl.ui.carousel",
+    "version": "0.1.0",
+    "summary": "A sliding track of full-viewport items with previous/next controls: the platform's own scroller with snap points, and an api a caller can drive (ported from shadcn/ui's Carousel; embla is dropped for CSS scroll snap).",
+    "props": {
+      "orientation": {
+        "type": "'horizontal' | 'vertical'"
+      },
+      "setApi": {
+        "type": "(api: CarouselApi) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `carousel` (style new-york-v4), https://ui.shadcn.com/docs/components/carousel, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Carousel.tsx",
+    "exportName": "Carousel"
   },
   {
     "id": "acryl.ui.checkbox",
@@ -238,6 +352,84 @@
     "exportName": "Collapsible"
   },
   {
+    "id": "acryl.ui.combobox",
+    "version": "0.1.0",
+    "summary": "A searchable single-select combobox: a field that filters a list, an anchored panel, groups with labels, an empty state and keyboard selection (ported from shadcn/ui's Combobox; Base UI's primitive is replaced by hand).",
+    "props": {
+      "open": {
+        "type": "boolean"
+      },
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "value": {
+        "type": "string | null"
+      },
+      "defaultValue": {
+        "type": "string | null"
+      },
+      "onValueChange": {
+        "type": "(value: string | null) => void"
+      },
+      "onOpenChange": {
+        "type": "(open: boolean) => void"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `combobox` (style new-york-v4), https://ui.shadcn.com/docs/components/combobox, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Combobox.tsx",
+    "exportName": "Combobox"
+  },
+  {
+    "id": "acryl.ui.command",
+    "version": "0.1.0",
+    "summary": "A searchable command menu: an input, a filtered list with groups and headings, an empty state, and keyboard selection (ported from shadcn/ui's Command; cmdk is replaced by hand).",
+    "props": {
+      "label": {
+        "type": "string"
+      },
+      "query": {
+        "type": "string"
+      },
+      "onQueryChange": {
+        "type": "(query: string) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `command` (style new-york-v4), https://ui.shadcn.com/docs/components/command, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Command.tsx",
+    "exportName": "Command"
+  },
+  {
+    "id": "acryl.ui.context-menu",
+    "version": "0.1.0",
+    "summary": "A menu opened by a right-click, anchored at the pointer rather than at a field, with checkbox and radio rows (ported from shadcn/ui's Context Menu; Radix's primitive is replaced by hand).",
+    "props": {
+      "open": {
+        "type": "boolean"
+      },
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "onOpenChange": {
+        "type": "(open: boolean) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `context-menu` (style new-york-v4), https://ui.shadcn.com/docs/components/context-menu, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "ContextMenu.tsx",
+    "exportName": "ContextMenu"
+  },
+  {
     "id": "acryl.ui.dialog",
     "version": "0.1.0",
     "summary": "A confirm dialog over the app's Modal, with cancel and confirm actions.",
@@ -279,6 +471,54 @@
     "exportName": "Dialog"
   },
   {
+    "id": "acryl.ui.direction-provider",
+    "version": "0.1.0",
+    "summary": "A text-direction provider for descendants, with the source's dir prop and direction alias, and a useDirection hook (ported from shadcn/ui's Direction; a plain context instead of Radix).",
+    "props": {
+      "dir": {
+        "type": "'ltr' | 'rtl'"
+      },
+      "direction": {
+        "type": "'ltr' | 'rtl'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `direction` (style new-york-v4), https://ui.shadcn.com/docs/components/direction, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "DirectionProvider.tsx",
+    "exportName": "DirectionProvider"
+  },
+  {
+    "id": "acryl.ui.drawer",
+    "version": "0.1.0",
+    "summary": "A sheet you can flick away: a panel from any edge, with a drag handle on the horizontal edges and dismissal by dragging past a quarter of its extent (ported from shadcn/ui's Drawer; vaul is replaced by hand).",
+    "props": {
+      "open": {
+        "type": "boolean"
+      },
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "direction": {
+        "type": "'top' | 'right' | 'bottom' | 'left'"
+      },
+      "onOpenChange": {
+        "type": "(open: boolean) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `drawer` (style new-york-v4), https://ui.shadcn.com/docs/components/drawer, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Drawer.tsx",
+    "exportName": "Drawer"
+  },
+  {
     "id": "acryl.ui.empty-state",
     "version": "0.1.0",
     "summary": "Centered message for a list or view with nothing in it yet.",
@@ -298,6 +538,99 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "EmptyState.tsx",
     "exportName": "EmptyState"
+  },
+  {
+    "id": "acryl.ui.form-field",
+    "version": "0.1.0",
+    "summary": "The layout around one field's parts - set, group, legend, label, title, content, description, separator and error - in vertical, horizontal or container-responsive orientation (ported from shadcn/ui's Field, renamed so it cannot collide with this library's own Field).",
+    "props": {
+      "orientation": {
+        "type": "'vertical' | 'horizontal' | 'responsive'"
+      },
+      "invalid": {
+        "type": "boolean"
+      },
+      "disabled": {
+        "type": "boolean"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `field` (style new-york-v4), https://ui.shadcn.com/docs/components/field, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "FormField.tsx",
+    "exportName": "FormField"
+  },
+  {
+    "id": "acryl.ui.input-group",
+    "version": "0.1.0",
+    "summary": "One bordered field grouping an input or textarea with addons before, after, above or below it; the wrapper carries the focus ring and the error tint (ported from shadcn/ui's Input Group).",
+    "props": {
+      "disabled": {
+        "type": "boolean"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `input-group` (style new-york-v4), https://ui.shadcn.com/docs/components/input-group, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "InputGroup.tsx",
+    "exportName": "InputGroup"
+  },
+  {
+    "id": "acryl.ui.input-otp",
+    "version": "0.1.0",
+    "summary": "A one-time-code input: one real input over a row of slots, so typing, paste and arrow keys are the platform's behaviour (ported from shadcn/ui's Input OTP; the input-otp package is dropped for it).",
+    "props": {
+      "value": {
+        "type": "string"
+      },
+      "onChange": {
+        "type": "(value: string) => void"
+      },
+      "maxLength": {
+        "type": "number"
+      },
+      "disabled": {
+        "type": "boolean"
+      },
+      "label": {
+        "type": "string"
+      },
+      "containerClassName": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `input-otp` (style new-york-v4), https://ui.shadcn.com/docs/components/input-otp, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "InputOTP.tsx",
+    "exportName": "InputOTP"
+  },
+  {
+    "id": "acryl.ui.item",
+    "version": "0.1.0",
+    "summary": "One row of a list: group, media, content, title, description, actions, header and footer (ported from shadcn/ui's Item; no Radix, no cva, and no cross-item Separator import).",
+    "props": {
+      "variant": {
+        "type": "'default' | 'outline' | 'muted'"
+      },
+      "size": {
+        "type": "'default' | 'sm'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `item` (style new-york-v4), https://ui.shadcn.com/docs/components/item, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Item.tsx",
+    "exportName": "Item"
   },
   {
     "id": "acryl.ui.kbd",
@@ -337,6 +670,141 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "Label.tsx",
     "exportName": "Label"
+  },
+  {
+    "id": "acryl.ui.marker",
+    "version": "0.1.0",
+    "summary": "A muted label line between message groups: plain, ruled on both sides, or underlined at the bottom (ported from shadcn/ui's Marker).",
+    "props": {
+      "variant": {
+        "type": "'default' | 'separator' | 'border'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `marker` (style new-york-v4), https://ui.shadcn.com/docs/components/marker, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Marker.tsx",
+    "exportName": "Marker"
+  },
+  {
+    "id": "acryl.ui.menubar",
+    "version": "0.1.0",
+    "summary": "A bar of menus in one Tab stop: the arrow keys walk its triggers and a pointer sliding along it switches menus (ported from shadcn/ui's Menubar; Radix's primitive is replaced by hand).",
+    "props": {
+      "onValueChange": {
+        "type": "(menuId: string | null) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `menubar` (style new-york-v4), https://ui.shadcn.com/docs/components/menubar, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Menubar.tsx",
+    "exportName": "Menubar"
+  },
+  {
+    "id": "acryl.ui.message",
+    "version": "0.1.0",
+    "summary": "A message row around a Bubble: group, avatar, content, header and footer, with an end alignment for the reader's own turns (ported from shadcn/ui's Message).",
+    "props": {
+      "align": {
+        "type": "'start' | 'end'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `message` (style new-york-v4), https://ui.shadcn.com/docs/components/message, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Message.tsx",
+    "exportName": "Message"
+  },
+  {
+    "id": "acryl.ui.native-select",
+    "version": "0.1.0",
+    "summary": "The platform's own <select>, styled to match the library's inputs, for a short static option list (ported from shadcn/ui's Native Select; not the same control as this library's SelectField, which opens a menu).",
+    "props": {
+      "size": {
+        "type": "'sm' | 'default'"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `native-select` (style new-york-v4), https://ui.shadcn.com/docs/components/native-select, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "NativeSelect.tsx",
+    "exportName": "NativeSelect"
+  },
+  {
+    "id": "acryl.ui.navigation-menu",
+    "version": "0.1.0",
+    "summary": "A navigation bar whose panels share one surface under the whole bar, opening after a hover that rests (ported from shadcn/ui's Navigation Menu; Radix's primitive is replaced by hand).",
+    "props": {
+      "viewport": {
+        "type": "boolean"
+      },
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `navigation-menu` (style new-york-v4), https://ui.shadcn.com/docs/components/navigation-menu, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "NavigationMenu.tsx",
+    "exportName": "NavigationMenu"
+  },
+  {
+    "id": "acryl.ui.pagination",
+    "version": "0.1.0",
+    "summary": "A pagination landmark: content, item, link, previous, next and an ellipsis, with the current page marked for assistive tech (ported from shadcn/ui's Pagination; the Button item's look is restated locally to stay self-contained).",
+    "props": {
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `pagination` (style new-york-v4), https://ui.shadcn.com/docs/components/pagination, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Pagination.tsx",
+    "exportName": "Pagination"
+  },
+  {
+    "id": "acryl.ui.popover",
+    "version": "0.1.0",
+    "summary": "A floating panel anchored to a trigger: the root owns open state, the trigger toggles it, and the content is positioned in viewport coordinates with Escape and outside-click closing (ported from shadcn/ui's Popover; Radix's primitive is replaced by hand, and the panel renders in place rather than through a portal).",
+    "props": {
+      "open": {
+        "type": "boolean"
+      },
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "onOpenChange": {
+        "type": "(open: boolean) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `popover` (style new-york-v4), https://ui.shadcn.com/docs/components/popover, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Popover.tsx",
+    "exportName": "Popover"
   },
   {
     "id": "acryl.ui.progress",
@@ -384,6 +852,51 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "RadioGroup.tsx",
     "exportName": "RadioGroup"
+  },
+  {
+    "id": "acryl.ui.resizable-panel-group",
+    "version": "0.1.0",
+    "summary": "A group of panels with draggable dividers between them: drag a divider or resize it from the keyboard, and each panel keeps its own limits (ported from shadcn/ui's Resizable; react-resizable-panels is replaced by hand).",
+    "props": {
+      "orientation": {
+        "type": "'horizontal' | 'vertical'"
+      },
+      "onLayoutChange": {
+        "type": "(layout: Record<string, number>) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `resizable` (style new-york-v4), https://ui.shadcn.com/docs/components/resizable, MIT licence, fetched 2026-09-22 (the prop semantics it wraps are v4 of react-resizable-panels; its published types were read at 4.13.2)",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "ResizablePanelGroup.tsx",
+    "exportName": "ResizablePanelGroup"
+  },
+  {
+    "id": "acryl.ui.scroll-area",
+    "version": "0.1.0",
+    "summary": "A scroll container that stays in its own box: the platform's styled scrollbars, and reaching an end does not scroll the page behind it (ported from shadcn/ui's Scroll Area; Radix's JavaScript scroller is dropped for the platform's own).",
+    "props": {
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      },
+      "style": {
+        "type": "CSSProperties"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `scroll-area` (style new-york-v4), https://ui.shadcn.com/docs/components/scroll-area, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "ScrollArea.tsx",
+    "exportName": "ScrollArea"
   },
   {
     "id": "acryl.ui.select-pill",
@@ -463,6 +976,66 @@
     "exportName": "SettingsRow"
   },
   {
+    "id": "acryl.ui.sheet",
+    "version": "0.1.0",
+    "summary": "A panel that slides in from an edge - top, right, bottom or left - over an overlay, dismissed by Escape, an overlay press or the close button (ported from shadcn/ui's Sheet; Radix's Dialog is replaced by hand).",
+    "props": {
+      "open": {
+        "type": "boolean"
+      },
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "onOpenChange": {
+        "type": "(open: boolean) => void"
+      },
+      "children": {
+        "type": "ReactNode"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `sheet` (style new-york-v4), https://ui.shadcn.com/docs/components/sheet, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Sheet.tsx",
+    "exportName": "Sheet"
+  },
+  {
+    "id": "acryl.ui.sidebar",
+    "version": "0.1.0",
+    "summary": "A collapsible rail with groups of rows and an inset for the content beside it, with one keyboard shortcut and one state (ported from shadcn/ui's Sidebar; every part is written by hand).",
+    "props": {
+      "defaultOpen": {
+        "type": "boolean"
+      },
+      "open": {
+        "type": "boolean"
+      },
+      "onOpenChange": {
+        "type": "(open: boolean) => void"
+      },
+      "side": {
+        "type": "'left' | 'right'"
+      },
+      "variant": {
+        "type": "'sidebar' | 'floating' | 'inset'"
+      },
+      "collapsible": {
+        "type": "'offcanvas' | 'icon' | 'none'"
+      },
+      "isActive": {
+        "type": "boolean"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `sidebar` (style new-york-v4), https://ui.shadcn.com/docs/components/sidebar, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Sidebar.tsx",
+    "exportName": "SidebarProvider"
+  },
+  {
     "id": "acryl.ui.sidebar-row",
     "version": "0.1.0",
     "summary": "The sidebar's New Session bar: icon and label when the sidebar is wide, a plain icon control with a tooltip on the rail (extracted from DSH's sidebar).",
@@ -510,6 +1083,39 @@
     "exportName": "Skeleton"
   },
   {
+    "id": "acryl.ui.slider",
+    "version": "0.1.0",
+    "summary": "A slider with one thumb per value, draggable and keyboard-operable, with a range fill spanning the lowest to the highest value (ported from shadcn/ui's Slider; Radix's primitive is replaced by hand).",
+    "props": {
+      "value": {
+        "type": "number | number[]"
+      },
+      "defaultValue": {
+        "type": "number | number[]"
+      },
+      "min": {
+        "type": "number"
+      },
+      "max": {
+        "type": "number"
+      },
+      "step": {
+        "type": "number"
+      },
+      "orientation": {
+        "type": "'horizontal' | 'vertical'"
+      },
+      "onValueChange": {
+        "type": "(value: number[]) => void"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `slider` (style new-york-v4), https://ui.shadcn.com/docs/components/slider, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Slider.tsx",
+    "exportName": "Slider"
+  },
+  {
     "id": "acryl.ui.spinner",
     "version": "0.1.0",
     "summary": "A rotating loading indicator (ported from shadcn/ui's Spinner; no lucide-react dependency).",
@@ -550,6 +1156,24 @@
     "source": "deepseek-harness 5dda764ed3",
     "componentFile": "SwitchField.tsx",
     "exportName": "SwitchField"
+  },
+  {
+    "id": "acryl.ui.table",
+    "version": "0.1.0",
+    "summary": "A data table: header, body, footer, row, head, cell and caption, each in its own horizontal scroll container (ported from shadcn/ui's Table; no Radix primitive involved).",
+    "props": {
+      "children": {
+        "type": "ReactNode"
+      },
+      "className": {
+        "type": "string"
+      }
+    },
+    "origin": "ported",
+    "from": "shadcn/ui registry item `table` (style new-york-v4), https://ui.shadcn.com/docs/components/table, MIT licence, fetched 2026-09-22",
+    "source": "deepseek-harness 5dda764ed3",
+    "componentFile": "Table.tsx",
+    "exportName": "Table"
   },
   {
     "id": "acryl.ui.tabs",

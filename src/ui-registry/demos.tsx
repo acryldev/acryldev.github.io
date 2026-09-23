@@ -34,6 +34,32 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './
 import { RadioGroup } from './components/acryl.ui.radio-group/RadioGroup'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from './components/acryl.ui.collapsible/Collapsible'
 import { ToggleGroup, ToggleGroupItem } from './components/acryl.ui.toggle-group/ToggleGroup'
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from './components/acryl.ui.table/Table'
+import { DirectionProvider, useDirection } from './components/acryl.ui.direction-provider/DirectionProvider'
+import { Marker } from './components/acryl.ui.marker/Marker'
+import { Message, MessageGroup, MessageAvatar, MessageContent } from './components/acryl.ui.message/Message'
+import { Bubble, BubbleContent } from './components/acryl.ui.bubble/Bubble'
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from './components/acryl.ui.pagination/Pagination'
+import { NativeSelect, NativeSelectOption } from './components/acryl.ui.native-select/NativeSelect'
+import { ScrollArea } from './components/acryl.ui.scroll-area/ScrollArea'
+import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './components/acryl.ui.input-otp/InputOTP'
+import { Item, ItemMedia, ItemContent, ItemTitle, ItemDescription, ItemActions } from './components/acryl.ui.item/Item'
+import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from './components/acryl.ui.attachment/Attachment'
+import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupButton } from './components/acryl.ui.input-group/InputGroup'
+import { FormField, FieldLabel, FieldContent, FieldDescription, FieldError } from './components/acryl.ui.form-field/FormField'
+import { Popover, PopoverTrigger, PopoverContent, PopoverTitle } from './components/acryl.ui.popover/Popover'
+import { Slider } from './components/acryl.ui.slider/Slider'
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from './components/acryl.ui.sheet/Sheet'
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from './components/acryl.ui.drawer/Drawer'
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from './components/acryl.ui.command/Command'
+import { Combobox, ComboboxInput, ComboboxContent, ComboboxList, ComboboxEmpty, ComboboxItem } from './components/acryl.ui.combobox/Combobox'
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuSeparator } from './components/acryl.ui.context-menu/ContextMenu'
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from './components/acryl.ui.carousel/Carousel'
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from './components/acryl.ui.resizable-panel-group/ResizablePanelGroup'
+import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from './components/acryl.ui.menubar/Menubar'
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from './components/acryl.ui.navigation-menu/NavigationMenu'
+import { Calendar } from './components/acryl.ui.calendar/Calendar'
+import { SidebarProvider, Sidebar, SidebarTrigger, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset } from './components/acryl.ui.sidebar/Sidebar'
 
 const toolLabels = { input: 'IN', output: 'OUT', running: 'Running', failed: 'Failed', stopped: 'Stopped' }
 const dot = <span aria-hidden>&#9656;</span>
@@ -192,7 +218,269 @@ function ToggleGroupDemo() {
   </ToggleGroup>
 }
 
+function TableDemo() {
+  return <Table>
+    <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
+    <TableBody>
+      <TableRow><TableCell>Alpha</TableCell><TableCell>Active</TableCell></TableRow>
+      <TableRow><TableCell>Beta</TableCell><TableCell>Paused</TableCell></TableRow>
+    </TableBody>
+  </Table>
+}
+function DirectionReadout() {
+  const dir = useDirection()
+  return <div style={{ display: 'flex', gap: 8 }}><span>First</span><span>Second</span><span style={{ opacity: 0.6 }}>(dir={dir})</span></div>
+}
+function DirectionProviderDemo() {
+  return <DirectionProvider dir="rtl"><DirectionReadout /></DirectionProvider>
+}
+function MarkerDemo() {
+  return <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+    <Marker variant="default">Step</Marker>
+    <Marker variant="border">Border</Marker>
+  </div>
+}
+function MessageDemo() {
+  return <MessageGroup>
+    <Message align="start">
+      <MessageAvatar><span>A</span></MessageAvatar>
+      <MessageContent>Hey, got a minute to review the draft?</MessageContent>
+    </Message>
+  </MessageGroup>
+}
+function BubbleDemo() {
+  return <Bubble variant="tinted" align="end"><BubbleContent>Sent a moment ago.</BubbleContent></Bubble>
+}
+function PaginationDemo() {
+  return <Pagination>
+    <PaginationContent>
+      <PaginationItem><PaginationPrevious href="#" /></PaginationItem>
+      <PaginationItem><PaginationLink href="#" isActive>1</PaginationLink></PaginationItem>
+      <PaginationItem><PaginationLink href="#">2</PaginationLink></PaginationItem>
+      <PaginationItem><PaginationNext href="#" /></PaginationItem>
+    </PaginationContent>
+  </Pagination>
+}
+function NativeSelectDemo() {
+  return <NativeSelect defaultValue="b">
+    <NativeSelectOption value="a">Option A</NativeSelectOption>
+    <NativeSelectOption value="b">Option B</NativeSelectOption>
+    <NativeSelectOption value="c">Option C</NativeSelectOption>
+  </NativeSelect>
+}
+function ScrollAreaDemo() {
+  return <ScrollArea style={{ height: 96, width: 220, border: '1px solid var(--pv-border, #444)', borderRadius: 6 }}>
+    <div style={{ padding: 8 }}>{Array.from({ length: 12 }, (_, i) => <p key={i} style={{ margin: '4px 0' }}>Row {i + 1}</p>)}</div>
+  </ScrollArea>
+}
+function InputOTPDemo() {
+  const [value, setValue] = useState('12')
+  return <InputOTP value={value} onChange={setValue} maxLength={4} label="Verification code">
+    <InputOTPGroup>
+      <InputOTPSlot index={0} /><InputOTPSlot index={1} />
+    </InputOTPGroup>
+    <InputOTPSeparator />
+    <InputOTPGroup>
+      <InputOTPSlot index={2} /><InputOTPSlot index={3} />
+    </InputOTPGroup>
+  </InputOTP>
+}
+function ItemDemo() {
+  return <Item variant="outline">
+    <ItemMedia variant="icon"><span aria-hidden>&#128196;</span></ItemMedia>
+    <ItemContent><ItemTitle>Design review</ItemTitle><ItemDescription>Due tomorrow</ItemDescription></ItemContent>
+    <ItemActions><button type="button">Open</button></ItemActions>
+  </Item>
+}
+function AttachmentDemo() {
+  const [state, setState] = useState<'uploading' | 'done'>('uploading')
+  return <Attachment state={state}>
+    <AttachmentMedia variant="icon"><span aria-hidden>&#128196;</span></AttachmentMedia>
+    <AttachmentContent><AttachmentTitle>report.pdf</AttachmentTitle><AttachmentDescription>{state === 'uploading' ? 'Uploading…' : '248 KB'}</AttachmentDescription></AttachmentContent>
+    <AttachmentActions><AttachmentAction label="Finish upload" onClick={() => { setState('done') }}>{state === 'uploading' ? 'Finish' : 'Done'}</AttachmentAction></AttachmentActions>
+  </Attachment>
+}
+function InputGroupDemo() {
+  const [value, setValue] = useState('')
+  return <InputGroup>
+    <InputGroupAddon align="inline-start"><span aria-hidden>&#128269;</span></InputGroupAddon>
+    <InputGroupInput placeholder="Search…" value={value} onChange={(e) => { setValue(e.target.value) }} />
+    <InputGroupAddon align="inline-end"><InputGroupButton label="Clear" onClick={() => { setValue('') }}>&times;</InputGroupButton></InputGroupAddon>
+  </InputGroup>
+}
+function FormFieldDemo() {
+  const [invalid, setInvalid] = useState(true)
+  return <FormField invalid={invalid}>
+    <FieldLabel>Email</FieldLabel>
+    <FieldContent><input type="email" defaultValue="not-an-email" onChange={() => { setInvalid(false) }} /></FieldContent>
+    {invalid ? <FieldError errors={[{ message: 'Enter a valid email address.' }]} /> : <FieldDescription>Looks good.</FieldDescription>}
+  </FormField>
+}
+function PopoverDemo() {
+  return <Popover>
+    <PopoverTrigger label="Open popover">Open popover</PopoverTrigger>
+    <PopoverContent label="Details"><PopoverTitle>Details</PopoverTitle><p style={{ margin: 0 }}>Anchored to the trigger, no portal.</p></PopoverContent>
+  </Popover>
+}
+function SliderDemo() {
+  const [value, setValue] = useState([40])
+  return <Slider value={value} onValueChange={setValue} label="Volume" />
+}
+function SheetDemo() {
+  return <Sheet>
+    <SheetTrigger label="Open sheet">Open sheet</SheetTrigger>
+    <SheetContent label="Edit profile">
+      <SheetHeader><SheetTitle>Edit profile</SheetTitle><SheetDescription>Flush-edge panel with focus trapped inside.</SheetDescription></SheetHeader>
+    </SheetContent>
+  </Sheet>
+}
+function DrawerDemo() {
+  return <Drawer>
+    <DrawerTrigger label="Open drawer">Open drawer</DrawerTrigger>
+    <DrawerContent label="Options">
+      <DrawerHeader><DrawerTitle>Options</DrawerTitle><DrawerDescription>Drag down to dismiss.</DrawerDescription></DrawerHeader>
+    </DrawerContent>
+  </Drawer>
+}
+function CommandDemo() {
+  return <Command label="Command menu">
+    <CommandInput placeholder="Type a command…" />
+    <CommandList>
+      <CommandEmpty>No results.</CommandEmpty>
+      <CommandGroup heading="Actions">
+        <CommandItem value="new file">New file</CommandItem>
+        <CommandItem value="new folder">New folder</CommandItem>
+        <CommandItem value="rename">Rename</CommandItem>
+      </CommandGroup>
+    </CommandList>
+  </Command>
+}
+function ComboboxDemo() {
+  return <Combobox>
+    <ComboboxInput placeholder="Choose a fruit…" />
+    <ComboboxContent>
+      <ComboboxList>
+        <ComboboxEmpty>No matches.</ComboboxEmpty>
+        <ComboboxItem value="apple">Apple</ComboboxItem>
+        <ComboboxItem value="banana">Banana</ComboboxItem>
+        <ComboboxItem value="cherry">Cherry</ComboboxItem>
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+}
+function ContextMenuDemo() {
+  return <ContextMenu>
+    <ContextMenuTrigger>
+      <div style={{ border: '1px dashed var(--pv-border, #444)', borderRadius: 6, padding: '24px 12px', textAlign: 'center', fontSize: 13, opacity: 0.8 }}>Right-click here</div>
+    </ContextMenuTrigger>
+    <ContextMenuContent>
+      <ContextMenuItem>Copy</ContextMenuItem>
+      <ContextMenuItem>Paste</ContextMenuItem>
+      <ContextMenuSeparator />
+      <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+    </ContextMenuContent>
+  </ContextMenu>
+}
+function CarouselDemo() {
+  return <Carousel style={{ width: 240 }}>
+    <CarouselContent>
+      {['A', 'B', 'C'].map(letter => <CarouselItem key={letter}>
+        <div style={{ height: 96, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--pv-border, #444)', borderRadius: 6 }}>{letter}</div>
+      </CarouselItem>)}
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+  </Carousel>
+}
+function ResizableDemo() {
+  return <ResizablePanelGroup orientation="horizontal" style={{ height: 96, width: 240, border: '1px solid var(--pv-border, #444)', borderRadius: 6 }}>
+    <ResizablePanel defaultSize={50} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Left</ResizablePanel>
+    <ResizableHandle withHandle />
+    <ResizablePanel defaultSize={50} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Right</ResizablePanel>
+  </ResizablePanelGroup>
+}
+function MenubarDemo() {
+  return <Menubar>
+    <MenubarMenu>
+      <MenubarTrigger>File</MenubarTrigger>
+      <MenubarContent>
+        <MenubarItem>New</MenubarItem>
+        <MenubarItem>Open…</MenubarItem>
+      </MenubarContent>
+    </MenubarMenu>
+    <MenubarMenu>
+      <MenubarTrigger>Edit</MenubarTrigger>
+      <MenubarContent>
+        <MenubarItem>Undo</MenubarItem>
+        <MenubarItem>Redo</MenubarItem>
+      </MenubarContent>
+    </MenubarMenu>
+  </Menubar>
+}
+function NavigationMenuDemo() {
+  return <NavigationMenu>
+    <NavigationMenuList>
+      <NavigationMenuItem>
+        <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink>Overview</NavigationMenuLink>
+          <NavigationMenuLink>Pricing</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+}
+function CalendarDemo() {
+  const [selected, setSelected] = useState<Date | undefined>(new Date())
+  return <Calendar mode="single" selected={selected} onSelect={(d) => { setSelected(d as Date | undefined) }} />
+}
+function SidebarDemo() {
+  return <SidebarProvider style={{ height: 220, border: '1px solid var(--pv-border, #444)', borderRadius: 6, overflow: 'hidden' }}>
+    <Sidebar>
+      <SidebarHeader>Workspace</SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem><SidebarMenuButton isActive>Overview</SidebarMenuButton></SidebarMenuItem>
+            <SidebarMenuItem><SidebarMenuButton>Tasks</SidebarMenuButton></SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>
+      <SidebarTrigger />
+      <div style={{ padding: 8, fontSize: 13, opacity: 0.8 }}>Main content area.</div>
+    </SidebarInset>
+  </SidebarProvider>
+}
 export const demos: Record<string, () => ReactElement> = {
+  'acryl.ui.table': TableDemo,
+  'acryl.ui.direction-provider': DirectionProviderDemo,
+  'acryl.ui.marker': MarkerDemo,
+  'acryl.ui.message': MessageDemo,
+  'acryl.ui.bubble': BubbleDemo,
+  'acryl.ui.pagination': PaginationDemo,
+  'acryl.ui.native-select': NativeSelectDemo,
+  'acryl.ui.scroll-area': ScrollAreaDemo,
+  'acryl.ui.input-otp': InputOTPDemo,
+  'acryl.ui.item': ItemDemo,
+  'acryl.ui.attachment': AttachmentDemo,
+  'acryl.ui.input-group': InputGroupDemo,
+  'acryl.ui.form-field': FormFieldDemo,
+  'acryl.ui.popover': PopoverDemo,
+  'acryl.ui.slider': SliderDemo,
+  'acryl.ui.sheet': SheetDemo,
+  'acryl.ui.drawer': DrawerDemo,
+  'acryl.ui.command': CommandDemo,
+  'acryl.ui.combobox': ComboboxDemo,
+  'acryl.ui.context-menu': ContextMenuDemo,
+  'acryl.ui.carousel': CarouselDemo,
+  'acryl.ui.resizable-panel-group': ResizableDemo,
+  'acryl.ui.menubar': MenubarDemo,
+  'acryl.ui.navigation-menu': NavigationMenuDemo,
+  'acryl.ui.calendar': CalendarDemo,
+  'acryl.ui.sidebar': SidebarDemo,
   'acryl.ui.radio-group': RadioGroupDemo,
   'acryl.ui.collapsible': CollapsibleDemo,
   'acryl.ui.toggle-group': ToggleGroupDemo,

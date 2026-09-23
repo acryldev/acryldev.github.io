@@ -1,6 +1,6 @@
 {
-  "source": "shadcnblocks.com/components category names, fetched 2026-09-22 (classification only; no code, markup or assets used from that site)",
-  "note": "Every category is listed, built or not, so the catalog shows the shape of what a rich UI library covers. componentIds map to plugins/acryl-ui/contracts/components.json.",
+  "source": "shadcnblocks.com/components category names, fetched 2026-09-22 (classification only; no code, markup or assets used from that site), plus five names taken from shadcn/ui's own component list (ui.shadcn.com/docs/components) on 2026-09-22: Attachment, Bubble, Direction, Marker, Message",
+  "note": "Every category is listed, built or not, so the catalog shows the shape of what a rich UI library covers. componentIds map to plugins/acryl-ui/contracts/components.json. Attachment, Bubble, Direction, Marker and Message are shadcn/ui's own component names, added because shadcnblocks' taxonomy has no chat, label-line, text-direction or file-chip category at all - forcing them into Separator, List, File Upload or a similar neighbour would have been a bad match. Both sites render a component only inside a category, so a ported component with no category here would be invisible rather than merely uncategorised.",
   "categories": [
     {
       "name": "Accordion",
@@ -28,6 +28,12 @@
       "name": "Aspect Ratio",
       "componentIds": [
         "AspectRatio"
+      ]
+    },
+    {
+      "name": "Attachment",
+      "componentIds": [
+        "Attachment"
       ]
     },
     {
@@ -75,6 +81,12 @@
       ]
     },
     {
+      "name": "Bubble",
+      "componentIds": [
+        "Bubble"
+      ]
+    },
+    {
       "name": "Button",
       "componentIds": [
         "Button"
@@ -88,7 +100,9 @@
     },
     {
       "name": "Calendar",
-      "componentIds": []
+      "componentIds": [
+        "Calendar"
+      ]
     },
     {
       "name": "Card",
@@ -98,7 +112,9 @@
     },
     {
       "name": "Carousel",
-      "componentIds": []
+      "componentIds": [
+        "Carousel"
+      ]
     },
     {
       "name": "Chart",
@@ -134,11 +150,15 @@
     },
     {
       "name": "Combobox",
-      "componentIds": []
+      "componentIds": [
+        "Combobox"
+      ]
     },
     {
       "name": "Command",
-      "componentIds": []
+      "componentIds": [
+        "Command"
+      ]
     },
     {
       "name": "Comparison",
@@ -146,7 +166,9 @@
     },
     {
       "name": "Context Menu",
-      "componentIds": []
+      "componentIds": [
+        "ContextMenu"
+      ]
     },
     {
       "name": "Contribution Graph",
@@ -184,8 +206,16 @@
       "componentIds": []
     },
     {
+      "name": "Direction",
+      "componentIds": [
+        "DirectionProvider"
+      ]
+    },
+    {
       "name": "Drawer",
-      "componentIds": []
+      "componentIds": [
+        "Drawer"
+      ]
     },
     {
       "name": "Dropdown Menu",
@@ -216,7 +246,8 @@
       "componentIds": [
         "Field",
         "ValueField",
-        "SecretField"
+        "SecretField",
+        "FormField"
       ]
     },
     {
@@ -268,15 +299,21 @@
     },
     {
       "name": "Input Group",
-      "componentIds": []
+      "componentIds": [
+        "InputGroup"
+      ]
     },
     {
       "name": "Input Otp",
-      "componentIds": []
+      "componentIds": [
+        "InputOTP"
+      ]
     },
     {
       "name": "Item",
-      "componentIds": []
+      "componentIds": [
+        "Item"
+      ]
     },
     {
       "name": "Kanban",
@@ -315,8 +352,22 @@
       "componentIds": []
     },
     {
+      "name": "Marker",
+      "componentIds": [
+        "Marker"
+      ]
+    },
+    {
       "name": "Menubar",
-      "componentIds": []
+      "componentIds": [
+        "Menubar"
+      ]
+    },
+    {
+      "name": "Message",
+      "componentIds": [
+        "Message"
+      ]
     },
     {
       "name": "Mini Calendar",
@@ -324,11 +375,15 @@
     },
     {
       "name": "Navigation Menu",
-      "componentIds": []
+      "componentIds": [
+        "NavigationMenu"
+      ]
     },
     {
       "name": "Pagination",
-      "componentIds": []
+      "componentIds": [
+        "Pagination"
+      ]
     },
     {
       "name": "Pill",
@@ -339,7 +394,9 @@
     },
     {
       "name": "Popover",
-      "componentIds": []
+      "componentIds": [
+        "Popover"
+      ]
     },
     {
       "name": "Price",
@@ -377,7 +434,9 @@
     },
     {
       "name": "Resizable",
-      "componentIds": []
+      "componentIds": [
+        "ResizablePanelGroup"
+      ]
     },
     {
       "name": "Sandbox",
@@ -385,7 +444,9 @@
     },
     {
       "name": "Scroll Area",
-      "componentIds": []
+      "componentIds": [
+        "ScrollArea"
+      ]
     },
     {
       "name": "Scrollable Tabslist",
@@ -395,7 +456,8 @@
       "name": "Select",
       "componentIds": [
         "SelectField",
-        "SelectPill"
+        "SelectPill",
+        "NativeSelect"
       ]
     },
     {
@@ -406,7 +468,15 @@
     },
     {
       "name": "Sheet",
-      "componentIds": []
+      "componentIds": [
+        "Sheet"
+      ]
+    },
+    {
+      "name": "Sidebar",
+      "componentIds": [
+        "SidebarProvider"
+      ]
     },
     {
       "name": "Skeleton",
@@ -416,7 +486,9 @@
     },
     {
       "name": "Slider",
-      "componentIds": []
+      "componentIds": [
+        "Slider"
+      ]
     },
     {
       "name": "Snippet",
@@ -458,7 +530,9 @@
     },
     {
       "name": "Table",
-      "componentIds": []
+      "componentIds": [
+        "Table"
+      ]
     },
     {
       "name": "Tabs",
