@@ -20,8 +20,8 @@ export function HomePage() {
       <section className="home-hero grid-surface">
         <div className="page-width hero-content">
           <p className="eyebrow">Agent Context Relay Yielding Lifecycles</p>
-          <h1>Agents come and go.<br /><strong>The work stays.</strong></h1>
-          <p className="hero-lede">ACRYL is a local-first Agentic Development Environment. One persistent workspace where Claude Code, Codex, Pi — any coding agent — are replaceable workers, and your project context never leaves with them.</p>
+          <h1>Agents are replaceable.<br /><strong>Progress isn't.</strong></h1>
+          <p className="hero-lede">ACRYL is a local-first Agentic Development Environment — one persistent workspace where Claude Code, Codex, Pi, or any coding agent plugs in as a replaceable worker, and every decision, diff, and session survives the swap.</p>
           <div className="hero-cta">
             <Link className="button" to="/packages">Explore {packageCount.toLocaleString()} packages <ArrowRight aria-hidden="true" /></Link>
             <Link className="button secondary" to="/docs">Read the architecture</Link>
