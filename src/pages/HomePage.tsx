@@ -1,4 +1,4 @@
-import { ArrowLeftRight, ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Globe, Layers3, Layout, MessageCircle, Monitor, Network, RefreshCw, Shield, Star, Terminal, UserCheck, Workflow } from 'lucide-react'
+import { ArrowLeftRight, ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Globe, KanbanSquare, Layers3, Layout, MessageCircle, Monitor, MousePointerClick, Network, Radio, RefreshCw, Shield, SplitSquareHorizontal, Star, Stethoscope, Terminal, Users, Workflow } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
 import { acrylCatalog, catalog } from '../lib/catalog'
@@ -20,8 +20,8 @@ export function HomePage() {
       <section className="home-hero grid-surface">
         <div className="page-width hero-content">
           <p className="eyebrow">Agent Context Relay Yielding Lifecycles</p>
-          <h1>Everything is a plugin.<br /><strong>Compose anything.</strong></h1>
-          <p className="hero-lede">ACRYL is a programmable desktop for persistent agent work. Compose models, tools, agents, skills, and surfaces around one canonical project lifecycle.</p>
+          <h1>Agents come and go.<br /><strong>The work stays.</strong></h1>
+          <p className="hero-lede">ACRYL is a local-first Agentic Development Environment. One persistent workspace where Claude Code, Codex, Pi — any coding agent — are replaceable workers, and your project context never leaves with them.</p>
           <div className="hero-cta">
             <Link className="button" to="/packages">Explore {packageCount.toLocaleString()} packages <ArrowRight aria-hidden="true" /></Link>
             <Link className="button secondary" to="/docs">Read the architecture</Link>
@@ -78,9 +78,9 @@ export function HomePage() {
               <p>Auth expires, tokens run out, a provider goes down — the room survives. Re-auth, switch runtimes, or pick a different model and pick up where you left off.</p>
             </article>
             <article>
-              <UserCheck aria-hidden="true" />
-              <h3>Agent identity</h3>
-              <p>Every agent has a name, role, and capability contract. The room tracks who did what, even after the worker process is long gone.</p>
+              <Users aria-hidden="true" />
+              <h3>A 33-agent roster</h3>
+              <p>Launch any of 33 built-in agent definitions — or your own custom agent — into any project. The attention queue flags the moment one needs you, so you can run several and stop babysitting terminals.</p>
             </article>
             <article>
               <Workflow aria-hidden="true" />
@@ -119,10 +119,14 @@ export function HomePage() {
       <section className="canvas-section grid-surface" aria-labelledby="canvas-heading">
         <div className="page-width canvas-content">
           <div className="section-intro">
-            <div><p className="eyebrow">Development Canvas</p><h2 id="canvas-heading">Your workspace,<br />your way.</h2></div>
-            <p>The workspace is not a single chat pane. Press <kbd>+</kbd> to add tiles — terminals, editors, browsers — alongside your agent conversation. Run Claude Code in one tile, edit a file in another, watch your local dev server in a third.</p>
+            <div><p className="eyebrow">Development Canvas</p><h2 id="canvas-heading">A canvas,<br />not a chat window.</h2></div>
+            <p>Projects and git worktrees on the left, a tabbed canvas in the middle. Press <kbd>+</kbd> to add tiles — chats, terminals, editors, diffs, kanban, browsers — and arrange the environment around the work. Panes are disposable; the project is not.</p>
           </div>
           <div className="canvas-showcase">
+            <article className="canvas-card">
+              <div className="canvas-card-header"><MessageCircle aria-hidden="true" /><span>Chat</span></div>
+              <p>The conversation is always there. Chat tabs stay in the strip, switch between tiles without losing your agent mid-thought.</p>
+            </article>
             <article className="canvas-card">
               <div className="canvas-card-header"><Terminal aria-hidden="true" /><span>Terminal</span></div>
               <p>Spawn a shell, run Claude Code, Codex, or any CLI tool. The Host starts the process, streams I/O into the tile, and disposes it cleanly when you close it.</p>
@@ -132,12 +136,16 @@ export function HomePage() {
               <p>Open a text file directly in the canvas. Edit alongside your agent conversation — no alt-tabbing to a separate IDE.</p>
             </article>
             <article className="canvas-card">
-              <div className="canvas-card-header"><Globe aria-hidden="true" /><span>Browser</span></div>
-              <p>Preview your local app while an agent works on it. Navigate to any HTTP or HTTPS URL in an embedded view.</p>
+              <div className="canvas-card-header"><SplitSquareHorizontal aria-hidden="true" /><span>Diff review</span></div>
+              <p>Review agent edits line by line. Comment on any line and send it straight back to the agent — the session log stays the durable record.</p>
             </article>
             <article className="canvas-card">
-              <div className="canvas-card-header"><MessageCircle aria-hidden="true" /><span>Chat</span></div>
-              <p>The conversation is always there. Chat tabs stay in the strip, switch between tiles without losing your agent mid-thought.</p>
+              <div className="canvas-card-header"><KanbanSquare aria-hidden="true" /><span>Kanban</span></div>
+              <p>Draggable notes for the state of the work — which agent is on what, what needs you — pinned next to the code, not in your head.</p>
+            </article>
+            <article className="canvas-card">
+              <div className="canvas-card-header"><Globe aria-hidden="true" /><span>Browser</span></div>
+              <p>Preview your local app while an agent works on it. Navigate to any HTTP or HTTPS URL in an embedded view.</p>
             </article>
           </div>
           <div className="canvas-surfaces">
@@ -163,6 +171,30 @@ export function HomePage() {
               </article>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="atoms-section page-width" aria-labelledby="agent-control-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">Agent Control</p><h2 id="agent-control-heading">Agents that can<br />drive the app.</h2></div>
+          <p>Computer-use, but for ACRYL itself. The agent inside the app can read the window, click, type, change settings, and switch plugins — governed, approved, and recorded, from inside and from your terminal.</p>
+        </div>
+        <div className="atoms-grid">
+          <article className="atom-card">
+            <div><span>01</span><MousePointerClick aria-hidden="true" /></div>
+            <h3>Operate its own app</h3>
+            <p>The agent snapshots the accessibility tree, then clicks, types, opens panels, and enables or disables plugins. Every mutating action is approved by you per call, written to an audit log, and stoppable with one key.</p>
+          </article>
+          <article className="atom-card">
+            <div><span>02</span><Stethoscope aria-hidden="true" /></div>
+            <h3>Rescue from outside</h3>
+            <p>Install won't boot? <code>acryl doctor</code> names the cause, <code>acryl repair</code> applies a minimal, reversible fix — pre-image backup, atomic write, full undo.</p>
+          </article>
+          <article className="atom-card">
+            <div><span>03</span><Radio aria-hidden="true" /></div>
+            <h3>Drive a running app</h3>
+            <p><code>acryl control</code> drives the live instance from any terminal over an authenticated loopback channel: snapshot, click, type — same tool contract as the in-app agent, same audit log.</p>
+          </article>
         </div>
       </section>
 
