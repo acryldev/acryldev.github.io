@@ -88,10 +88,24 @@ export function Shell() {
           <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins — the plugin registry</a>
           <a href="https://agentcontextrelay.com/">Agent Context Relay</a>
           <a href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">Star on GitHub</a>
-          <a href="https://github.com/acryldev">GitHub</a>
           <a href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer">Discord</a>
         </div>
+        <div className="footer-links footer-social" aria-label="Official ACRYL accounts">
+          <a href="https://x.com/acryldev" target="_blank" rel="noreferrer">X</a>
+          <a href="https://www.youtube.com/@ACRYLDEV" target="_blank" rel="noreferrer">YouTube</a>
+          <a href="https://github.com/acryldev" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/company/acryldev/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/acryldev" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.tiktok.com/@acryldev" target="_blank" rel="noreferrer">TikTok</a>
+          <a href="https://www.npmjs.com/~acryldev" target="_blank" rel="noreferrer">npm</a>
+        </div>
         <p className="footer-note">Built on Cordis and DeepSeek Harness. ACRYL adds capabilities without replacing upstream APIs.</p>
+        <p className="footer-note footer-scam-warning">
+          <strong>Security notice:</strong> our only official accounts are listed above (x.com/acryldev,
+          github.com/acryldev, and the others linked here). We have no token, no coin, and no crypto project.
+          <code>x.com/acryl_dev</code> is impersonating us and is <strong>not affiliated with ACRYL</strong> — do
+          not trust anything it posts, especially about a token or airdrop.
+        </p>
       </footer>
     </div>
   )
