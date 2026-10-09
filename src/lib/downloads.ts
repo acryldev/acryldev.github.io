@@ -11,16 +11,18 @@ export interface DesktopDownload {
   readonly os: DesktopOs
   /** What the person picks between inside one OS: the CPU or the package kind. */
   readonly detail: string
-  /** The constant asset name in the Desktop release (`apps/acryl-desktop` `artifactName`). */
-  readonly asset: string
+  /** Matches this platform's installer in a release: `acryl-desktop-<platform>-v<version>.<ext>` (0.2.2 and later) or the older version-less `acryl-desktop-<platform>.<ext>`. */
+  readonly pattern: RegExp
 }
 
+const installer = (platform: string, extension: string): RegExp => new RegExp(`^acryl-desktop-${platform}(?:-v\\d+\\.\\d+\\.\\d+)?\\.${extension}$`, 'u')
+
 export const DESKTOP_DOWNLOADS: readonly DesktopDownload[] = [
-  { id: 'mac-arm64', os: 'macOS', detail: 'Apple Silicon · DMG', asset: 'acryl-desktop-mac-arm64.dmg' },
-  { id: 'mac-x64', os: 'macOS', detail: 'Intel · DMG', asset: 'acryl-desktop-mac-x64.dmg' },
-  { id: 'win-x64', os: 'Windows', detail: 'x64 · Installer', asset: 'acryl-desktop-win-x64.exe' },
-  { id: 'linux-amd64', os: 'Linux', detail: 'x64 · Debian .deb', asset: 'acryl-desktop-linux-amd64.deb' },
-  { id: 'linux-arm64', os: 'Linux', detail: 'arm64 · Debian .deb', asset: 'acryl-desktop-linux-arm64.deb' },
+  { id: 'mac-arm64', os: 'macOS', detail: 'Apple Silicon · DMG', pattern: installer('mac-arm64', 'dmg') },
+  { id: 'mac-x64', os: 'macOS', detail: 'Intel · DMG', pattern: installer('mac-x64', 'dmg') },
+  { id: 'win-x64', os: 'Windows', detail: 'x64 · Installer', pattern: installer('win-x64', 'exe') },
+  { id: 'linux-amd64', os: 'Linux', detail: 'x64 · Debian .deb', pattern: installer('linux-amd64', 'deb') },
+  { id: 'linux-arm64', os: 'Linux', detail: 'arm64 · Debian .deb', pattern: installer('linux-arm64', 'deb') },
 ]
 
 export const REPOSITORY = 'https://github.com/acryldev/acryl'
@@ -69,12 +71,18 @@ export function latestDesktopRelease(releases: readonly GithubRelease[]): Deskto
     if (Array.isArray(release.assets)) {
       for (const asset of release.assets as ReadonlyArray<{ readonly name?: unknown }>) if (typeof asset.name === 'string') assets.add(asset.name)
     }
-    if (!DESKTOP_DOWNLOADS.some(item => assets.has(item.asset))) continue
+    if (!DESKTOP_DOWNLOADS.some(item => assetFor(assets, item) !== undefined)) continue
     const order = best === undefined ? 1 : compare(parts, best.parts)
     if (order < 0 || (order === 0 && !release.tag_name.startsWith('v'))) continue
     best = { parts, release: { tag: release.tag_name, version: parts.join('.'), assets } }
   }
   return best?.release
+}
+
+/** The file name of one platform's installer in a release's asset names, or undefined when the release has none for it. */
+export function assetFor(assets: ReadonlySet<string>, item: DesktopDownload): string | undefined {
+  for (const name of assets) if (item.pattern.test(name)) return name
+  return undefined
 }
 
 /** The direct download link of one installer in a Desktop release. */

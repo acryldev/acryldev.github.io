@@ -1,6 +1,6 @@
 import { Apple, Download, Monitor, Terminal } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { ALL_RELEASES_URL, RELEASES_API, REPOSITORY, detectOs, downloadUrl, latestDesktopRelease, orderForOs, type DesktopOs, type DesktopRelease } from '../lib/downloads'
+import { ALL_RELEASES_URL, RELEASES_API, REPOSITORY, assetFor, detectOs, downloadUrl, latestDesktopRelease, orderForOs, type DesktopOs, type DesktopRelease } from '../lib/downloads'
 
 const CACHE_KEY = 'acryl-desktop-release'
 const CACHE_MS = 10 * 60 * 1000
@@ -56,7 +56,8 @@ export function DownloadButtons() {
       <div className="download-grid">
         {ordered.map((item, index) => {
           const Icon = icons[item.os]
-          const href = release !== undefined && release.assets.has(item.asset) ? downloadUrl(release.tag, item.asset) : ALL_RELEASES_URL
+          const asset = release === undefined ? undefined : assetFor(release.assets, item)
+          const href = release !== undefined && asset !== undefined ? downloadUrl(release.tag, asset) : ALL_RELEASES_URL
           return (
             <a key={item.id} className={index === 0 ? 'button download-button' : 'button secondary download-button'} href={href} rel="noreferrer">
               <Icon aria-hidden="true" />

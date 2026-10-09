@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { ALL_RELEASES_URL, DESKTOP_DOWNLOADS, detectOs, downloadUrl, latestDesktopRelease, orderForOs } from './downloads'
+import { ALL_RELEASES_URL, DESKTOP_DOWNLOADS, assetFor, detectOs, downloadUrl, latestDesktopRelease, orderForOs } from './downloads'
 
 const release = (tag: string, names: string[] = [], extra: Record<string, unknown> = {}) => ({ tag_name: tag, assets: names.map(name => ({ name })), ...extra })
 
-const installers = ['acryl-desktop-mac-arm64.dmg', 'acryl-desktop-win-x64.exe']
+const installers = ['acryl-desktop-mac-arm64-v0.2.2.dmg', 'acryl-desktop-win-x64-v0.2.2.exe']
 
 describe('latestDesktopRelease', () => {
   it('finds the highest version that carries installers, skipping CLI-only releases, drafts and prereleases', () => {
@@ -16,7 +16,7 @@ describe('latestDesktopRelease', () => {
     ])
     expect(found?.tag).toBe('v0.2.2')
     expect(found?.version).toBe('0.2.2')
-    expect(found?.assets.has('acryl-desktop-mac-arm64.dmg')).toBe(true)
+    expect(found?.assets.has('acryl-desktop-mac-arm64-v0.2.2.dmg')).toBe(true)
   })
 
   it('still finds the separate desktop-v release older versions used', () => {
@@ -41,13 +41,16 @@ describe('latestDesktopRelease', () => {
 
 describe('downloads', () => {
   it('builds direct links from the constant asset names of the Desktop release', () => {
-    expect(downloadUrl('desktop-v0.2.1', 'acryl-desktop-win-x64.exe')).toBe('https://github.com/acryldev/acryl/releases/download/desktop-v0.2.1/acryl-desktop-win-x64.exe')
+    expect(downloadUrl('v0.2.2', 'acryl-desktop-win-x64-v0.2.2.exe')).toBe('https://github.com/acryldev/acryl/releases/download/v0.2.2/acryl-desktop-win-x64-v0.2.2.exe')
   })
 
-  it('offers exactly the five installers the release publishes', () => {
-    expect(DESKTOP_DOWNLOADS.map(item => item.asset)).toEqual([
-      'acryl-desktop-mac-arm64.dmg', 'acryl-desktop-mac-x64.dmg', 'acryl-desktop-win-x64.exe', 'acryl-desktop-linux-amd64.deb', 'acryl-desktop-linux-arm64.deb',
-    ])
+  it('offers exactly the five installers the release publishes, versioned or not', () => {
+    const names = (version: string) => ['mac-arm64.dmg', 'mac-x64.dmg', 'win-x64.exe', 'linux-amd64.deb', 'linux-arm64.deb'].map(file => file.replace(/^([a-z0-9-]+)\./u, `$1${version}.`)).map(file => `acryl-desktop-${file}`)
+    for (const version of ['', '-v0.2.2']) {
+      const assets = new Set(names(version))
+      expect(DESKTOP_DOWNLOADS.map(item => assetFor(assets, item))).toEqual(names(version))
+    }
+    expect(assetFor(new Set(['acryl-desktop-mac-arm64-v0.2.2.dmg.blockmap', 'acryl-cli-linux-x64.tar.gz']), DESKTOP_DOWNLOADS[0]!)).toBeUndefined()
     expect(ALL_RELEASES_URL).toContain('desktop-v')
   })
 
