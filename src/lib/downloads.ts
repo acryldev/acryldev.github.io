@@ -1,7 +1,7 @@
 /**
- * Where the latest ACRYL Desktop installers are. The Desktop installers are assets of their own GitHub release (`desktop-v<version>`), separate from the
- * `v<version>` release that carries the CLI and Web archives, so GitHub's `releases/latest` does not point at them. This finds the newest published
- * Desktop release and builds one direct link per platform from the constant asset names the release workflow publishes.
+ * Where the latest ACRYL Desktop installers are. From 0.2.2 every surface (CLI, Web, Desktop) is one `v<version>` GitHub release, so `releases/latest` is the one;
+ * releases up to 0.2.1 kept the installers in a separate `desktop-v<version>` release. This finds the highest-version published release that really carries
+ * installers, whichever of the two it is, and builds one direct link per platform from the constant asset names the release workflow publishes.
  */
 
 export type DesktopOs = 'macOS' | 'Windows' | 'Linux'
@@ -43,7 +43,7 @@ export interface DesktopRelease {
   readonly assets: ReadonlySet<string>
 }
 
-const DESKTOP_TAG = /^desktop-v(\d+)\.(\d+)\.(\d+)$/u
+const DESKTOP_TAG = /^(?:desktop-)?v(\d+)\.(\d+)\.(\d+)$/u
 
 function compare(a: readonly number[], b: readonly number[]): number {
   for (let index = 0; index < 3; index += 1) {
@@ -54,8 +54,9 @@ function compare(a: readonly number[], b: readonly number[]): number {
 }
 
 /**
- * The highest-version published, non-prerelease Desktop release in a GitHub releases listing, or undefined when there is none.
- * Highest version, not newest date: a patch release of an older line must not displace a newer minor.
+ * The highest-version published, non-prerelease release in a GitHub releases listing that carries at least one Desktop installer, or undefined when there is none.
+ * Highest version, not newest date: a patch release of an older line must not displace a newer minor. A release without installers (a CLI-only one) is skipped, so
+ * the buttons never point at a release that has nothing to download; on an equal version the `v` release wins over the old `desktop-v` one.
  */
 export function latestDesktopRelease(releases: readonly GithubRelease[]): DesktopRelease | undefined {
   let best: { release: DesktopRelease; parts: readonly number[] } | undefined
@@ -64,11 +65,13 @@ export function latestDesktopRelease(releases: readonly GithubRelease[]): Deskto
     const match = DESKTOP_TAG.exec(release.tag_name)
     if (match === null) continue
     const parts = [Number(match[1]), Number(match[2]), Number(match[3])]
-    if (best !== undefined && compare(parts, best.parts) <= 0) continue
     const assets = new Set<string>()
     if (Array.isArray(release.assets)) {
       for (const asset of release.assets as ReadonlyArray<{ readonly name?: unknown }>) if (typeof asset.name === 'string') assets.add(asset.name)
     }
+    if (!DESKTOP_DOWNLOADS.some(item => assets.has(item.asset))) continue
+    const order = best === undefined ? 1 : compare(parts, best.parts)
+    if (order < 0 || (order === 0 && !release.tag_name.startsWith('v'))) continue
     best = { parts, release: { tag: release.tag_name, version: parts.join('.'), assets } }
   }
   return best?.release
