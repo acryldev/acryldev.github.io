@@ -89,6 +89,14 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
 .command-block code span { margin-right: 10px; color: var(--muted-foreground); }
 .command-block button { display: grid; width: 52px; place-items: center; border: 0; border-left: 1px solid var(--border); background: transparent; cursor: pointer; }
 .command-block button:hover { background: var(--foreground); color: var(--background); }
+.download-block { width: 100%; max-width: 660px; margin-top: 14px; overflow: hidden; border: 1px solid var(--border); border-radius: 0; background: var(--background); }
+.download-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; padding: 13px; }
+.download-button { justify-content: flex-start; min-width: 0; }
+.download-button svg { width: 14px; height: 14px; flex: none; }
+.download-button em { overflow: hidden; margin-left: auto; font-style: normal; letter-spacing: .06em; opacity: .7; text-overflow: ellipsis; white-space: nowrap; }
+.download-note { margin: 0; padding: 10px 13px; border-top: 1px solid var(--border); color: var(--muted-foreground); font-family: 'JetBrains Mono', monospace; font-size: 10px; line-height: 1.6; }
+.download-note code { color: var(--foreground); font-size: inherit; }
+.download-note a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
 
 .home-hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
 .hero-content { position: relative; padding-block: 130px 116px; }

@@ -1,6 +1,7 @@
 import { ArrowLeftRight, ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Globe, KanbanSquare, Layers3, Layout, MessageCircle, Monitor, MousePointerClick, Network, Radio, RefreshCw, Shield, SplitSquareHorizontal, Star, Stethoscope, Terminal, Users, Workflow } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
+import { DownloadButtons } from '../components/DownloadButtons'
 import { acrylCatalog, catalog } from '../lib/catalog'
 
 const atoms = [
@@ -31,6 +32,7 @@ export function HomePage() {
             </a>
           </div>
           <CommandBox command="npm i -g acryl" label="Install ACRYL CLI" />
+          <DownloadButtons />
         </div>
       </section>
 
