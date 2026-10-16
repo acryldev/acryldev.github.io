@@ -21,6 +21,14 @@ export interface CatalogPlugin {
   readonly version?: string | null
   readonly manifestStatus?: 'valid' | 'missing' | 'invalid'
   readonly kinds?: readonly string[]
+  /** A package shared as a GitHub release (no npm): its tarball, that tarball's sha512, and the release tag. */
+  readonly tarball?: string
+  readonly integrity?: string
+  readonly releaseTag?: string
+  /** The services it needs and adds, and the UI slots it offers and fills, as ACRYL generates them from its code. */
+  readonly requires?: Readonly<Record<string, readonly string[]>>
+  readonly provides?: Readonly<Record<string, readonly string[]>>
+  readonly slots?: { readonly offers?: readonly string[]; readonly fills?: readonly string[] }
   /**
    * Which ACRYL surfaces this package is built for - `tui` (the CLI's
    * terminal UI), `web`, `desktop`, or several. Declared by the package

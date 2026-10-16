@@ -29,7 +29,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Refresh public ACRYL packages from npm
+      - name: Refresh public ACRYL packages from npm and GitHub releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm catalog:sync:acryl
       - run: pnpm check
       - uses: actions/configure-pages@v5
