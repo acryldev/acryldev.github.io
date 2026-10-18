@@ -3,7 +3,7 @@ import { ArrowUpRight, FileCode, Github, GitBranch, Layers, Search, ShieldCheck,
 import { useSearchParams } from 'react-router-dom'
 import { CopyLine } from '../components/CopyLine'
 import {
-  BLEND_REGISTRY_INDEX, BLEND_REGISTRY_REPO, BLEND_REGISTRY_SITE, blendManifestUrl, facetCounts, fetchBlendIndex, matches, newAppCommand,
+  BLEND_REGISTRY_INDEX, BLEND_REGISTRY_REPO, BLEND_REGISTRY_SITE, blendManifestUrl, blendPageUrl, facetCounts, fetchBlendIndex, matches, newAppCommand,
   type BlendEntry,
 } from '../lib/registries'
 
@@ -15,7 +15,7 @@ function BlendCard({ entry, parent }: { readonly entry: BlendEntry; readonly par
       <div className="discovery-card-main">
         <div className="package-mark"><Layers aria-hidden="true" /></div>
         <div className="discovery-card-copy">
-          <a href={blendManifestUrl(entry)} target="_blank" rel="noreferrer"><h3>{entry.name}</h3></a>
+          <a href={blendPageUrl(entry)} target="_blank" rel="noreferrer"><h3>{entry.name}</h3></a>
           <p>{entry.description}</p>
           <div className="package-facts">
             <span>{entry.id}</span>
@@ -27,6 +27,7 @@ function BlendCard({ entry, parent }: { readonly entry: BlendEntry; readonly par
           <div className="package-links">
             {entry.parent && <a href={`#${entry.parent}`}><GitBranch aria-hidden="true" /> grew from {parent?.name ?? entry.parent}</a>}
             <a href={blendManifestUrl(entry)} target="_blank" rel="noreferrer"><FileCode aria-hidden="true" /> blend.yaml</a>
+            <a href={blendPageUrl(entry)} target="_blank" rel="noreferrer">details <ArrowUpRight aria-hidden="true" /></a>
           </div>
         </div>
       </div>

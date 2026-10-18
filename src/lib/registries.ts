@@ -151,6 +151,11 @@ export function blendManifestUrl(entry: BlendEntry): string {
   return `${BLEND_REGISTRY_BASE}${entry.path}/blend.yaml`
 }
 
+/** The Blend's own page on the registry's site. */
+export function blendPageUrl(entry: BlendEntry): string {
+  return `${BLEND_REGISTRY_SITE}/b/${encodeURIComponent(entry.id)}`
+}
+
 /** The command that creates a new app from a registry Blend. */
 export function newAppCommand(entry: BlendEntry): string {
   return `acryl new my-app --from ${entry.id}`

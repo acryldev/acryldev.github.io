@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { blendManifestUrl, facetCounts, matches, newAppCommand, parseBlendIndex, parsePluginIndex } from './registries'
+import { blendManifestUrl, blendPageUrl, facetCounts, matches, newAppCommand, parseBlendIndex, parsePluginIndex } from './registries'
 
 // Real entries from the two live indexes (2026-10-19), shortened.
 const gtd = { id: 'acryl.gtd', name: 'GTD Planner', kind: 'Blueprint', version: '0.1.0', path: 'blends/acryl.gtd', license: 'MIT', category: 'productivity', description: 'Getting Things Done.', parent: 'acryl.blank' }
@@ -34,6 +34,7 @@ describe('Blend registry index', () => {
     const [entry] = parseBlendIndex({ formatVersion: 1, entries: [gtd] })
     expect(blendManifestUrl(entry)).toBe('https://acrylblends.github.io/registry/blends/acryl.gtd/blend.yaml')
     expect(newAppCommand(entry)).toBe('acryl new my-app --from acryl.gtd')
+    expect(blendPageUrl(entry)).toBe('https://acrylblends.github.io/blends/b/acryl.gtd')
   })
 })
 
