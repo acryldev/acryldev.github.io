@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Shell } from './components/Shell'
+import { BlendsPage } from './pages/BlendsPage'
 import { DocsPage } from './pages/DocsPage'
 import { HomePage } from './pages/HomePage'
 import { PackagePage } from './pages/PackagePage'
@@ -12,6 +13,7 @@ export function App() {
     <Routes>
       <Route element={<Shell />}>
         <Route index element={<HomePage />} />
+        <Route path="blends" element={<BlendsPage />} />
         <Route path="packages" element={<PackagesPage />} />
         <Route path="packages/:owner/*" element={<PackagePage />} />
         <Route path="ui" element={<UiPage />} />

@@ -229,3 +229,5 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
 .qr-url:hover { color: var(--muted-foreground); }
 @media (max-width: 900px) { .qr-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 680px) { .qr-page { padding-block: 55px 85px; } .qr-grid { grid-template-columns: 1fr; } .qr-intro h1 { font-size: 42px; } }
+.directory-action-bar.directory-action-bar-short { grid-template-columns: minmax(280px, 1fr) 210px auto; }.registry-status a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }.registry-status a:hover { color: var(--foreground); }.directory-intro code, .directory-provenance code { font-family: 'JetBrains Mono', monospace; font-size: .9em; }
+@media (max-width: 680px) { .directory-action-bar.directory-action-bar-short { grid-template-columns: 1fr; } .directory-action-bar-short .directory-search, .directory-action-bar-short label:has(select) { border-right: 0; border-bottom: 1px solid var(--border); } }

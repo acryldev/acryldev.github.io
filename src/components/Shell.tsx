@@ -6,7 +6,8 @@ import { ThemeToggle } from './ThemeToggle'
 
 const nav = [
   ['Product', '/'],
-  ['Packages', '/packages'],
+  ['Blends', '/blends'],
+  ['Plugins', '/packages'],
   ['UI', '/ui'],
   ['Docs', '/docs'],
 ] as const
@@ -70,7 +71,7 @@ export function Shell() {
             <a className="icon-button" href="https://github.com/acryldev" target="_blank" rel="noreferrer" aria-label="ACRYL on GitHub">
               <Github aria-hidden="true" />
             </a>
-            <Link className="button small" to="/packages">Explore packages</Link>
+            <Link className="button small" to="/packages">Explore plugins</Link>
           </div>
         </div>
       </header>
@@ -81,7 +82,8 @@ export function Shell() {
           <p>Agent Context Relay Yielding Lifecycles.</p>
         </div>
         <div className="footer-links">
-          <Link to="/packages">Packages</Link>
+          <Link to="/blends">Blends</Link>
+          <Link to="/packages">Plugins</Link>
           <Link to="/docs">Docs</Link>
           <Link to="/qr">QR codes</Link>
           <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer">ACRYL Blends — the Blend registry</a>

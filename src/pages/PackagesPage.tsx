@@ -1,7 +1,9 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Download, Github, PackageSearch, Search, ShieldCheck, Sparkles, Star, X } from 'lucide-react'
+import { ArrowUpRight, ChevronLeft, ChevronRight, Download, Github, PackageSearch, Search, ShieldCheck, Star, X } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { acrylCatalog, catalog, filterPlugins, installCommand, packagePath, repositorySlug } from '../lib/catalog'
+import { CopyLine } from '../components/CopyLine'
+import { CordisPluginsSection } from '../components/CordisPluginsSection'
+import { catalog, filterPlugins, installCommand, packagePath, repositorySlug } from '../lib/catalog'
 import { CATALOG_PAGE_SIZE, fetchRegistryPage, type CatalogSort, type RegistryPage } from '../lib/registry'
 import type { CatalogPlugin } from '../types'
 
@@ -46,24 +48,8 @@ function fallbackPage(query: string, category: string, sort: CatalogSort, page: 
 
 function InstallControl({ plugin }: { readonly plugin: CatalogPlugin }) {
   const command = installCommand(plugin)
-  const [copied, setCopied] = useState(false)
   if (!command) return <span className="browse-only">Browse only</span>
-
-  const copy = async () => {
-    await navigator.clipboard.writeText(command)
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 1800)
-  }
-
-  return (
-    <div className="package-install">
-      <code><span>$</span>{command}</code>
-      <button type="button" onClick={copy} aria-label={`Copy install command for ${plugin.name}`}>
-        {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-        <span>{copied ? 'Copied' : 'Copy'}</span>
-      </button>
-    </div>
-  )
+  return <CopyLine command={command} label={`Copy install command for ${plugin.name}`} />
 }
 
 function PackageCard({ plugin }: { readonly plugin: CatalogPlugin }) {
@@ -162,31 +148,18 @@ export function PackagesPage() {
     <div className="packages-page min-w-0 overflow-clip">
       <section className="directory-intro grid-surface">
         <div className="page-width">
-          <p className="eyebrow"><span /> ACRYL package discovery</p>
-          <h1>Package <em>catalog.</em></h1>
-          <p>Discover agent capabilities across the DeepSeek Harness ecosystem. Search the live source-aware directory, inspect provenance, then install verified npm packages into an ACRYL Desktop profile.</p>
+          <p className="eyebrow"><span /> ACRYL plugin discovery</p>
+          <h1>Plugin <em>catalog.</em></h1>
+          <p>Cordis plugins from the Cordis plugin registry first, then the wider DeepSeek Harness ecosystem. Inspect provenance, then pull a plugin into ACRYL with one command.</p>
           <div className="directory-trust"><span><ShieldCheck aria-hidden="true" /> Upstream attribution preserved</span><span>Compatibility is never implied</span></div>
         </div>
       </section>
 
-      {!hasFilters && page === 1 && (
-        <section className="native-section page-width" aria-labelledby="native-heading">
-          <div className="directory-section-heading"><div><p>MAINTAINED FOR THE ACRYL ECOSYSTEM</p><h2 id="native-heading">ACRYL packages</h2></div><Link to="/docs#publish">Publish a package <ArrowUpRight aria-hidden="true" /></Link></div>
-          {acrylCatalog.plugins.length > 0 ? (
-            <div className="discovery-grid native-package-grid">{acrylCatalog.plugins.slice(0, 6).map(plugin => <PackageCard plugin={plugin} key={plugin.id} />)}</div>
-          ) : (
-            <div className="publish-callout">
-              <Sparkles aria-hidden="true" />
-              <div><strong>Be the first ACRYL package publisher.</strong><p>Add one keyword and a small manifest to a public npm package. The catalog discovers it automatically, with no submission PR.</p></div>
-              <Link className="button" to="/docs#publish">Publishing guide <ArrowUpRight aria-hidden="true" /></Link>
-            </div>
-          )}
-        </section>
-      )}
+      {!hasFilters && page === 1 && <CordisPluginsSection />}
 
       {!hasFilters && page === 1 && (
         <section className="recent-section page-width" aria-labelledby="recent-heading">
-          <div className="directory-section-heading"><div><p>FRESH FROM THE ECOSYSTEM</p><h2 id="recent-heading">Recently added</h2></div><span>Updated continuously</span></div>
+          <div className="directory-section-heading"><div><p>FRESH FROM THE DSH 1024STORE</p><h2 id="recent-heading">Recently added</h2></div><span>Updated continuously</span></div>
           <div className="recent-grid">
             {recent.map(plugin => (
               <Link to={packagePath(plugin)} className="recent-card" key={plugin.id}>
@@ -200,7 +173,7 @@ export function PackagesPage() {
       )}
 
       <section className="directory-section page-width" aria-labelledby="all-packages-heading">
-        <div className="directory-section-heading"><div><p>DISCOVER</p><h2 id="all-packages-heading">All packages</h2></div><span>{rangeStart.toLocaleString()}-{rangeEnd.toLocaleString()} / {catalogPage.total.toLocaleString()}</span></div>
+        <div className="directory-section-heading"><div><p>DISCOVER IN THE DSH 1024STORE</p><h2 id="all-packages-heading">DeepSeek Harness plugins</h2></div><span>{rangeStart.toLocaleString()}-{rangeEnd.toLocaleString()} / {catalogPage.total.toLocaleString()}</span></div>
         <div className="directory-action-bar">
           <label className="directory-search">
             <span className="sr-only">Filter packages by name, description, or author</span>
