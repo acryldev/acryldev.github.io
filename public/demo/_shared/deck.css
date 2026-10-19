@@ -92,3 +92,6 @@ html, body, .reveal-viewport { background: var(--bg); color-scheme: dark; }
 .reveal .controls { color: var(--dim); }
 .reveal .slide-number { font-family: var(--mono); background: transparent; color: var(--dim); font-size: 14px; left: 16px; right: auto; bottom: 12px; }
 @media (prefers-reduced-motion: reduce) { .reveal .slides section { transition: none !important; } }
+
+/* Title logo: the wordmark fills 75% of the PNG's width and 43% of its height (empty 33% above, 24% below); the margins cancel the empty bands. */
+.reveal .slides img.hero-logo { width: 28em; max-width: 90%; margin: -9.3em auto -5.6em; border: 0; background: none; box-shadow: none; }
