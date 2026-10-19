@@ -26,17 +26,28 @@
 </section>
 
 <section>
-  <span class="eyebrow">The problem</span>
-  <h2>An open agent harness with 10,000 plugins that solve the same problems</h2>
+  <span class="eyebrow">The mission</span>
+  <h2>A new kind of software: composable software 2.0, agentic from day one</h2>
+  <div class="grid-4" style="grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: .5em">
+    <div class="card"><h3>It writes itself</h3><p>Ask for a feature and the agent inside builds it as a plugin, live, while you keep working.</p></div>
+    <div class="card"><h3>It repairs itself</h3><p>The agent tests what it built, finds what is wrong and fixes it; a broken plugin is reverted without a trace.</p></div>
+    <div class="card"><h3>It adapts to its use</h3><p>Two people start from the same app and end up with two different apps, each shaped by how they work.</p></div>
+    <div class="card"><h3>It is made of parts</h3><p>Small plugins you can add, swap, remove, version, share and reuse, so nothing has to be rebuilt from zero.</p></div>
+  </div>
+  <p class="dim" style="margin-top: .9em">And it is yours: it runs on your machine, with your data, from files you can commit to your own git.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Why now</span>
+  <h2>The SaaSpocalypse</h2>
   <div class="split">
     <div class="stack">
-      <p class="quote">"More than 10k plugins to solve basically the same problems."</p>
-      <p class="dim small">A DeepSeek Harness community member, discussion #8960</p>
+      <p class="quote">When agents write code, any product that is not agentic can be copied, rebuilt cheaper, or open-sourced.</p>
     </div>
     <div class="stack">
-      <div class="card"><h3>Noise over signal</h3><p>Forums full of repeated, generated bug reports nobody reads.</p></div>
-      <div class="card"><h3>No reuse</h3><p>Every user rebuilds the same plugin, poorly, again.</p></div>
-      <div class="card"><h3>No shared state</h3><p>Your setup cannot be copied, versioned or handed to a teammate.</p></div>
+      <div class="card"><h3>Features are no longer a moat</h3><p>A competitor's agent rebuilds your feature list in a weekend.</p></div>
+      <div class="card"><h3>Fixed software ages instantly</h3><p>Every user wants it slightly different; a fixed product serves the average user, and no one exactly.</p></div>
+      <div class="card"><h3>What stays valuable</h3><p>Software that keeps evolving with each user, with an agent inside that knows the app and grows it.</p></div>
     </div>
   </div>
 </section>
@@ -135,7 +146,7 @@
     <div class="card"><h3>No reproducibility</h3><p>No lock of exact versions and checksums; two machines drift apart.</p></div>
     <div class="card"><h3>No sharing</h3><p>No registry of whole apps, no verified pull, no way to start from someone else's setup and keep their updates.</p></div>
   </div>
-  <p class="dim" style="margin-top: 1em">That gap is why there are 10,000 plugins that solve the same problems.</p>
+  <p class="dim" style="margin-top: 1em">That gap is why the DeepSeek Harness community already has thousands of plugins that solve the same problems again and again.</p>
 </section>
 
 <section data-background-color="#0e0e0e">
@@ -247,7 +258,7 @@ spec:
       <span class="eyebrow">New capability</span>
       <div class="prompt">Build a plugin that gives you a tool to list the open issues of any GitHub repository. Then show me the newest issues of deepseek-ai/deepseek-harness.</div>
       <div class="timing"><span><b>2 min 47 s</b> built and used</span><span><b>3</b> files</span></div>
-      <p class="small dim">Not a button this time: a tool the agent itself can call from now on. Made for your workflow in minutes, shared through one registry instead of copy 10,001.</p>
+      <p class="small dim">Not a button this time: a tool the agent itself can call from now on. Made for your workflow in minutes, then shared through one registry so the next person pulls it instead of rebuilding it.</p>
     </div>
     <figure><img class="shot" src="/demo/_shared/img/github-tool.png" alt="The agent listing open issues with the tool it just wrote"></figure>
   </div>
@@ -407,16 +418,15 @@ spec:
 </section>
 
 <section>
-  <span class="eyebrow">Our answer to the 10,000 plugins</span>
-  <h2>Signal over noise</h2>
+  <span class="eyebrow">What we stand for</span>
+  <h2>Software that evolves, built from parts that last</h2>
   <div class="grid-3" style="margin-top: .6em">
-    <div class="card"><h3>Interoperability</h3><p>Cordis plugins run in ACRYL and in stock DeepSeek Harness; one registry lists both.</p></div>
-    <div class="card"><h3>Stability</h3><p>Every plugin is verified before it installs, pinned by version and checksum, rolled back on failure.</p></div>
-    <div class="card"><h3>Composability</h3><p>An app is a list of plugins in blend.yaml. Add, override or remove one without forking.</p></div>
-    <div class="card"><h3>Reusability</h3><p>Share a plugin or a whole app; others pull it by name instead of rebuilding it.</p></div>
-    <div class="card"><h3>Ownership</h3><p>Your app, your data, your machine. Commit your Blend to your own git.</p></div>
-    <div class="card"><h3>Open</h3><p>MIT, on GitHub and npm. acryl.dev, acrylblends.github.io, cordisplugins.github.io.</p></div>
-  </div>
+    <div class="card"><h3>Self-evolving</h3><p>The agent inside writes, tests and repairs the app's plugins as your use of it changes.</p></div>
+    <div class="card"><h3>Composable</h3><p>An app is a list of plugins in blend.yaml. Add, override or remove one without forking.</p></div>
+    <div class="card"><h3>Stable</h3><p>Every plugin is verified before it installs, pinned by version and checksum, reverted cleanly on failure.</p></div>
+    <div class="card"><h3>Interoperable</h3><p>Cordis plugins run in ACRYL and in stock DeepSeek Harness; one registry lists both.</p></div>
+    <div class="card"><h3>Reusable</h3><p>Share a plugin or a whole app; others pull it by name instead of rebuilding it.</p></div>
+    <div class="card"><h3>Yours and open</h3><p>Your machine, your data, your git. MIT, on GitHub and npm.</p></div>
 </section>
 
 <section>

@@ -112,7 +112,7 @@ footer { font: 13px var(--mono); color: var(--ink-dim); border-top: 1px dashed v
 <div class="layout">
 <nav class="toc" aria-label="Sections">
   <span class="toc-title">On this page</span>
-  <a href="#idea">The problem</a>
+  <a href="#idea">The mission</a>
   <a href="#cordis">Cordis</a>
   <a href="#blends">ACRYL Blends</a>
   <a href="#ide">Daily IDE</a>
@@ -141,10 +141,22 @@ footer { font: 13px var(--mono); color: var(--ink-dim); border-top: 1px dashed v
 </header>
 
 <section id="idea">
-  <span class="label">The idea</span>
-  <h2>Ten thousand plugins that solve the same problems</h2>
-  <p class="quote">"More than 10k plugins to solve basically the same problems."<small>A DeepSeek Harness community member, discussion #8960</small></p>
-  <p>Open agent harnesses grow plugins faster than anyone can review them. Nothing is reused, nobody's setup can be copied, and the forums fill with noise. ACRYL's answer is to make the plugin the unit of everything and the whole app a shareable, versioned list of plugins.</p>
+  <span class="label">The mission</span>
+  <h2>A new kind of software: composable software 2.0, agentic from day one</h2>
+  <div class="cards">
+    <div class="card"><h3>It writes itself</h3><p>Ask for a feature and the agent inside builds it as a plugin, live, while you keep working.</p></div>
+    <div class="card"><h3>It repairs itself</h3><p>The agent tests what it built, finds what is wrong and fixes it; a broken plugin is reverted without a trace.</p></div>
+    <div class="card"><h3>It adapts to its use</h3><p>Two people start from the same app and end up with two different apps, each shaped by how they work.</p></div>
+    <div class="card"><h3>It is made of parts</h3><p>Small plugins you can add, swap, remove, version, share and reuse, so nothing is rebuilt from zero.</p></div>
+  </div>
+  <p>And it is yours: it runs on your machine, with your data, from files you can commit to your own git.</p>
+  <h3>Why now: the SaaSpocalypse</h3>
+  <p class="quote">When agents write code, any product that is not agentic can be copied, rebuilt cheaper, or open-sourced.</p>
+  <div class="cards">
+    <div class="card"><h3>Features are no longer a moat</h3><p>A competitor's agent rebuilds your feature list in a weekend.</p></div>
+    <div class="card"><h3>Fixed software ages instantly</h3><p>Every user wants it slightly different; a fixed product serves the average user, and no one exactly.</p></div>
+    <div class="card"><h3>What stays valuable</h3><p>Software that keeps evolving with each user, with an agent inside that knows the app and grows it.</p></div>
+  </div>
   <div class="arch" role="img" aria-label="Cordis plugins are composed into a Blend described by blend.yaml and blend.lock.json, which runs as apps such as the ACRYL IDE, GTD, accounting and a drum machine, each with an agent inside">
     <div class="col">
       <span class="col-title">Cordis plugins</span>
@@ -205,7 +217,7 @@ export function apply(ctx) {
   // unloading the plugin unregisters the tool: no cleanup code
 }</pre></div>
   <h3>What Cordis does not do</h3>
-  <p>Cordis composes a running process. It does not describe, version or share an app: a profile is a local list of bundles on one machine, nothing pins exact versions and checksums, and there is no registry of whole apps to start from. That gap is why there are thousands of plugins that solve the same problems.</p>
+  <p>Cordis composes a running process. It does not describe, version or share an app: a profile is a local list of bundles on one machine, nothing pins exact versions and checksums, and there is no registry of whole apps to start from. That gap is why the DeepSeek Harness community already has thousands of plugins that solve the same problems again and again.</p>
 </section>
 
 <section id="blends">
