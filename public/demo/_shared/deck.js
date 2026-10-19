@@ -237,6 +237,7 @@
     function chapterOf(i) { for (var c = chapters.length - 1; c >= 0; c--) if (i >= chapters[c].start) return c; return 0 }
     function update() {
       var i = R.getIndices().h, c = chapterOf(i)
+      body.classList.toggle('on-title', i === 0)
       slideButtons.forEach(function (b, k) { b.setAttribute('aria-current', String(k === i)) })
       chapterHeads.forEach(function (h, k) { h.classList.toggle('here', k === c) })
       chapterButtons.forEach(function (b, k) { b.setAttribute('aria-current', String(k === c)); b.classList.toggle('done', k < c) })

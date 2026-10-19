@@ -94,7 +94,7 @@ html, body, .reveal-viewport { background: var(--bg); color-scheme: dark; }
 @media (prefers-reduced-motion: reduce) { .reveal .slides section { transition: none !important; } }
 
 /* Title logo: the wordmark fills 75% of the PNG's width and 43% of its height (empty 33% above, 24% below); the margins cancel the empty bands. */
-.reveal .slides img.hero-logo { width: 28em; max-width: 90%; margin: -9.3em auto -5.6em; border: 0; background: none; box-shadow: none; }
+.reveal .slides img.hero-logo { width: 21em; max-width: 90%; margin: 0 auto .9em; border: 0; background: none; box-shadow: none; }
 
 /* Cordis fiber demo */
 .fiber { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1em; align-items: start; }
@@ -195,7 +195,7 @@ svg.dg text { white-space: pre; }
 
 /* Navigator: a chapter strip that always shows where the talk is, and a contents sidebar (T or the top-left button) to jump anywhere. */
 .nav-strip { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: flex; gap: 6px; font: 12px/1 var(--mono); pointer-events: none; }
-.nav-strip button { pointer-events: auto; background: none; border: 0; color: var(--dim); opacity: .45; font: inherit; padding: 4px 6px; border-radius: 4px; cursor: pointer; transition: opacity .2s, color .2s; }
+.nav-strip button { white-space: nowrap; pointer-events: auto; background: none; border: 0; color: var(--dim); opacity: .45; font: inherit; padding: 4px 6px; border-radius: 4px; cursor: pointer; transition: opacity .2s, color .2s; }
 .nav-strip button:hover { opacity: .9; }
 .nav-strip button[aria-current="true"] { color: var(--accent); opacity: 1; }
 .nav-strip button.done { opacity: .7; }
@@ -215,3 +215,7 @@ svg.dg text { white-space: pre; }
 .nav-panel li button[aria-current="true"] { background: var(--accent-dim); color: var(--text); }
 .nav-panel li button[aria-current="true"] .n { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }
+
+/* The ACRYL mark on every slide, top right, out of the way of the contents button; the title slide shows the large one instead. */
+.deck-mark { position: fixed; top: calc(18px + env(safe-area-inset-top, 0px)); right: calc(22px + env(safe-area-inset-right, 0px)); width: 120px; height: auto; z-index: 30; opacity: .9; pointer-events: none; transition: opacity .3s; }
+body.on-title .deck-mark { opacity: 0; }
