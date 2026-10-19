@@ -225,3 +225,15 @@ body.on-title .deck-mark { opacity: 0; }
 .reveal p.rsvp a { display: inline-block; font-family: var(--mono); font-size: .62em; color: var(--text); text-decoration: none; border: 1px solid var(--accent); background: var(--accent-dim); border-radius: 999px; padding: .35em 1em; }
 .reveal p.rsvp a:hover, .reveal p.rsvp a:focus-visible { background: var(--accent); outline: none; }
 .reveal p.event { max-width: none; white-space: nowrap; margin: .5em auto 0; font-family: var(--mono); font-size: .5em; line-height: 1.55; color: var(--dim); }
+
+/* Real app screenshots: a gallery slide, a wide single shot, and click-to-enlarge on any figure marked data-zoom. */
+.reveal .slides img.shot.wide { width: auto; max-width: 100%; max-height: 60vh; display: block; margin: 0 auto; }
+.reveal .gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: .4em; }
+.reveal .gallery figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
+.reveal .gallery img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); display: block; margin: 0; }
+.reveal .gallery figcaption { font-family: var(--mono); font-size: 14px; color: var(--dim); line-height: 1.3; text-align: left; }
+.reveal .gallery .note { align-content: center; font-size: 18px; color: var(--dim); line-height: 1.45; text-align: left; }
+.reveal .gallery .note p { margin: 0; }
+.reveal [data-zoom] { cursor: zoom-in; }
+.zoom-layer { position: fixed; inset: 0; z-index: 40; background: rgba(8, 8, 8, .92); display: grid; place-items: center; padding: 24px; cursor: zoom-out; }
+.zoom-layer img { max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }

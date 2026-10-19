@@ -250,9 +250,26 @@
     update()
   }
 
+  // Click a figure marked data-zoom to see its screenshot full size; a click or Esc closes it.
+  function zoomShots() {
+    var layer = null
+    function close() { if (layer) { layer.remove(); layer = null } }
+    document.addEventListener('click', function (e) {
+      if (layer) { close(); return }
+      var fig = e.target.closest && e.target.closest('[data-zoom]')
+      if (!fig) return
+      var img = fig.querySelector('img'); if (!img) return
+      layer = el('div', 'zoom-layer'); var big = el('img'); big.src = img.src; big.alt = img.alt; layer.appendChild(big)
+      document.body.appendChild(layer)
+    })
+    document.addEventListener('keydown', function (e) { if (layer && e.key === 'Escape') { e.stopPropagation(); close() } }, true)
+    if (window.Reveal) window.Reveal.on('slidechanged', close)
+  }
+
   window.AcrylDeck = {
     init: function () {
       copyButtons(document)
+      zoomShots()
       if (window.Reveal && document.querySelector('.reveal .slides > section')) navigator(window.Reveal)
       document.querySelectorAll('[data-fiber-demo]').forEach(fiberDemo)
       document.querySelectorAll('[data-registry]').forEach(liveRegistry)
