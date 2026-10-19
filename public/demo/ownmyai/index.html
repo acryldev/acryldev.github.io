@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACRYL at ownMyAI, Vienna</title>
+<meta name="description" content="ACRYL and ACRYL Blends: agentic apps from day one. Talk at ownMyAI, Vienna, 20 October 2026.">
+<link rel="icon" href="/acryl-logo-white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="/demo/_shared/deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section data-background-color="#121212">
+  <div class="center">
+    <img src="/demo/_shared/img/acryl-logo-white.png" alt="ACRYL" style="width: 3.2em; margin: 0 auto 1em; border: 0; background: none; box-shadow: none">
+    <h1>Agentic apps<br>from day one</h1>
+    <p class="dim">ACRYL, the IDE that writes its own plugins, and ACRYL Blends, the framework it is built with.</p>
+    <p class="mono dim small">ownMyAI · Vienna · 20 October 2026 · acryl.dev</p>
+  </div>
+  <aside class="notes">Open with the claim. Everything shown today runs live.</aside>
+</section>
+
+<section>
+  <span class="eyebrow">The problem</span>
+  <h2>An open agent harness with 10,000 plugins that solve the same problems</h2>
+  <div class="split">
+    <div class="stack">
+      <p class="quote">"More than 10k plugins to solve basically the same problems."</p>
+      <p class="dim small">A DeepSeek Harness community member, discussion #8960</p>
+    </div>
+    <div class="stack">
+      <div class="card"><h3>Noise over signal</h3><p>Forums full of repeated, generated bug reports nobody reads.</p></div>
+      <div class="card"><h3>No reuse</h3><p>Every user rebuilds the same plugin, poorly, again.</p></div>
+      <div class="card"><h3>No shared state</h3><p>Your setup cannot be copied, versioned or handed to a teammate.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">The idea</span>
+  <h2>An app is a Blend: Cordis plugins, composed, versioned, shareable</h2>
+  <div class="grid-3" style="margin-top: .8em">
+    <div class="card"><h3>Plugins</h3><p>Small Cordis plugins: a service, a tool for the agent, a UI slot. Pulled from one registry, verified by checksum.</p></div>
+    <div class="card"><h3>blend.yaml + lock</h3><p>Which plugins, which versions, how they are composed. Commit it, diff it, share it, restore it anywhere.</p></div>
+    <div class="card"><h3>An agent inside</h3><p>Every app has an agent that operates it in plain language and writes new plugins for it while it runs.</p></div>
+  </div>
+  <p class="dim" style="margin-top: 1em">ACRYL, the agentic IDE, is the biggest Blend. A GTD planner, an accounting app and a drum machine are Blends too.</p>
+</section>
+
+<section data-background-color="#0e0e0e">
+  <div class="center"><span class="eyebrow">Part 1</span><h1>Your daily IDE</h1><p class="dim">Projects, worktrees, every coding agent side by side.</p></div>
+</section>
+
+<section>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">Daily work</span>
+      <h2>One worktree per idea, any agent in it</h2>
+      <ul class="small">
+        <li>Projects and git worktrees in one tree; each branch gets its own chat</li>
+        <li>Claude Code, Codex, Grok, Copilot, OpenCode, Pi and ACRYL's own agent as tabs</li>
+        <li>Terminal, browser, file editor, diff, board and doc tabs</li>
+        <li>Comment on a line, send it to the agent; review and commit in the right panel</li>
+        <li>A shared brief every agent in the workspace reads</li>
+      </ul>
+      <div>
+        <span class="chip on">Claude</span><span class="chip on">Codex</span><span class="chip">Grok</span><span class="chip">GitHub Copilot</span><span class="chip">OpenCode</span><span class="chip">Pi</span><span class="chip">ACRYL chat</span>
+      </div>
+    </div>
+    <figure><img class="shot" src="/demo/_shared/img/claude-worktree.png" alt="ACRYL with a project, a feature worktree and Claude Code running in it"></figure>
+  </div>
+</section>
+
+<section data-background-color="#0e0e0e">
+  <div class="center"><span class="eyebrow">Part 2</span><h1>It builds itself</h1><p class="dim">Ask for a feature your workflow lacks. It becomes a plugin, live.</p></div>
+</section>
+
+<section>
+  <div class="split flip">
+    <figure><img class="shot" src="/demo/_shared/img/pomodoro.png" alt="The agent's steps writing and installing a Pomodoro plugin, the timer visible in the header"></figure>
+    <div class="stack">
+      <span class="eyebrow">Live</span>
+      <div class="prompt">Build me a plugin that adds a Pomodoro timer to the top bar: one click starts 25 minutes, another stops it. Install it so I can use it now.</div>
+      <div class="timing"><span><b>~90 s</b> button live</span><span><b>4</b> files</span><span><b>0</b> restarts</span></div>
+      <p class="small dim">It reads ACRYL's plugin docs, writes the plugin, verifies and installs it, then clicks its own button to test it. In rehearsal it found an accessibility flaw in its own code and fixed it while the timer kept running.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">New capability</span>
+      <div class="prompt">Build a plugin that gives you a tool to list the open issues of any GitHub repository. Then show me the newest issues of deepseek-ai/deepseek-harness.</div>
+      <div class="timing"><span><b>2 min 47 s</b> built and used</span><span><b>3</b> files</span></div>
+      <p class="small dim">Not a button this time: a tool the agent itself can call from now on. Made for your workflow in minutes, shared through one registry instead of copy 10,001.</p>
+    </div>
+    <figure><img class="shot" src="/demo/_shared/img/github-tool.png" alt="The agent listing open issues with the tool it just wrote"></figure>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">How a plugin is made</span>
+  <h2>Four files, verified, installed into the running app</h2>
+  <div class="grid-4" style="margin-top: .6em">
+    <div class="card"><h3 class="mono">package.json</h3><p>Name, version, what it needs and provides.</p></div>
+    <div class="card"><h3 class="mono">index.js</h3><p>The host side: services and tools for the agent.</p></div>
+    <div class="card"><h3 class="mono">client.js</h3><p>The UI side: fills a slot such as the header.</p></div>
+    <div class="card"><h3 class="mono">cordis.patch.yml</h3><p>Where it sits in the app's composition.</p></div>
+  </div>
+  <p class="dim small" style="margin-top: 1em">acryl_verify_plugin checks it, acryl_install_plugin activates it without a restart, a second install updates it in place. Share it to GitHub or npm; pull anyone's with <code>/plugin pull github:owner/repo@version</code>, checked by sha512.</p>
+</section>
+
+<section data-background-color="#0e0e0e">
+  <div class="center"><span class="eyebrow">Part 3</span><h1>Agentic apps,<br>any direction</h1><p class="dim">Same framework. The agent operates the app, not only its code.</p></div>
+</section>
+
+<section>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">acryl.gtd</span>
+      <h2>Getting Things Done</h2>
+      <div class="term"><div class="row"><code>acryl new my-planner --from acryl.gtd</code><button class="copy" data-copy="acryl new my-planner --from acryl.gtd">copy</button></div></div>
+      <div class="prompt">Capture: call the dentist tomorrow, and plan the Vienna talk as a project</div>
+      <div class="timing"><span><b>9 to 42 s</b></span><span>cards appear on the board, no reload</span></div>
+    </div>
+    <figure><img class="shot" src="/demo/_shared/img/gtd-board.png" alt="GTD board with the two captured items in the Inbox"></figure>
+  </div>
+</section>
+
+<section>
+  <div class="split flip">
+    <div class="stack">
+      <img class="shot" src="/demo/_shared/img/accounting-chat.png" alt="The agent creating invoice 2026-0003 for ACME with VAT">
+    </div>
+    <div class="stack">
+      <span class="eyebrow">acryl.accounting</span>
+      <h2>Invoices, expenses, VAT</h2>
+      <div class="prompt">Add an invoice for ACME, 1200 EUR, due in 14 days.</div>
+      <div class="timing"><span><b>6 to 14 s</b></span><span>then "Which invoices are overdue?" and "Summarize Q3 VAT", ~10 s each</span></div>
+      <p class="small dim">Six agent tools over the app's own data. "Add a CSV export" makes it write a new plugin with its tests in about two minutes.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">acryl.music · try it here</span>
+  <h2>A drum machine the agent plays</h2>
+  <div class="split" style="height: auto; align-items: start">
+    <div class="stack" data-sequencer>
+      <div class="seq"></div>
+      <div class="seq-controls">
+        <button type="button" class="primary" data-play>Play</button>
+        <button type="button" data-stop>Stop</button>
+        <button type="button" data-tempo="90">90 bpm</button>
+        <button type="button" data-tempo="124">124 bpm</button>
+        <button type="button" data-tempo="128">128 bpm</button>
+        <button type="button" data-clear>Clear</button>
+        <span class="mono small dim"><span data-bpm>124</span> bpm</span>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="prompt">Make a 128 bpm techno beat.</div>
+      <div class="prompt">Add a closed hi-hat track: on the page, synthesized, playable by the tools.</div>
+      <div class="timing"><span><b>12 s</b> operate</span><span><b>~2.5 min</b> extend</span></div>
+      <p class="small dim">This grid is a small copy running in the slide. Sounds are synthesized; nothing is downloaded.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">One registry each, read live</span>
+  <h2>Blends and plugins people can reuse</h2>
+  <div class="split" style="height: auto; align-items: start">
+    <div class="stack" data-registry="https://acrylblends.github.io/registry/index.json" data-kind="blends">
+      <h3><span data-count>·</span> Blends <span class="live"><i></i> reading</span></h3>
+      <div class="reg"></div>
+    </div>
+    <div class="stack" data-registry="https://cordisplugins.github.io/registry/index.json" data-kind="plugins">
+      <h3><span data-count>·</span> Cordis plugins <span class="live"><i></i> reading</span></h3>
+      <div class="reg"></div>
+    </div>
+  </div>
+  <p class="footer-note">acryl.dev/blends and acryl.dev/packages mirror both registries.</p>
+</section>
+
+<section>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">An app is a Blend</span>
+      <h2>Snapshot it, clone it, it restores itself</h2>
+      <div class="term">
+        <div class="row"><code>/plugin pull github:inboxxobni/acryl-quick-notes@0.3.0</code></div>
+        <div class="row"><code>/blend snapshot</code></div>
+        <div class="out">blend.yaml + blend.lock.json: every plugin, version and source</div>
+        <div class="row"><code>acryl new planner-copy --from ./my-planner</code></div>
+        <div class="out">the copy pulls its plugins on first start</div>
+      </div>
+    </div>
+    <div class="stack">
+<pre class="term" style="white-space: pre; overflow: auto; font-size: .48em; margin: 0"><code>{
+  "formatVersion": 3,
+  "origin": { "id": "app.my-planner", "kind": "Blend" },
+  "lineage": { "blueprint": "acryl.gtd", "blueprintVersion": "0.1.0" },
+  "parameters": {},
+  "rows": [ ... ],
+  "modules": [
+    { "name": "acryl-quick-notes", "origin": "pulled",
+      "version": "0.3.0",
+      "spec": "github:inboxxobni/acryl-quick-notes@0.3.0",
+      "digest": "sha512-m9bN..." }
+  ]
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">From scratch</span>
+  <h2>A new agentic app in three seconds</h2>
+  <div class="term" style="max-width: 30em">
+    <div class="row"><code>npx acrylblends@0.2.0 init my-agent --agent --yes</code><button class="copy" data-copy="npx acrylblends@0.2.0 init my-agent --agent --yes">copy</button></div>
+    <div class="row"><code>cd my-agent &amp;&amp; npm install &amp;&amp; npm start</code><button class="copy" data-copy="cd my-agent && npm install && npm start">copy</button></div>
+    <div class="out">my-agent listening on http://127.0.0.1:PORT</div>
+    <div class="row"><code>curl -X POST $URL/ask -H 'content-type: application/json' -d '{"question":"create route hello /hello Hello"}'</code></div>
+    <div class="out">hello: installed, active.</div>
+    <div class="row"><code>curl $URL/hello</code></div>
+    <div class="out">{"text":"Hello"}</div>
+  </div>
+  <p class="dim small" style="margin-top: .8em">The app grows from inside: the agent adds a route as a plugin while the server runs. Node 22.19+, MIT, on npm and GitHub.</p>
+</section>
+
+<section>
+  <span class="eyebrow">What is built today</span>
+  <h2><span data-total>95</span> features, all real</h2>
+  <div data-features="/demo/_shared/features.json">
+    <div class="areas"></div>
+    <ul class="feature-list"></ul>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Runs where you work</span>
+  <h2>macOS, Windows, Linux. Desktop, Web, terminal.</h2>
+  <div class="grid-3" style="margin-top: .6em">
+    <div class="card"><h3>Desktop</h3><p>Installers for macOS (Apple silicon, Intel), Windows 10 and 11, Ubuntu and Debian.</p></div>
+    <div class="card"><h3>Web</h3><p>The same app in your browser, from one command.</p></div>
+    <div class="card"><h3>Terminal</h3><p>A full terminal UI and CLI: <code>npm install -g acryl</code></p></div>
+  </div>
+  <div class="term" style="margin-top: 1em; max-width: 36em">
+    <div class="row"><code>curl -fsSL https://acryl.dev/install | bash</code><button class="copy" data-copy="curl -fsSL https://acryl.dev/install | bash">copy</button></div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Our answer to the 10,000 plugins</span>
+  <h2>Signal over noise</h2>
+  <div class="grid-3" style="margin-top: .6em">
+    <div class="card"><h3>Interoperability</h3><p>Cordis plugins run in ACRYL and in stock DeepSeek Harness; one registry lists both.</p></div>
+    <div class="card"><h3>Stability</h3><p>Every plugin is verified before it installs, pinned by version and checksum, rolled back on failure.</p></div>
+    <div class="card"><h3>Composability</h3><p>An app is a list of plugins in blend.yaml. Add, override or remove one without forking.</p></div>
+    <div class="card"><h3>Reusability</h3><p>Share a plugin or a whole app; others pull it by name instead of rebuilding it.</p></div>
+    <div class="card"><h3>Ownership</h3><p>Your app, your data, your machine. Commit your Blend to your own git.</p></div>
+    <div class="card"><h3>Open</h3><p>MIT, on GitHub and npm. acryl.dev, acrylblends.github.io, cordisplugins.github.io.</p></div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Next</span>
+  <h2>What we are building now</h2>
+  <ul>
+    <li><span class="pill next">next</span> The Blends page: save, share, pull another Blend with a diff of every plugin change</li>
+    <li><span class="pill next">next</span> Software factory: see every agent session on the machine, hand a session from one agent to another</li>
+    <li><span class="pill next">next</span> Workflows that travel with a Blend: one main agent, workers in isolated worktrees, spec-driven</li>
+    <li><span class="pill next">next</span> Settings and workspaces inside a Blend</li>
+  </ul>
+</section>
+
+<section>
+  <div class="center">
+    <h1>Own your AI.</h1>
+    <p class="big">acryl.dev</p>
+    <p class="mono dim small">github.com/acryldev/acryl · acrylblends.github.io · cordisplugins.github.io · npm: acryl, acrylblends</p>
+    <p class="mono dim small"><a href="/demo/ownmyai/spe/">The whole talk on one page: acryl.dev/demo/ownmyai/spe</a></p>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="/demo/_shared/deck.js"></script>
+<script>
+  Reveal.initialize({ hash: true, slideNumber: 'c/t', transition: 'fade', backgroundTransition: 'fade', width: 1600, height: 900, margin: 0.06, center: true, plugins: [RevealNotes] })
+    .then(function () { window.AcrylDeck.init() })
+</script>
+</body>
+</html>

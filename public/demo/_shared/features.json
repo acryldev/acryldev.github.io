@@ -1,0 +1,686 @@
+[
+ {
+  "n": "1",
+  "title": "Install, surfaces and updates",
+  "items": [
+   {
+    "id": "1.1",
+    "name": "macOS app (DMG, one CPU per build, about 0.7 GB installed)",
+    "surfaces": "Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "1.2",
+    "name": "Windows installer (NSIS), clean uninstall",
+    "surfaces": "Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "1.3",
+    "name": "Linux package (.deb)",
+    "surfaces": "Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "1.4",
+    "name": "CLI from npm (`npm i -g acryl`)",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "1.5",
+    "name": "Local Web (`acryl web`), same runtime and plugins",
+    "surfaces": "Web",
+    "built": "yes"
+   },
+   {
+    "id": "1.6",
+    "name": "Serve from a container, agents keep working with the browser closed",
+    "surfaces": "Web",
+    "built": "yes"
+   },
+   {
+    "id": "1.7",
+    "name": "\"Update available\" notice from ACRYL's own release feed",
+    "surfaces": "Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "1.8",
+    "name": "Nix flake (CLI and Desktop)",
+    "surfaces": "CLI, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "1.9",
+    "name": "Compatibility mode (stock DSH client) and advanced mode",
+    "surfaces": "Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "1.10",
+    "name": "One shared workspace for Web and Desktop",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "2",
+  "title": "Workspace tree, projects and workspaces",
+  "items": [
+   {
+    "id": "2.1",
+    "name": "Project tree: projects, git worktrees, folders that are not git",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.2",
+    "name": "Add a project with the system folder picker (macOS, Windows, Web chooser)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.3",
+    "name": "New worktree from the tree",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.4",
+    "name": "Chats per branch, bound to their worktree",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.5",
+    "name": "Open chats only, the rest behind \"N earlier chats\"",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.6",
+    "name": "Rename a chat or tab from the tree or the tab strip",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.7",
+    "name": "Hide a chat (hover \u00d7), remove a project, survives a reload",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.8",
+    "name": "Workspaces: named sets of projects, switched from the strip under the tree, own tabs each",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.9",
+    "name": "Shared Context workspace: a brief every agent reads (chat, Claude Code, Codex, Pi)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "2.10",
+    "name": "Agent lists, switches, creates and adds to workspaces after asking",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "2.11",
+    "name": "Board cards name their chats and worktrees",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "3",
+  "title": "The canvas: tabs and layout",
+  "items": [
+   {
+    "id": "3.1",
+    "name": "Tab strip with the \"+\" menu",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.2",
+    "name": "Chat tab (DSH's agent, AcrylDSH Chat)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.3",
+    "name": "Terminal tab (a real PTY)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.4",
+    "name": "Agent tabs: Claude Code, Codex and other CLI agents in a terminal",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.5",
+    "name": "Browser tab (any HTTP or HTTPS address)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.6",
+    "name": "File tab (CodeMirror editor)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.7",
+    "name": "Diff tab (git changes, comment on a line)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.8",
+    "name": "Board tab (kanban, drag cards)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.9",
+    "name": "Doc tab",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.10",
+    "name": "Tab types added by plugins",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.11",
+    "name": "Split view with a draggable divider, fullscreen",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.12",
+    "name": "Terminal panel in three modes (stacked, bottom, side by side)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "3.13",
+    "name": "Attention queue: an agent that needs you is flagged (Claude Code hooks)",
+    "surfaces": "Web, Desktop",
+    "built": "partly (claude code only)"
+   }
+  ]
+ },
+ {
+  "n": "4",
+  "title": "Files, editor and comments",
+  "items": [
+   {
+    "id": "4.1",
+    "name": "Files tab: ACRYL's file tree (T3 Code style) in DSH's Files tab",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "4.2",
+    "name": "Clickable breadcrumbs in the editor",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "4.3",
+    "name": "Line comments: \"+\" on a line, a note with Comment to clipboard, All comments to clipboard, \u00d7",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "4.4",
+    "name": "Comments page: every comment of the worktree, copy, send to a terminal or agent, one or all",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "4.5",
+    "name": "Diff comments like file comments",
+    "surfaces": "Web, Desktop",
+    "built": "no"
+   },
+   {
+    "id": "4.6",
+    "name": "A picked element becomes a comment",
+    "surfaces": "Web, Desktop",
+    "built": "no"
+   },
+   {
+    "id": "4.7",
+    "name": "A file opened from a chat link opens in ACRYL's editor",
+    "surfaces": "Web, Desktop",
+    "built": "no (dsh's preview)"
+   }
+  ]
+ },
+ {
+  "n": "5",
+  "title": "Right panel and git",
+  "items": [
+   {
+    "id": "5.1",
+    "name": "Start page (the guide), scrolls when tall",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "5.2",
+    "name": "Review tab (comments sent from diffs)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "5.3",
+    "name": "Checks tab",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "5.4",
+    "name": "Comments tab",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "5.5",
+    "name": "Changes and the commit box",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "6",
+  "title": "Agents and models",
+  "items": [
+   {
+    "id": "6.1",
+    "name": "Settings > Models: providers, keys, choose a model",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "6.2",
+    "name": "Sign in with an account (Claude, ChatGPT, DeepSeek) on Web, Desktop and the terminal",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "6.3",
+    "name": "Agent presets (`/presets`, Settings > Agent presets)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "6.4",
+    "name": "Custom agents (Settings > Agents)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "6.5",
+    "name": "Interactive authorization prompts (approve a tool call)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "6.6",
+    "name": "Swap agents mid-project keeping context, structured handoffs",
+    "surfaces": "-",
+    "built": "no (home page claims it)"
+   }
+  ]
+ },
+ {
+  "n": "7",
+  "title": "Command palette, shortcuts, Settings",
+  "items": [
+   {
+    "id": "7.1",
+    "name": "Command palette (Cmd/Ctrl+Shift+P)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "7.2",
+    "name": "Settings > Shortcuts lists every command and its keys",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "7.3",
+    "name": "Settings opens with Cmd/Ctrl+,",
+    "surfaces": "Web, Desktop",
+    "built": "partly (fails in the feature check)"
+   },
+   {
+    "id": "7.4",
+    "name": "Settings sections: General, Models, Built-in plugins, Agent presets, Agents, Tabs, Command palette, Shortcuts, Agent Control, Desktop",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "7.5",
+    "name": "Settings > Tabs (which tab types the \"+\" menu offers)",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "8",
+  "title": "Pointing at the screen and Agent Control",
+  "items": [
+   {
+    "id": "8.1",
+    "name": "Element picker (Cmd+Shift+.): outline an element, copy its selector and text",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "8.2",
+    "name": "Agent Control: the agent reads the window, clicks, types, opens panels, switches plugins, each step approved and logged",
+    "surfaces": "Web, Desktop",
+    "built": "yes (scope a)"
+   },
+   {
+    "id": "8.3",
+    "name": "`acryl control`: drive a running app from the terminal",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "8.4",
+    "name": "`acryl doctor` and repair with undo (rescue a broken install)",
+    "surfaces": "CLI",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "9",
+  "title": "Plugins",
+  "items": [
+   {
+    "id": "9.1",
+    "name": "DSH's Plugins page: Add plugin from `github:owner/repo`, on/off, uninstall",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "9.2",
+    "name": "Lifecycle tab: every plugin row, version, disable, reload",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "9.3",
+    "name": "Architecture tab: the Cordis plugin graph",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "9.4",
+    "name": "One on/off store for both pages",
+    "surfaces": "Web, Desktop",
+    "built": "yes"
+   },
+   {
+    "id": "9.5",
+    "name": "Hot reload: a plugin installed or changed works without a restart",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.6",
+    "name": "The agent builds plugins (self-extension): docs, examples, verify, `/reload`",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.7",
+    "name": "Save a plugin to the app's store, version it",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.8",
+    "name": "Share a plugin to GitHub (private or public, secret check)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.9",
+    "name": "Share a plugin to npm (private scoped or public)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.10",
+    "name": "Pull a plugin from GitHub, npm, the store or a file; checksum and service contract checked",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.11",
+    "name": "Update a pulled plugin, roll back to a kept version",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.12",
+    "name": "The agent's plugin tool (asks before sharing or pulling)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.13",
+    "name": "Service contract (needs and adds) in each plugin",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.14",
+    "name": "Dotted plugin names (`app.sidebar.date-filter`)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "9.15",
+    "name": "Catalogs: acryl.dev/packages and cordisplugins.github.io",
+    "surfaces": "site",
+    "built": "yes"
+   },
+   {
+    "id": "9.16",
+    "name": "Market plugin (optional, off by default)",
+    "surfaces": "Desktop, Web, CLI",
+    "built": "yes"
+   },
+   {
+    "id": "9.17",
+    "name": "Plugin buttons on each plugin's page; every plugin listed by origin",
+    "surfaces": "Web, Desktop",
+    "built": "no"
+   }
+  ]
+ },
+ {
+  "n": "10",
+  "title": "Blends (the whole app)",
+  "items": [
+   {
+    "id": "10.1",
+    "name": "`acryl new <dir>`: a new app with the builder inside, its own home, port and data",
+    "surfaces": "CLI",
+    "built": "yes (framework checkout only, t013)"
+   },
+   {
+    "id": "10.2",
+    "name": "Blueprints: Blank and starters; the registry at acrylblends.github.io",
+    "surfaces": "CLI, site",
+    "built": "yes"
+   },
+   {
+    "id": "10.3",
+    "name": "`blend.yaml` and `blend.lock.json`",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "10.4",
+    "name": "`/blend snapshot`, `verify`, `apply`, `ledger`",
+    "surfaces": "all",
+    "built": "yes (pulled plugins missing, t026)"
+   },
+   {
+    "id": "10.5",
+    "name": "`acryl save`, `acryl remote connect`, `/app save`, `/app connect`",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "10.6",
+    "name": "`acryl new --from <git URL or registry id>`",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "10.7",
+    "name": "Apps are isolated (two apps never share a home, port or data)",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "10.8",
+    "name": "A configurable brand for an app",
+    "surfaces": "all",
+    "built": "partly (t015)"
+   },
+   {
+    "id": "10.9",
+    "name": "Settings, workspaces, pull with a diff, share to git or registry, the Blends page",
+    "surfaces": "Web, Desktop",
+    "built": "no"
+   }
+  ]
+ },
+ {
+  "n": "11",
+  "title": "Terminal (CLI) app",
+  "items": [
+   {
+    "id": "11.1",
+    "name": "`acryl` terminal app (pi-tui), durable sessions",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "11.2",
+    "name": "`/login`, `/logout`, `/model`, `/presets`, `/clear`",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "11.3",
+    "name": "`/files`, `/plugins` (fuzzy search), `/market`",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "11.4",
+    "name": "`acryl plugin list`, `enable`, `disable`, `doctor`",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "11.5",
+    "name": "YLY, the terminal pet",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "11.6",
+    "name": "Session stats",
+    "surfaces": "CLI",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "12",
+  "title": "UI library and look",
+  "items": [
+   {
+    "id": "12.1",
+    "name": "`@acryl/ui`: one component set for Web, Desktop and the terminal",
+    "surfaces": "all",
+    "built": "yes"
+   },
+   {
+    "id": "12.2",
+    "name": "Terminal UI layer and themes",
+    "surfaces": "CLI",
+    "built": "yes"
+   },
+   {
+    "id": "12.3",
+    "name": "ACRYL brand on every surface",
+    "surfaces": "all",
+    "built": "yes"
+   }
+  ]
+ },
+ {
+  "n": "13",
+  "title": "For plugin authors and contributors",
+  "items": [
+   {
+    "id": "13.1",
+    "name": "Plugin docs and verified examples for every plugin type (`acryl-plugin-context`)",
+    "surfaces": "repo",
+    "built": "yes"
+   },
+   {
+    "id": "13.2",
+    "name": "The system prompt as a plugin, generated copies per surface",
+    "surfaces": "repo",
+    "built": "yes"
+   },
+   {
+    "id": "13.3",
+    "name": "Publish an ACRYL package (npm keyword, manifest)",
+    "surfaces": "site",
+    "built": "yes"
+   },
+   {
+    "id": "13.4",
+    "name": "Runtime layers (ACRYL, DeepSeek Harness, Cordis)",
+    "surfaces": "site",
+    "built": "yes"
+   },
+   {
+    "id": "13.5",
+    "name": "Build and run from source, isolated dev home",
+    "surfaces": "repo",
+    "built": "yes"
+   }
+  ]
+ }
+]
