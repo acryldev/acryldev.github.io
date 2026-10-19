@@ -95,3 +95,32 @@ html, body, .reveal-viewport { background: var(--bg); color-scheme: dark; }
 
 /* Title logo: the wordmark fills 75% of the PNG's width and 43% of its height (empty 33% above, 24% below); the margins cancel the empty bands. */
 .reveal .slides img.hero-logo { width: 28em; max-width: 90%; margin: -9.3em auto -5.6em; border: 0; background: none; box-shadow: none; }
+
+/* Cordis fiber demo */
+.fiber { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1em; align-items: start; }
+.fiber .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .7em .9em; display: grid; gap: .45em; min-width: 0; }
+.fiber .provider { font-family: var(--mono); font-size: .55em; padding: .6em .8em; border-radius: 8px; border: 1px dashed var(--line); color: var(--dim); }
+.fiber .provider.on { border-style: solid; border-color: var(--ok); color: var(--ok); background: rgba(95, 207, 143, .08); }
+.fiber .state { font-family: var(--mono); font-size: .9em; font-weight: 500; letter-spacing: .04em; }
+.fiber .state[data-s="PENDING"] { color: var(--wait); }
+.fiber .state[data-s="LOADING"], .fiber .state[data-s="UNLOADING"] { color: var(--accent); }
+.fiber .state[data-s="ACTIVE"] { color: var(--ok); }
+.fiber ul.effects, .fiber ul.log { list-style: none; margin: 0; padding: 0; display: grid; gap: .25em; font-family: var(--mono); font-size: .45em; }
+.fiber ul.effects li { padding: .3em .6em; border-radius: 6px; border: 1px solid var(--line); color: var(--dim); white-space: pre; transition: all .25s ease; }
+.fiber ul.effects li.on { color: var(--text); border-color: var(--ok); background: rgba(95, 207, 143, .08); }
+.fiber ul.effects li.reverted { text-decoration: line-through; color: var(--wait); border-color: var(--wait); }
+.fiber ul.log li { color: var(--dim); }
+.fiber ul.log li:first-child { color: var(--text); }
+.fiber .btns { display: flex; gap: .5em; flex-wrap: wrap; }
+.fiber .btns button { font-family: var(--mono); font-size: .5em; background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: .4em .8em; cursor: pointer; }
+.fiber .btns button.primary { background: var(--accent); border-color: var(--accent); color: #0b0b0b; }
+.layers { display: grid; gap: .35em; }
+.layers .layer { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: .8em; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .55em .9em; }
+.layers .layer b { font-family: var(--mono); font-size: .55em; color: var(--accent); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.layers .layer span { font-size: .62em; color: var(--text); }
+.layers .layer.top { border-color: var(--accent); background: var(--accent-dim); }
+.formula { font-family: var(--mono); font-size: .95em; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .7em 1em; display: inline-block; }
+.formula em { font-style: normal; color: var(--accent); }
+.code { font-family: var(--mono); font-size: .5em; line-height: 1.55; background: #0b0b0b; border: 1px solid var(--line); border-radius: 10px; padding: .9em 1em; white-space: pre; overflow: auto; margin: 0; color: var(--text); }
+.code .c { color: var(--dim); }
+.code .k { color: var(--accent); }

@@ -140,9 +140,54 @@
     if (window.Reveal) window.Reveal.on('slidechanged', stop)
   }
 
+  // Cordis in one interaction: a consumer fiber declares inject ['llm']. It waits (PENDING) while the service is missing, activates when a
+  // provider appears, and when the provider leaves it unloads, reverting every effect it registered (LIFO), then waits again.
+  function fiberDemo(node) {
+    var provider = node.querySelector('[data-provider]')
+    var stateEl = node.querySelector('[data-state]')
+    var effectsEl = node.querySelector('[data-effects]')
+    var logEl = node.querySelector('[data-log]')
+    var effects = ['tool  summarize          registered', 'route GET /summary        mounted', 'timer refresh every 60 s  started']
+    var hasProvider = false, busy = false
+    function setState(s) { stateEl.textContent = s; stateEl.setAttribute('data-s', s) }
+    function log(line) { var li = el('li', '', line); logEl.insertBefore(li, logEl.firstChild); while (logEl.children.length > 5) logEl.removeChild(logEl.lastChild) }
+    function renderEffects(active) {
+      effectsEl.textContent = ''
+      effects.forEach(function (e) { var li = el('li', active ? 'on' : '', e); effectsEl.appendChild(li) })
+    }
+    function wait(ms) { return new Promise(function (r) { setTimeout(r, ms) }) }
+    function add() {
+      if (hasProvider || busy) return
+      busy = true; hasProvider = true
+      provider.classList.add('on'); provider.textContent = 'llm service: provided'
+      log('provider registers service llm')
+      wait(350).then(function () { setState('LOADING'); log('my-tool: inject satisfied, apply(ctx) runs') ; return wait(500) })
+        .then(function () { effectsEl.querySelectorAll('li').forEach(function (li, i) { setTimeout(function () { li.classList.add('on') }, i * 220) }); return wait(800) })
+        .then(function () { setState('ACTIVE'); log('my-tool: ACTIVE, 3 effects owned'); busy = false })
+    }
+    function remove() {
+      if (!hasProvider || busy) return
+      busy = true; hasProvider = false
+      log('provider unloads: service llm disappears')
+      setState('UNLOADING')
+      var items = [].slice.call(effectsEl.querySelectorAll('li')).reverse()
+      items.forEach(function (li, i) { setTimeout(function () { li.classList.remove('on'); li.classList.add('reverted') ; log('reverted: ' + li.textContent.replace(/\s+/g, ' ').trim()) }, 300 + i * 300) })
+      wait(300 + items.length * 300 + 300).then(function () {
+        provider.classList.remove('on'); provider.textContent = 'llm service: missing'
+        effectsEl.querySelectorAll('li').forEach(function (li) { li.classList.remove('reverted') })
+        setState('PENDING'); log('my-tool: PENDING, waits for llm again, no residue'); busy = false
+      })
+    }
+    renderEffects(false)
+    setState('PENDING')
+    node.querySelector('[data-add]').addEventListener('click', add)
+    node.querySelector('[data-remove]').addEventListener('click', remove)
+  }
+
   window.AcrylDeck = {
     init: function () {
       copyButtons(document)
+      document.querySelectorAll('[data-fiber-demo]').forEach(fiberDemo)
       document.querySelectorAll('[data-registry]').forEach(liveRegistry)
       document.querySelectorAll('[data-features]').forEach(featureMap)
       document.querySelectorAll('[data-sequencer]').forEach(sequencer)

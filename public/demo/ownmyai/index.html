@@ -41,15 +41,164 @@
   </div>
 </section>
 
+<section data-background-color="#0e0e0e">
+  <div class="center"><span class="eyebrow">The foundation</span><h1>Cordis</h1><p class="dim">The plugin kernel under DeepSeek Harness, and under everything in ACRYL.</p></div>
+</section>
+
 <section>
-  <span class="eyebrow">The idea</span>
-  <h2>An app is a Blend: Cordis plugins, composed, versioned, shareable</h2>
-  <div class="grid-3" style="margin-top: .8em">
-    <div class="card"><h3>Plugins</h3><p>Small Cordis plugins: a service, a tool for the agent, a UI slot. Pulled from one registry, verified by checksum.</p></div>
-    <div class="card"><h3>blend.yaml + lock</h3><p>Which plugins, which versions, how they are composed. Commit it, diff it, share it, restore it anywhere.</p></div>
-    <div class="card"><h3>An agent inside</h3><p>Every app has an agent that operates it in plain language and writes new plugins for it while it runs.</p></div>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">Where it comes from</span>
+      <h2>A kernel that grew up in chatbots</h2>
+      <ul class="small">
+        <li><b>Koishi</b>: a cross-platform chatbot framework (Discord, Telegram, Matrix and more) with 4,000+ community plugins</li>
+        <li><b>Cordis</b> (2022): its plugin kernel, extracted as a meta-framework. It knows nothing about LLMs, agents or tools</li>
+        <li><b>DeepSeek Harness</b> forked it (<code>@deepseek-ai/cordis</code>) and built the agent on top: model adapters, tools, sessions, sandboxes, the UI, all plugins</li>
+        <li>Backed by a paper: <i>A Programming Paradigm for Spatiotemporal Composability</i>, Peking University and DeepSeek-AI</li>
+      </ul>
+    </div>
+    <div class="layers">
+      <div class="layer"><b>Koishi</b><span>chatbots, years of production plugins</span></div>
+      <div class="layer"><b>Cordis</b><span>the plugin kernel, extracted</span></div>
+      <div class="layer"><b>DeepSeek Harness</b><span>an agent made of Cordis plugins</span></div>
+      <div class="layer top"><b>ACRYL</b><span>apps made of Cordis plugins, shareable as Blends</span></div>
+    </div>
   </div>
-  <p class="dim" style="margin-top: 1em">ACRYL, the agentic IDE, is the biggest Blend. A GTD planner, an accounting app and a drum machine are Blends too.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Why it exists</span>
+  <h2>The session lives longer than its parts</h2>
+  <p class="dim">A group chat or a coding session runs for days. Its capabilities arrive, leave and get replaced while it runs. Cordis guarantees two things so that never breaks it:</p>
+  <div class="grid-3" style="grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: .6em">
+    <div class="card"><h3>Temporal composability</h3><p>When a component leaves, everything it did to the shared environment is reverted: routes, tools, timers, subscriptions. No residue, and unrelated work survives.</p></div>
+    <div class="card"><h3>Spatial composability</h3><p>Components declare what they need. A consumer activates only when its requirements exist, and stops cleanly before its provider is withdrawn.</p></div>
+  </div>
+  <p style="margin-top: .9em"><span class="formula">component = <em>requirements</em> + <em>provisions</em> + <em>effects with undo</em></span></p>
+</section>
+
+<section>
+  <span class="eyebrow">How it works · try it</span>
+  <h2>A plugin waits for what it needs, and leaves no trace</h2>
+  <div class="fiber" data-fiber-demo>
+    <div class="box">
+      <span class="mono small dim">plugin my-tool · <code>inject: ['llm']</code></span>
+      <div class="state" data-state>PENDING</div>
+      <div class="provider" data-provider>llm service: missing</div>
+      <div class="btns"><button type="button" class="primary" data-add>Provide llm</button><button type="button" data-remove>Remove provider</button></div>
+      <ul class="log" data-log></ul>
+    </div>
+    <div class="box">
+      <span class="mono small dim">effects owned by my-tool</span>
+      <ul class="effects" data-effects></ul>
+      <p class="small dim" style="margin: 0">Every registration is an effect with an inverse. Unloading runs the inverses in reverse order. States: PENDING, LOADING, ACTIVE, FAILED, UNLOADING, DISPOSED.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">The parts</span>
+      <h2>Five ideas, one kernel</h2>
+      <ul class="small">
+        <li><b>Context</b>: the scoped environment a plugin receives; services, events and effects live on it</li>
+        <li><b>Service</b>: a named capability, <code>ctx.tools</code>, <code>ctx.llm</code>; replaceable by another provider</li>
+        <li><b>inject</b>: a live dependency contract, not a load order</li>
+        <li><b>Effects</b>: everything a plugin acquires is owned and released with it</li>
+        <li><b>Loader</b>: rows in <code>cordis.patch.yml</code> become the live plugin tree; change a row, the tree updates</li>
+      </ul>
+    </div>
+<pre class="code"><span class="c">// a Cordis plugin, simplified: needs the tools service, adds one tool</span>
+<span class="k">export const</span> name = 'word-count'
+<span class="k">export const</span> inject = ['tools']
+
+<span class="k">export function</span> apply(ctx) {
+  ctx.tools.register(defineTool({
+    name: 'word_count',
+    description: 'Count words in a text',
+    parameters: { text: { type: 'string' } },
+    <span class="k">async</span> execute({ text }) {
+      <span class="k">return</span> text.split(/\s+/).filter(Boolean).length
+    },
+  }))
+  <span class="c">// unloading the plugin unregisters the tool: no cleanup code</span>
+}</pre>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">What Cordis does not do</span>
+  <h2>It composes a running process. It does not describe, version or share an app.</h2>
+  <div class="grid-3" style="margin-top: .6em">
+    <div class="card"><h3>No app definition</h3><p>A profile is a local list of bundles on one machine. There is no file that says "this is my app" and travels.</p></div>
+    <div class="card"><h3>No reproducibility</h3><p>No lock of exact versions and checksums; two machines drift apart.</p></div>
+    <div class="card"><h3>No sharing</h3><p>No registry of whole apps, no verified pull, no way to start from someone else's setup and keep their updates.</p></div>
+  </div>
+  <p class="dim" style="margin-top: 1em">That gap is why there are 10,000 plugins that solve the same problems.</p>
+</section>
+
+<section data-background-color="#0e0e0e">
+  <div class="center"><span class="eyebrow">On top of Cordis</span><h1>ACRYL Blends</h1><p class="dim">A protocol for composable software that people can share and reuse.</p></div>
+</section>
+
+<section>
+  <span class="eyebrow">The stack</span>
+  <h2>Cordis composes; Blends describes, locks, shares and grows</h2>
+  <div class="layers" style="margin-top: .5em">
+    <div class="layer top"><b>Your apps</b><span>ACRYL IDE · GTD · accounting · music · anything, each with an agent inside</span></div>
+    <div class="layer top"><b>ACRYL Blends</b><span>blend.yaml manifest · blend.lock.json · registries · plugin hub (pull, share, verify) · save to git · <code>acryl new --from</code> · <code>acrylblends</code> CLI</span></div>
+    <div class="layer"><b>DeepSeek Harness</b><span>the agent loop, tools, models, sessions, as Cordis services</span></div>
+    <div class="layer"><b>Cordis</b><span>context, services, inject, revertible effects, fibers, Loader</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">The manifest</span>
+      <h2>An app in one file</h2>
+      <ul class="small">
+        <li><code>kind</code>: a <b>Blueprint</b> to start from, or a <b>Blend</b> grown from one</li>
+        <li><code>extends</code>: inherit another app's rows; override only what differs</li>
+        <li><code>rows</code>: Cordis plugins and their config, the same rows the Loader runs</li>
+        <li>Validated by <code>@webboxes/blends-core</code>; the lock pins every plugin by version and checksum</li>
+      </ul>
+    </div>
+<pre class="code"><span class="c"># registry/blends/acryl.music/blend.yaml (real)</span>
+apiVersion: blends.acryl.dev/v1alpha1
+kind: Blueprint
+metadata:
+  id: acryl.music
+  name: Music
+  version: 0.1.0
+  category: creative
+  license: MIT
+  visibility: public
+spec:
+  runtime: cordis
+  extends: acryl.blank
+  rows:
+    - id: brand
+      name: acryl-brand
+      config:
+        name: Music
+        tagline: Say the beat, hear the beat.
+    - id: acryl-music
+      name: acryl-music</pre>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Why we built it</span>
+  <h2>Write a piece once. Everyone can reuse it.</h2>
+  <div class="grid-4" style="margin-top: .6em">
+    <div class="card"><h3>Compose</h3><p>An app is rows of Cordis plugins. Add, override or remove one without forking anything.</p></div>
+    <div class="card"><h3>Lock</h3><p>blend.lock.json pins every plugin: a local folder by content hash, npm by integrity, a pulled plugin by source and sha512.</p></div>
+    <div class="card"><h3>Share</h3><p>Push a plugin or a whole app to git or a registry, private or public. Others pull it by name, verified.</p></div>
+    <div class="card"><h3>Reuse and grow</h3><p><code>acryl new --from</code> starts from anyone's app; the agent inside adds plugins; a snapshot records it all again.</p></div>
+  </div>
+  <p class="dim small" style="margin-top: 1em">The same packages run ACRYL and the open framework: <code>@webboxes/blends-core</code>, <code>@webboxes/plugin-hub</code>, <code>@webboxes/app-persistence</code> on npm, MIT.</p>
 </section>
 
 <section data-background-color="#0e0e0e">
