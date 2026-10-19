@@ -124,3 +124,61 @@ html, body, .reveal-viewport { background: var(--bg); color-scheme: dark; }
 .code { font-family: var(--mono); font-size: .5em; line-height: 1.55; background: #0b0b0b; border: 1px solid var(--line); border-radius: 10px; padding: .9em 1em; white-space: pre; overflow: auto; margin: 0; color: var(--text); }
 .code .c { color: var(--dim); }
 .code .k { color: var(--accent); }
+
+/* Diagrams: inline SVG drawn in the deck's tokens so they stay sharp on a projector. */
+svg.dg { width: 100%; height: auto; display: block; overflow: visible; }
+svg.dg .box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+svg.dg .box.accent { fill: var(--accent-dim); stroke: var(--accent); }
+svg.dg .box.ok { fill: rgba(95, 207, 143, .1); stroke: var(--ok); }
+svg.dg .box.wait { fill: rgba(230, 180, 80, .1); stroke: var(--wait); }
+svg.dg .box.bad { fill: rgba(240, 110, 100, .1); stroke: #f06e64; }
+svg.dg .box.ghost { fill: none; stroke: var(--line); stroke-dasharray: 6 5; }
+svg.dg text { fill: var(--text); font-family: var(--display); font-size: 22px; }
+svg.dg text.t-mono { font-family: var(--mono); font-size: 18px; }
+svg.dg text.t-dim { fill: var(--dim); font-size: 17px; }
+svg.dg text.t-small { font-size: 15px; fill: var(--dim); font-family: var(--mono); }
+svg.dg text.t-accent { fill: var(--accent); }
+svg.dg text.t-ok { fill: var(--ok); }
+svg.dg text.t-wait { fill: var(--wait); }
+svg.dg text.t-bad { fill: #f06e64; }
+svg.dg text.t-bold { font-weight: 600; }
+svg.dg .ln { stroke: var(--dim); stroke-width: 2; fill: none; }
+svg.dg .ln.accent { stroke: var(--accent); }
+svg.dg .ln.ok { stroke: var(--ok); }
+svg.dg .ln.wait { stroke: var(--wait); }
+svg.dg .ln.bad { stroke: #f06e64; }
+svg.dg .ln.dash { stroke-dasharray: 6 6; }
+svg.dg .ah { fill: var(--dim); }
+svg.dg .ah.accent { fill: var(--accent); }
+svg.dg .ah.ok { fill: var(--ok); }
+svg.dg .ah.wait { fill: var(--wait); }
+svg.dg .ah.bad { fill: #f06e64; }
+.dg-wrap { min-width: 0; }
+.caption { font-family: var(--mono); font-size: .45em; color: var(--dim); margin-top: .4em; }
+
+/* Motion: diagrams assemble step by step. Each arrow key press adds the next step; lines draw themselves; reverts strike through LIFO. */
+.reveal svg.dg .fragment.build { opacity: 0; visibility: hidden; transform: translateY(14px); transform-box: fill-box; transition: opacity .45s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1), visibility 0s .45s; }
+.reveal svg.dg .fragment.build.visible { opacity: 1; visibility: inherit; transform: none; transition: opacity .45s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1); }
+.reveal svg.dg .enter { opacity: 0; transition: opacity .5s cubic-bezier(.16, 1, .3, 1) .1s; }
+.reveal section.present svg.dg .enter, .reveal.overview svg.dg .enter { opacity: 1; }
+.reveal svg.dg .ln.draw { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .8s cubic-bezier(.16, 1, .3, 1) .12s; }
+.reveal section.present svg.dg .enter .ln.draw, .reveal svg.dg .fragment.visible .ln.draw, .reveal.overview svg.dg .ln.draw { stroke-dashoffset: 0; }
+.reveal svg.dg .ln.draw.dash { stroke-dasharray: .015 .012; stroke-dashoffset: 0; }
+.reveal svg.dg .strike { stroke: var(--wait); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .35s ease-out var(--d, 0s); }
+.reveal svg.dg .fragment.visible .strike { stroke-dashoffset: 0; }
+.reveal .slides img.hero-logo { clip-path: inset(0 100% 0 0); filter: blur(6px); transition: clip-path 1.3s cubic-bezier(.65, 0, .35, 1) .2s, filter 1.1s ease-out .4s; }
+.reveal section.present img.hero-logo, .reveal.overview img.hero-logo { clip-path: inset(0 0 0 0); filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal svg.dg .fragment.build, .reveal svg.dg .enter { transform: none !important; transition: opacity .2s linear !important; }
+  .reveal svg.dg .ln.draw, .reveal svg.dg .strike { transition: none !important; }
+  .reveal svg.dg .ln.draw { stroke-dashoffset: 0; }
+  .reveal .slides img.hero-logo { clip-path: none; filter: none; transition: none; }
+}
+
+/* Prompts and quotes without a thick colored rail; selection and scrollbars in the deck's colors. */
+.prompt { border: 1px solid rgba(91, 140, 255, .45); border-left-width: 1px; background: rgba(91, 140, 255, .07); }
+.quote { border-left: 0; padding-left: 0; font-size: 1.4em; font-weight: 500; letter-spacing: -.02em; }
+.tag { font-family: var(--mono); font-size: .5em; color: var(--dim); margin-top: -.4em; }
+::selection { background: rgba(91, 140, 255, .4); color: var(--text); }
+* { scrollbar-color: rgba(255, 255, 255, .25) transparent; scrollbar-width: thin; }
+svg.dg text { white-space: pre; }
