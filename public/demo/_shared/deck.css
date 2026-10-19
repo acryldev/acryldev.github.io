@@ -219,3 +219,8 @@ svg.dg text { white-space: pre; }
 /* The ACRYL mark on every slide, top right, out of the way of the contents button; the title slide shows the large one instead. */
 .deck-mark { position: fixed; top: calc(18px + env(safe-area-inset-top, 0px)); right: calc(22px + env(safe-area-inset-right, 0px)); width: 120px; height: auto; z-index: 30; opacity: .9; pointer-events: none; transition: opacity .3s; }
 body.on-title .deck-mark { opacity: 0; }
+
+/* The event RSVP link: one accent pill, title and closing slides. */
+.reveal p.rsvp { margin: .6em auto 0; }
+.reveal p.rsvp a { display: inline-block; font-family: var(--mono); font-size: .62em; color: var(--text); text-decoration: none; border: 1px solid var(--accent); background: var(--accent-dim); border-radius: 999px; padding: .35em 1em; }
+.reveal p.rsvp a:hover, .reveal p.rsvp a:focus-visible { background: var(--accent); outline: none; }
