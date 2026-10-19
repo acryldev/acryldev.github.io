@@ -182,3 +182,36 @@ svg.dg .ah.bad { fill: #f06e64; }
 ::selection { background: rgba(91, 140, 255, .4); color: var(--text); }
 * { scrollbar-color: rgba(255, 255, 255, .25) transparent; scrollbar-width: thin; }
 svg.dg text { white-space: pre; }
+
+/* Closing slide: one QR per place to go, dark modules on white so phones read them from the back of the room. */
+.reveal .closing { text-align: center; }
+.reveal .closing p { margin-inline: auto; }
+.reveal .closing h1 { font-size: 2em; margin-bottom: .45em; }
+.qr-row { display: flex; justify-content: center; gap: 30px; margin: 0 auto .7em; }
+.reveal a.qr-card { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 270px; color: var(--text); text-decoration: none; }
+.qr-card svg.qr { width: 270px; height: 270px; border-radius: 14px; display: block; }
+.qr-title { font-weight: 600; font-size: .78em; line-height: 1.1; }
+.qr-url { font-family: var(--mono); font-size: .46em; color: var(--dim); line-height: 1.2; }
+
+/* Navigator: a chapter strip that always shows where the talk is, and a contents sidebar (T or the top-left button) to jump anywhere. */
+.nav-strip { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: flex; gap: 6px; font: 12px/1 var(--mono); pointer-events: none; }
+.nav-strip button { pointer-events: auto; background: none; border: 0; color: var(--dim); opacity: .45; font: inherit; padding: 4px 6px; border-radius: 4px; cursor: pointer; transition: opacity .2s, color .2s; }
+.nav-strip button:hover { opacity: .9; }
+.nav-strip button[aria-current="true"] { color: var(--accent); opacity: 1; }
+.nav-strip button.done { opacity: .7; }
+.nav-toggle { position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); left: calc(14px + env(safe-area-inset-left, 0px)); z-index: 32; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--dim); opacity: .35; cursor: pointer; display: grid; place-items: center; transition: opacity .2s; }
+.nav-toggle:hover, .nav-toggle:focus-visible, .nav-open .nav-toggle { opacity: 1; outline: none; color: var(--text); }
+.nav-panel { position: fixed; inset: 0 auto 0 0; width: min(380px, 86vw); z-index: 31; background: var(--surface); border-right: 1px solid var(--line); overflow-y: auto; scroll-padding-top: 72px; padding: 0 14px 24px calc(14px + env(safe-area-inset-left, 0px)); box-sizing: border-box; transform: translateX(-100%); transition: transform .28s cubic-bezier(.2, .7, .2, 1); font-family: var(--display); }
+.nav-open .nav-panel { transform: none; }
+.nav-head { position: sticky; top: 0; z-index: 1; background: var(--surface); margin: 0 -14px 8px; padding: calc(22px + env(safe-area-inset-top, 0px)) 14px 14px 64px; font: 600 15px/1 var(--display); color: var(--text); border-bottom: 1px solid var(--line); }
+.nav-head span { color: var(--dim); font: 12px var(--mono); margin-left: 8px; }
+.nav-panel h4 { margin: 18px 8px 6px; font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.nav-head + h4 { margin-top: 6px; }
+.nav-panel h4.here { color: var(--accent); }
+.nav-panel ol { list-style: none; margin: 0; padding: 0; }
+.nav-panel li button { display: grid; grid-template-columns: 2.2em 1fr; width: 100%; text-align: left; background: none; border: 0; border-radius: 6px; padding: 6px 8px; color: var(--text); font: 15px/1.3 var(--display); cursor: pointer; }
+.nav-panel li button:hover { background: var(--surface-2); }
+.nav-panel li button .n { font: 12px/1.6 var(--mono); color: var(--dim); }
+.nav-panel li button[aria-current="true"] { background: var(--accent-dim); color: var(--text); }
+.nav-panel li button[aria-current="true"] .n { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }

@@ -184,9 +184,75 @@
     node.querySelector('[data-remove]').addEventListener('click', remove)
   }
 
+
+  // Navigator for the whole talk. Chapters start at slides marked data-chapter; a slide's name is its data-title or its first heading.
+  // The strip at the bottom always shows the current chapter; the sidebar (T, or the top-left button) lists every slide to jump to.
+  function navigator(R) {
+    var slides = [].slice.call(document.querySelectorAll('.reveal .slides > section'))
+    var chapters = []
+    slides.forEach(function (section, i) {
+      var name = section.getAttribute('data-chapter')
+      if (name || !chapters.length) chapters.push({ name: name || 'Start', start: i, items: [] })
+      var heading = section.querySelector('h1, h2')
+      var title = section.getAttribute('data-title') || (heading ? heading.textContent.replace(/\s+/g, ' ').trim() : 'Slide ' + (i + 1))
+      chapters[chapters.length - 1].items.push({ index: i, title: title })
+    })
+    var body = document.body
+    var toggle = el('button', 'nav-toggle')
+    toggle.type = 'button'
+    toggle.setAttribute('aria-label', 'Contents (T)')
+    toggle.setAttribute('aria-expanded', 'false')
+    toggle.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+    var panel = el('nav', 'nav-panel')
+    panel.setAttribute('aria-label', 'Talk contents')
+    var strip = el('div', 'nav-strip')
+    var head = el('div', 'nav-head', 'Contents')
+    head.appendChild(el('span', '', slides.length + ' slides · T'))
+    panel.appendChild(head)
+    var slideButtons = [], chapterHeads = [], chapterButtons = []
+    function go(i) { R.slide(i) }
+    chapters.forEach(function (chapter, c) {
+      var head = el('h4', '', chapter.name)
+      panel.appendChild(head); chapterHeads.push(head)
+      var list = el('ol')
+      chapter.items.forEach(function (item) {
+        var li = el('li'), b = el('button')
+        b.type = 'button'
+        b.appendChild(el('span', 'n', String(item.index + 1)))
+        b.appendChild(el('span', '', item.title))
+        b.addEventListener('click', function () { go(item.index); setOpen(false) })
+        li.appendChild(b); list.appendChild(li); slideButtons[item.index] = b
+      })
+      panel.appendChild(list)
+      var sb = el('button', '', chapter.name)
+      sb.type = 'button'
+      sb.addEventListener('click', function () { go(chapter.start) })
+      strip.appendChild(sb); chapterButtons.push(sb)
+    })
+    function setOpen(open) {
+      body.classList.toggle('nav-open', open)
+      toggle.setAttribute('aria-expanded', String(open))
+      if (open) { var cur = panel.querySelector('[aria-current="true"]'); if (cur) cur.scrollIntoView({ block: 'center' }) }
+    }
+    function chapterOf(i) { for (var c = chapters.length - 1; c >= 0; c--) if (i >= chapters[c].start) return c; return 0 }
+    function update() {
+      var i = R.getIndices().h, c = chapterOf(i)
+      slideButtons.forEach(function (b, k) { b.setAttribute('aria-current', String(k === i)) })
+      chapterHeads.forEach(function (h, k) { h.classList.toggle('here', k === c) })
+      chapterButtons.forEach(function (b, k) { b.setAttribute('aria-current', String(k === c)); b.classList.toggle('done', k < c) })
+    }
+    toggle.addEventListener('click', function () { setOpen(!body.classList.contains('nav-open')) })
+    R.addKeyBinding({ keyCode: 84, key: 'T', description: 'Contents' }, function () { setOpen(!body.classList.contains('nav-open')) })
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && body.classList.contains('nav-open')) { e.stopPropagation(); setOpen(false) } }, true)
+    R.on('slidechanged', update)
+    body.appendChild(panel); body.appendChild(toggle); body.appendChild(strip)
+    update()
+  }
+
   window.AcrylDeck = {
     init: function () {
       copyButtons(document)
+      if (window.Reveal && document.querySelector('.reveal .slides > section')) navigator(window.Reveal)
       document.querySelectorAll('[data-fiber-demo]').forEach(fiberDemo)
       document.querySelectorAll('[data-registry]').forEach(liveRegistry)
       document.querySelectorAll('[data-features]').forEach(featureMap)
