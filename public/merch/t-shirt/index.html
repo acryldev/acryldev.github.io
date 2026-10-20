@@ -36,6 +36,39 @@
   th { font: 500 12px "JetBrains Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
   td code { font: 13px "JetBrains Mono", ui-monospace, monospace; }
   @media (max-width: 720px) { .pair { grid-template-columns: 1fr; } }
+  /* Shop */
+  .shop { padding: 24px; border: 1px solid var(--accent); border-radius: 16px; background: linear-gradient(180deg, rgba(91,140,255,.08), transparent 60%); }
+  .shop-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+  .price { font: 600 28px "Space Grotesk", sans-serif; color: var(--text); }
+  .shop form { display: grid; gap: 18px; margin-top: 8px; }
+  .shop fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: 10px; }
+  .shop legend { margin-bottom: 8px; font: 500 12px "JetBrains Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+  .variants { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .variants label, .sizes label { position: relative; cursor: pointer; }
+  .variants input, .sizes input { position: absolute; opacity: 0; pointer-events: none; }
+  .variants span { display: grid; gap: 6px; height: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); font-size: 15px; line-height: 1.3; }
+  .variants span i { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); }
+  .variants span i.black { background: #151515; box-shadow: inset 0 0 0 7px #151515, inset 0 0 0 9px #f7f7f5; }
+  .variants span i.white { background: #f6f6f3; box-shadow: inset 0 0 0 7px #f6f6f3, inset 0 0 0 9px #151515; }
+  .variants span small { color: var(--dim); font: 12px "JetBrains Mono", ui-monospace, monospace; }
+  .sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sizes span { display: grid; min-width: 52px; height: 44px; place-items: center; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font: 500 14px "JetBrains Mono", monospace; }
+  .variants input:checked + span, .sizes input:checked + span { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .variants input:focus-visible + span, .sizes input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .fields label { display: grid; gap: 6px; font: 500 12px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+  .fields input, .fields select { min-height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: #0d0d0d; color: var(--text); font: 16px "Space Grotesk", sans-serif; letter-spacing: 0; text-transform: none; }
+  .fields input:focus, .fields select:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+  .consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; font-size: 14px; color: var(--dim); cursor: pointer; }
+  .consent input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--accent); }
+  .order-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  .order-row button { min-height: 50px; padding: 0 28px; border: 0; border-radius: 999px; background: var(--accent); color: #fff; font: 600 17px "Space Grotesk", sans-serif; cursor: pointer; }
+  .order-row button:disabled { opacity: .6; cursor: progress; }
+  .order-total { font: 500 15px "JetBrains Mono", monospace; color: var(--text); }
+  .shop-error { color: #ff8a8a; font-size: 14px; }
+  .shop-fine { font-size: 13px; }
+  .shop-fine a { color: var(--text); }
+  @media (max-width: 720px) { .variants { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fields { grid-template-columns: 1fr; } .shop { padding: 18px; } }
 </style>
 </head>
 <body>
@@ -207,6 +240,49 @@ l0 709 29 39 c16 21 37 48 47 59 11 11 35 40 54 65 19 25 45 55 57 67 12 13
     <h1>T-shirt</h1>
     <p>Two designs, each for a black shirt with white ink and a white shirt with black ink. Print files are vector SVG and 300 dpi PNG with a transparent background, sized for a 15 inch wide print area.</p>
   </header>
+
+  <section class="shop" id="order" aria-labelledby="shop-title">
+    <div class="shop-head">
+      <h2 id="shop-title">Order a shirt</h2>
+      <span class="price">50 €</span>
+    </div>
+    <p>Printed for you at CityCopy in Vienna (Billrothstraße 21, 1190 Wien). Pay by bank transfer, then pick it up there: we email you when it is ready. Vienna pickup only, no shipping.</p>
+    <form id="shop-form" novalidate>
+      <fieldset>
+        <legend>Design</legend>
+        <div class="variants">
+          <label><input type="radio" name="variant" value="qr|black" checked><span><i class="black"></i>Logo and QR<small>black shirt</small></span></label>
+          <label><input type="radio" name="variant" value="qr|white"><span><i class="white"></i>Logo and QR<small>white shirt</small></span></label>
+          <label><input type="radio" name="variant" value="huge|black"><span><i class="black"></i>Huge logo<small>black shirt</small></span></label>
+          <label><input type="radio" name="variant" value="huge|white"><span><i class="white"></i>Huge logo<small>white shirt</small></span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Size</legend>
+        <div class="sizes">
+          <label><input type="radio" name="size" value="XS"><span>XS</span></label>
+          <label><input type="radio" name="size" value="S"><span>S</span></label>
+          <label><input type="radio" name="size" value="M" checked><span>M</span></label>
+          <label><input type="radio" name="size" value="L"><span>L</span></label>
+          <label><input type="radio" name="size" value="XL"><span>XL</span></label>
+          <label><input type="radio" name="size" value="XXL"><span>XXL</span></label>
+        </div>
+      </fieldset>
+      <div class="fields">
+        <label>Name<input name="name" autocomplete="name" required maxlength="120"></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required maxlength="200"></label>
+        <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+        <label>Quantity<select name="qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      </div>
+      <label class="consent"><input type="checkbox" name="consent" required><span>I order and agree to pay. I pick the shirt up at CityCopy 1190 in Vienna. We use your name, email and phone only for this order.</span></label>
+      <div class="order-row">
+        <button type="submit" id="shop-submit">Order and pay</button>
+        <span class="order-total" id="shop-total">Total 50,00 €</span>
+      </div>
+      <p class="shop-error" id="shop-error" role="alert" hidden></p>
+      <p class="shop-fine">Seller: WebBoxes s.r.o. · <a href="mailto:office@web-boxes.com">office@web-boxes.com</a>. You can withdraw within 14 days of pickup; write to us and we refund. The price includes VAT where it applies.</p>
+    </form>
+  </section>
 
   <section>
     <h2>Logo and QR</h2>
@@ -877,6 +953,27 @@ l0 709 29 39 c16 21 37 48 47 59 11 11 35 40 54 65 19 25 45 55 57 67 12 13
       <tr><td>Files</td><td>SVG (vector, text outlined, no fonts needed) and PNG 4500 px wide, 300 dpi, transparent</td></tr>
     </table></div>
   </section>
+<script src="/merch/shop.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('shop-form'), err = document.getElementById('shop-error'), btn = document.getElementById('shop-submit')
+  var total = function () { document.getElementById('shop-total').textContent = 'Total ' + AcrylShop.euros(Number(form.qty.value) * 5000) }
+  form.qty.addEventListener('change', total)
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    err.hidden = true
+    if (!form.name.value.trim()) { err.textContent = 'Please enter your name.'; err.hidden = false; form.name.focus(); return }
+    if (!form.email.checkValidity() || !form.email.value) { err.textContent = 'Please enter a valid email address.'; err.hidden = false; form.email.focus(); return }
+    if (!form.consent.checked) { err.textContent = 'Please tick the box to confirm the order.'; err.hidden = false; return }
+    var v = form.variant.value.split('|')
+    btn.disabled = true; btn.textContent = 'Placing the order…'
+    AcrylShop.create({ design: v[0], color: v[1], size: form.size.value, qty: Number(form.qty.value), name: form.name.value.trim(),
+      email: form.email.value.trim(), phone: form.phone.value.trim(), consent: true })
+      .then(function (order) { location.href = '/merch/order/#' + order.id })
+      .catch(function (e2) { err.textContent = e2.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Order and pay' })
+  })
+})()
+</script>
 </main>
 </body>
 </html>
