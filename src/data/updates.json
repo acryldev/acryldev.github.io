@@ -1,0 +1,1264 @@
+{
+  "generatedAt": "2026-10-20T12:34:16.610Z",
+  "repo": "acryldev/acryl",
+  "releases": [
+    {
+      "tag": "v0.2.5",
+      "name": "ACRYL v0.2.5",
+      "date": "2026-10-17T15:37:13Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.2.5",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.2.4",
+      "name": "ACRYL v0.2.4",
+      "date": "2026-10-09T17:27:57Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.2.4",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.2.3",
+      "name": "ACRYL v0.2.3",
+      "date": "2026-10-09T16:33:38Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.2.3",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.2.2",
+      "name": "ACRYL v0.2.2",
+      "date": "2026-10-09T04:29:08Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.2.2",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.2.1",
+      "name": "ACRYL v0.2.1",
+      "date": "2026-10-09T01:15:13Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.2.1",
+      "prerelease": false
+    },
+    {
+      "tag": "desktop-v0.2.1",
+      "name": "ACRYL Desktop desktop-v0.2.1",
+      "date": "2026-10-09T01:15:32Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/desktop-v0.2.1",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.44",
+      "name": "ACRYL v0.1.44",
+      "date": "2026-09-16T12:00:00Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.44",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.36",
+      "name": "ACRYL v0.1.36",
+      "date": "2026-09-08T18:31:31Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.36",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.35",
+      "name": "ACRYL v0.1.35",
+      "date": "2026-09-08T15:15:57Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.35",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.31",
+      "name": "ACRYL v0.1.31",
+      "date": "2026-09-02T13:50:28Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.31",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.30",
+      "name": "ACRYL v0.1.30",
+      "date": "2026-09-02T11:23:49Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.30",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.19",
+      "name": "ACRYL v0.1.19",
+      "date": "2026-09-01T05:04:07Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.19",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.18",
+      "name": "ACRYL v0.1.18",
+      "date": "2026-08-31T19:55:39Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.18",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.17",
+      "name": "ACRYL v0.1.17",
+      "date": "2026-08-31T13:57:27Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.17",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.16",
+      "name": "ACRYL v0.1.16",
+      "date": "2026-08-31T12:56:12Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.16",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.15",
+      "name": "ACRYL v0.1.15",
+      "date": "2026-08-31T10:14:50Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.15",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.14",
+      "name": "ACRYL v0.1.14",
+      "date": "2026-08-31T01:26:43Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.14",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.13",
+      "name": "ACRYL v0.1.13",
+      "date": "2026-08-30T16:35:40Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.13",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.10",
+      "name": "ACRYL v0.1.10",
+      "date": "2026-08-30T12:31:38Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.10",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.9",
+      "name": "ACRYL v0.1.9",
+      "date": "2026-08-29T23:22:50Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.9",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.8",
+      "name": "ACRYL v0.1.8",
+      "date": "2026-08-29T20:12:18Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.8",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.7",
+      "name": "ACRYL v0.1.7",
+      "date": "2026-08-29T19:28:40Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.7",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.6",
+      "name": "ACRYL v0.1.6",
+      "date": "2026-08-29T19:10:05Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.6",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.5",
+      "name": "ACRYL v0.1.5",
+      "date": "2026-08-29T18:59:57Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.5",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.4",
+      "name": "ACRYL v0.1.4",
+      "date": "2026-08-29T18:48:33Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.4",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.3",
+      "name": "ACRYL v0.1.3",
+      "date": "2026-08-29T18:25:39Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.3",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.2",
+      "name": "ACRYL v0.1.2",
+      "date": "2026-08-29T18:14:21Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.2",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.1",
+      "name": "ACRYL v0.1.1",
+      "date": "2026-08-29T17:34:54Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.1",
+      "prerelease": false
+    },
+    {
+      "tag": "v0.1.0",
+      "name": "ACRYL v0.1.0",
+      "date": "2026-08-29T16:57:01Z",
+      "url": "https://github.com/acryldev/acryl/releases/tag/v0.1.0",
+      "prerelease": false
+    }
+  ],
+  "commits": [
+    {
+      "type": "fix",
+      "scope": "dev",
+      "title": "the desktop launcher's market build holds the checkout build lock like pnpm web and pnpm acryl",
+      "details": "started together, pnpm web rebuilt (and so wiped) acryl-settings while pnpm desktop compiled cordis-plugin-market against it, failing with \"Could not find a declaration file for module 'acryl-settings'\"",
+      "sha": "8497d43f",
+      "date": "2026-10-19T23:26:42Z",
+      "url": "https://github.com/acryldev/acryl/commit/8497d43ffd9e6253aaaed8778e5976e622940d37"
+    },
+    {
+      "type": "fix",
+      "scope": "setup",
+      "title": "upstream:install works on a fresh clone, and the pinned-pnpm test can no longer stall the suite",
+      "details": null,
+      "sha": "082488df",
+      "date": "2026-10-19T19:02:59Z",
+      "url": "https://github.com/acryldev/acryl/commit/082488dfc131f62c1603798cf31d9d79aeb9fd69"
+    },
+    {
+      "type": "feat",
+      "scope": "blends",
+      "title": "a domain Blend can own its app frame",
+      "details": "the app-shell Blueprint row mounts acryl-app-shell and turns the stock layout off, so a domain plugin's UI is the app's main surface with the agent's conversation beside it (blend-instance-design 0a); the documented desktop.main priority was wrong (200 can never win, lower renders) and is corrected",
+      "sha": "1681b36c",
+      "date": "2026-10-19T13:52:26Z",
+      "url": "https://github.com/acryldev/acryl/commit/1681b36cf1be95262880edd325068a54ac2384a3"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "resolve Loader imports from the logical ASAR entry so settings saves find the root Include (#58)",
+      "details": null,
+      "sha": "9a6029c7",
+      "date": "2026-10-19T12:36:23Z",
+      "url": "https://github.com/acryldev/acryl/commit/9a6029c70d60157665b3eb2238b89f105f19d30c"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "a session moves between coding agents through the shared workspace brief",
+      "details": "Claude Code and Codex get the workspace folder (--add-dir) so they can read the brief and write a handoff into it, and Codex now gets the workspace context as developer instructions (-c developer_instructions, Codex 0.162); no agent is adapted to another",
+      "sha": "79e76c97",
+      "date": "2026-10-19T11:27:19Z",
+      "url": "https://github.com/acryldev/acryl/commit/79e76c978eaf57b6d81cd65320ebabe15f997302"
+    },
+    {
+      "type": "fix",
+      "scope": "blends",
+      "title": "the snapshot test expects lock formatVersion 3, and the plugin list tool's description names pulled plugins within its old length, so the tool definitions stay under their committed size ceiling (CI failed on 650877cb)",
+      "details": null,
+      "sha": "e3ca3857",
+      "date": "2026-10-19T00:05:25Z",
+      "url": "https://github.com/acryldev/acryl/commit/e3ca3857f588726c165c229eaa6e0848f2b3c240"
+    },
+    {
+      "type": "fix",
+      "scope": "blends",
+      "title": "an app's snapshot records the Blueprint lineage its blend.yaml names, in the v3 key order (found in the live acryl new --from run of spec 036 T026)",
+      "details": null,
+      "sha": "7caccf41",
+      "date": "2026-10-19T00:02:55Z",
+      "url": "https://github.com/acryldev/acryl/commit/7caccf41468139ffaafca8d7cf44ac4092082926"
+    },
+    {
+      "type": "fix",
+      "scope": "live-run",
+      "title": "a --copy-home run no longer reaches back into the home it copied",
+      "details": "the copy recorded absolute paths into the source (workspace list, sessions, profile dependencies on stored tarballs), so /blend snapshot in such a run wrote into the source home's workspace; relocateHome re-points those paths at the copy after copying (JSON and YAML outside dependencies, store and logs), tested in scripts/isolated-run.test.mjs (now part of verify) and in a live run: 4 files re-pointed, the source untouched",
+      "sha": "650877cb",
+      "date": "2026-10-18T23:58:11Z",
+      "url": "https://github.com/acryldev/acryl/commit/650877cb7c95aaf0ca6f6f0219a22560cc09a118"
+    },
+    {
+      "type": "fix",
+      "scope": "blends",
+      "title": "a snapshot keeps plugins pulled through the plugin hub, and restoring pulls them again (spec 036 T026, snapshot and /blend apply)",
+      "details": null,
+      "sha": "f4398442",
+      "date": "2026-10-18T23:58:11Z",
+      "url": "https://github.com/acryldev/acryl/commit/f4398442740561b4ed0efa6062bff697b378790f"
+    },
+    {
+      "type": "feat",
+      "scope": "blends-core",
+      "title": "0.4.0",
+      "details": "a resolved definition keeps the parameter values it was resolved with (ResolvedDefinition.parameters: the root's declared defaults, then the caller's overrides), and generateBlendLock records them when the caller passes none, so every lock writer gets the same values (asked by the acrylblends framework, spec 036)",
+      "sha": "1ef25721",
+      "date": "2026-10-18T23:40:20Z",
+      "url": "https://github.com/acryldev/acryl/commit/1ef257212fee7fbd4d4b82b592704a749fabf9b4"
+    },
+    {
+      "type": "fix",
+      "scope": "blends-core",
+      "title": "the folder digest test removes the temporary folders it creates (verify-layout failed CI on 48bf68c6)",
+      "details": null,
+      "sha": "6af6a615",
+      "date": "2026-10-18T23:34:13Z",
+      "url": "https://github.com/acryldev/acryl/commit/6af6a6154065eb350384a57297b5eb2584319fbe"
+    },
+    {
+      "type": "feat",
+      "scope": "blends-core",
+      "title": "0.3.0",
+      "details": "blend.lock.json formatVersion 3 and one folder digest, agreed with the acrylblends framework (spec 036): generateBlendLock writes v3 (v2 plus the Blueprint lineage with its file digest, the parameter values, and modules of origin pulled: a plugin in the plugin store by its source spec and tarball sha512); digestFolder is the one folder digest for local modules and staging, and ACRYL's installer (hashPackage and its copy filter) now uses it; generateLock keeps writing v1 and v2",
+      "sha": "b1d6f8b5",
+      "date": "2026-10-18T23:31:43Z",
+      "url": "https://github.com/acryldev/acryl/commit/b1d6f8b5d4337e4d4a649ec9d922ec26e59d606f"
+    },
+    {
+      "type": "feat",
+      "scope": "blends-core",
+      "title": "planUpgrade and applyUpgrade",
+      "details": "an upgrade is a plan before it is an action",
+      "sha": "2e06e631",
+      "date": "2026-10-18T23:17:47Z",
+      "url": "https://github.com/acryldev/acryl/commit/2e06e6316f9e6984fa2dbdc5365fe789220b2e4b"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "the right panel's Start page scrolls when it is taller than the panel",
+      "details": "DSH's guide sits in a tab body that is overflow: hidden at the pane's height, so in a short panel its last entries (Checks, Comments) were cut off and could not be reached (found by the owner; reproduced in an isolated Desktop: a 499 px page in a 450 px panel). The page scrolls itself, and safe centring keeps a short page centred and a tall one starting at its top; checked live with the first and the last entry reachable. Stock DSH has the same rule",
+      "sha": "84ee5d30",
+      "date": "2026-10-18T03:52:28Z",
+      "url": "https://github.com/acryldev/acryl/commit/84ee5d3054607067483250fcca6cd32aa6618eb6"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "line comments are kept until the user uses them, never sent by themselves (spec 040 T145)",
+      "details": "Comment leaves a note under the lines with Comment to clipboard (copies it and closes the note), All comments to clipboard (every comment of the worktree as one text) and × (close without using it); the right panel's Start page lists Comments after Checks: every comment on the worktree's files, by file and line, with Copy, Send to (a running terminal or agent tab, or a terminal panel tab, this worktree's first) and × per comment, and Copy all and Send all to. Copying or sending uses a comment up (it leaves the list and its note closes, here and in the editor); a refused clipboard keeps it and says so; comments survive a reload (renderer storage, like the Review list). Replaces pasting into the terminal used last (165bb928), which could land in a plain shell or an agent on another branch; that rule and the registry's last-used tracking are gone. Diff-tab comments are unchanged. check:features drives the new flow in an isolated Desktop: the note's buttons, nothing sent, the Comments page listing it, Send to listing the open terminals, closing it from the page closing the note",
+      "sha": "f45102f4",
+      "date": "2026-10-18T03:52:28Z",
+      "url": "https://github.com/acryldev/acryl/commit/f45102f45ccbc03ec12a1911c12f27f22e9f0174"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "an agent in a linked worktree gets its Shared Context workspace on Windows too",
+      "details": "git writes a worktree's pointer with long names and `/` (C:/Users/...), ACRYL keeps project paths natively (C:\\..., an 8.3 short name in a temp folder), so the main checkout never matched its project as text and the agent was told nothing. Folders are now compared by their canonical on-disk form (realpathSync.native) on both sides, and checkoutOf returns git's path with native separators. Found by the new native Windows whole-suite job",
+      "sha": "f4cb4916",
+      "date": "2026-10-17T14:52:42Z",
+      "url": "https://github.com/acryldev/acryl/commit/f4cb49167d649df681c73480e90caa7911d9e9b7"
+    },
+    {
+      "type": "fix",
+      "scope": "system-prompt",
+      "title": "raise the Windows prompt-size ceilings with the other platforms'",
+      "details": "the workspace and plugin-hub tools (500ba49b, fe3a806a, ed2b6d91) grew the tool definitions and raised budget.json, but budget.win32.json kept the old ceilings, so the release's Windows Desktop build failed (web 28801 over 27000, cli 22845 over 22200, 0.2.5 dry run). The new values are what ACRYL_UPDATE_DRIFT writes for those measurements (rounded up to the next 100)",
+      "sha": "2440d1d3",
+      "date": "2026-10-17T14:37:18Z",
+      "url": "https://github.com/acryldev/acryl/commit/2440d1d3eca43419da7dbb0c8f36cb52962e2242"
+    },
+    {
+      "type": "feat",
+      "scope": "distribution",
+      "title": "ACRYL web container image",
+      "details": "one workspace per container, everything under the /data volume, uid 10001, tini so SIGTERM disposes cleanly, ACRYL_WEB_HOST=0.0.0.0 on port 3080 with the proxy's public names in ACRYL_WEB_TRUSTED_HOSTS. The archive comes from a GitHub release (checked against its receipt) or is built from the checkout (ARCHIVE_SOURCE=source) with the same scripts/build-web-archive.mjs. scripts/smoke.sh proves an unattended boot, 401 without the launch token, 403 for an untrusted Host at /api, a session cookie for the public name, a new token but the same session after a recreate on the same volume, and a clean SIGTERM exit. Passed on z370n (741 MB image); a real DeepSeek turn in the container ran a command and wrote a file as the acryl user, and a 40 s task finished after the browser was killed and showed as completed on reopening. The instances doc gains webAccess; ADR-0002's order of work is a gated sequence, not a four-week calendar (owner, 2026-10-17)",
+      "sha": "70323d12",
+      "date": "2026-10-17T12:26:11Z",
+      "url": "https://github.com/acryldev/acryl/commit/70323d127fa5b7cd7da6674b70b7034fe9f80a49"
+    },
+    {
+      "type": "feat",
+      "scope": "runtime",
+      "title": "an ACRYL web server can listen beyond loopback for a container behind a proxy",
+      "details": "ACRYL_WEB_HOST (127.0.0.1, 0.0.0.0, ::1 or ::) and ACRYL_WEB_TRUSTED_HOSTS (comma-separated host[:port] names a browser reaches it by) join the AppInstance family as `webAccess`, read only by the selector and handed to child processes by instanceEnvironment like the other placement variables. The web composition patches the webserver row's host and merges the names into dsh-client-connection's trustedHosts (a Loader patch replaces a row's whole config, so the profile's own connection settings are kept). Loopback stays the default; nothing changes for an app that sets neither. DSH already supported an all-interface bind and the /api trust fence, ACRYL never exposed them. acryl-web prints a loopback URL for an all-interface bind instead of an unopenable http://0.0.0.0. Proven by a real boot: 0.0.0.0 bind, an unlisted Host refused at /api (403), a listed proxy name passes the fence, the index still needs the launch token (401)",
+      "sha": "3e77a319",
+      "date": "2026-10-17T11:46:35Z",
+      "url": "https://github.com/acryldev/acryl/commit/3e77a31966640b94989b087727b54966cbc6c61f"
+    },
+    {
+      "type": "fix",
+      "scope": "plugin-hub",
+      "title": "the npm-pack comparison test skips when the checkout has no quick-notes source",
+      "details": "with neither folder present the path was '', join('', 'package.json') found the hub's own package.json, and the test ran npm pack '' (ENOENT); CI has failed on it since the folder move (f0a44643e9a84e20e790d3d43579e506f5b546d8), and every package after the hub in the recursive check went unrun there. Local gates passed because the checkout holds an untracked quick-notes folder",
+      "sha": "a6ab77f3",
+      "date": "2026-10-17T04:44:06Z",
+      "url": "https://github.com/acryldev/acryl/commit/a6ab77f32f476285b442802cdd30e018797db603"
+    },
+    {
+      "type": "fix",
+      "scope": "deps",
+      "title": "close the 24 Dependabot alerts on main (spec 001 T085)",
+      "details": "Electron 43.0.0 -> 44.0.0 (four high: webview Node integration in workers, cross-origin reads by file and http handlers, sandbox not inherited by opened windows, preload code cache poisoning; 44.0.0 is outside every vulnerable range). Not the newest 43.x: DSH's engine boot loads node-addon-require-builtin 0.1.7, which accepts only the exact Electron builds named in its binary (43.0.0, 44.0.0, 45.0.0-alpha.6); 43.7.7 made every installed app fail into the Recovery window (found on mbpi9win). DSH's own desktop runs Electron 44. A package test now fails when the pinned Electron is not one the addon accepts. Also sharp 0.35.4 -> 0.35.5 with the matching @img platform packages and libvips 1.3.4 (librsvg CVE), adm-zip 0.6.0 -> 0.6.1 (ACRYL only writes zips, diagnostic exports, so the extraction alerts never reached users), vitest 4.1.8 -> 4.1.11 in the nine plugins still on it. Relocked with pnpm 11.8.0 (11.11.0 never finishes resolving electron-builder, spec 001 R23); only these packages changed. THIRD_PARTY_NOTICES.md regenerated with verify:notices, which also catches up versions changed since its last refresh",
+      "sha": "b1c136a0",
+      "date": "2026-10-17T04:44:06Z",
+      "url": "https://github.com/acryldev/acryl/commit/b1c136a0695dbc5569da8d7508676f37cef04eac"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "uninstalling ACRYL on Windows removes the installer copy kept for differential updates (spec 001 T090)",
+      "details": "electron-builder's installer saves itself to %LOCALAPPDATA%\\acryl-desktop-updater\\installer.exe (225 MB) and its uninstaller never removes that folder; a customUnInstall hook in build/installer.nsh removes it on a real uninstall and keeps it during an update. Reproduced on mbpi9win with the v0.2.4 installer: the uninstall Windows runs (QuietUninstallString, no _?=) removes the install folder, both shortcuts and the registry key, and left only that folder. The Uninstall ACRYL.exe seen before was the _?= test flag (NSIS never deletes an uninstaller run in place), and the silent install that waited forever was updating a machine-wide install left from earlier tests, which needs elevation",
+      "sha": "edefa40a",
+      "date": "2026-10-17T04:03:38Z",
+      "url": "https://github.com/acryldev/acryl/commit/edefa40a092cd356b102b85118f0b183c79a3f00"
+    },
+    {
+      "type": "fix",
+      "scope": "build",
+      "title": "build the plugin hub before the runtime in every surface's build chain",
+      "details": "since the folder move (f0a44643e9a84e20e790d3d43579e506f5b546d8) the runtime imports @webboxes/plugin-hub, and no prebuild chain built it, so a fresh checkout failed in acryl-harness-runtime's build (\"Cannot find module '@webboxes/plugin-hub'\"); found building the installers from a clean archive on Windows (mbpi9win) and Linux (z370n). A checkout with an older dist/ hid it. The darwin-from-source script also builds blends-core, app-persistence and the hub before the runtime now",
+      "sha": "d9b6566a",
+      "date": "2026-10-16T18:52:48Z",
+      "url": "https://github.com/acryldev/acryl/commit/d9b6566a872c8c60caba99a9f23eadf956d48183"
+    },
+    {
+      "type": "fix",
+      "scope": "plugins",
+      "title": "one store for switching a plugin on and off (spec 001 T089)",
+      "details": "DSH's Plugins page and ACRYL's Lifecycle tab wrote two files (the profile's cordis.patch.yml and plugin-lifecycle/state.json), and a disable in either kept the plugin off whatever the other said; DSH's page could not switch ACRYL-composed rows at all (\"unaddressable\"). Now every row ACRYL's lifecycle admits has one store: ACRYL's plugin manager (the acryl-plugin-hub/manager row in DSH's plugin-manager slot) lists those rows to DSH's page as switchable and sends the page's switch through ACRYL's lifecycle, applied live and kept in state.json; an enable from either page also clears a disable the old DSH page left in the profile patch (comments kept), which is how installed apps move over. Rows ACRYL does not admit stay DSH's own. Proven on a real Web engine across six restarts: switched from each page in turn, and from a leftover old-page disable; without the manager change the test fails",
+      "sha": "0d92b8f5",
+      "date": "2026-10-16T14:15:08Z",
+      "url": "https://github.com/acryldev/acryl/commit/0d92b8f5de83c165abdb5b79eca85fde0daa5c19"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "publish a plugin to npm and pull it back, private registries too (spec 044 step 6)",
+      "details": "acryl plugin share <plugin> --npm [--registry <url>] [--public], /plugin share <name> npm [public] [registry URL], and the agent tool's to: \"npm\" or \"npm:<registry URL>\" (asks the user first). Through the user's own npm login and .npmrc, no token read or kept; the same guards as a GitHub share (contract and labels written, the secret check over exactly the packed files, license for public) plus npm's rules (a private plugin needs a scope and goes out restricted, \"private\": true refused) and a version already on the registry refused; the hub's deterministic tarball is what is sent, so the registry's integrity equals the store's. A pull of npm:<name> asks the public registry anonymously, then the user's npm, so a scoped private registry works. Share and npm publish now refuse a plugin no app could install (no dsh.bundle.patch, or the patch left out of the packed files): an end-to-end run against a local Verdaccio published such a plugin, and DSH's installer refused it only on pull. The plugin-hub's dist/ is ignored like app-persistence's; the generated Web prompt copy names its port <port>, so it changes only when the prompt does",
+      "sha": "d72ff2d9",
+      "date": "2026-10-16T13:59:22Z",
+      "url": "https://github.com/acryldev/acryl/commit/d72ff2d9809d23b214144aa0827900c65e82a370"
+    },
+    {
+      "type": "fix",
+      "scope": null,
+      "title": "acryl plugin list works again, a new app keeps its plugin store out of git, and spec 044 S12 runs community plugins",
+      "details": "`acryl plugin` mounted a second plugin lifecycle on top of the one the CLI engine provides, so every acryl plugin list/enable/disable failed with 'service acrPluginLifecycle has been registered' (since at least 2026-09-13); it now uses the engine's. `acryl new` apps ignore plugins/store/ (runtime data like .dsh/), so acryl save never commits pulled tarballs. A refused pull now says where it can be installed and that the kept copy makes that offline. S12 as an opt-in live test (ACRYL_LIVE_COMMUNITY=1): eight released community DSH plugins pulled through the hub into a real Web engine; after a restart seven were ACTIVE and one (built for DSH 0.1.x peers) was refused by DSH's own compatibility check. S13 found the plugin list and gitignore defects in a bare acryl new app, which loads only the base kit",
+      "sha": "d34a6c70",
+      "date": "2026-10-16T13:32:28Z",
+      "url": "https://github.com/acryldev/acryl/commit/d34a6c707106be65372ab8291c301983b642b3bf"
+    },
+    {
+      "type": "fix",
+      "scope": "plugin-hub",
+      "title": "when gh is installed but not signed in, say only how to sign in",
+      "details": "found on mbpi9win (spec 044 S7), where gh's saved login had expired and the message also told the user to install GitHub CLI; a missing gh still names both steps",
+      "sha": "519e93d7",
+      "date": "2026-10-16T12:26:32Z",
+      "url": "https://github.com/acryldev/acryl/commit/519e93d7abd39c81856a55a7e7ead0c117b5af2f"
+    },
+    {
+      "type": "fix",
+      "scope": "plugin-hub",
+      "title": "a packed file is executable from its content and bin, never from the file mode",
+      "details": "found running the hub's suites on Windows (mbpi9win): Windows has no executable bit, so the same plugin packed to different bytes, and a different sha512, there than on macOS and Linux; now a file is executable when package.json's bin names it or it starts with #!, so every system packs the same bytes. The pnpm-install test also runs on Windows now (corepack is a .cmd there, run through a shell)",
+      "sha": "701a0c86",
+      "date": "2026-10-16T12:06:47Z",
+      "url": "https://github.com/acryldev/acryl/commit/701a0c8601e69b8b11e0fb66a95405e5860d2a49"
+    },
+    {
+      "type": "fix",
+      "scope": "plugin-hub",
+      "title": "share a plugin that imports packages the app provides, and pull a private one",
+      "details": "found by spec 044 S5 live: the contract reader imported a plugin's host entry to read its inject, so any plugin importing @deepseek-ai/dsh-tools (every tool plugin) could not be shared from its source folder; inject is now read from the source when it is written literally (an array, an object of names, a class's static inject) and imported only otherwise. A pull of a private repository read GitHub anonymously and found nothing; releases now come from the first port that sees the repository, anonymous https and then the user's own gh login, with downloads through the port that answered. Live on inboxxobni: a new private plugin with a dotted name shared (repository created, v0.1.0, topics, contract tools), pulled back only through gh with the same bytes, a secret and a missing license refused with nothing sent, listed publicly (both catalogs listed it after a refresh) and unlisted again (topics off, private: both catalogs dropped it)",
+      "sha": "2c054c12",
+      "date": "2026-10-16T11:51:36Z",
+      "url": "https://github.com/acryldev/acryl/commit/2c054c12056ee5d0b5de10bd2e831202978bcaca"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-admin",
+      "title": "show each plugin's installed version in the Lifecycle tab (spec 044, the owner: \"we have to display plugin version\")",
+      "details": "the host view reads the version of the package a row loads (a subpath row such as acryl-plugin-hub/manager reads its package) on every snapshot, since a live reinstall changes it; the card header shows it beside the name and the details list it; the name gives way on a narrow card and the version is never cut. Checked in an isolated Desktop run: 211 rows with versions, the hub's two rows mounted and DSH's own manager off",
+      "sha": "f89eb796",
+      "date": "2026-10-16T07:02:10Z",
+      "url": "https://github.com/acryldev/acryl/commit/f89eb796f38cbeb7c4c88c01c2da478f7e1d2c13"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "update a pulled plugin to its newest release (spec 044 S14)",
+      "details": "the hub finds where an installed plugin was pulled from in the store's record, pulls that source's newest release (github:, npm:, a bare name; a file or URL has no newer release and is refused, as is a plugin the hub never pulled), installs it only when it is newer, and keeps every version so going back is a pull of the older one from the store, offline. /plugin update <name>, acryl plugin update <name> (boots the profile like pull, refused while its app is live), and an update action on acryl_plugins that asks the user first",
+      "sha": "e981ade1",
+      "date": "2026-10-16T06:47:41Z",
+      "url": "https://github.com/acryldev/acryl/commit/e981ade1b12f5f9bac64f4831c8899b1a6b594c6"
+    },
+    {
+      "type": "fix",
+      "scope": "extension-context",
+      "title": "the verified state example runs in stock DeepSeek Harness too",
+      "details": "it served its RPC channel with connection.rpc.handle, which stock DSH cannot serve for a third-party plugin (its connection row does not declare webServer; ACRYL patches that row, engine-dsh.ts), so the example and every plugin generated from it, acryl-quick-notes among them, failed in stock DSH with 'cannot get property \"webServer\" without inject' (found by spec 044 S11 on the installed DSH 0.2.0-rc.2). The example now registers one exact route per endpoint under connection's /api with connection.fetch.register, answering the RPC envelope, and the client keeps connection.rpc.call('/api', '<plugin>/<endpoint>'); it no longer needs webServer. Proven in ACRYL's real engine (an RPC round trip through connection's /api handler, persisted under the home) and in the installed stock DSH (active, an authenticated call wrote the note, 401 without the cookie). The state-and-persistence and host-route docs teach the pattern and say why rpc.handle is ACRYL-only",
+      "sha": "c802560d",
+      "date": "2026-10-16T06:37:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/c802560ddfceb4ece71b4b1301691ca09ed30a5e"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "DSH's own \"Add plugin\" box installs a GitHub address as its released, checked version (spec 044 D7, option B)",
+      "details": "the acryl-plugin-hub/manager row takes the place of DSH's plugin-manager row wherever the hub is composed (swapped, never doubled); its class extends DSH's PluginManager and overrides only inspect and installBundle: a git address becomes that repository's latest release, pulled into the store with its sha512 and the services it needs checked, then handed to DSH's installer as the tarball; a branch or commit, another git host, a repository with no release, or a missing service is refused on the page with its reason; names, folders and tarballs go to DSH unchanged. Proven in an isolated Desktop run on DSH's real page (github:inboxxobni/acryl-quick-notes installed release 0.2.2 from the store and enabled; #main and gitlab: refused with their reasons); the run found that a #private method is unreachable through Cordis' service proxy and that only the unknown problem shows its reason, both fixed with tests",
+      "sha": "cfa5cb55",
+      "date": "2026-10-16T06:08:38Z",
+      "url": "https://github.com/acryldev/acryl/commit/cfa5cb5569a8f39626103a38750a878d002c94cf"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "the agent's tool acryl_plugins",
+      "details": "saved, save and version run directly; share, and a pull from anywhere but the store, ask the user through DSH's own approval service first and proceed only on \"allow once\" (an unattended run or the never policy refuses), spec 044 D4. One tool for every action so it costs one definition: the tool definitions ceiling rises by 600 characters on Web (27600) and 700 on the CLI (21700), about 150 tokens a request, after trimming the definition to one line; the detail is in the acryl-share-extension skill, which loads only when needed. The pack's packaging doc describes the generated contract and slots and the save, share and pull commands; the system prompt copies are regenerated; spec 044 records what is built",
+      "sha": "ed2b6d91",
+      "date": "2026-10-16T05:46:37Z",
+      "url": "https://github.com/acryldev/acryl/commit/ed2b6d9160c4c5c1c282b4c9c865168f11105336"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "share a plugin to its own GitHub repository",
+      "details": "sharePlugin does what the first quick-notes push did by hand as one operation whose guards nobody remembers: the target from the options, package.json repository or the user's login; the generated service contract and slots, the three labels and the repository written into package.json; pack, then the secret check over exactly the packed files; a version released once, a private plugin never to a public repository, a public one only with a license; the repository created private unless asked, exactly the packed files committed, tagged v<version> and pushed, the release with the tarball, the labels as topics, the version kept in the store; through the user's own gh and git, tested against local bare repositories. /plugin share <name> [public] [owner/repo] and acryl plugin share <plugin> [--to owner/repo] [--public]. The contract reader moved into @webboxes/plugin-hub (the pack re-exports it) and now also writes acryl.slots { offers, fills } from slots declared with children and filled with register or inject (spec 044 D9 option D); the share skill now describes the hub instead of an npm-only step",
+      "sha": "c213ed5c",
+      "date": "2026-10-16T05:35:33Z",
+      "url": "https://github.com/acryldev/acryl/commit/c213ed5c74a53edce117dfe2371f1bf19073a406"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "the pluginHub service and its first faces",
+      "details": "the acryl-plugin-hub plugin (in every Blend's base kit, on Web, Desktop and the terminal) provides pluginHub over @webboxes/plugin-hub's createPluginHub: save a plugin you edit into the app instance's store, bump its version, pull from store:, github:owner/repo[@version], npm:, a .tgz file or URL into the store with the sha512 checked, refuse a plugin whose required host services this app lacks (naming them), and install through DSH's own pluginManager (D1); /plugin list | saved | save | version | pull in the chat, acryl plugin saved | save | version | pull on the command line (pull boots the profile like list and refuses while its app is live)",
+      "sha": "161f5bdc",
+      "date": "2026-10-16T05:27:29Z",
+      "url": "https://github.com/acryldev/acryl/commit/161f5bdc5e0395fe114d579ef442ec890d0fb7a5"
+    },
+    {
+      "type": "feat",
+      "scope": "plugin-hub",
+      "title": "the host-independent core of saving, sharing and pulling plugins (spec 044 lifecycle.md, layer 1)",
+      "details": "dotted plugin names (@owner/app.sidebar.date-filter, the levels of the author's tree), the one source argument every face takes (store:, github:owner/repo[@version], npm:, a .tgz file or https URL, a folder, a bare name; raw git refused), deterministic tarballs written without npm (npm's file rules and layout, fixed times and gzip header, so the same files give the same sha512 on every system; checked against npm pack on quick-notes and installed by pnpm with the same integrity), the local store (a version kept once, a changed file reported), save, and the pull pipeline with GitHub release and npm ports over https",
+      "sha": "77899373",
+      "date": "2026-10-16T05:10:22Z",
+      "url": "https://github.com/acryldev/acryl/commit/778993739a48c62cd3a0d61f219eb73aff421c61"
+    },
+    {
+      "type": "feat",
+      "scope": "extension-context",
+      "title": "an extension's service contract in its package.json",
+      "details": "acryl.requires and acryl.provides per side, generated from the code (host inject as the Loader reads it, client inject from its literal list, provides from super(ctx, name) and ctx.provide), written by publish prep and validated as catalog metadata, so a catalog or a Blend's builder can tell which app runs it and which extension supplies a missing service; the state example declares dshHomePath and no longer falls back to homedir(), which could write into a real ~/.acryl; verify's inject message matched an older Cordis ({ required, optional })",
+      "sha": "66cf7d43",
+      "date": "2026-10-15T15:33:18Z",
+      "url": "https://github.com/acryldev/acryl/commit/66cf7d43ffd94f4ae434a4130b2d344b280300ed"
+    },
+    {
+      "type": "fix",
+      "scope": "scripts",
+      "title": "live-run reports an app that exits by itself, with its last output, and fails",
+      "details": "a Web run on a copy of a home whose app was running quit silently and the script said 'stopped, port free'",
+      "sha": "c375e61a",
+      "date": "2026-10-14T03:37:21Z",
+      "url": "https://github.com/acryldev/acryl/commit/c375e61a0a14a37966bc4f0106ff66763806eeba"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "a worktree lists its open chats, not every chat that ever ran in its folder",
+      "details": "each CLI or TUI start leaves a session behind, so the owner's main showed 97 chats it read as open ones nobody closed; the list now shows chats with a tab there, running or selected, and the rest behind 'N earlier chats'; the row's count counts the same open chats (live on a copy of the owner's Web home: 97 became 8, with '89 earlier chats')",
+      "sha": "40c67cdb",
+      "date": "2026-10-14T03:37:21Z",
+      "url": "https://github.com/acryldev/acryl/commit/40c67cdb38286bd15420958cca4e70ec045bb01b"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "ACRYL's tree is the right sidebar's Files tab in the advanced shell",
+      "details": "it takes over DSH's Files kind at the extension band, so the Files a user opens shows files in ACRYL's editor with working breadcrumbs and line comments for the agent's terminal, not DSH's read-only preview; the old Code tab kind stays registered for tabs already open; compatibility mode is unchanged (spec 001 T086)",
+      "sha": "35bdf722",
+      "date": "2026-10-14T03:25:19Z",
+      "url": "https://github.com/acryldev/acryl/commit/35bdf722d5c04f75c6b55fed703fd149aa819167"
+    },
+    {
+      "type": "fix",
+      "scope": "shortcuts",
+      "title": "the palette has no Web-on-Linux default",
+      "details": "DSH lets a Linux browser page take only Ctrl+/, Ctrl+Shift+, and Ctrl+Shift+. and refuses a whole registration with one refused default, which took the palette shortcut away everywhere (caught by check-features before it shipped); spec 001: T076 done, T082 records that ACRYL Desktop runs DSH's shortcuts as Web and the bridge to port",
+      "sha": "21b4efc3",
+      "date": "2026-10-13T13:27:57Z",
+      "url": "https://github.com/acryldev/acryl/commit/21b4efc385e9578743cdcd18aa4cf56001e9e445"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "the Files tab's tree, after T3 Code's",
+      "details": "it scrolls (the pane had no layout, so a long tree ran off the bottom), draws only the rows in view (an opened node_modules scrolls like a small folder), has chevrons, file icons tinted by type, indent guides, and dims what git ignores (git check-ignore per listed folder); one search field over the repository replaces the filter of opened folders; Rename, Delete and Preview move from buttons on every row into a row menu (right-click, the row's '...', or Shift+F10) with Open to the side, New file or folder here, and Copy path or relative path; the arrow keys, Enter, Home and End walk it; header buttons get icons and Collapse all folders",
+      "sha": "ca3fb2a4",
+      "date": "2026-10-13T13:17:10Z",
+      "url": "https://github.com/acryldev/acryl/commit/ca3fb2a4ec9df60ced5dc2478e6b08425bfe3bac"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "a closed right panel can be opened again from the tab strip",
+      "details": "with the terminal at the bottom and the right panel closed nothing on screen opened it (Files, Changes, Review were reachable only from the palette); a 'Show right panel' button shows while it is closed, and only then, with a filled glyph unlike the mode button's layouts (the reason the earlier toggle was removed). applyAdvancedShell returns the frame's right column state so the button follows it",
+      "sha": "ac47e9d7",
+      "date": "2026-10-13T13:11:01Z",
+      "url": "https://github.com/acryldev/acryl/commit/ac47e9d7044f9fdabbe2904a75dc08546aab6164"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "a page that had shown its root always reloads when it loses it",
+      "details": "two rebuilds within a minute (one build run) still left a white window under the one-minute guard, which exists only to stop a boot failure from looping; that guard now applies only to a page that never showed its root",
+      "sha": "500ed6dd",
+      "date": "2026-10-13T13:05:40Z",
+      "url": "https://github.com/acryldev/acryl/commit/500ed6ddf8ec26da13b7527bb35692930b5bd61c"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "a file, markdown preview or diff opens as the current tab, not split beside the chat",
+      "details": "splitting stays the user's choice (the tab's split button or its menu); a split the user made is left as it is",
+      "sha": "8ba124c4",
+      "date": "2026-10-13T13:00:46Z",
+      "url": "https://github.com/acryldev/acryl/commit/8ba124c4141b4575f4d521a0b79c18eb85b1bc02"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "a window that loses its root slot after boot reloads instead of staying white",
+      "details": "a hot reload of acryl-workspace (a rebuild under a running app, or of a provider it injects) drops 'root' before the new copy registers it, and DSH's RootOutlet throws with nothing to catch it; the recovery reloaded only once per window session, so the second time (overnight) left a white window. It now reloads unless it already did in the last minute, which still stops a failure that returns right after its reload",
+      "sha": "897d2773",
+      "date": "2026-10-13T13:00:46Z",
+      "url": "https://github.com/acryldev/acryl/commit/897d27731c3ab788ad23857b5b5e2af1bf41ca18"
+    },
+    {
+      "type": "fix",
+      "scope": "runtime",
+      "title": "the harness profile boot makes its terminal capabilities' packages resolvable, as the CLI and Web boots do",
+      "details": "acryl-settings and the account sign-in callback failed to import there, which every runtime test that boots it printed",
+      "sha": "b8a09171",
+      "date": "2026-10-13T03:38:38Z",
+      "url": "https://github.com/acryldev/acryl/commit/b8a09171e3a5088ec62e46736b304b0e0d3cbe9a"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "comment on lines of a file for the agent in a terminal",
+      "details": "a '+' beside the line under the pointer opens a comment form under it (or under the selected lines); Comment (Cmd/Ctrl+Enter) pastes the file, relative and absolute, the line numbers and their text, and the comment into the terminal the user worked in last, without pressing Enter, so several comments go in one message; one line for a terminal without bracketed paste, so a shell never runs it; a sent comment stays under its lines as a note; no running terminal keeps the form and says why",
+      "sha": "165bb928",
+      "date": "2026-10-13T03:29:09Z",
+      "url": "https://github.com/acryldev/acryl/commit/165bb9280a6c494b60e5f0615c7bf0c0281a0a1a"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "breadcrumbs fold from measured widths",
+      "details": "an invisible copy of the whole path gives each part's width, and the fold is computed from those and the room there is, whenever either changes size; folding by trial missed text that widened after the first layout (a font loading), leaving the file name cut under Save",
+      "sha": "c3ee6626",
+      "date": "2026-10-13T03:29:09Z",
+      "url": "https://github.com/acryldev/acryl/commit/c3ee6626f6a9f79ee2c07f149fedbf6242567c80"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "clickable breadcrumbs above a file",
+      "details": "every part of the path opens a list of its folder (the file's part, its neighbours, the file marked); folders open in place and '..' goes up, so the project can be walked without leaving the editor, with the arrow keys too; a file opens in its tab; a path too long for the pane folds its outer folders into '...'; the Markdown preview has the same path; the list scrolls itself, never the panes around it",
+      "sha": "bbefc160",
+      "date": "2026-10-13T03:19:33Z",
+      "url": "https://github.com/acryldev/acryl/commit/bbefc160b67bd7b9c3819ad7e193ea862c84e661"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "a collapsed right pane no longer shifts the whole window sideways",
+      "details": "its terminal panel stayed focusable at zero width, and a terminal taking focus there made the frame scroll 576 px left, leaving the left half off screen and a white band on the right; the panel is hidden while its column has no width",
+      "sha": "dc412697",
+      "date": "2026-10-13T03:13:26Z",
+      "url": "https://github.com/acryldev/acryl/commit/dc41269790ffd683dabbd72758438f11a14896ba"
+    },
+    {
+      "type": "feat",
+      "scope": "shortcuts",
+      "title": "Settings > Shortcuts is back, and the element picker is easy to find",
+      "details": "every shortcut listed, searchable, recorded, cleared or reset in place on DSH's own shortcut service (the store its Edit shortcuts dialog uses); the inspector is now 'Pick an element for the agent', reachable from the command palette, outlines any element (not only inside a slot), keeps the press from reaching the page, copies a CSS selector and the visible text, and says when the clipboard refused; the palette's shortcut is shown as Cmd/Ctrl+Shift+P (it said K), and the unused direct Shift+K listener is gone",
+      "sha": "a3465528",
+      "date": "2026-10-13T03:13:23Z",
+      "url": "https://github.com/acryldev/acryl/commit/a346552863e7d2a70c2a3ec806084fc265235d90"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "shared context for every agent in a Shared Context workspace (spec 043 T009-T011)",
+      "details": "a generated WORKSPACE.md and a brief edited in a Workspace brief tab; the DSH chat is told through a systemPrompt context keyed by its session's folder; terminal agents get it at launch (Claude Code --add-dir and --append-system-prompt, Pi --append-system-prompt, Codex --add-dir, everyone ACRYL_WORKSPACE_CONTEXT); acryl_workspace_context for any agent, on the gateway's allowlist; an Individual Projects workspace shares nothing",
+      "sha": "fe3a806a",
+      "date": "2026-10-12T22:28:45Z",
+      "url": "https://github.com/acryldev/acryl/commit/fe3a806ac19a6a064139fea52cc2ddd4d9b6e284"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "the agent lists, switches and creates workspaces and adds projects (spec 043 T007)",
+      "details": "acryl_workspace_* tools on the registry the sidebar uses, creating and adding asked about; every page follows a change it did not make through the registry's event stream; one place moves the tabs and the selected worktree for any workspace change; a runtime test compiles ACRYL's tool schemas with DSH's own compiler (a schema DSH rejects had hidden the tools at boot); tool budget raised to 26800 for the four tools",
+      "sha": "500ba49b",
+      "date": "2026-10-12T21:57:03Z",
+      "url": "https://github.com/acryldev/acryl/commit/500ba49bfb7733bc1b218adbf87cba6b7ca98d3e"
+    },
+    {
+      "type": "fix",
+      "scope": "cli",
+      "title": "account sign-in like other coding agents",
+      "details": "choosing a provider already signed in with an account signs in again in the browser instead of opening the API-key editor; /model shows such a provider as an account (sign in again, sign out); a built-in provider keeps its own protocol instead of showing and saving openai-completions; the sign-in page's URL is shown whole; Escape cancels the sign-in",
+      "sha": "f9c42cdb",
+      "date": "2026-10-12T21:36:43Z",
+      "url": "https://github.com/acryldev/acryl/commit/f9c42cdb78eeb23a1fc96d38e68ecd0dcaa24e97"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "one tab set per workspace (spec 043 T006)",
+      "details": "each workspace keeps its own tabs per worktree, sets saved before workspaces are Default's, and a set not opened this run is saved again instead of dropped; a notice opens its tab in its own workspace; an empty workspace shows no worktree; the feature check brings its own git project, closes the no-key dialog and polls instead of sleeping",
+      "sha": "14b6209b",
+      "date": "2026-10-12T20:15:34Z",
+      "url": "https://github.com/acryldev/acryl/commit/14b6209b27d347302d372b355763224b51b74d4a"
+    },
+    {
+      "type": "feat",
+      "scope": "cli",
+      "title": "DeepSeek account sign-in from /login, like Web and Desktop",
+      "details": "the terminal serves DeepSeek's browser callback on its own loopback port, visible only to the account row (DSH's web server would also have exposed the API gateway); acryl-sign-in/account-callback provides it and acrylAccountSignIn (research R44)",
+      "sha": "c743293c",
+      "date": "2026-10-12T19:56:54Z",
+      "url": "https://github.com/acryldev/acryl/commit/c743293ca7157e8ee6458601df08e4486e07197b"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "the sidebar and the tab strip stop growing",
+      "details": "the tree shows the workspace's projects, not every folder a chat ever ran in, and a worktree opens with its 8 most recent chats as tabs, not all of them",
+      "sha": "2af57668",
+      "date": "2026-10-12T19:33:56Z",
+      "url": "https://github.com/acryldev/acryl/commit/2af576684672b52e8eaaba1da2583e854bbfee67"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "switch workspaces from the sidebar (spec 043 T004, T005, T008)",
+      "details": null,
+      "sha": "845b95ef",
+      "date": "2026-10-12T18:29:48Z",
+      "url": "https://github.com/acryldev/acryl/commit/845b95ef04299de533513ccd6f338ace3191453b"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "workspaces in the project registry (spec 043 T001-T003)",
+      "details": "named sets of projects, Default first, one shown at a time",
+      "sha": "2d3dcd64",
+      "date": "2026-10-12T18:21:31Z",
+      "url": "https://github.com/acryldev/acryl/commit/2d3dcd644df6d40c0b61dc25452814f46e1150c8"
+    },
+    {
+      "type": "feat",
+      "scope": "scripts",
+      "title": "check-features",
+      "details": "use the features a person uses in a real window and report which work, for every DSH upgrade (spec 001 T078)",
+      "sha": "4dd8e9e5",
+      "date": "2026-10-12T18:14:07Z",
+      "url": "https://github.com/acryldev/acryl/commit/4dd8e9e52349fbdcc37bbcd04036789f245d2288"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "the right panel's Code, Changes, Review and Checks entries have their own icons instead of the placeholder cube, and the Changes tab keeps a path's slashes in place (the right-to-left truncation moved the leading slash to the end)",
+      "details": null,
+      "sha": "d061c6bc",
+      "date": "2026-10-12T17:30:48Z",
+      "url": "https://github.com/acryldev/acryl/commit/d061c6bc02f50deda6db44793d4719c3ad0d2b86"
+    },
+    {
+      "type": "fix",
+      "scope": "tui",
+      "title": "the status line returns to idle after a turn, and the presets' subagent tools load",
+      "details": null,
+      "sha": "6d575670",
+      "date": "2026-10-12T17:30:48Z",
+      "url": "https://github.com/acryldev/acryl/commit/6d575670566a656644e84d95bcb25231c39bb6cb"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "picking a worktree, a tab or a chat always returns to the tabs from an open page (Plugins, Automation tasks)",
+      "details": "only a pick that opened a new chat did, so clicking the worktree already shown left the Plugins page in place with no way back but toggling it",
+      "sha": "2182e544",
+      "date": "2026-10-12T15:59:35Z",
+      "url": "https://github.com/acryldev/acryl/commit/2182e544654d60529046fe225b2bf386f225968b"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "the Tabs and Command palette Settings sections are back, and Board cards name their chat",
+      "details": null,
+      "sha": "dc7393f3",
+      "date": "2026-10-12T15:43:08Z",
+      "url": "https://github.com/acryldev/acryl/commit/dc7393f3c9c5ee05baec960242b1c5d4fd1205de"
+    },
+    {
+      "type": "fix",
+      "scope": "mount-anchors",
+      "title": "the element inspector's shortcut (Cmd/Ctrl+Shift+.) works with the chat composer or a terminal focused, not only the page",
+      "details": "that is where the user explains to the agent what to change; its toast uses a plain dash",
+      "sha": "917dfc0f",
+      "date": "2026-10-12T15:32:31Z",
+      "url": "https://github.com/acryldev/acryl/commit/917dfc0f016fb3eb912003eed426c3e71320498f"
+    },
+    {
+      "type": "fix",
+      "scope": "agent-control",
+      "title": "in full access the agent operates the UI without a prompt",
+      "details": "the session's Full access mode (danger-full-access) was read only as its 'never' approval policy, so every click, type and key press was refused before reaching the page",
+      "sha": "6a7cb884",
+      "date": "2026-10-12T15:27:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/6a7cb884bf325a70e3503bdad38297b445fcfbc8"
+    },
+    {
+      "type": "feat",
+      "scope": "scripts",
+      "title": "reproduce what a user saw",
+      "details": "live-run --copy-home (their chats, worktrees and profile, without their stored sign-ins), --no-key, --inspect, and scripts/inspect-page.mjs to read and drive the window (spec 001 T073)",
+      "sha": "5db81dd0",
+      "date": "2026-10-12T14:33:25Z",
+      "url": "https://github.com/acryldev/acryl/commit/5db81dd08b09211848372c3f86bfd9a4f316251a"
+    },
+    {
+      "type": "fix",
+      "scope": "app-shell",
+      "title": "the health record counts a repeated error over ten seconds, not one",
+      "details": "the frozen window's loop repeated about three times a second, below the old threshold, so it left no runaway incident",
+      "sha": "70e8d8d4",
+      "date": "2026-10-12T14:01:24Z",
+      "url": "https://github.com/acryldev/acryl/commit/70e8d8d4c06c8915731df3035ce5dfa20bfb2857"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "selecting a chat tab opens its chat as part of that one action, and a chat tab lives only in its own worktree's tab set",
+      "details": "an effect reacting to the selected tab and the session sync drove each other (and the tree followed each chat to its worktree), which froze the window",
+      "sha": "92c50d9a",
+      "date": "2026-10-12T14:01:24Z",
+      "url": "https://github.com/acryldev/acryl/commit/92c50d9a3e6d3a643eee9613973e9c3a58f7b60c"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "a chat tab carries its session id (data-chat-session-id), so tests, agent control and diagnostics can tell which chat a tab shows",
+      "details": null,
+      "sha": "0f8140d4",
+      "date": "2026-10-11T23:14:12Z",
+      "url": "https://github.com/acryldev/acryl/commit/0f8140d4b9f1265108e5476f6287798ba7afeb14"
+    },
+    {
+      "type": "feat",
+      "scope": "app-shell",
+      "title": "the page keeps a health record on every surface",
+      "details": "main-thread stalls, long tasks and runaway error loops (with the first stack and the crashed slot), written once each as [acryl-health] and kept in window.__acrylHealth, so a freeze leaves evidence",
+      "sha": "0c05e7e6",
+      "date": "2026-10-11T23:14:12Z",
+      "url": "https://github.com/acryldev/acryl/commit/0c05e7e6e31b6616b27274b1b41e2c88eb808463"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "identical renderer console lines are folded into one 'repeated N times' line",
+      "details": "a render loop repeated one error on every store update, and mirroring each into the log made the logging part of the freeze",
+      "sha": "66a7829b",
+      "date": "2026-10-11T23:14:12Z",
+      "url": "https://github.com/acryldev/acryl/commit/66a7829b667da38e2a1aa4d3e7dcd87e54d1d1b1"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "chat tabs, the sidebar and the conversation show the same chat",
+      "details": "opening a chat goes through DSH's own session navigation (whose hold on the previous session kept it on screen whenever ACRYL switched by a parallel hold), and selecting a chat tab opens that tab's session; a new AcrylDSH Chat is its own session instead of showing the current one again",
+      "sha": "9afe9955",
+      "date": "2026-10-11T14:20:13Z",
+      "url": "https://github.com/acryldev/acryl/commit/9afe9955a303d7850c85e287d850159d7ce8c6dc"
+    },
+    {
+      "type": "feat",
+      "scope": "llm",
+      "title": "pi-ai and pi-tui 1.1.0",
+      "details": "Claude Haiku 5.5, Sonnet 5.5 and Opus 5.5 in the model list (DSH 0.2.0-rc.2 pins pi-ai 0.87.1, whose catalog stops at Haiku 4.5, Sonnet 5 and Opus 5); ChatGPT sign-in moves to the OpenAI route, with the adapter patched to give pi-ai 1.x the installation id its ChatGPT sign-in requires; terminal light/dark detection follows pi-tui 1.x; both ACRYL patches re-ported",
+      "sha": "8c1326dc",
+      "date": "2026-10-11T12:54:18Z",
+      "url": "https://github.com/acryldev/acryl/commit/8c1326dc6dd7f6ee206de40f55a0ea57c9830d62"
+    },
+    {
+      "type": "feat",
+      "scope": "sign-in",
+      "title": "Settings > Models offers sign-in with an account on Web and Desktop",
+      "details": "Claude, ChatGPT (OpenAI Codex), DeepSeek and the other providers whose flow offers OAuth, next to the page's own API-key editor; DeepSeek's account is driven through the harness account service because DeepSeek's own dialog exists only in DeepSeek's Desktop window; the terminal's /login gets the same default-model rule",
+      "sha": "a5e29765",
+      "date": "2026-10-11T01:40:37Z",
+      "url": "https://github.com/acryldev/acryl/commit/a5e29765c14d454a62bf3573c2ef8eac2485bf2b"
+    },
+    {
+      "type": "feat",
+      "scope": "sign-in",
+      "title": "a sign-in makes that provider the default for new sessions when the current default cannot answer; DeepSeek's account flow is not offered through these routes (only DeepSeek's account page starts it); a provider's failure reads as its sentence instead of a JSON body",
+      "details": null,
+      "sha": "9c8e5b82",
+      "date": "2026-10-11T01:05:26Z",
+      "url": "https://github.com/acryldev/acryl/commit/9c8e5b82309b750b16ca1dbb17c835383127af40"
+    },
+    {
+      "type": "feat",
+      "scope": "acryl-sign-in",
+      "title": "Host routes for signing in to a model provider with an account",
+      "details": "providers from the harness authorization flows, one running conversation, route activation; composed for Web and Desktop as the sign-in capability",
+      "sha": "4c4e81fe",
+      "date": "2026-10-11T01:05:18Z",
+      "url": "https://github.com/acryldev/acryl/commit/4c4e81fe7371f0b905d67af4eda6ff8b59323c08"
+    },
+    {
+      "type": "fix",
+      "scope": "scripts",
+      "title": "the build lock is re-entrant for the command it runs",
+      "details": "a gate run through with-build-lock (the documented way) no longer hangs forever on its own build-lock test, which starts a nested with-build-lock",
+      "sha": "3572453d",
+      "date": "2026-10-11T01:03:58Z",
+      "url": "https://github.com/acryldev/acryl/commit/3572453d07c0fb0bcae29cf17b8ba202abbd9cfa"
+    },
+    {
+      "type": "feat",
+      "scope": "acryl-control",
+      "title": "createRouteActivation",
+      "details": "a signed-in provider becomes live without replacing a profile the user configured",
+      "sha": "1a717653",
+      "date": "2026-10-11T01:03:58Z",
+      "url": "https://github.com/acryldev/acryl/commit/1a717653d093628baa67319ee0f591c0a844cf91"
+    },
+    {
+      "type": "feat",
+      "scope": "acryl-control",
+      "title": "SignInAttempts",
+      "details": "one sign-in conversation (notices, question, answer, cancel) as a read model a window can poll, over AuthorizationService.begin",
+      "sha": "f80d53d2",
+      "date": "2026-10-11T01:03:58Z",
+      "url": "https://github.com/acryldev/acryl/commit/f80d53d2fddef1df1d74086a8327071d54b03f67"
+    },
+    {
+      "type": "fix",
+      "scope": "extension-context",
+      "title": "the agent no longer asks the user to reload after installing a UI plugin",
+      "details": "it mounts live in open windows (measured on the packaged Desktop app, about one second), so the install hint, docs and skills say so",
+      "sha": "78e81c8f",
+      "date": "2026-10-09T18:49:10Z",
+      "url": "https://github.com/acryldev/acryl/commit/78e81c8fbb18452faee5f2e48ed30e2bcb39ce6d"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the DMG parks its two hidden files off-screen so Finder with hidden files shown does not draw them over the instructions",
+      "details": null,
+      "sha": "643479ea",
+      "date": "2026-10-09T18:45:35Z",
+      "url": "https://github.com/acryldev/acryl/commit/643479ea042ed9ca1bb76b8885b833659969e499"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the update check and installer download use ACRYL's own GitHub releases",
+      "details": "the popup no longer asks dshdesktop.cn, which reported another project's version (2.0.17)",
+      "sha": "1c8610e8",
+      "date": "2026-10-09T17:05:36Z",
+      "url": "https://github.com/acryldev/acryl/commit/1c8610e80ef65eb50e2a97ecac29d647a9aefaaf"
+    },
+    {
+      "type": "feat",
+      "scope": "desktop",
+      "title": "the DMG window is light, compact and says how to open an unsigned app (Open Anyway); the blocked helper script is gone",
+      "details": null,
+      "sha": "7f6bc938",
+      "date": "2026-10-09T17:00:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/7f6bc938a04eaa0221fbf9572403284b624e5994"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the app icon files are generated here",
+      "details": "electron-builder's converter wrote noise into the 16 and 32 px sizes, so Finder and the installer showed a garbled icon",
+      "sha": "40ffba5b",
+      "date": "2026-10-09T17:00:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/40ffba5b51489e3f2f505deae302cb81e8589e26"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "ACRYL shows no DeepSeek preview notice",
+      "details": "the upstream welcome step is no longer registered",
+      "sha": "221c6b0b",
+      "date": "2026-10-09T17:00:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/221c6b0b97d66759458e92228b985f3591ea0d14"
+    },
+    {
+      "type": "fix",
+      "scope": "scripts",
+      "title": "the isolated run removes its throwaway folder with retries, since Windows keeps a just-killed app's files locked for a moment",
+      "details": null,
+      "sha": "6a404232",
+      "date": "2026-10-09T15:52:11Z",
+      "url": "https://github.com/acryldev/acryl/commit/6a404232fec1f92813695362afd264c3aaeb4e9b"
+    },
+    {
+      "type": "feat",
+      "scope": "desktop",
+      "title": "the macOS DMG window explains the first launch and carries Open ACRYL, a readable script that only removes the download flag, plus a README",
+      "details": null,
+      "sha": "dcaa03fb",
+      "date": "2026-10-09T15:32:34Z",
+      "url": "https://github.com/acryldev/acryl/commit/dcaa03fbaffcc89e3b13860d3598f3efb6fdc4b6"
+    },
+    {
+      "type": "fix",
+      "scope": "extension-context",
+      "title": "global and project extension scopes are recognised with Windows path separators, and the pack's tests are host-aware",
+      "details": null,
+      "sha": "586599be",
+      "date": "2026-10-09T15:15:37Z",
+      "url": "https://github.com/acryldev/acryl/commit/586599bef1722e175ed7530e0ae1882466fbe3c8"
+    },
+    {
+      "type": "fix",
+      "scope": "layout",
+      "title": "the DSH import ratchet matches seam files with forward slashes, so it counts the same on Windows",
+      "details": null,
+      "sha": "8e78cd6f",
+      "date": "2026-10-09T13:27:39Z",
+      "url": "https://github.com/acryldev/acryl/commit/8e78cd6ff7af656c6b6d6170168b391f4120a954"
+    },
+    {
+      "type": "fix",
+      "scope": "install",
+      "title": "the terminal installer works for real",
+      "details": "it asks the hardware for the CPU (a Rosetta shell on an Apple silicon Mac picked a build that does not exist), verifies the SHA-256 against the release manifest and refuses a mismatch, resolves the release without the rate-limited API, edits the shell file once, and tells an Intel Mac to use the desktop app",
+      "sha": "d8bd27ad",
+      "date": "2026-10-09T12:34:09Z",
+      "url": "https://github.com/acryldev/acryl/commit/d8bd27ad2bbffcb0d32eb32266a932032758c7e0"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the packaged-runtime check no longer warns about react peers of packages with a browser bundle or the terminal-only pi-tui peer, and still reports any other peer the app does not ship",
+      "details": null,
+      "sha": "5971f930",
+      "date": "2026-10-09T12:25:08Z",
+      "url": "https://github.com/acryldev/acryl/commit/5971f930b7349ae2c259317043409cd37d417228"
+    },
+    {
+      "type": "fix",
+      "scope": "extension-context",
+      "title": "a failed plugin update brings the previous version back on Windows too",
+      "details": "the lookup compared the staged path by spelling (pnpm writes forward slashes there), so the running version was never found and the plugin was lost (restoredPrevious: false)",
+      "sha": "b9f20e7e",
+      "date": "2026-10-09T12:24:00Z",
+      "url": "https://github.com/acryldev/acryl/commit/b9f20e7e8c1c1c8ed81cae9d56567e05cffff18f"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the macOS app is sealed (ad hoc) before the DMG is built",
+      "details": "without a Developer ID electron-builder left a bundle codesign --verify --strict rejects, which macOS calls damaged on a download; every release also proves the agent plugin cycle on its macOS, Windows and Linux builds",
+      "sha": "13ee5b38",
+      "date": "2026-10-09T12:18:45Z",
+      "url": "https://github.com/acryldev/acryl/commit/13ee5b38c382d689fbf2b808fb1163535fcfa3ff"
+    },
+    {
+      "type": "feat",
+      "scope": "release",
+      "title": "installer file names carry the release (acryl-desktop-mac-arm64-v0.2.3.dmg), so a downloaded file says which release it is; a dry run on a branch no longer fails the version-drift check meant for tags",
+      "details": null,
+      "sha": "4ef6e5e8",
+      "date": "2026-10-09T12:11:31Z",
+      "url": "https://github.com/acryldev/acryl/commit/4ef6e5e8f8a3ef9d5de7bd0c709a3ce82fb3f950"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the packaged self-extension check derives the engine home from the isolated run's home instead of reading the placement variable (the bulkhead guard rightly refuses that)",
+      "details": null,
+      "sha": "f59586a1",
+      "date": "2026-10-09T03:02:45Z",
+      "url": "https://github.com/acryldev/acryl/commit/f59586a1bd20322cc2c1db6373e4c12beb3342b9"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "DSH's private subprocess runner starts as Node inside Electron (ELECTRON_RUN_AS_NODE)",
+      "details": "without it the packaged app launched a second ACRYL instead of the runner, so every package install an agent started failed on Windows (exit 1) and hung on Linux",
+      "sha": "d3d7f24f",
+      "date": "2026-10-09T02:53:27Z",
+      "url": "https://github.com/acryldev/acryl/commit/d3d7f24f8f451bc736ef3bdc29f9e09ad9b4e095"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the packaged self-extension check times out a stuck call and prints the error name, cause and the app's own log tails",
+      "details": null,
+      "sha": "13a9f890",
+      "date": "2026-10-09T02:39:58Z",
+      "url": "https://github.com/acryldev/acryl/commit/13a9f890f321c49bbbfee1ad2f9be5a9cc6cf4ba"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "build:windows verifies the installer under the name it is built with (acryl-desktop-win-x64.exe; it still looked for the old versioned name and failed a successful build), same for the portable zip, and clears the previous artifact first since the name no longer carries the version",
+      "details": null,
+      "sha": "3cdb12d0",
+      "date": "2026-10-09T02:39:26Z",
+      "url": "https://github.com/acryldev/acryl/commit/3cdb12d0a41b821102136a8af2b6fb2b00ef333b"
+    },
+    {
+      "type": "feat",
+      "scope": "desktop",
+      "title": "verify-packaged-self-extension",
+      "details": "boots a packaged app and proves an agent-written plugin installs, runs, updates and is removed live through the agent's own tools",
+      "sha": "16341162",
+      "date": "2026-10-09T02:20:53Z",
+      "url": "https://github.com/acryldev/acryl/commit/163411627e0aa8a5845f010be982af2497a0c3c6"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "ask Electron for the appData folder only when the user-data override needs it (it throws on Windows under a redirected profile, which killed the packaged app at launch in an isolated run)",
+      "details": null,
+      "sha": "84705422",
+      "date": "2026-10-09T02:20:52Z",
+      "url": "https://github.com/acryldev/acryl/commit/847054222db861f9cf0a5320a325ab75f81861fc"
+    },
+    {
+      "type": "fix",
+      "scope": "release",
+      "title": "the clean-install size budget is 600 MB (was 350 MB); the LibreOffice kit and voice runtime from DSH 0.2 are kept on purpose and the four CLI targets install at 487-516 MB",
+      "details": null,
+      "sha": "a415012b",
+      "date": "2026-10-09T00:55:12Z",
+      "url": "https://github.com/acryldev/acryl/commit/a415012bfb193876dcecd110272205a269f11c13"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "the profile smoke stores the advanced shell mode where the settings service reads it (acryl-settings.yaml); it only passed on macOS and Windows because advanced is their default, and CI on Linux was red since the settings migration",
+      "details": null,
+      "sha": "e508405e",
+      "date": "2026-10-09T00:42:07Z",
+      "url": "https://github.com/acryldev/acryl/commit/e508405ebeea6fb81eee286ef39e51c18fb2dbd2"
+    },
+    {
+      "type": "fix",
+      "scope": "release",
+      "title": "pack the closure without re-running every package's checks (prepack is the full check; the release job already ran it) and accept the Windows sherpa-onnx package, which is named win-x64",
+      "details": null,
+      "sha": "e7470e63",
+      "date": "2026-10-09T00:15:55Z",
+      "url": "https://github.com/acryldev/acryl/commit/e7470e63850178a3459e4f304465bac2ce7123ce"
+    },
+    {
+      "type": "fix",
+      "scope": "workspace",
+      "title": "report worktree paths in the host's own form (Git writes C:/repo on Windows, the rest of the app uses C:\\repo)",
+      "details": null,
+      "sha": "4fc18098",
+      "date": "2026-10-08T23:23:06Z",
+      "url": "https://github.com/acryldev/acryl/commit/4fc180988bcee401054a5b717caf39106be929c0"
+    },
+    {
+      "type": "fix",
+      "scope": "release",
+      "title": "build the CLI and Web archives' dependency closure with a pnpm whose legacy deploy installs it (11.11.0 resolves and installs nothing), accept the target's own unscoped native package, and forbid Electron code rather than type declarations under an electron folder",
+      "details": null,
+      "sha": "bd528224",
+      "date": "2026-10-08T23:23:06Z",
+      "url": "https://github.com/acryldev/acryl/commit/bd5282243aa2cce14b2e250c566c823cdef4446e"
+    },
+    {
+      "type": "fix",
+      "scope": "mac",
+      "title": "build:mac produces a universal DMG on DSH 0.2",
+      "details": "node-pty is a direct dependency, the verifier reads the 0.2 preset skills, and both halves of the universal build keep both CPUs' native packages (libreoffice-kit, node-addon-system, sherpa-onnx declared per CPU like sharp and koffi)",
+      "sha": "514d0191",
+      "date": "2026-10-08T05:15:34Z",
+      "url": "https://github.com/acryldev/acryl/commit/514d0191cd127213905a26c9b921b46c06062a0c"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "Linux defaults to the compatibility shell, since the advanced shell exists on macOS and Windows only",
+      "details": null,
+      "sha": "36ee06a7",
+      "date": "2026-10-07T19:03:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/36ee06a79653155adfe26f2a57c1c9dee5b15342"
+    },
+    {
+      "type": "fix",
+      "scope": "desktop",
+      "title": "dev launch on Linux starts without the Chromium sandbox when the SUID helper is not configured",
+      "details": null,
+      "sha": "a4202c94",
+      "date": "2026-10-07T19:03:15Z",
+      "url": "https://github.com/acryldev/acryl/commit/a4202c94f3ca6699901f4f02041bd84a5762eb59"
+    },
+    {
+      "type": "fix",
+      "scope": "dev",
+      "title": "pnpm run desktop builds the market with its dependencies in order",
+      "details": "a fresh checkout failed on a missing acryl-settings",
+      "sha": "ec595597",
+      "date": "2026-10-07T19:02:50Z",
+      "url": "https://github.com/acryldev/acryl/commit/ec5955976ddd33b4e278b29677b4ccdefcebfdc1"
+    },
+    {
+      "type": "fix",
+      "scope": "build",
+      "title": "build workspace packages in dependency order",
+      "details": null,
+      "sha": "244d77ab",
+      "date": "2026-10-07T18:05:34Z",
+      "url": "https://github.com/acryldev/acryl/commit/244d77ab2169e19847142dbf9cfb6181b43e7666"
+    },
+    {
+      "type": "fix",
+      "scope": "builds",
+      "title": "one build at a time per checkout",
+      "details": "a launcher and a gate no longer collide on lib/",
+      "sha": "28b97599",
+      "date": "2026-10-05T17:17:55Z",
+      "url": "https://github.com/acryldev/acryl/commit/28b975998565040d200b9da18cd27d1b09b42e35"
+    },
+    {
+      "type": "feat",
+      "scope": "workspace",
+      "title": "the left pane lists DSH's own pages",
+      "details": "Plugins, Automation tasks, and any a plugin adds",
+      "sha": "db2c496e",
+      "date": "2026-10-05T11:28:22Z",
+      "url": "https://github.com/acryldev/acryl/commit/db2c496ed714a936a972b77dc74460305796b2c5"
+    },
+    {
+      "type": "fix",
+      "scope": "isolation",
+      "title": "an instance keeps the chat's first workspace inside its own home",
+      "details": null,
+      "sha": "25d0a716",
+      "date": "2026-10-05T11:28:21Z",
+      "url": "https://github.com/acryldev/acryl/commit/25d0a716c8eab3875158f2e473d8387f7f96ca93"
+    },
+    {
+      "type": "fix",
+      "scope": "gate",
+      "title": "the flat-layout CLI smoke uses an explicit ordinary profile, so it does not depend on how upstream routes plugin --help under the reserved desktop profile (failed on the Linux runner)",
+      "details": null,
+      "sha": "c2c48730",
+      "date": "2026-10-05T02:56:03Z",
+      "url": "https://github.com/acryldev/acryl/commit/c2c487304ec2cc948b511ff5e4a9a80b8319e004"
+    }
+  ]
+}

@@ -10,6 +10,8 @@ const nav = [
   ['Plugins', '/packages'],
   ['UI', '/ui'],
   ['Docs', '/docs'],
+  ['Updates', '/updates'],
+  ['Events', '/events'],
 ] as const
 
 function formatStarCount(stars: number): string {
@@ -85,6 +87,8 @@ export function Shell() {
           <Link to="/blends">Blends</Link>
           <Link to="/packages">Plugins</Link>
           <Link to="/docs">Docs</Link>
+          <Link to="/updates">Updates</Link>
+          <Link to="/events">Events</Link>
           <Link to="/qr">QR codes</Link>
           <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer">ACRYL Blends — the Blend registry</a>
           <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins — the plugin registry</a>
