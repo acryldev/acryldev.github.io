@@ -248,6 +248,103 @@
     R.on('slidechanged', update)
     body.appendChild(panel); body.appendChild(toggle); body.appendChild(strip)
     update()
+    return chapters
+  }
+
+  // Phone remote. A faint dot (bottom right, or the R key) opens a QR code; the phone that scans it gets /demo/remote/ with next,
+  // previous and every chapter and slide to jump to. The relay is a PocketBase on our server: one row per session, its random id the
+  // pairing secret, and PocketBase realtime carries each change both ways (measured 44 ms).
+  var REMOTE_DB = 'https://acryl-events.5oyoufxtiwypemsxvsca58rs.213.47.80.26.sslip.io'
+  var REMOTE_KEY = 'acryl-deck-remote:' + location.pathname
+  function remote(R, chapters) {
+    var rows = REMOTE_DB + '/api/collections/deck_remote/records'
+    var id = null, lastNonce = null, source = null, layer = null, pushTimer = null
+    var dot = el('button', 'remote-dot')
+    dot.type = 'button'
+    dot.setAttribute('aria-label', 'Phone remote (R)')
+    document.body.appendChild(dot)
+    function api(method, url, body) {
+      return fetch(url, { method: method, headers: { 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })
+        .then(function (r) { if (!r.ok) throw new Error('remote ' + r.status); return r.status === 204 ? null : r.json() })
+    }
+    function outline() {
+      return chapters.map(function (c) { return { name: c.name, start: c.start, items: c.items.map(function (it) { return [it.index, it.title] }) } })
+    }
+    function push() {
+      clearTimeout(pushTimer)
+      pushTimer = setTimeout(function () { if (id) api('PATCH', rows + '/' + id, { current: R.getIndices().h }).catch(function () {}) }, 120)
+    }
+    function apply(command) {
+      if (!command || command.nonce === lastNonce) return
+      lastNonce = command.nonce
+      if (command.action === 'next') R.next()
+      else if (command.action === 'prev') R.prev()
+      else if (command.action === 'goto' && typeof command.index === 'number') R.slide(command.index)
+      else if (command.action === 'overview') R.toggleOverview()
+    }
+    function listen() {
+      if (source) source.close()
+      source = new EventSource(REMOTE_DB + '/api/realtime')
+      source.addEventListener('PB_CONNECT', function (e) {
+        var clientId = JSON.parse(e.data).clientId
+        api('POST', REMOTE_DB + '/api/realtime', { clientId: clientId, subscriptions: ['deck_remote/' + id] }).catch(function () {})
+        dot.classList.add('live')
+      })
+      source.addEventListener('deck_remote/' + id, function (e) {
+        var record = JSON.parse(e.data).record
+        if (record.remoteSeen) { dot.classList.add('paired'); closeLayer() }
+        apply(record.command)
+      })
+      source.onerror = function () { dot.classList.remove('live') }
+    }
+    function remoteUrl() { return location.origin + '/demo/remote/#' + id }
+    function closeLayer() { if (layer) { layer.remove(); layer = null } }
+    function showLayer() {
+      closeLayer()
+      layer = el('div', 'remote-layer')
+      var card = el('div', 'remote-card')
+      var box = el('div', 'remote-qr')
+      card.appendChild(box)
+      card.appendChild(el('p', 'remote-hint', 'Scan with your phone to steer the slides'))
+      var link = el('p', 'remote-link', remoteUrl())
+      card.appendChild(link)
+      layer.appendChild(card)
+      layer.addEventListener('click', closeLayer)
+      document.body.appendChild(layer)
+      var draw = function () {
+        var qr = window.qrcode(0, 'M'); qr.addData(remoteUrl()); qr.make()
+        box.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 2, scalable: true })
+      }
+      if (window.qrcode) draw()
+      else {
+        var sc = document.createElement('script')
+        sc.src = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js'
+        sc.onload = draw
+        document.head.appendChild(sc)
+      }
+    }
+    function start() {
+      var make = id
+        ? api('PATCH', rows + '/' + id, { current: R.getIndices().h, total: R.getTotalSlides(), outline: outline(), remoteSeen: '' })
+        : api('POST', rows, { deck: location.pathname, current: R.getIndices().h, total: R.getTotalSlides(), outline: outline() })
+      return make.then(function (record) {
+        id = record.id; lastNonce = record.command && record.command.nonce
+        try { sessionStorage.setItem(REMOTE_KEY, id) } catch (e) { /* no storage: pairing lasts this page only */ }
+        listen()
+        return record
+      })
+    }
+    function open() {
+      dot.classList.add('busy')
+      start().then(function () { dot.classList.remove('busy'); dot.classList.remove('paired'); showLayer() })
+        .catch(function () { id = null; dot.classList.remove('busy'); dot.classList.add('failed'); setTimeout(function () { dot.classList.remove('failed') }, 2000) })
+    }
+    dot.addEventListener('click', function (e) { e.stopPropagation(); open() })
+    R.addKeyBinding({ keyCode: 82, key: 'R', description: 'Phone remote' }, open)
+    document.addEventListener('keydown', function (e) { if (layer && e.key === 'Escape') { e.stopPropagation(); closeLayer() } }, true)
+    R.on('slidechanged', push)
+    try { id = sessionStorage.getItem(REMOTE_KEY) } catch (e) { id = null }
+    if (id) start().catch(function () { id = null })
   }
 
   // Click a figure marked data-zoom to see its screenshot full size; a click or Esc closes it.
@@ -270,7 +367,7 @@
     init: function () {
       copyButtons(document)
       zoomShots()
-      if (window.Reveal && document.querySelector('.reveal .slides > section')) navigator(window.Reveal)
+      if (window.Reveal && document.querySelector('.reveal .slides > section')) remote(window.Reveal, navigator(window.Reveal))
       document.querySelectorAll('[data-fiber-demo]').forEach(fiberDemo)
       document.querySelectorAll('[data-registry]').forEach(liveRegistry)
       document.querySelectorAll('[data-features]').forEach(featureMap)

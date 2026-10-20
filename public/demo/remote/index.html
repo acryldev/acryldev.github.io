@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#111111">
+<title>Slide remote · ACRYL</title>
+<style>
+  :root { --bg: #111; --surface: #1b1b1b; --line: rgba(255,255,255,.12); --text: #f5f5f3; --dim: #9a9a95; --accent: #5b8cff; --ok: #37b26c; --bad: #e5484d;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace; color-scheme: dark; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  body { display: flex; flex-direction: column; padding: env(safe-area-inset-top) max(14px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(14px, env(safe-area-inset-left)); overscroll-behavior: none; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 2px 8px; font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
+  .state { display: inline-flex; align-items: center; gap: 6px; }
+  .state::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
+  .state.live::before { background: var(--ok); }
+  .state.lost::before { background: var(--bad); }
+  .now { padding: 6px 2px 14px; }
+  .now .num { font-family: var(--mono); font-size: 13px; color: var(--dim); }
+  .now .title { margin-top: 4px; font-size: 22px; font-weight: 650; line-height: 1.2; min-height: 2.4em; }
+  .now .chapter { margin-top: 4px; font-size: 13px; color: var(--accent); }
+  .pad { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+  .pad button { min-height: 132px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); font: 600 20px/1 inherit; font-family: inherit; touch-action: manipulation; user-select: none; }
+  .pad button:active { background: #2a2a2a; transform: scale(.985); }
+  .pad .next { background: var(--accent); border-color: var(--accent); color: #fff; font-size: 26px; }
+  .pad .next:active { background: #4a78e0; }
+  .tools { display: flex; gap: 8px; margin-top: 10px; }
+  .tools button { flex: 1; min-height: 44px; border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--text); font: 500 14px/1 inherit; font-family: inherit; }
+  nav { flex: 1; overflow-y: auto; margin: 14px -2px 0; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
+  details { border-top: 1px solid var(--line); }
+  summary { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; font-weight: 600; list-style: none; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  summary span { font-family: var(--mono); font-size: 11px; color: var(--dim); font-weight: 400; }
+  details.here summary { color: var(--accent); }
+  ol { margin: 0; padding: 0 0 10px; list-style: none; }
+  ol button { display: grid; grid-template-columns: 34px 1fr; gap: 8px; width: 100%; padding: 11px 6px; border: 0; border-radius: 10px; background: transparent; color: var(--text); text-align: left; font: 15px/1.3 inherit; font-family: inherit; }
+  ol button .n { font-family: var(--mono); font-size: 12px; color: var(--dim); padding-top: 2px; }
+  ol button[aria-current="true"] { background: rgba(91,140,255,.16); color: #fff; }
+  .msg { margin: auto 0; padding: 30px 6px; text-align: center; color: var(--dim); }
+  .msg strong { display: block; margin-bottom: 8px; color: var(--text); font-size: 18px; }
+  .msg button { margin-top: 14px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--text); font: inherit; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header><span>ACRYL · slide remote</span><span class="state" id="state">connecting</span></header>
+<main id="app" hidden>
+  <section class="now" aria-live="polite">
+    <div class="num" id="num"></div>
+    <div class="title" id="title"></div>
+    <div class="chapter" id="chapter"></div>
+  </section>
+  <div class="pad">
+    <button type="button" id="prev" aria-label="Previous slide">‹ Back</button>
+    <button type="button" id="next" class="next" aria-label="Next slide">Next ›</button>
+  </div>
+  <div class="tools">
+    <button type="button" id="first">First</button>
+    <button type="button" id="overview">Overview</button>
+    <button type="button" id="last">Last</button>
+  </div>
+</main>
+<nav id="nav" hidden aria-label="Jump to a slide"></nav>
+<div class="msg" id="msg" hidden></div>
+<script>
+(function () {
+  'use strict'
+  var DB = 'https://acryl-events.5oyoufxtiwypemsxvsca58rs.213.47.80.26.sslip.io'
+  var id = location.hash.replace(/^#/, '')
+  var rows = DB + '/api/collections/deck_remote/records'
+  var $ = function (x) { return document.getElementById(x) }
+  var record = null, source = null, chapterEls = [], slideButtons = []
+
+  function message(title, text, retry) {
+    $('app').hidden = true; $('nav').hidden = true
+    var m = $('msg'); m.hidden = false; m.innerHTML = ''
+    var s = document.createElement('strong'); s.textContent = title; m.appendChild(s); m.appendChild(document.createTextNode(text))
+    if (retry) { var b = document.createElement('button'); b.textContent = 'Try again'; b.onclick = function () { location.reload() }; m.appendChild(b) }
+  }
+  function state(cls, text) { var s = $('state'); s.className = 'state ' + cls; s.textContent = text }
+  function api(method, url, body) {
+    return fetch(url, { method: method, headers: { 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })
+      .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.status === 204 ? null : r.json() })
+  }
+  function send(action, index) {
+    if (navigator.vibrate) navigator.vibrate(8)
+    var command = { action: action, nonce: Date.now() + '-' + Math.random().toString(36).slice(2, 7) }
+    if (typeof index === 'number') command.index = index
+    api('PATCH', rows + '/' + id, { command: command }).catch(function () { state('lost', 'not sent') })
+  }
+  function titleOf(i) {
+    var found = null
+    ;(record.outline || []).forEach(function (c) { c.items.forEach(function (it) { if (it[0] === i) found = { title: it[1], chapter: c.name } }) })
+    return found || { title: 'Slide ' + (i + 1), chapter: '' }
+  }
+  function render() {
+    var i = record.current || 0, t = titleOf(i)
+    $('num').textContent = (i + 1) + ' / ' + (record.total || '?')
+    $('title').textContent = t.title
+    $('chapter').textContent = t.chapter
+    slideButtons.forEach(function (b, k) { b.setAttribute('aria-current', String(k === i)) })
+    chapterEls.forEach(function (d) { d.el.classList.toggle('here', d.name === t.chapter) })
+  }
+  function buildNav() {
+    var nav = $('nav'); nav.innerHTML = ''; chapterEls = []; slideButtons = []
+    ;(record.outline || []).forEach(function (c) {
+      var d = document.createElement('details'), s = document.createElement('summary')
+      s.textContent = c.name
+      var n = document.createElement('span'); n.textContent = (c.start + 1) + '–' + (c.start + c.items.length); s.appendChild(n)
+      d.appendChild(s)
+      var ol = document.createElement('ol')
+      c.items.forEach(function (it) {
+        var li = document.createElement('li'), b = document.createElement('button')
+        b.type = 'button'
+        var num = document.createElement('span'); num.className = 'n'; num.textContent = it[0] + 1
+        var tt = document.createElement('span'); tt.textContent = it[1]
+        b.appendChild(num); b.appendChild(tt)
+        b.onclick = function () { send('goto', it[0]) }
+        li.appendChild(b); ol.appendChild(li); slideButtons[it[0]] = b
+      })
+      d.appendChild(ol); nav.appendChild(d); chapterEls.push({ name: c.name, el: d })
+    })
+    nav.hidden = false
+  }
+  function listen() {
+    source = new EventSource(DB + '/api/realtime')
+    source.addEventListener('PB_CONNECT', function (e) {
+      api('POST', DB + '/api/realtime', { clientId: JSON.parse(e.data).clientId, subscriptions: ['deck_remote/' + id] })
+        .then(function () { state('live', 'connected') }).catch(function () { state('lost', 'offline') })
+    })
+    source.addEventListener('deck_remote/' + id, function (e) {
+      var r = JSON.parse(e.data).record
+      var outlineChanged = JSON.stringify(r.outline) !== JSON.stringify(record.outline)
+      record = r
+      if (outlineChanged) buildNav()
+      render()
+    })
+    source.onerror = function () { state('lost', 'reconnecting') }
+  }
+  function keepAwake() {
+    if (!('wakeLock' in navigator)) return
+    var lock = function () { navigator.wakeLock.request('screen').catch(function () {}) }
+    lock(); document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') lock() })
+  }
+
+  if (!/^[a-z0-9]{15}$/.test(id)) { state('lost', 'no deck'); message('No deck to steer', 'Open the slides, press the faint dot (or R), and scan the code it shows.'); return }
+  api('GET', rows + '/' + id).then(function (r) {
+    record = r
+    $('app').hidden = false; $('msg').hidden = true
+    buildNav(); render(); listen(); keepAwake()
+    api('PATCH', rows + '/' + id, { remoteSeen: new Date().toISOString() }).catch(function () {})
+  }).catch(function () { state('lost', 'not found'); message('This code has expired', 'Press the dot on the slides again for a new code.', true) })
+
+  $('next').onclick = function () { send('next') }
+  $('prev').onclick = function () { send('prev') }
+  $('first').onclick = function () { send('goto', 0) }
+  $('last').onclick = function () { send('goto', (record.total || 1) - 1) }
+  $('overview').onclick = function () { send('overview') }
+})()
+</script>
+</body>
+</html>

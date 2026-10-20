@@ -253,3 +253,16 @@ body.on-title .deck-mark { opacity: 0; }
 .reveal .contact-strip .contact-name span { color: var(--dim); font-weight: 400; }
 .reveal .contact-strip .contact-links { margin-top: .25em; font-family: var(--mono); font-size: .44em; line-height: 1.6; color: var(--text); }
 .reveal .closing p.small { max-width: none; margin-top: .5em; font-size: .46em; }
+
+/* Phone remote: a faint dot only the presenter knows about, and the pairing QR */
+.remote-dot { position: fixed; z-index: 40; right: 14px; bottom: 54px; width: 12px; height: 12px; padding: 0; border: 1px solid rgba(255, 255, 255, .22); border-radius: 50%; background: transparent; opacity: .35; cursor: pointer; transition: opacity 160ms ease; }
+.remote-dot:hover, .remote-dot:focus-visible { opacity: 1; outline: none; }
+.remote-dot.busy { border-color: var(--accent); }
+.remote-dot.live { border-color: rgba(91, 140, 255, .5); }
+.remote-dot.paired { border-color: #37b26c; background: rgba(55, 178, 108, .35); }
+.remote-dot.failed { border-color: #e5484d; opacity: 1; }
+.remote-layer { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; background: rgba(10, 10, 10, .82); cursor: pointer; }
+.remote-card { display: grid; justify-items: center; gap: 14px; padding: 26px; border-radius: 18px; background: #fff; color: #111; }
+.remote-qr svg { display: block; width: 320px; height: 320px; }
+.remote-hint { margin: 0; font-family: var(--display); font-size: 20px; font-weight: 600; }
+.remote-link { margin: 0; font-family: var(--mono); font-size: 12px; color: #666; }
