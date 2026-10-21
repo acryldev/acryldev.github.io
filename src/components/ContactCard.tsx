@@ -14,9 +14,9 @@ export function ContactCard() {
     <section className="contact-card" aria-labelledby="contact-name">
       <img className="contact-photo" src="/people/alex-muzychenko.jpg" alt="Alex Muzychenko" width="160" height="160" />
       <div className="contact-copy">
-        <p className="eyebrow">Talk to the maker</p>
+        <p className="eyebrow">Talk to the builder and the WebBoxes team</p>
         <h2 id="contact-name">Alex Muzychenko</h2>
-        <p className="contact-role">Builds ACRYL. Happy to talk about agents, plugins and apps you want to grow.</p>
+        <p className="contact-role">Builds ACRYL with the WebBoxes team. Happy to talk about agents, plugins and apps you want to grow.</p>
         <ul className="contact-channels">
           {channels.map(channel => (
             <li key={channel.value}>
