@@ -3,6 +3,7 @@ import { Shell } from './components/Shell'
 import { BlendsPage } from './pages/BlendsPage'
 import { BootcampPage } from './pages/BootcampPage'
 import { DocsPage } from './pages/DocsPage'
+import { FrameworkDocsPage } from './pages/FrameworkDocsPage'
 import { EventsPage } from './pages/EventsPage'
 import { HomePage } from './pages/HomePage'
 import { PackagePage } from './pages/PackagePage'
@@ -20,7 +21,9 @@ export function App() {
         <Route path="packages" element={<PackagesPage />} />
         <Route path="packages/:owner/*" element={<PackagePage />} />
         <Route path="ui" element={<UiPage />} />
-        <Route path="docs" element={<DocsPage />} />
+        <Route path="docs/platform" element={<DocsPage />} />
+        <Route path="docs" element={<FrameworkDocsPage />} />
+        <Route path="docs/*" element={<FrameworkDocsPage />} />
         <Route path="qr" element={<QrPage />} />
         <Route path="events" element={<EventsPage />} />
         <Route path="events/acrylbootcamp" element={<BootcampPage />} />
