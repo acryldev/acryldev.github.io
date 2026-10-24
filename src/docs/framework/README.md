@@ -1,7 +1,6 @@
 # Acryl
 
-Acryl is a small web framework built on Web Standards. You write handlers over the standard `Request` and `Response`, and the same application runs on Node.js,
-Bun and Deno, and inside a Cordis app as a plugin that an agent can extend while it runs.
+Acryl is a small web framework built on Web Standards. You write handlers over the standard `Request` and `Response`, and the same application runs on Node.js (and, experimentally, Bun), and inside a Cordis app as a plugin that an agent can extend while it runs.
 
 ```ts twoslash
 import { Acryl } from 'acrylblends'
@@ -18,8 +17,8 @@ export default app
 npm create acrylblends@latest my-app
 ```
 
-Other package managers work the same way: `pnpm create acrylblends@latest`, `yarn create acrylblends`, `bun create acrylblends@latest`, `deno init --npm acrylblends@latest`.
-The starter asks which template you want (`nodejs`, `bun`, `deno`, or `acryl-app`, a Cordis app with an agent). See [Getting started](getting-started/basic.md).
+Other package managers work the same way: `pnpm create acrylblends@latest`, `yarn create acrylblends`, `bun create acrylblends@latest`.
+The starter asks which template you want (`nodejs`, `bun` (experimental), or `acryl-app`, a Cordis app with an agent). See [Getting started](getting-started/basic.md).
 
 ## What is in the box
 
@@ -36,7 +35,7 @@ The starter asks which template you want (`nodejs`, `bun`, `deno`, or `acryl-app
 
 ## Runtimes
 
-Verified: Node.js, Bun and Deno. The other runtimes the framework could target are listed on [Other runtimes](getting-started/other-runtimes.md) as not yet verified.
+Verified: Node.js. Bun is experimental. The other runtimes the framework could target are listed on [Other runtimes](getting-started/other-runtimes.md) as not yet verified.
 
 ## Not yet available
 
@@ -53,5 +52,12 @@ Some parts of the documented API surface are not part of the package yet, and th
 | Copy a pattern | [Guides](guides/best-practices.md), [Validation](guides/validation.md), [Testing](guides/testing.md) |
 | Use Acryl inside a Cordis app | [Acryl in a Cordis app](cordis/acryl-in-a-cordis-app.md), [Plugin lifecycle](cordis/plugin-lifecycle.md), [Mounting](cordis/mounting.md) |
 | Move from the 0.3 router calls | [Migration from 0.3](cordis/migration-from-0-3.md) |
+| Move from the 0.4 names (`App`) | [Migration from 0.4](cordis/migration-from-0-4.md) |
 
 The license of these pages and of the framework source they describe is in [LICENSE](LICENSE).
+
+## TypeScript in a Cordis app
+
+An app's `tsconfig.json` can extend `acryl-router/tsconfig.app.json` (ES2024 with the DOM types, strict). The DOM types are optional: every
+entry point's types also stand with only `"lib": ["ES2024"]` and `"types": ["node"]`, the setting a Host-only plugin uses so browser globals
+do not typecheck in server code (the router's `tests/no-dom` fixture checks this on every typecheck).
