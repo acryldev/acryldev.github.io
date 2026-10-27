@@ -18,7 +18,7 @@ npm create acrylblends@latest my-app
 ```
 
 Other package managers work the same way: `pnpm create acrylblends@latest`, `yarn create acrylblends`, `bun create acrylblends@latest`.
-The starter asks which template you want (`nodejs`, `bun` (experimental), or `acryl-app`, a Cordis app with an agent). See [Getting started](getting-started/basic.md).
+Every template is a Cordis app (`blend.yaml`, plugins in `plugins/`). The starter asks which one you want (`nodejs`, `notes`, `chat`, or `acryl-app`, with an agent), and `npm create acrylblends@latest my-app notes` names it directly. See [Getting started](getting-started/basic.md).
 
 ## What is in the box
 
@@ -53,7 +53,7 @@ They are enabled as they are built.
 | Run it on a hosting platform | [Other runtimes](getting-started/other-runtimes.md): [AWS Lambda](getting-started/aws-lambda.md), [Cloudflare Workers](getting-started/cloudflare-workers.md), [Vercel](getting-started/vercel.md), [Netlify](getting-started/netlify.md) |
 | Look up a call | [API](api/index.md), [Routing](api/routing.md), [Context](api/context.md), [Request](api/request.md), [API summary](api/summary.md) |
 | Understand the design | [Concepts](concepts/motivation.md) |
-| Copy a pattern | [Guides](guides/best-practices.md), [Validation](guides/validation.md), [Testing](guides/testing.md), [Data, migrations and choosing a store](guides/data.md), [Forms, sessions and a database](guides/forms-and-sessions.md), [Client components without a bundler](guides/client-modules.md) |
+| Copy a pattern | [Guides](guides/best-practices.md), [Validation](guides/validation.md), [Testing](guides/testing.md), [Data, migrations and choosing a store](guides/data.md), [Forms, sessions and a database](guides/forms-and-sessions.md), [Client components without a bundler](guides/client-modules.md), [Bring your own tool](guides/bring-your-own-tool.md) |
 | Use Acryl inside a Cordis app | [Acryl in a Cordis app](cordis/acryl-in-a-cordis-app.md), [Plugin lifecycle](cordis/plugin-lifecycle.md), [Mounting](cordis/mounting.md) |
 | Move from the 0.3 router calls | [Migration from 0.3](cordis/migration-from-0-3.md) |
 | Move from the 0.4 names (`App`) | [Migration from 0.4](cordis/migration-from-0-4.md) |
