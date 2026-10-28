@@ -105,7 +105,7 @@ export function Shell() {
           <a href="https://www.tiktok.com/@acryldev" target="_blank" rel="noreferrer">TikTok</a>
           <a href="https://www.npmjs.com/~acryldev" target="_blank" rel="noreferrer">npm</a>
         </div>
-        <p className="footer-note">Built on Cordis and DeepSeek Harness. ACRYL adds capabilities without replacing upstream APIs.</p>
+        <p className="footer-note">Built on Cordis. An agent joins as a driver, so the app is not tied to one of them.</p>
         <p className="footer-note footer-scam-warning">
           <strong>Security notice:</strong> our only official accounts are listed above (x.com/acryldev,
           github.com/acryldev, and the others linked here). We have no token, no coin, and no crypto project.
