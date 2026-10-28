@@ -1,11 +1,11 @@
 # Getting Started
 
-Using Acryl is easy. You set up the project, write code, develop with a local server, and run it. The same application code works on every verified runtime, with a different
-entry point for each. This page shows the basic usage.
+Using Acryl is easy. You set up the project, write code, develop with a local server, and run it. The same application code runs on Node.js, the verified runtime, and on Bun,
+which is experimental; only the entry point differs. This page shows the basic usage.
 
 ## Starter
 
-Starter templates are available for each runtime. Use the "create-acrylblends" command.
+A starter is a Cordis app that arrives already wired: `blend.yaml`, its plugins in `plugins/`, and a test. Use the "create-acrylblends" command.
 
 **npm**
 
@@ -34,12 +34,17 @@ bun create acrylblends@latest my-app
 You are asked which template you want:
 
 ```
-? Which template do you want to use?
-❯   nodejs
-    acryl-app
+Templates:
+  blank   the router, a server and one route: the smallest app
+  nodejs  a web app with a page and a client component
+  notes   a multi-user notes app on the db port (sign-up, log-in, sessions)
+  chat    a chat app that streams an answer over server-sent events
+  todo    a to-do list on the router and state
+  agent   the blank app with an offline agent that builds plugins into the running app
+Which template do you want to use? [nodejs]:
 ```
 
-Every template is a Cordis app: `blend.yaml` lists its plugins and every plugin is a folder in `plugins/`. `nodejs` is a web app with a page and a client component, `notes` and `chat` add a database, and `acryl-app` adds an agent that can extend it while it
+Every template is a Cordis app: `blend.yaml` lists its plugins and every plugin is a folder in `plugins/`. `blank` is the smallest app, `nodejs` is a web app with a page and a client component, `notes` and `chat` add a database, `todo` is a to-do list, and `agent` adds an agent that can extend the app while it
 runs (see [Acryl in a Cordis app](../cordis/acryl-in-a-cordis-app.md)). Pass `--template` to skip the question, see [create-acrylblends](../guides/create-acrylblends.md).
 
 The template is created in `my-app`: go to it, install the dependencies and start the local server.
@@ -52,9 +57,9 @@ npm run dev
 
 ## Hello World
 
-Write your first application in `src/index.ts`. The example below is a starter Acryl application.
+In a generated app the routes live in `src/routes.ts`, which builds an `Acryl` app and mounts it with `ctx.router.route`; `src/main.ts` picks where the app lives and starts it. The app on its own is plain:
 
-The `import` and the final `export default` are the same on every runtime; what differs is how the runtime starts the app (see [Node.js](nodejs.md) and [Bun](bun.md)).
+The `import` and the final `export default` are the same on Node.js and on Bun; what differs is how the runtime starts the app (see [Node.js](nodejs.md) and [Bun](bun.md)).
 
 ```ts twoslash
 import { Acryl } from 'acrylblends'
@@ -131,7 +136,7 @@ app.get('/', (c) => {
 })
 ```
 
-[JSX](../guides/jsx.md) is not yet available.
+JSX works too: `acrylblends/jsx` renders on the server and in the browser, and the `nodejs` template ships a `.tsx` page. See [JSX](../guides/jsx.md).
 
 ## Return raw Response
 

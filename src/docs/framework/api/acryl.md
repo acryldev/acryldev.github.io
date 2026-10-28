@@ -1,4 +1,4 @@
-# App - Acryl
+# Acryl
 
 `Acryl` is the primary object.
 It will be imported first and used until the end.
@@ -9,7 +9,7 @@ import { Acryl } from 'acrylblends'
 const app = new Acryl()
 //...
 
-export default app // for Cloudflare Workers or Bun
+export default app // a Bun server, or a value a Cordis plugin mounts; see Node.js for the Node entry
 ```
 
 ## Methods
@@ -64,25 +64,13 @@ app.onError((err, c) => {
 
 ## fire()
 
-> **Warning.** **`app.fire()` is deprecated**. Use `fire()` from `acrylblends/service-worker` instead. See the Service Worker documentation for details.
-
-`app.fire()` automatically adds a global `fetch` event listener.
-
-This can be useful for environments that adhere to the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), such as [non-ES module Cloudflare Workers](https://developers.cloudflare.com/workers/reference/migrate-to-module-workers/).
-
-`app.fire()` executes the following for you:
-
-```ts
-addEventListener('fetch', (event: FetchEventLike): void => {
-  event.respondWith(this.dispatch(...))
-})
-```
+> **Warning.** **`app.fire()` is deprecated**, and the Service Worker adapter is not part of the package in 1.0. It adds a global `fetch` event listener, which only a Service Worker-style host reads; use `app.fetch` in an entry point of your own instead.
 
 ## fetch()
 
 `app.fetch` will be the entry point of your application.
 
-For Cloudflare Workers, you can use the following:
+As the `fetch` method of an object a host calls:
 
 ```ts twoslash
 import { Acryl } from 'acrylblends'
@@ -230,7 +218,7 @@ const app = new Acryl({ router: new RegExpRouter() })
 
 ## Generics
 
-You can pass Generics to specify the types of Cloudflare Workers Bindings and variables used in `c.set`/`c.get`.
+You can pass Generics to specify the type of the environment the host passes and the variables used in `c.set`/`c.get`.
 
 ```ts twoslash
 import { Acryl } from 'acrylblends'
