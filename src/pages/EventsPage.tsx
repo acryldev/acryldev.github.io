@@ -21,7 +21,7 @@ function EventCard({ event, past }: { readonly event: AcrylEvent; readonly past:
         <p>{event.summary}</p>
         <div className="package-links">
           {internal
-            ? <Link to={event.href}>{past ? 'details' : 'get an invitation'} <ArrowUpRight aria-hidden="true" /></Link>
+            ? <Link to={event.href}>{event.cardLabel ?? (past ? 'details' : 'get an invitation')} <ArrowUpRight aria-hidden="true" /></Link>
             : <a href={event.href} target="_blank" rel="noreferrer">event page <ArrowUpRight aria-hidden="true" /></a>}
           {event.links?.map(link => <a key={link.href} href={link.href}>{link.label} <ArrowUpRight aria-hidden="true" /></a>)}
         </div>

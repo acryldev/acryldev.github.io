@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACRYL at rebased, Vienna</title>
+<meta name="description" content="A five-minute lightning talk: ACRYL, an open source framework for agentic apps, where the agent lives inside the app and adds plugins to it while it runs. rebased Meetup #3, Vienna, 11 November 2026.">
+<link rel="icon" href="/acryl-logo-white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="/demo/_shared/deck.css">
+</head>
+<body>
+<img class="deck-mark" src="/demo/_shared/img/acryl-logo-white.svg" alt="ACRYL">
+<div class="reveal">
+<div class="slides">
+
+<section data-background-color="#121212" data-title="ACRYL at rebased">
+  <div class="center">
+    <img class="hero-logo" src="/demo/_shared/img/acryl-logo-white.svg" alt="ACRYL">
+    <h1>The app that adds plugins to itself</h1>
+    <p class="dim">ACRYL: an open source framework for agentic apps. The agent lives inside the app.</p>
+    <p class="mono dim small">rebased Meetup #3 · Lei Lei Lightning Edition · Vienna · 11 November 2026</p>
+    <p class="rsvp"><a href="https://acryl.dev/demo/rebaseddotwtf/">acryl.dev/demo/rebaseddotwtf</a></p>
+  </div>
+  <aside class="notes">0:00 - Five minutes, one weird idea. Say the claim in one breath: the agent is not next to the app, it is inside it.</aside>
+</section>
+
+<section data-title="One weird idea">
+  <h2>One weird idea: put the agent inside the app</h2>
+  <div class="split" style="margin-top: .5em">
+    <div class="stack">
+      <div class="card"><h3>Today: a chatbot bolted on</h3><p style="font-size: .85em">The app is fixed. The assistant sits in a side panel, can talk about the app, and cannot change it.</p></div>
+    </div>
+    <div class="stack">
+      <div class="card"><h3>ACRYL: the agent is a plugin</h3><p style="font-size: .85em">It reads the app, runs it, and changes it while it runs. Ask for a feature and it ships as a plugin, live.</p></div>
+    </div>
+  </div>
+  <p class="dim" style="margin-top: .9em">Your models, your data, your machine, your git. MIT, on GitHub and npm.</p>
+  <aside class="notes">0:30 - Most AI products bolt a chatbot onto a fixed app. We start the other way around: every app is built from plugins, and the agent is one of them.</aside>
+</section>
+
+<section data-title="Pomodoro plugin, built live">
+  <div class="split flip">
+    <figure data-zoom><img class="shot" src="/demo/_shared/img/pomodoro.png" alt="The agent's steps writing and installing a Pomodoro plugin, the timer visible in the header"></figure>
+    <div class="stack">
+      <h2>Ask. It writes the plugin. It is live.</h2>
+      <div class="prompt">Build me a plugin that adds a Pomodoro timer to the top bar: one click starts 25 minutes, another stops it. Install it so I can use it now.</div>
+      <div class="timing"><span><b>~90 s</b> button live</span><span><b>4</b> files</span><span><b>0</b> restarts</span></div>
+      <p class="small dim">It reads the plugin docs, writes the plugin, verifies and installs it, then clicks its own button to test it.</p>
+    </div>
+  </div>
+  <aside class="notes">1:15 - A real screenshot from a rehearsal. Point at the timer in the header: that button did not exist two minutes ago and nothing was restarted.</aside>
+</section>
+
+<section data-title="Why it does not break">
+  <h2>Why it does not break: every plugin comes with its undo</h2>
+  <div class="grid-4" style="margin-top: .6em">
+    <div class="card"><h3>Verified first</h3><p>A plugin is checked before it installs, and the agent tests what it built.</p></div>
+    <div class="card"><h3>Reverted cleanly</h3><p>A plugin that fails detaches and leaves no trace. The running app keeps running.</p></div>
+    <div class="card"><h3>Pinned</h3><p>Every plugin is locked by version and checksum, so two machines do not drift apart.</p></div>
+    <div class="card"><h3>Switch it off</h3><p>Add, swap or remove a plugin without forking anything. Back in time, any time.</p></div>
+  </div>
+  <p class="dim small" style="margin-top: 1em">The kernel is Cordis, a plugin system with lifecycles and effects that load, unload and replace live. It also runs under DeepSeek Harness.</p>
+  <aside class="notes">2:00 - The obvious fear: an agent editing a live app. The answer is the plugin system. Every effect has a disposer, so removing a plugin undoes what it did.</aside>
+</section>
+
+<section data-title="Apps, any direction">
+  <h2>Same framework, any kind of app</h2>
+  <div class="grid-3" style="margin-top: .5em; align-items: start">
+    <figure data-zoom><img class="shot" src="/demo/_shared/img/app-gtd.png" alt="The GTD app: the board is the window, the agent beside it has filed six items"><figcaption>Getting Things Done: six cards filed by the agent in 45 s</figcaption></figure>
+    <figure data-zoom><img class="shot" src="/demo/_shared/img/app-books-vat.png" alt="The Accounting app: Q3 VAT payable 915 euro, and the agent beside it gives the same figure"><figcaption>Accounting: invoices, expenses, VAT</figcaption></figure>
+    <figure data-zoom><img class="shot" src="/demo/_shared/img/app-music-warehouse.png" alt="The Music app: the step sequencer fills the window, the agent slowed the beat to 90 bpm and saved it as Warehouse"><figcaption>Music: a drum machine the agent plays</figcaption></figure>
+  </div>
+  <p class="small dim" style="margin-top: .6em">Real apps made with <code>acryl new --from</code> from the public registry. The window is the app; the agent sits beside it and operates it, not only its code.</p>
+  <aside class="notes">2:45 - The window is the app, the agent is beside it. "Slow it down to 90, take the clap out, save it as Warehouse" took about five seconds. Click a shot to enlarge it.</aside>
+</section>
+
+<section data-title="The IDE is an app too">
+  <div class="split">
+    <div class="stack">
+      <h2>The IDE is just another app</h2>
+      <ul class="small">
+        <li>Projects and git worktrees in one tree, a chat per branch</li>
+        <li>Claude Code, Codex, Grok, Copilot, OpenCode, Pi and ACRYL's own agent, side by side</li>
+        <li>Terminal, browser, editor, diff and board tabs</li>
+        <li>Desktop (macOS, Windows, Linux), web and terminal</li>
+      </ul>
+    </div>
+    <figure data-zoom><img class="shot" src="/demo/_shared/img/claude-worktree.png" alt="ACRYL with a project, a feature worktree and Claude Code running in it"></figure>
+  </div>
+  <aside class="notes">3:30 - Our own IDE is built from the same plugins, so it can extend itself the same way. Any coding agent runs in it as a tab.</aside>
+</section>
+
+<section data-title="An app is one file">
+  <div class="split">
+    <div class="stack">
+      <h2>An app is one file. Share it.</h2>
+      <ul class="small">
+        <li><code>rows</code>: the plugins and their config</li>
+        <li><code>extends</code>: start from anyone's app, override only what differs</li>
+        <li>a lock pins every plugin by version and checksum</li>
+        <li>push to git or a registry; others pull it by name</li>
+      </ul>
+      <div class="term"><div class="row"><code>acryl new my-planner --from acryl.gtd</code><button class="copy" data-copy="acryl new my-planner --from acryl.gtd">copy</button></div></div>
+    </div>
+<pre class="code"><span class="c"># registry/blends/acryl.music/blend.yaml (real)</span>
+apiVersion: blends.acryl.dev/v1alpha1
+kind: Blueprint
+metadata:
+  id: acryl.music
+  name: Music
+  version: 0.1.0
+  category: creative
+  license: MIT
+  visibility: public
+spec:
+  runtime: cordis
+  extends: acryl.blank
+  rows:
+    - id: brand
+      name: acryl-brand
+      config:
+        name: Music
+        tagline: Say the beat, hear the beat.
+    - id: acryl-music
+      name: acryl-music</pre>
+  </div>
+  <aside class="notes">4:15 - This is what lets people share what they grow. Write a piece once, everyone reuses it, the lock keeps it reproducible.</aside>
+</section>
+
+<section data-title="The open framework">
+  <h2>The framework: a new agentic app in a minute</h2>
+  <div class="split" style="height: auto; align-items: start">
+    <div class="stack">
+      <div class="term">
+        <div class="row"><code>npm create acrylblends@latest my-agent agent</code><button class="copy" data-copy="npm create acrylblends@latest my-agent agent">copy</button></div>
+        <div class="row"><code>cd my-agent &amp;&amp; npm install &amp;&amp; npm run dev</code><button class="copy" data-copy="cd my-agent && npm install && npm run dev">copy</button></div>
+        <div class="out">serves the app and prints its URL</div>
+      </div>
+      <p class="small dim" style="margin-top: .8em">The agent template is a running app whose agent writes and installs plugins into it.</p>
+    </div>
+    <div class="stack">
+      <ul class="small">
+        <li>A small web framework on Web Standards: one <code>Request</code> in, one <code>Response</code> out</li>
+        <li>Routing, middleware, validation, a typed client, a Node.js server</li>
+        <li>No dependencies. Node 22.19 or newer. MIT</li>
+        <li>Browser, desktop window, or inside the ACRYL frame</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">5:00 - Getting started is the point. One command, and you own the code: the plugins are files in your folder. npm: acrylblends.</aside>
+</section>
+
+<section data-title="Why you will want it">
+  <h2>Why you will want it</h2>
+  <div class="grid-3" style="margin-top: .6em">
+    <div class="card"><h3>It writes itself</h3><p>Ask for a feature your workflow lacks. It becomes a plugin, live.</p></div>
+    <div class="card"><h3>It repairs itself</h3><p>The agent tests its work, fixes what is wrong, and a broken plugin is reverted.</p></div>
+    <div class="card"><h3>It adapts to you</h3><p>Two people start from the same app and end up with two different apps.</p></div>
+    <div class="card"><h3>Made of parts</h3><p>Small plugins you add, swap, remove, version and share. Nothing rebuilt from zero.</p></div>
+    <div class="card"><h3>Any agent, any model</h3><p>Claude Code, Codex, DeepSeek, Grok and more. Cordis plugins also run in stock DeepSeek Harness.</p></div>
+    <div class="card"><h3>Yours and open</h3><p>Your machine, your data, files you commit to your own git. MIT.</p></div>
+  </div>
+  <aside class="notes">5:45 - If the audience remembers one slide, it is this one. Features stop being a moat when an agent can rebuild them in a weekend; software that evolves with each user is what stays valuable.</aside>
+</section>
+
+<section data-title="What is new">
+  <h2>New this week, and what is next</h2>
+  <ul>
+    <li><span class="pill">now</span> A registry app opens inside the ACRYL frame with chat and agents beside it: the Small CRM is the first one</li>
+    <li><span class="pill next">next</span> The Blends page: save, share, pull another app with a diff of every plugin change</li>
+    <li><span class="pill next">next</span> One view of every agent session on the machine, with a hand-off in one click</li>
+  </ul>
+  <aside class="notes">6:30 - Optional. Skip it if the clock says so and go straight to the links.</aside>
+</section>
+
+<section class="closing" data-title="Try it: links">
+  <h1>Come build with us.</h1>
+<div class="qr-row six">
+  <a class="qr-card featured" href="https://acryl.dev/events/acrylbootcamp"><svg class="qr" role="img" aria-label="QR code for acryl.dev/events/acrylbootcamp" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 33 33" role="img"><path fill="#ffffff" d="M0,0 h33v33H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM12 2h1v1H12zM15 2h1v1H15zM18 2h1v1H18zM21 2h2v1H21zM24,2 h7v1H24zM2 3h1v1H2zM8 3h1v1H8zM13 3h2v1H13zM16 3h3v1H16zM24 3h1v1H24zM30,3 h1v1H30zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM10 4h1v1H10zM13 4h1v1H13zM16 4h2v1H16zM20 4h3v1H20zM24 4h1v1H24zM26 4h3v1H26zM30,4 h1v1H30zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM10 5h1v1H10zM12 5h1v1H12zM15 5h3v1H15zM19 5h1v1H19zM21 5h1v1H21zM24 5h1v1H24zM26 5h3v1H26zM30,5 h1v1H30zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM10 6h4v1H10zM16 6h1v1H16zM18 6h1v1H18zM21 6h2v1H21zM24 6h1v1H24zM26 6h3v1H26zM30,6 h1v1H30zM2 7h1v1H2zM8 7h1v1H8zM10 7h3v1H10zM17 7h4v1H17zM22 7h1v1H22zM24 7h1v1H24zM30,7 h1v1H30zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20 8h1v1H20zM22 8h1v1H22zM24,8 h7v1H24zM10 9h1v1H10zM12 9h2v1H12zM22 9h1v1H22zM2 10h1v1H2zM4 10h5v1H4zM13 10h2v1H13zM17 10h1v1H17zM19 10h2v1H19zM24 10h5v1H24zM2 11h2v1H2zM5 11h1v1H5zM7 11h1v1H7zM9 11h1v1H9zM15 11h1v1H15zM18 11h9v1H18zM30,11 h1v1H30zM4 12h1v1H4zM7 12h2v1H7zM11 12h7v1H11zM19 12h1v1H19zM24 12h3v1H24zM4 13h1v1H4zM7 13h1v1H7zM9 13h5v1H9zM15 13h1v1H15zM17 13h2v1H17zM21 13h3v1H21zM27 13h1v1H27zM29 13h1v1H29zM3 14h2v1H3zM6 14h3v1H6zM10 14h1v1H10zM12 14h2v1H12zM16 14h4v1H16zM22 14h2v1H22zM25 14h1v1H25zM27 14h2v1H27zM2 15h2v1H2zM5 15h1v1H5zM9 15h3v1H9zM14 15h1v1H14zM18 15h1v1H18zM20 15h7v1H20zM30,15 h1v1H30zM2 16h1v1H2zM8 16h1v1H8zM10 16h1v1H10zM13 16h1v1H13zM17 16h2v1H17zM20 16h1v1H20zM22 16h1v1H22zM24 16h1v1H24zM27 16h2v1H27zM3 17h1v1H3zM7 17h1v1H7zM11 17h2v1H11zM14 17h1v1H14zM16 17h1v1H16zM18 17h1v1H18zM22 17h3v1H22zM26 17h1v1H26zM29 17h1v1H29zM4 18h5v1H4zM10 18h4v1H10zM19 18h1v1H19zM25 18h1v1H25zM27 18h2v1H27zM2 19h5v1H2zM10 19h4v1H10zM15 19h2v1H15zM18 19h1v1H18zM20 19h7v1H20zM28 19h1v1H28zM30,19 h1v1H30zM2 20h1v1H2zM4 20h2v1H4zM7 20h7v1H7zM15 20h6v1H15zM22 20h1v1H22zM25 20h1v1H25zM28 20h1v1H28zM2 21h1v1H2zM10 21h1v1H10zM12 21h2v1H12zM15 21h1v1H15zM18 21h1v1H18zM21 21h3v1H21zM26 21h1v1H26zM29 21h1v1H29zM2 22h1v1H2zM5 22h2v1H5zM8 22h5v1H8zM14 22h1v1H14zM16 22h1v1H16zM19 22h1v1H19zM21 22h6v1H21zM28,22 h3v1H28zM10 23h3v1H10zM14 23h1v1H14zM18 23h1v1H18zM22 23h1v1H22zM26,23 h5v1H26zM2 24h7v1H2zM17 24h1v1H17zM19 24h4v1H19zM24 24h1v1H24zM26 24h3v1H26zM2 25h1v1H2zM8 25h1v1H8zM10 25h2v1H10zM13 25h1v1H13zM16 25h1v1H16zM20 25h1v1H20zM22 25h1v1H22zM26 25h1v1H26zM29,25 h2v1H29zM2 26h1v1H2zM4 26h3v1H4zM8 26h1v1H8zM10 26h1v1H10zM12 26h2v1H12zM17 26h1v1H17zM19 26h1v1H19zM22 26h5v1H22zM28 26h1v1H28zM2 27h1v1H2zM4 27h3v1H4zM8 27h1v1H8zM10 27h3v1H10zM16 27h1v1H16zM18 27h2v1H18zM22 27h1v1H22zM27,27 h4v1H27zM2 28h1v1H2zM4 28h3v1H4zM8 28h1v1H8zM10 28h3v1H10zM16 28h2v1H16zM20 28h2v1H20zM23 28h7v1H23zM2 29h1v1H2zM8 29h1v1H8zM11 29h1v1H11zM13 29h2v1H13zM17 29h2v1H17zM21 29h2v1H21zM25 29h3v1H25zM29 29h1v1H29zM2 30h7v1H2zM10 30h2v1H10zM13 30h4v1H13zM19 30h1v1H19zM21 30h1v1H21zM26 30h1v1H26zM28 30h1v1H28z" shape-rendering="crispEdges"></path></svg><span class="qr-title">Bootcamp · 20 Nov</span><span class="qr-url">acryl.dev/events/acrylbootcamp</span></a>
+  <a class="qr-card" href="https://discord.gg/cY9KXMex69"><svg class="qr" role="img" aria-label="QR code for discord.gg/cY9KXMex69" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 33 33" role="img"><path fill="#ffffff" d="M0,0 h33v33H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM13 2h1v1H13zM17 2h3v1H17zM22 2h1v1H22zM24,2 h7v1H24zM2 3h1v1H2zM8 3h1v1H8zM10 3h1v1H10zM17 3h6v1H17zM24 3h1v1H24zM30,3 h1v1H30zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM11 4h3v1H11zM17 4h2v1H17zM21 4h1v1H21zM24 4h1v1H24zM26 4h3v1H26zM30,4 h1v1H30zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM10 5h2v1H10zM14 5h6v1H14zM21 5h1v1H21zM24 5h1v1H24zM26 5h3v1H26zM30,5 h1v1H30zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM10 6h3v1H10zM16 6h2v1H16zM19 6h3v1H19zM24 6h1v1H24zM26 6h3v1H26zM30,6 h1v1H30zM2 7h1v1H2zM8 7h1v1H8zM11 7h1v1H11zM14 7h2v1H14zM18 7h1v1H18zM22 7h1v1H22zM24 7h1v1H24zM30,7 h1v1H30zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20 8h1v1H20zM22 8h1v1H22zM24,8 h7v1H24zM10 9h3v1H10zM15 9h1v1H15zM17 9h2v1H17zM20 9h3v1H20zM3 10h1v1H3zM5 10h4v1H5zM10 10h1v1H10zM12 10h3v1H12zM17 10h4v1H17zM22 10h3v1H22zM26 10h2v1H26zM29 10h1v1H29zM4 11h1v1H4zM6 11h2v1H6zM9 11h1v1H9zM13 11h1v1H13zM15 11h4v1H15zM21 11h1v1H21zM24 11h6v1H24zM5 12h1v1H5zM7 12h2v1H7zM10 12h1v1H10zM13 12h2v1H13zM20 12h1v1H20zM23 12h2v1H23zM26 12h2v1H26zM4 13h3v1H4zM9 13h3v1H9zM15 13h3v1H15zM19 13h1v1H19zM22 13h1v1H22zM25 13h1v1H25zM30,13 h1v1H30zM5 14h2v1H5zM8 14h5v1H8zM15 14h1v1H15zM17 14h2v1H17zM21 14h4v1H21zM27 14h1v1H27zM29 14h1v1H29zM2 15h1v1H2zM4 15h2v1H4zM12 15h2v1H12zM15 15h6v1H15zM24 15h1v1H24zM26 15h1v1H26zM28 15h1v1H28zM30,15 h1v1H30zM3 16h4v1H3zM8 16h1v1H8zM10 16h1v1H10zM12 16h1v1H12zM15 16h4v1H15zM20 16h2v1H20zM23 16h1v1H23zM25 16h1v1H25zM27 16h1v1H27zM30,16 h1v1H30zM2 17h4v1H2zM11 17h1v1H11zM13 17h1v1H13zM15 17h1v1H15zM17 17h2v1H17zM23 17h1v1H23zM26 17h4v1H26zM2 18h4v1H2zM8 18h3v1H8zM12 18h2v1H12zM15 18h3v1H15zM19 18h2v1H19zM22 18h1v1H22zM27 18h1v1H27zM2 19h2v1H2zM9 19h1v1H9zM12 19h2v1H12zM15 19h1v1H15zM20 19h9v1H20zM2 20h2v1H2zM5 20h1v1H5zM8 20h1v1H8zM10 20h1v1H10zM12 20h2v1H12zM15 20h1v1H15zM18 20h1v1H18zM21 20h1v1H21zM26 20h1v1H26zM30,20 h1v1H30zM2 21h3v1H2zM6 21h2v1H6zM10 21h1v1H10zM12 21h3v1H12zM17 21h2v1H17zM21 21h1v1H21zM23 21h2v1H23zM28 21h2v1H28zM2 22h9v1H2zM12 22h4v1H12zM18 22h2v1H18zM22 22h7v1H22zM10 23h1v1H10zM12 23h1v1H12zM15 23h5v1H15zM22 23h1v1H22zM26 23h3v1H26zM2 24h7v1H2zM12 24h2v1H12zM15 24h3v1H15zM21 24h2v1H21zM24 24h1v1H24zM26 24h1v1H26zM28 24h1v1H28zM2 25h1v1H2zM8 25h1v1H8zM10 25h2v1H10zM14 25h1v1H14zM20 25h3v1H20zM26 25h2v1H26zM2 26h1v1H2zM4 26h3v1H4zM8 26h1v1H8zM10 26h1v1H10zM16 26h2v1H16zM19 26h1v1H19zM21 26h6v1H21zM2 27h1v1H2zM4 27h3v1H4zM8 27h1v1H8zM10 27h1v1H10zM12 27h2v1H12zM15 27h2v1H15zM20 27h1v1H20zM25 27h1v1H25zM27 27h3v1H27zM2 28h1v1H2zM4 28h3v1H4zM8 28h1v1H8zM12 28h1v1H12zM14 28h2v1H14zM17 28h1v1H17zM19 28h2v1H19zM22 28h2v1H22zM25 28h2v1H25zM28,28 h3v1H28zM2 29h1v1H2zM8 29h1v1H8zM10 29h1v1H10zM15 29h2v1H15zM18 29h1v1H18zM20 29h1v1H20zM22 29h1v1H22zM26 29h3v1H26zM30,29 h1v1H30zM2 30h7v1H2zM12 30h1v1H12zM15 30h3v1H15zM21 30h3v1H21zM25 30h4v1H25z" shape-rendering="crispEdges"></path></svg><span class="qr-title">Join the Discord</span><span class="qr-url">discord.gg/cY9KXMex69</span></a>
+  <a class="qr-card" href="https://acryl.dev"><svg class="qr" role="img" aria-label="QR code for acryl.dev" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 29 29" role="img"><path fill="#ffffff" d="M0,0 h29v29H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM10 2h1v1H10zM13 2h1v1H13zM15 2h2v1H15zM18 2h1v1H18zM20,2 h7v1H20zM2 3h1v1H2zM8 3h1v1H8zM10 3h2v1H10zM13 3h1v1H13zM16 3h2v1H16zM20 3h1v1H20zM26,3 h1v1H26zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM10 4h1v1H10zM12 4h1v1H12zM15 4h3v1H15zM20 4h1v1H20zM22 4h3v1H22zM26,4 h1v1H26zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM10 5h2v1H10zM15 5h4v1H15zM20 5h1v1H20zM22 5h3v1H22zM26,5 h1v1H26zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM10 6h2v1H10zM13 6h2v1H13zM16 6h2v1H16zM20 6h1v1H20zM22 6h3v1H22zM26,6 h1v1H26zM2 7h1v1H2zM8 7h1v1H8zM15 7h1v1H15zM17 7h2v1H17zM20 7h1v1H20zM26,7 h1v1H26zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20,8 h7v1H20zM10 9h2v1H10zM13 9h1v1H13zM15 9h4v1H15zM3 10h2v1H3zM6 10h1v1H6zM8 10h2v1H8zM14 10h1v1H14zM16 10h1v1H16zM18 10h1v1H18zM20 10h1v1H20zM22,10 h5v1H22zM3 11h1v1H3zM6 11h2v1H6zM10 11h2v1H10zM13 11h2v1H13zM16 11h1v1H16zM18 11h3v1H18zM26,11 h1v1H26zM3 12h1v1H3zM5 12h1v1H5zM8 12h3v1H8zM12 12h1v1H12zM14 12h2v1H14zM18 12h1v1H18zM20 12h3v1H20zM24,12 h3v1H24zM2 13h1v1H2zM5 13h3v1H5zM10 13h3v1H10zM14 13h1v1H14zM17 13h2v1H17zM20 13h2v1H20zM25 13h1v1H25zM3 14h1v1H3zM7 14h3v1H7zM12 14h1v1H12zM14 14h1v1H14zM18 14h3v1H18zM23 14h1v1H23zM25,14 h2v1H25zM3 15h3v1H3zM9 15h1v1H9zM14 15h1v1H14zM18 15h1v1H18zM20 15h1v1H20zM23 15h1v1H23zM26,15 h1v1H26zM2 16h1v1H2zM4 16h3v1H4zM8 16h1v1H8zM10 16h1v1H10zM16 16h1v1H16zM18 16h1v1H18zM20 16h2v1H20zM24,16 h3v1H24zM3 17h1v1H3zM6 17h1v1H6zM9 17h1v1H9zM11 17h1v1H11zM13 17h3v1H13zM18 17h3v1H18zM22 17h1v1H22zM25 17h1v1H25zM2 18h1v1H2zM6 18h4v1H6zM12 18h1v1H12zM14 18h10v1H14zM10 19h1v1H10zM14 19h2v1H14zM17 19h2v1H17zM22 19h2v1H22zM25,19 h2v1H25zM2 20h7v1H2zM10 20h1v1H10zM12 20h2v1H12zM15 20h1v1H15zM17 20h2v1H17zM20 20h1v1H20zM22 20h2v1H22zM25,20 h2v1H25zM2 21h1v1H2zM8 21h1v1H8zM13 21h1v1H13zM17 21h2v1H17zM22 21h2v1H22zM2 22h1v1H2zM4 22h3v1H4zM8 22h1v1H8zM10 22h1v1H10zM12 22h3v1H12zM16 22h1v1H16zM18 22h6v1H18zM26,22 h1v1H26zM2 23h1v1H2zM4 23h3v1H4zM8 23h1v1H8zM15 23h1v1H15zM17 23h1v1H17zM21 23h4v1H21zM2 24h1v1H2zM4 24h3v1H4zM8 24h1v1H8zM10 24h1v1H10zM13 24h2v1H13zM16 24h2v1H16zM19 24h1v1H19zM22 24h1v1H22zM26,24 h1v1H26zM2 25h1v1H2zM8 25h1v1H8zM10 25h11v1H10zM22 25h2v1H22zM25 25h1v1H25zM2 26h7v1H2zM11 26h1v1H11zM13 26h1v1H13zM16 26h6v1H16zM25,26 h2v1H25z" shape-rendering="crispEdges"></path></svg><span class="qr-title">Website</span><span class="qr-url">acryl.dev</span></a>
+  <a class="qr-card" href="https://github.com/acryldev/acryl"><svg class="qr" role="img" aria-label="QR code for github.com/acryldev/acryl" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 33 33" role="img"><path fill="#ffffff" d="M0,0 h33v33H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM11 2h3v1H11zM16 2h1v1H16zM19 2h1v1H19zM21 2h1v1H21zM24,2 h7v1H24zM2 3h1v1H2zM8 3h1v1H8zM11 3h3v1H11zM18 3h2v1H18zM24 3h1v1H24zM30,3 h1v1H30zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM12 4h1v1H12zM16 4h2v1H16zM19 4h1v1H19zM21 4h1v1H21zM24 4h1v1H24zM26 4h3v1H26zM30,4 h1v1H30zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM12 5h1v1H12zM14 5h2v1H14zM18 5h1v1H18zM20 5h3v1H20zM24 5h1v1H24zM26 5h3v1H26zM30,5 h1v1H30zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM11 6h2v1H11zM14 6h1v1H14zM19 6h2v1H19zM24 6h1v1H24zM26 6h3v1H26zM30,6 h1v1H30zM2 7h1v1H2zM8 7h1v1H8zM10 7h1v1H10zM14 7h1v1H14zM17 7h2v1H17zM20 7h2v1H20zM24 7h1v1H24zM30,7 h1v1H30zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20 8h1v1H20zM22 8h1v1H22zM24,8 h7v1H24zM12 9h1v1H12zM14 9h2v1H14zM17 9h3v1H17zM21 9h1v1H21zM2 10h1v1H2zM5 10h1v1H5zM7 10h2v1H7zM10 10h1v1H10zM14 10h1v1H14zM16 10h1v1H16zM18 10h1v1H18zM23 10h1v1H23zM25 10h1v1H25zM2 11h1v1H2zM5 11h3v1H5zM13 11h3v1H13zM17 11h3v1H17zM22 11h1v1H22zM24 11h1v1H24zM27 11h1v1H27zM30,11 h1v1H30zM2 12h4v1H2zM7 12h2v1H7zM10 12h1v1H10zM12 12h1v1H12zM15 12h3v1H15zM21 12h1v1H21zM23 12h1v1H23zM26 12h4v1H26zM2 13h1v1H2zM5 13h1v1H5zM7 13h1v1H7zM9 13h1v1H9zM15 13h1v1H15zM18 13h1v1H18zM21 13h2v1H21zM26 13h1v1H26zM28 13h2v1H28zM2 14h3v1H2zM8 14h1v1H8zM10 14h3v1H10zM14 14h1v1H14zM16 14h4v1H16zM22 14h3v1H22zM27 14h1v1H27zM29,14 h2v1H29zM2 15h1v1H2zM6 15h2v1H6zM11 15h2v1H11zM15 15h5v1H15zM21 15h3v1H21zM2 16h2v1H2zM6 16h1v1H6zM8 16h1v1H8zM10 16h1v1H10zM12 16h1v1H12zM14 16h3v1H14zM18 16h2v1H18zM22 16h1v1H22zM24,16 h7v1H24zM2 17h1v1H2zM5 17h1v1H5zM11 17h2v1H11zM14 17h1v1H14zM17 17h4v1H17zM22 17h3v1H22zM27 17h1v1H27zM29 17h1v1H29zM2 18h1v1H2zM4 18h2v1H4zM7 18h4v1H7zM12 18h1v1H12zM15 18h1v1H15zM17 18h1v1H17zM19 18h1v1H19zM22 18h1v1H22zM25 18h1v1H25zM29 18h1v1H29zM4 19h4v1H4zM13 19h1v1H13zM15 19h2v1H15zM18 19h1v1H18zM20 19h1v1H20zM22 19h4v1H22zM27 19h1v1H27zM30,19 h1v1H30zM2 20h1v1H2zM5 20h1v1H5zM7 20h3v1H7zM11 20h2v1H11zM14 20h1v1H14zM16 20h1v1H16zM19 20h1v1H19zM23 20h1v1H23zM25 20h2v1H25zM29,20 h2v1H29zM4 21h2v1H4zM7 21h1v1H7zM9 21h2v1H9zM13 21h2v1H13zM16 21h4v1H16zM22 21h2v1H22zM25 21h2v1H25zM29,21 h2v1H29zM2 22h1v1H2zM4 22h1v1H4zM6 22h1v1H6zM8 22h1v1H8zM12 22h1v1H12zM14 22h1v1H14zM17 22h1v1H17zM20 22h7v1H20zM28 22h1v1H28zM10 23h2v1H10zM13 23h1v1H13zM16 23h1v1H16zM18 23h1v1H18zM21 23h2v1H21zM26 23h1v1H26zM28,23 h3v1H28zM2 24h7v1H2zM11 24h1v1H11zM13 24h1v1H13zM19 24h1v1H19zM22 24h1v1H22zM24 24h1v1H24zM26 24h1v1H26zM29 24h1v1H29zM2 25h1v1H2zM8 25h1v1H8zM10 25h1v1H10zM13 25h1v1H13zM16 25h1v1H16zM20 25h1v1H20zM22 25h1v1H22zM26 25h3v1H26zM2 26h1v1H2zM4 26h3v1H4zM8 26h1v1H8zM11 26h1v1H11zM14 26h1v1H14zM19 26h1v1H19zM22 26h5v1H22zM30,26 h1v1H30zM2 27h1v1H2zM4 27h3v1H4zM8 27h1v1H8zM10 27h1v1H10zM12 27h1v1H12zM19 27h1v1H19zM21 27h2v1H21zM24 27h6v1H24zM2 28h1v1H2zM4 28h3v1H4zM8 28h1v1H8zM11 28h1v1H11zM16 28h1v1H16zM19 28h4v1H19zM26 28h3v1H26zM30,28 h1v1H30zM2 29h1v1H2zM8 29h1v1H8zM11 29h1v1H11zM13 29h1v1H13zM15 29h2v1H15zM19 29h5v1H19zM26 29h1v1H26zM29 29h1v1H29zM2 30h7v1H2zM10 30h1v1H10zM12 30h2v1H12zM15 30h1v1H15zM19 30h1v1H19zM22 30h6v1H22zM29 30h1v1H29z" shape-rendering="crispEdges"></path></svg><span class="qr-title">Code</span><span class="qr-url">github.com/acryldev/acryl</span></a>
+  <a class="qr-card" href="https://acrylblends.github.io"><svg class="qr" role="img" aria-label="QR code for acrylblends.github.io" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 33 33" role="img"><path fill="#ffffff" d="M0,0 h33v33H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM11 2h4v1H11zM17 2h4v1H17zM24,2 h7v1H24zM2 3h1v1H2zM8 3h1v1H8zM10 3h1v1H10zM13 3h2v1H13zM17 3h6v1H17zM24 3h1v1H24zM30,3 h1v1H30zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM12 4h1v1H12zM20 4h1v1H20zM22 4h1v1H22zM24 4h1v1H24zM26 4h3v1H26zM30,4 h1v1H30zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM10 5h1v1H10zM13 5h1v1H13zM15 5h2v1H15zM18 5h2v1H18zM21 5h1v1H21zM24 5h1v1H24zM26 5h3v1H26zM30,5 h1v1H30zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM10 6h2v1H10zM14 6h1v1H14zM16 6h2v1H16zM21 6h1v1H21zM24 6h1v1H24zM26 6h3v1H26zM30,6 h1v1H30zM2 7h1v1H2zM8 7h1v1H8zM11 7h1v1H11zM14 7h3v1H14zM18 7h3v1H18zM22 7h1v1H22zM24 7h1v1H24zM30,7 h1v1H30zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20 8h1v1H20zM22 8h1v1H22zM24,8 h7v1H24zM10 9h1v1H10zM16 9h1v1H16zM22 9h1v1H22zM3 10h1v1H3zM5 10h4v1H5zM10 10h1v1H10zM16 10h4v1H16zM21 10h1v1H21zM23 10h2v1H23zM26 10h2v1H26zM29 10h1v1H29zM4 11h1v1H4zM9 11h1v1H9zM13 11h2v1H13zM17 11h1v1H17zM19 11h5v1H19zM25 11h5v1H25zM5 12h2v1H5zM8 12h1v1H8zM11 12h1v1H11zM13 12h1v1H13zM15 12h6v1H15zM22 12h3v1H22zM26 12h1v1H26zM28 12h1v1H28zM2 13h2v1H2zM5 13h3v1H5zM10 13h2v1H10zM15 13h1v1H15zM18 13h2v1H18zM21 13h1v1H21zM25 13h1v1H25zM27 13h1v1H27zM30,13 h1v1H30zM2 14h1v1H2zM4 14h1v1H4zM6 14h1v1H6zM8 14h1v1H8zM10 14h1v1H10zM12 14h3v1H12zM16 14h2v1H16zM21 14h4v1H21zM29 14h1v1H29zM2 15h1v1H2zM4 15h1v1H4zM6 15h1v1H6zM9 15h2v1H9zM12 15h4v1H12zM17 15h4v1H17zM24 15h1v1H24zM26 15h1v1H26zM28 15h1v1H28zM30,15 h1v1H30zM3 16h1v1H3zM5 16h1v1H5zM7 16h2v1H7zM10 16h1v1H10zM13 16h2v1H13zM17 16h3v1H17zM21 16h2v1H21zM24 16h2v1H24zM27 16h1v1H27zM30,16 h1v1H30zM2 17h5v1H2zM10 17h2v1H10zM15 17h1v1H15zM22 17h1v1H22zM24 17h1v1H24zM26 17h3v1H26zM3 18h4v1H3zM8 18h1v1H8zM11 18h3v1H11zM15 18h3v1H15zM19 18h2v1H19zM22 18h1v1H22zM25 18h1v1H25zM27 18h1v1H27zM30,18 h1v1H30zM2 19h3v1H2zM6 19h1v1H6zM13 19h2v1H13zM16 19h1v1H16zM20 19h3v1H20zM26 19h1v1H26zM2 20h4v1H2zM7 20h2v1H7zM10 20h3v1H10zM16 20h1v1H16zM18 20h2v1H18zM21 20h1v1H21zM30,20 h1v1H30zM2 21h3v1H2zM7 21h1v1H7zM9 21h1v1H9zM11 21h1v1H11zM14 21h2v1H14zM17 21h2v1H17zM20 21h2v1H20zM23 21h7v1H23zM2 22h2v1H2zM6 22h1v1H6zM8 22h5v1H8zM14 22h3v1H14zM18 22h2v1H18zM21 22h8v1H21zM10 23h1v1H10zM12 23h1v1H12zM14 23h2v1H14zM17 23h1v1H17zM19 23h2v1H19zM22 23h1v1H22zM26 23h3v1H26zM2 24h7v1H2zM11 24h2v1H11zM14 24h1v1H14zM17 24h1v1H17zM21 24h2v1H21zM24 24h1v1H24zM26 24h1v1H26zM28 24h1v1H28zM2 25h1v1H2zM8 25h1v1H8zM10 25h1v1H10zM12 25h2v1H12zM15 25h1v1H15zM20 25h3v1H20zM26 25h2v1H26zM29,25 h2v1H29zM2 26h1v1H2zM4 26h3v1H4zM8 26h1v1H8zM10 26h1v1H10zM13 26h2v1H13zM16 26h1v1H16zM19 26h1v1H19zM21 26h6v1H21zM30,26 h1v1H30zM2 27h1v1H2zM4 27h3v1H4zM8 27h1v1H8zM10 27h1v1H10zM12 27h1v1H12zM20 27h1v1H20zM25 27h1v1H25zM29 27h1v1H29zM2 28h1v1H2zM4 28h3v1H4zM8 28h1v1H8zM13 28h3v1H13zM17 28h1v1H17zM19 28h2v1H19zM22 28h2v1H22zM25,28 h6v1H25zM2 29h1v1H2zM8 29h1v1H8zM10 29h2v1H10zM13 29h1v1H13zM18 29h1v1H18zM20 29h2v1H20zM26 29h3v1H26zM30,29 h1v1H30zM2 30h7v1H2zM15 30h3v1H15zM21 30h3v1H21zM25 30h2v1H25z" shape-rendering="crispEdges"></path></svg><span class="qr-title">Blends</span><span class="qr-url">acrylblends.github.io</span></a>
+  <a class="qr-card" href="https://cordisplugins.github.io"><svg class="qr" role="img" aria-label="QR code for cordisplugins.github.io" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 33 33" role="img"><path fill="#ffffff" d="M0,0 h33v33H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM10 2h1v1H10zM13 2h1v1H13zM17 2h1v1H17zM20 2h3v1H20zM24,2 h7v1H24zM2 3h1v1H2zM8 3h1v1H8zM11 3h3v1H11zM16 3h1v1H16zM18 3h3v1H18zM22 3h1v1H22zM24 3h1v1H24zM30,3 h1v1H30zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM11 4h1v1H11zM20 4h1v1H20zM22 4h1v1H22zM24 4h1v1H24zM26 4h3v1H26zM30,4 h1v1H30zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM11 5h2v1H11zM17 5h3v1H17zM22 5h1v1H22zM24 5h1v1H24zM26 5h3v1H26zM30,5 h1v1H30zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM10 6h2v1H10zM15 6h1v1H15zM20 6h3v1H20zM24 6h1v1H24zM26 6h3v1H26zM30,6 h1v1H30zM2 7h1v1H2zM8 7h1v1H8zM10 7h5v1H10zM16 7h2v1H16zM19 7h2v1H19zM22 7h1v1H22zM24 7h1v1H24zM30,7 h1v1H30zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20 8h1v1H20zM22 8h1v1H22zM24,8 h7v1H24zM12 9h2v1H12zM15 9h3v1H15zM20 9h3v1H20zM3 10h7v1H3zM12 10h2v1H12zM15 10h8v1H15zM25 10h2v1H25zM30,10 h1v1H30zM3 11h1v1H3zM5 11h1v1H5zM7 11h1v1H7zM10 11h1v1H10zM12 11h2v1H12zM16 11h1v1H16zM20 11h8v1H20zM30,11 h1v1H30zM5 12h1v1H5zM8 12h5v1H8zM15 12h1v1H15zM17 12h1v1H17zM23 12h2v1H23zM27 12h2v1H27zM3 13h1v1H3zM7 13h1v1H7zM10 13h3v1H10zM15 13h2v1H15zM20 13h1v1H20zM23 13h3v1H23zM27 13h1v1H27zM29 13h1v1H29zM6 14h3v1H6zM10 14h1v1H10zM12 14h1v1H12zM14 14h2v1H14zM17 14h1v1H17zM19 14h1v1H19zM21 14h1v1H21zM23 14h1v1H23zM25 14h1v1H25zM28,14 h3v1H28zM3 15h1v1H3zM5 15h2v1H5zM11 15h1v1H11zM16 15h2v1H16zM19 15h6v1H19zM26 15h2v1H26zM29,15 h2v1H29zM2 16h1v1H2zM5 16h2v1H5zM8 16h1v1H8zM11 16h1v1H11zM15 16h1v1H15zM17 16h3v1H17zM22 16h1v1H22zM25 16h1v1H25zM4 17h3v1H4zM10 17h4v1H10zM15 17h1v1H15zM18 17h1v1H18zM20 17h2v1H20zM24 17h1v1H24zM26 17h2v1H26zM2 18h1v1H2zM5 18h2v1H5zM8 18h1v1H8zM10 18h2v1H10zM13 18h2v1H13zM16 18h2v1H16zM19 18h1v1H19zM27 18h2v1H27zM2 19h2v1H2zM6 19h2v1H6zM10 19h2v1H10zM13 19h1v1H13zM16 19h9v1H16zM26 19h1v1H26zM28,19 h3v1H28zM2 20h1v1H2zM6 20h1v1H6zM8 20h1v1H8zM10 20h1v1H10zM12 20h1v1H12zM14 20h3v1H14zM20 20h1v1H20zM24 20h2v1H24zM27 20h1v1H27zM2 21h1v1H2zM4 21h2v1H4zM9 21h1v1H9zM11 21h2v1H11zM14 21h3v1H14zM18 21h1v1H18zM22 21h1v1H22zM24 21h1v1H24zM26 21h2v1H26zM30,21 h1v1H30zM2 22h1v1H2zM5 22h4v1H5zM10 22h4v1H10zM15 22h2v1H15zM19 22h1v1H19zM22 22h5v1H22zM28 22h1v1H28zM30,22 h1v1H30zM10 23h1v1H10zM18 23h2v1H18zM22 23h1v1H22zM26 23h2v1H26zM30,23 h1v1H30zM2 24h7v1H2zM10 24h1v1H10zM12 24h1v1H12zM14 24h2v1H14zM17 24h1v1H17zM20 24h3v1H20zM24 24h1v1H24zM26 24h1v1H26zM2 25h1v1H2zM8 25h1v1H8zM10 25h2v1H10zM17 25h1v1H17zM21 25h2v1H21zM26 25h2v1H26zM29 25h1v1H29zM2 26h1v1H2zM4 26h3v1H4zM8 26h1v1H8zM10 26h2v1H10zM15 26h3v1H15zM19 26h1v1H19zM22 26h7v1H22zM30,26 h1v1H30zM2 27h1v1H2zM4 27h3v1H4zM8 27h1v1H8zM10 27h1v1H10zM12 27h3v1H12zM17 27h1v1H17zM20 27h4v1H20zM25 27h1v1H25zM27 27h2v1H27zM2 28h1v1H2zM4 28h3v1H4zM8 28h1v1H8zM10 28h1v1H10zM13 28h3v1H13zM17 28h10v1H17zM28 28h2v1H28zM2 29h1v1H2zM8 29h1v1H8zM10 29h2v1H10zM13 29h2v1H13zM18 29h1v1H18zM21 29h4v1H21zM26 29h2v1H26zM29 29h1v1H29zM2 30h7v1H2zM11 30h1v1H11zM13 30h1v1H13zM15 30h1v1H15zM18 30h2v1H18zM21 30h1v1H21zM26 30h3v1H26z" shape-rendering="crispEdges"></path></svg><span class="qr-title">Cordis plugins</span><span class="qr-url">cordisplugins.github.io</span></a>
+</div>
+<div class="contact-strip">
+  <img src="/people/alex-muzychenko.jpg" alt="Alex Muzychenko">
+  <div>
+    <p class="contact-name">Alex Muzychenko <span>· let's connect</span></p>
+    <p class="contact-links">linkedin.com/in/alexandermusichen · t.me/musichen · book a call: all0e.com/@alex<br>office@web-boxes.com · alex.musichen@gmail.com</p>
+  </div>
+  <a class="contact-qr" href="https://linkedin.com/in/alexandermusichen"><svg class="qr" role="img" aria-label="QR code for linkedin.com/in/alexandermusichen" shape-rendering="crispEdges" height="128" width="128" viewBox="0 0 33 33" role="img"><path fill="#ffffff" d="M0,0 h33v33H0z" shape-rendering="crispEdges"></path><path fill="#111111" d="M2 2h7v1H2zM12 2h2v1H12zM15 2h1v1H15zM18 2h5v1H18zM24,2 h7v1H24zM2 3h1v1H2zM8 3h1v1H8zM11 3h1v1H11zM14 3h1v1H14zM17 3h3v1H17zM22 3h1v1H22zM24 3h1v1H24zM30,3 h1v1H30zM2 4h1v1H2zM4 4h3v1H4zM8 4h1v1H8zM10 4h2v1H10zM13 4h1v1H13zM16 4h1v1H16zM20 4h1v1H20zM24 4h1v1H24zM26 4h3v1H26zM30,4 h1v1H30zM2 5h1v1H2zM4 5h3v1H4zM8 5h1v1H8zM10 5h1v1H10zM13 5h9v1H13zM24 5h1v1H24zM26 5h3v1H26zM30,5 h1v1H30zM2 6h1v1H2zM4 6h3v1H4zM8 6h1v1H8zM10 6h2v1H10zM13 6h2v1H13zM18 6h5v1H18zM24 6h1v1H24zM26 6h3v1H26zM30,6 h1v1H30zM2 7h1v1H2zM8 7h1v1H8zM10 7h2v1H10zM15 7h1v1H15zM17 7h3v1H17zM22 7h1v1H22zM24 7h1v1H24zM30,7 h1v1H30zM2 8h7v1H2zM10 8h1v1H10zM12 8h1v1H12zM14 8h1v1H14zM16 8h1v1H16zM18 8h1v1H18zM20 8h1v1H20zM22 8h1v1H22zM24,8 h7v1H24zM10 9h3v1H10zM16 9h3v1H16zM21 9h2v1H21zM2 10h1v1H2zM4 10h5v1H4zM12 10h1v1H12zM15 10h5v1H15zM21 10h1v1H21zM24 10h5v1H24zM2 11h2v1H2zM5 11h1v1H5zM10 11h1v1H10zM12 11h1v1H12zM15 11h1v1H15zM18 11h1v1H18zM20 11h2v1H20zM23 11h4v1H23zM30,11 h1v1H30zM2 12h3v1H2zM7 12h4v1H7zM12 12h1v1H12zM14 12h1v1H14zM17 12h2v1H17zM20 12h1v1H20zM22 12h1v1H22zM25 12h1v1H25zM4 13h3v1H4zM12 13h2v1H12zM17 13h2v1H17zM22 13h1v1H22zM27 13h1v1H27zM29 13h1v1H29zM3 14h1v1H3zM5 14h4v1H5zM13 14h1v1H13zM15 14h2v1H15zM19 14h1v1H19zM21 14h1v1H21zM27 14h2v1H27zM2 15h2v1H2zM7 15h1v1H7zM9 15h1v1H9zM18 15h9v1H18zM30,15 h1v1H30zM2 16h1v1H2zM5 16h1v1H5zM8 16h2v1H8zM11 16h1v1H11zM13 16h2v1H13zM16 16h2v1H16zM22 16h1v1H22zM27 16h2v1H27zM5 17h2v1H5zM11 17h1v1H11zM13 17h1v1H13zM16 17h1v1H16zM20 17h4v1H20zM25 17h1v1H25zM29 17h1v1H29zM3 18h2v1H3zM7 18h3v1H7zM15 18h5v1H15zM21 18h1v1H21zM27 18h2v1H27zM2 19h1v1H2zM4 19h2v1H4zM7 19h1v1H7zM10 19h1v1H10zM13 19h1v1H13zM15 19h1v1H15zM18 19h1v1H18zM20 19h7v1H20zM28 19h1v1H28zM30,19 h1v1H30zM2 20h1v1H2zM4 20h1v1H4zM6 20h4v1H6zM12 20h2v1H12zM15 20h4v1H15zM22 20h5v1H22zM28 20h1v1H28zM2 21h1v1H2zM12 21h2v1H12zM17 21h2v1H17zM21 21h1v1H21zM29 21h1v1H29zM2 22h1v1H2zM7 22h3v1H7zM11 22h1v1H11zM17 22h1v1H17zM19 22h1v1H19zM22 22h5v1H22zM28,22 h3v1H28zM10 23h2v1H10zM15 23h1v1H15zM18 23h2v1H18zM22 23h1v1H22zM26,23 h5v1H26zM2 24h7v1H2zM11 24h1v1H11zM13 24h5v1H13zM20 24h3v1H20zM24 24h1v1H24zM26 24h3v1H26zM2 25h1v1H2zM8 25h1v1H8zM10 25h1v1H10zM12 25h1v1H12zM15 25h1v1H15zM17 25h2v1H17zM20 25h3v1H20zM26 25h1v1H26zM2 26h1v1H2zM4 26h3v1H4zM8 26h1v1H8zM10 26h1v1H10zM14 26h1v1H14zM16 26h2v1H16zM19 26h1v1H19zM22 26h5v1H22zM28,26 h3v1H28zM2 27h1v1H2zM4 27h3v1H4zM8 27h1v1H8zM10 27h1v1H10zM12 27h2v1H12zM15 27h1v1H15zM18 27h1v1H18zM20 27h1v1H20zM22 27h1v1H22zM27,27 h4v1H27zM2 28h1v1H2zM4 28h3v1H4zM8 28h1v1H8zM10 28h8v1H10zM20 28h10v1H20zM2 29h1v1H2zM8 29h1v1H8zM14 29h1v1H14zM16 29h1v1H16zM18 29h1v1H18zM22 29h1v1H22zM24 29h1v1H24zM26 29h2v1H26zM29 29h1v1H29zM2 30h7v1H2zM10 30h5v1H10zM19 30h1v1H19zM23 30h3v1H23zM28 30h1v1H28z" shape-rendering="crispEdges"></path></svg><span>LinkedIn</span></a>
+</div>
+  <p class="event">rebased Meetup #3 · Wednesday 11 November 2026 · Sentry, Jakov-Lind-Straße 5, 1020 Wien · <a href="https://luma.com/e4dvctf5">luma.com/e4dvctf5</a></p>
+  <p class="mono dim small">npm: acryl, acrylblends · hands-on bootcamp, 20 November: <a href="https://acryl.dev/events/acrylbootcamp">acryl.dev/events/acrylbootcamp</a></p>
+  <aside class="notes">7:00 - Thank the hosts. Invite everyone to the free bootcamp on 20 November, where each person builds a plugin and shares it.</aside>
+</section>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="/demo/_shared/deck.js"></script>
+<script>
+  Reveal.initialize({ hash: true, slideNumber: 'c/t', transition: 'fade', backgroundTransition: 'fade', width: 1600, height: 900, margin: 0.06, center: true, scrollActivationWidth: null, plugins: [RevealNotes] })
+    .then(function () { window.AcrylDeck.init() })
+</script>
+</body>
+</html>

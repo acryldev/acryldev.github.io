@@ -8,6 +8,7 @@ import { EventsPage } from './pages/EventsPage'
 import { HomePage } from './pages/HomePage'
 import { PackagePage } from './pages/PackagePage'
 import { PackagesPage } from './pages/PackagesPage'
+import { RebasedPage } from './pages/RebasedPage'
 import { QrPage } from './pages/QrPage'
 import { UiPage } from './pages/UiPage'
 import { UpdatesPage } from './pages/UpdatesPage'
@@ -27,6 +28,7 @@ export function App() {
         <Route path="qr" element={<QrPage />} />
         <Route path="events" element={<EventsPage />} />
         <Route path="events/acrylbootcamp" element={<BootcampPage />} />
+        <Route path="events/rebaseddotwtf" element={<RebasedPage />} />
         <Route path="updates" element={<UpdatesPage />} />
         <Route path="*" element={<div className="not-found page-width"><span>404</span><h1>Page not found.</h1></div>} />
       </Route>

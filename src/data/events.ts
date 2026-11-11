@@ -12,10 +12,23 @@ export interface AcrylEvent {
   readonly summary: string
   /** Where the card links: our own page (starts with /) or the organizer's page. */
   readonly href: string
+  /** The card's call to action when href is one of our own pages; defaults to "get an invitation". */
+  readonly cardLabel?: string
   readonly links?: readonly { readonly label: string; readonly href: string }[]
 }
 
 export const EVENTS: readonly AcrylEvent[] = [
+  {
+    slug: 'rebaseddotwtf',
+    title: 'rebased Meetup #3 (Lightning Talk Edition)',
+    date: '2026-11-11',
+    when: 'Wednesday, 18:30',
+    place: 'Sentry, Jakov-Lind-Straße 5, 1020 Vienna',
+    summary: 'A five-minute lightning talk: one weird idea, an app with an agent inside that adds plugins to itself while it runs, and the open framework it is built with.',
+    href: '/events/rebaseddotwtf',
+    cardLabel: 'talk and slides',
+    links: [{ label: 'Slides', href: '/demo/rebaseddotwtf/' }, { label: 'rebased.wtf', href: 'https://rebased.wtf' }],
+  },
   {
     slug: 'acrylbootcamp',
     title: 'ACRYL Bootcamp',
