@@ -7,6 +7,7 @@ import { EVENTS, formatEventDate } from '../data/events'
 const EVENT_SLUG = 'rebaseddotwtf'
 const SLIDES_URL = 'https://acryl.dev/demo/rebaseddotwtf/'
 const LUMA_URL = 'https://luma.com/e4dvctf5'
+const BOOTCAMP_LUMA_URL = 'https://luma.com/nvede5nv'
 
 /** The talk at rebased Meetup #3: what it is about, where it happens, and the slides. */
 export function RebasedPage() {
@@ -28,12 +29,19 @@ export function RebasedPage() {
             <a href="/demo/rebaseddotwtf/"><Presentation aria-hidden="true" /> Slides <ArrowUpRight aria-hidden="true" /></a>
             <a href={LUMA_URL} target="_blank" rel="noreferrer">Register on Luma <ArrowUpRight aria-hidden="true" /></a>
             <a href="https://rebased.wtf" target="_blank" rel="noreferrer">rebased.wtf <ArrowUpRight aria-hidden="true" /></a>
+            <a href={BOOTCAMP_LUMA_URL} target="_blank" rel="noreferrer">Bootcamp, 20 Nov: join on Luma <ArrowUpRight aria-hidden="true" /></a>
           </div>
         </div>
-        <figure className="bootcamp-qr">
-          <QRCodeSVG value={SLIDES_URL} size={176} level="M" bgColor="#ffffff" fgColor="#171717" />
-          <figcaption>acryl.dev/demo/rebaseddotwtf</figcaption>
-        </figure>
+        <div className="qr-pair">
+          <figure className="bootcamp-qr">
+            <QRCodeSVG value={SLIDES_URL} size={176} level="M" bgColor="#ffffff" fgColor="#171717" />
+            <figcaption><strong>Slides</strong><br />acryl.dev/demo/rebaseddotwtf</figcaption>
+          </figure>
+          <figure className="bootcamp-qr">
+            <QRCodeSVG value={BOOTCAMP_LUMA_URL} size={176} level="M" bgColor="#ffffff" fgColor="#171717" />
+            <figcaption><strong>Join the ACRYL Bootcamp, 20 Nov</strong><br />luma.com/nvede5nv</figcaption>
+          </figure>
+        </div>
       </header>
       <ContactCard />
     </div>

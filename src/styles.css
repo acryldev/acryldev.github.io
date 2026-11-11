@@ -261,6 +261,9 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
 .bootcamp-facts svg { margin-top: 1px; }
 .bootcamp-qr { display: grid; justify-items: center; gap: 10px; margin: 0; padding: 16px; border: 1px solid var(--border); background: #ffffff; }
 .bootcamp-qr svg { width: 176px; height: 176px; }
+.qr-pair { display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-end; }
+.bootcamp-qr figcaption strong { color: #171717; font-weight: 600; }
+.bootcamp-qr figcaption { text-align: center; line-height: 1.5; }
 .bootcamp-qr figcaption { color: #70706c; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .04em; }
 
 .bootcamp-signup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-bottom: 1px solid var(--border); }
@@ -344,6 +347,7 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
   .event-body { padding-left: 16px; }
   .bootcamp-hero { grid-template-columns: 1fr; gap: 28px; }
   .bootcamp-qr { justify-self: start; }
+  .qr-pair { justify-content: flex-start; }
   .contact-card { grid-template-columns: 1fr; gap: 20px; padding: 22px; }
   .contact-photo { width: 120px; height: 120px; }
   .update-item { grid-template-columns: minmax(0, 1fr) auto; }
