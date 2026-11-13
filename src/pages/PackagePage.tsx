@@ -43,7 +43,7 @@ export function PackagePage() {
       <section className="package-detail-hero">
         <div className="package-detail-icon"><Box aria-hidden="true" /></div>
         <div className="package-detail-title">
-          <p className="eyebrow">{plugin.source === 'acryl' ? 'ACRYL package ecosystem' : 'DeepSeek Harness ecosystem'}</p>
+          <p className="eyebrow">{plugin.source === 'acryl' ? 'ACRYL package ecosystem' : 'Community package ecosystem'}</p>
           <h1>{plugin.name}</h1>
           <p>{plugin.description.en}</p>
           <div className="detail-tags">
@@ -62,7 +62,7 @@ export function PackagePage() {
             {command ? (
               <>
                 <h2>Install in an ACRYL Desktop profile</h2>
-                <p>This npm package declares a DeepSeek Harness bundle. ACRYL preserves the standard DSH installation path and changes only the target profile.</p>
+                <p>This npm package declares a Cordis plugin bundle. ACRYL keeps its documented install path and changes only the target profile.</p>
                 <CommandBox command={command} />
               </>
             ) : (
@@ -76,7 +76,7 @@ export function PackagePage() {
           <section className="detail-panel">
             <p className="panel-label">COMPATIBILITY</p>
             <h2>Source-aware, not compatibility-washed.</h2>
-            <div className="compatibility-row"><strong>DeepSeek Harness</strong><span className="status native">Native source</span></div>
+            <div className="compatibility-row"><strong>Stock install</strong><span className="status native">Native source</span></div>
             <div className="compatibility-row"><strong>Cordis</strong><span className="status inspect">Inspect manifest</span></div>
             <div className="compatibility-row"><strong>ACRYL Desktop</strong><span className="status inspect">Unverified</span></div>
             <p className="fine-print">Catalog inclusion is not a security review or compatibility guarantee. Inspect each repository and its license before installation.</p>

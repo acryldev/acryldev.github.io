@@ -9,7 +9,7 @@ const atoms = [
   { icon: RefreshCw, n: '02', title: 'Agents', body: 'Move work among Claude, Codex, Pi, OpenCode, DSH, and the next runtime without losing continuity.' },
   { icon: Boxes, n: '03', title: 'Packages', body: 'Tools, skills, adapters, workflows, Blueprints, and StemCells are independently inspectable building blocks.' },
   { icon: Cable, n: '04', title: 'Services', body: 'Cordis lifecycles let capabilities mount, replace, reconcile, and dispose through explicit contracts.' },
-  { icon: Braces, n: '05', title: 'Compatibility', body: 'Standard DeepSeek Harness packages retain their upstream install path and source identity.' },
+  { icon: Braces, n: '05', title: 'Compatibility', body: 'Community Cordis plugins keep their original install path and source identity.' },
   { icon: Layers3, n: '06', title: 'Lifecycles', body: 'A room outlives any one worker and becomes the evolving home for people, agents, artifacts, and decisions.' },
 ]
 
@@ -37,7 +37,7 @@ export function HomePage() {
       </section>
 
       <section className="foundation-strip" aria-label="Platform foundations">
-        <span>ACRYL IS BUILT WITH</span><strong>Cordis</strong><span>·</span><strong>DeepSeek Harness</strong><span>·</span><strong>Electron</strong><span>·</span><strong>Agent Context Relay</strong>
+        <span>ACRYL IS BUILT WITH</span><strong>Cordis</strong><span>·</span><strong>Electron</strong><span>·</span><strong>Agent Context Relay</strong>
       </section>
 
       <section className="atoms-section page-width" aria-labelledby="atoms-heading">
@@ -98,7 +98,7 @@ export function HomePage() {
           <div>
             <p className="eyebrow">One runtime, many sources</p>
             <h2>Keep the upstream.<br />Add the lifecycle.</h2>
-            <p>ACRYL is continuing DeepSeek Harness in a desktop host, not rewriting its ecosystem. DSH packages install through their documented command and stay visibly attributed to their original source.</p>
+            <p>ACRYL keeps the Cordis plugin ecosystem working in a desktop host instead of rewriting it. Community plugins install through their documented command and stay visibly attributed to their original source.</p>
             <div className="runtime-links"><Link className="button inverse" to="/packages">Browse the registry <ArrowRight aria-hidden="true" /></Link><a className="button inverse secondary" href="https://github.com/acryldev" target="_blank" rel="noreferrer">GitHub</a></div>
           </div>
           <div className="formula-panel" aria-label="ACRYL composition example">
@@ -203,7 +203,7 @@ export function HomePage() {
       <section className="portal-section page-width" aria-labelledby="portal-heading">
         <div className="section-intro">
           <div><p className="eyebrow">Registry</p><h2 id="portal-heading">The ACRYL<br />package portal.</h2></div>
-          <p>Discover native ACRYL packages and the DeepSeek Harness ecosystem in one source-aware directory. A catalog entry never implies compatibility or a security review.</p>
+          <p>Discover native ACRYL packages and the wider community ecosystem in one source-aware directory. A catalog entry never implies compatibility or a security review.</p>
         </div>
         <div className="portal-command"><span>search</span><Link to="/packages">memory, browser, agent, workflow, Blueprints… <ArrowRight aria-hidden="true" /></Link></div>
         <div className="portal-lines">

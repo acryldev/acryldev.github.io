@@ -60,7 +60,7 @@ function PackageCard({ plugin }: { readonly plugin: CatalogPlugin }) {
         <div className="package-mark"><PackageSearch aria-hidden="true" /></div>
         <div className="discovery-card-copy">
           <Link to={packagePath(plugin)}><h3>{plugin.name}</h3></Link>
-          <p>{plugin.description.en || 'Community package for the DeepSeek Harness ecosystem.'}</p>
+          <p>{plugin.description.en || 'Community plugin.'}</p>
           <div className="package-facts">
             <span>{author}</span>
             <span className={`origin-chip ${plugin.source}`}>{plugin.source === 'acryl' ? 'ACRYL' : 'DSH'}</span>
@@ -150,7 +150,7 @@ export function PackagesPage() {
         <div className="page-width">
           <p className="eyebrow"><span /> ACRYL plugin discovery</p>
           <h1>Plugin <em>catalog.</em></h1>
-          <p>Cordis plugins from the Cordis plugin registry first, then the wider DeepSeek Harness ecosystem. Inspect provenance, then pull a plugin into ACRYL with one command.</p>
+          <p>Cordis plugins from the Cordis plugin registry first, then the wider community ecosystem. Inspect provenance, then pull a plugin into ACRYL with one command.</p>
           <div className="directory-trust"><span><ShieldCheck aria-hidden="true" /> Upstream attribution preserved</span><span>Compatibility is never implied</span></div>
         </div>
       </section>
@@ -164,7 +164,7 @@ export function PackagesPage() {
             {recent.map(plugin => (
               <Link to={packagePath(plugin)} className="recent-card" key={plugin.id}>
                 <strong>{plugin.name}</strong>
-                <p>{plugin.description.en || 'Community package for DeepSeek Harness.'}</p>
+                <p>{plugin.description.en || 'Community plugin.'}</p>
                 <span>{plugin.added ?? 'New'} <ChevronRight aria-hidden="true" /></span>
               </Link>
             ))}
@@ -173,7 +173,7 @@ export function PackagesPage() {
       )}
 
       <section className="directory-section page-width" aria-labelledby="all-packages-heading">
-        <div className="directory-section-heading"><div><p>DISCOVER IN THE DSH 1024STORE</p><h2 id="all-packages-heading">DeepSeek Harness plugins</h2></div><span>{rangeStart.toLocaleString()}-{rangeEnd.toLocaleString()} / {catalogPage.total.toLocaleString()}</span></div>
+        <div className="directory-section-heading"><div><p>DISCOVER COMMUNITY PLUGINS</p><h2 id="all-packages-heading">Community plugins</h2></div><span>{rangeStart.toLocaleString()}-{rangeEnd.toLocaleString()} / {catalogPage.total.toLocaleString()}</span></div>
         <div className="directory-action-bar">
           <label className="directory-search">
             <span className="sr-only">Filter packages by name, description, or author</span>

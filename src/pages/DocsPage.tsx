@@ -9,7 +9,7 @@ export function DocsPage() {
         <p className="eyebrow">Documentation</p>
         <h1 id="overview">The ACRYL platform</h1>
         <p className="docs-lede">ACRYL is a Cordis plugin platform. Its web framework is Acryl: the router, the Node server, the data ports and live state, each one a Cordis plugin behind a service name. An app is a folder of those plugins, and every capability - including the agent - can be swapped by changing a configuration row.</p>
-        <div className="docs-notice"><span>1.0</span><p>DeepSeek Harness is not the platform. It is one agent driver: the ACP driver runs any agent that speaks the Agent Client Protocol, and <code>dsh</code> is its first preset. An app that never starts an agent depends on neither.</p></div>
+        <div className="docs-notice"><span>1.0</span><p>No agent is the platform. The ACP driver runs any agent that speaks the Agent Client Protocol, and <code>dsh</code> is one of its presets. An app that never starts an agent depends on none of them.</p></div>
         <h2 id="install">Start an app</h2>
         <p>A new app is six templates on the same Cordis shape - <code>blank</code>, <code>nodejs</code>, <code>notes</code>, <code>chat</code>, <code>todo</code> and <code>agent</code> - with the framework docs, an <code>AGENTS.md</code> and a test inside it.</p>
         <CommandBox command="npm create acrylblends@latest my-app notes" label="Create an app from a template" />
