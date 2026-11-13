@@ -21,9 +21,6 @@
     "updates:sync": "node scripts/sync-updates.mjs"
   },
   "dependencies": {
-    "@fontsource-variable/space-grotesk": "5.2.10",
-    "@fontsource/ibm-plex-mono": "5.2.7",
-    "@fontsource/jetbrains-mono": "5.2.8",
     "clsx": "^2.1.1",
     "lucide-react": "0.468.0",
     "qrcode.react": "^4.2.0",
