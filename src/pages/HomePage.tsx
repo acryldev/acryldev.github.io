@@ -36,7 +36,13 @@ const gets = [
   { icon: Bot, title: 'Bring your own agent', body: 'Claude Code, Codex, pi, Cursor CLI, Qwen Code, Amp and Goose have each built plugins into running apps.' },
 ] as const
 
-type Preview = { readonly state: 'loading' } | { readonly state: 'live'; readonly entries: readonly BlendEntry[] } | { readonly state: 'failed' }
+type Startable = { readonly entry: BlendEntry; readonly command: string }
+type Preview = { readonly state: 'loading' } | { readonly state: 'live'; readonly entries: readonly Startable[] } | { readonly state: 'failed' }
+
+/** The first Blends `acryl new` can make an app from, each with its command. */
+function startable(entries: readonly BlendEntry[]): readonly Startable[] {
+  return entries.flatMap(entry => { const command = newAppCommand(entry); return command ? [{ entry, command }] : [] }).slice(0, 6)
+}
 const paints = ['var(--spectrum-start)', 'var(--spectrum-mid)', 'var(--spectrum-end)'] as const
 
 function BlendsPreview() {
@@ -44,7 +50,7 @@ function BlendsPreview() {
   useEffect(() => {
     const controller = new AbortController()
     fetchBlendIndex(controller.signal)
-      .then(entries => setLoad({ state: 'live', entries: entries.filter(e => e.id.startsWith('acrylblends.')).slice(0, 6) }))
+      .then(entries => setLoad({ state: 'live', entries: startable(entries) }))
       .catch(() => { if (!controller.signal.aborted) setLoad({ state: 'failed' }) })
     return () => controller.abort()
   }, [])
@@ -52,12 +58,12 @@ function BlendsPreview() {
   if (load.state === 'loading') return <div className="blend-preview-grid" aria-busy="true">{[0, 1, 2, 3, 4, 5].map(i => <div key={i} className="blend-preview skeleton" />)}</div>
   return (
     <div className="blend-preview-grid">
-      {load.entries.map((entry, i) => (
+      {load.entries.map(({ entry, command }, i) => (
         <article className="blend-preview" key={entry.id} style={{ ['--paint' as string]: paints[i % 3] }}>
           <a href={blendPageUrl(entry)} target="_blank" rel="noreferrer"><h3>{entry.name}</h3></a>
           <p>{entry.description}</p>
           <span className="blend-preview-meta">{entry.category} · v{entry.version}</span>
-          <CopyLine command={newAppCommand(entry)} label={`Copy the command that creates an app from ${entry.name}`} />
+          <CopyLine command={command} label={`Copy the command that creates an app from ${entry.name}`} />
         </article>
       ))}
     </div>

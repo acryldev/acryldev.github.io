@@ -516,3 +516,16 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 @media (max-width: 1100px) { .site-nav { gap: 14px; } .site-nav a { font-size: 12px; } .nouns-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 900px) { .hero-actions { grid-template-columns: 1fr; } .ways-grid, .blend-preview-grid, .run-grid { grid-template-columns: 1fr 1fr; } .guide-page { grid-template-columns: 1fr; gap: 24px; } .guide-toc { position: static; } }
 @media (max-width: 680px) { .ways-grid, .blend-preview-grid, .run-grid, .nouns-row { grid-template-columns: 1fr; } .home-band { padding-top: 72px; } .nouns-section { margin-top: 72px; padding-block: 72px; } .guide-toc { display: none; } .hero-film { margin-top: 36px; } }
+
+/* Blends: how to read, make and submit a Blend */
+.blend-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 56px; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+.blend-guide > div { padding: 28px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.blend-guide .eyebrow { margin: 0 0 18px; }
+.blend-guide dl { display: grid; gap: 16px; margin: 0; }
+.blend-guide dt { font-size: 14px; font-weight: 700; }
+.blend-guide dd { margin: 4px 0 0; color: var(--muted-foreground); font-size: 13px; line-height: 1.6; }
+.blend-guide ol, .blend-guide ul { display: grid; gap: 12px; margin: 0; padding-left: 18px; color: var(--muted-foreground); font-size: 13px; line-height: 1.6; }
+.blend-guide li::marker { color: var(--spectrum-mid); font-weight: 700; }
+.blend-guide code { padding: 1px 4px; border: 1px solid var(--border); background: var(--muted); color: var(--foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: .92em; overflow-wrap: anywhere; }
+.blend-guide-note { margin: 18px 0 0; padding-top: 14px; border-top: 1px dashed var(--border); color: var(--muted-foreground); font-size: 12px; }
+@media (max-width: 1100px) { .blend-guide { grid-template-columns: 1fr; } }

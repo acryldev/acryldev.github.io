@@ -1,18 +1,12 @@
 import { ArrowRight } from 'lucide-react'
-import { Fragment, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { CopyLine } from '../components/CopyLine'
+import { Inline } from '../components/Inline'
 import { statusLabel, type Code, type Guide, type Section } from '../lib/guides'
-
-/** `code` spans written with backticks become <code>. */
-export function Inline({ text }: { readonly text: string }): ReactNode {
-  return text.split(/(`[^`]+`)/u).map((part, i) =>
-    part.startsWith('`') && part.endsWith('`') ? <code key={i}>{part.slice(1, -1)}</code> : <Fragment key={i}>{part}</Fragment>)
-}
 
 function ListItem({ text }: { readonly text: string }) {
   const colon = text.indexOf(': ')
-  if (colon > 0 && colon < 40) return <li><strong>{text.slice(0, colon)}</strong> <Inline text={text.slice(colon + 2)} /></li>
+  if (colon > 0 && colon < 40) return <li><strong><Inline text={text.slice(0, colon)} /></strong> <Inline text={text.slice(colon + 2)} /></li>
   return <li><Inline text={text} /></li>
 }
 
@@ -51,7 +45,7 @@ export function GuidePage({ guide }: { readonly guide: Guide }) {
         <header>
           <p className="eyebrow">{guide.eyebrow}</p>
           <h1>{guide.title}<br /><span className="spectrum-text">{guide.accent}</span></h1>
-          <p className="guide-intro">{guide.intro}</p>
+          <p className="guide-intro"><Inline text={guide.intro} /></p>
         </header>
         {guide.sections.map(section => <GuideSection key={section.id} section={section} />)}
         {guide.next && (

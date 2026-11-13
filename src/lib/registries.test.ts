@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { blendManifestUrl, blendPageUrl, facetCounts, matches, newAppCommand, parseBlendIndex, parsePluginIndex } from './registries'
 
 // Real entries from the two live indexes (2026-10-19), shortened.
-const gtd = { id: 'acryl.gtd', name: 'GTD Planner', kind: 'Blueprint', version: '0.1.0', path: 'blends/acryl.gtd', license: 'MIT', category: 'productivity', description: 'Getting Things Done.', parent: 'acryl.blank' }
-const blank = { id: 'acryl.blank', name: 'Blank', kind: 'Blueprint', version: '0.1.0', path: 'blends/acryl.blank', license: 'MIT', category: 'starter', description: 'The smallest working agent.' }
+const gtd = { id: 'acryl.gtd', name: 'GTD Planner', kind: 'Blueprint', version: '0.1.0', path: 'blends/acryl.gtd', license: 'MIT', category: 'productivity', description: 'Getting Things Done.', parent: 'acryl.blank', runtime: 'acryl' }
+const blank = { id: 'acryl.blank', name: 'Blank', kind: 'Blueprint', version: '0.1.0', path: 'blends/acryl.blank', license: 'MIT', category: 'starter', description: 'The smallest working agent.', runtime: 'acryl' }
+// Real entry from the live index (2026-11-13), shortened.
+const csv = { id: 'acrylblends.csv-explorer', name: 'CSV Explorer', kind: 'Blueprint', version: '0.1.0', path: 'blends/acrylblends.csv-explorer', license: 'MIT', category: 'data', description: 'Explore a CSV.', runtime: 'acrylblends' }
 const zen = {
   id: 'a42null-dsh-opencode-zen-plugin', name: '@a42null/dsh-opencode-zen-plugin', description: 'OpenCode Console (Zen) models.', category: 'providers',
   compatibility: 'DSH stock', publisher: 'A42Null', repo: 'https://github.com/A42Null/dsh-opencode-zen-plugin',
@@ -30,11 +32,19 @@ describe('Blend registry index', () => {
     expect(() => parseBlendIndex('<html>')).toThrow()
   })
 
-  it('links the manifest and the create command', () => {
+  it('links the manifest and the page', () => {
     const [entry] = parseBlendIndex({ formatVersion: 1, entries: [gtd] })
     expect(blendManifestUrl(entry)).toBe('https://acrylblends.github.io/registry/blends/acryl.gtd/blend.yaml')
-    expect(newAppCommand(entry)).toBe('npx acryl new my-app --from acryl.gtd')
     expect(blendPageUrl(entry)).toBe('https://acrylblends.github.io/blends/b/acryl.gtd')
+  })
+
+  it('offers the create command only for a Blend acryl new can make an app from', () => {
+    const [app, starter, unknown] = parseBlendIndex({ formatVersion: 1, entries: [csv, gtd, { ...csv, id: 'x.future', runtime: 'future' }] })
+    expect(newAppCommand(app)).toBe('npx acryl new my-app --from acrylblends.csv-explorer')
+    expect(starter.runtime).toBe('acryl')
+    expect(newAppCommand(starter)).toBeUndefined()
+    expect(unknown.runtime).toBe('other')
+    expect(newAppCommand(unknown)).toBeUndefined()
   })
 })
 

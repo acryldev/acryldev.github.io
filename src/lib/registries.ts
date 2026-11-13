@@ -13,6 +13,12 @@ export const PLUGIN_REGISTRY_REPO = 'https://github.com/cordisplugins'
 
 const FORMAT_VERSION = 1
 
+/**
+ * What a Blend is for. `acrylblends`: a whole app that `acryl new --from <id>` makes. `acryl`: a starter for the ACRYL app
+ * itself, which `acryl new` refuses. Any other value (a runtime this site does not know yet) is kept, and offers no command.
+ */
+export type BlendRuntime = 'acrylblends' | 'acryl' | 'other'
+
 export interface BlendEntry {
   readonly id: string
   readonly name: string
@@ -25,6 +31,7 @@ export interface BlendEntry {
   readonly description: string
   /** The id of the Blueprint it grew from; absent for a root such as `acryl.blank`. */
   readonly parent?: string
+  readonly runtime: BlendRuntime
 }
 
 export type PluginCompatibility = 'Both' | 'ACRYL' | 'DSH stock'
@@ -93,7 +100,8 @@ export function parseBlendEntry(value: unknown): BlendEntry | null {
   const description = text(value.description)
   if (!id || !name || !kind || !version || !path || !/^blends\/[^/]+$/u.test(path) || !license || !category || !description) return null
   const parent = text(value.parent)
-  return { id, name, kind, version, path, license, category, description, ...(parent ? { parent } : {}) }
+  const runtime: BlendRuntime = value.runtime === 'acrylblends' || value.runtime === 'acryl' ? value.runtime : 'other'
+  return { id, name, kind, version, path, license, category, description, ...(parent ? { parent } : {}), runtime }
 }
 
 const COMPATIBILITY: readonly PluginCompatibility[] = ['Both', 'ACRYL', 'DSH stock']
@@ -156,9 +164,9 @@ export function blendPageUrl(entry: BlendEntry): string {
   return `${BLEND_REGISTRY_SITE}/b/${encodeURIComponent(entry.id)}`
 }
 
-/** The command that creates a new app from a registry Blend. */
-export function newAppCommand(entry: BlendEntry): string {
-  return `npx acryl new my-app --from ${entry.id}`
+/** The command that creates a new app from a registry Blend, or undefined for a Blend `acryl new` cannot make an app from. */
+export function newAppCommand(entry: BlendEntry): string | undefined {
+  return entry.runtime === 'acrylblends' ? `npx acryl new my-app --from ${entry.id}` : undefined
 }
 
 /** Text search over the fields a reader recognizes an entry by, plus one exact-match facet (category or compatibility); `all` means no facet. */

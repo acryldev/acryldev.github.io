@@ -259,7 +259,28 @@ export const reference: Guide = {
     {
       id: 'blend-yaml',
       title: 'blend.yaml',
-      body: ['The app\'s identity: id, name, version, licence, visibility, and the plugin rows the Host loads. `blend.lock.json` records the exact plugin folders and digests a snapshot was made from.'],
+      body: ['The app as data, in the format `blends.acryl.dev/v1alpha1`. Edit it, not the code, to switch a plugin off (`disabled: true`) or change its config. `blend.lock.json` records the exact plugin folders and digests a snapshot was made from.'],
+      list: [
+        'metadata: `id`, `name`, `version`, `category`, `description`, `license` (SPDX) and `visibility` (`private` until you publish).',
+        'spec.parameters: values a person sets when they make an app from it, such as `hostname`.',
+        'spec.rows: the plugins, in load order. Each row has an `id`, the plugin `name` and its `config`.',
+      ],
+    },
+    {
+      id: 'registry',
+      title: 'Registry format',
+      body: [
+        'A registry is a folder of Blends plus one `index.json`. The public one is served at `acrylblends.github.io/registry/index.json`; a team can keep its own with the same layout.',
+        '`index.json` is `{ "formatVersion": 1, "entries": [...] }`. Each Blend folder sits at `blends/<id>/`, with its `blend.yaml` inside.',
+      ],
+      list: [
+        'identity: `id`, `name`, `version`, `category`, `description` and `license`, copied from the Blend\'s `blend.yaml`.',
+        'kind: `Blueprint`.',
+        'path: the folder, `blends/<id>`.',
+        'parent: the Blueprint it grew from, when it has one.',
+        'runtime: `acrylblends` for an app `acryl new --from <id>` makes; `acryl` for a starter for the ACRYL app itself, which `acryl new` refuses.',
+        'archive, integrity: the packed folder and its sha512 digest.',
+      ],
     },
     {
       id: 'home',
@@ -270,12 +291,12 @@ export const reference: Guide = {
       id: 'door-verbs',
       title: 'Door verbs',
       list: [
-        'brief, verbs: what this app is and what it can do.',
-        'look [--window <n>]: the page as an accessibility tree with refs.',
-        'act click | type | select | press | scroll | reload | navigate | wait.',
-        'plugin list | add | pull | publish | remove | reload.',
-        'window list | open | focus | close | resize; menu list | click (Desktop).',
-        'tool list | call. The same verbs are MCP tools at the app\'s /mcp route.',
+        '`brief`, `verbs`: what this app is and what it can do.',
+        '`look [--window <n>]`: the page as an accessibility tree with refs.',
+        '`act`: click, type, select, press, scroll, reload, navigate, wait.',
+        '`plugin`: list, add, pull, publish, remove, reload.',
+        '`window`, `menu`: list, open, focus, close, resize; on the Desktop, menu list and click.',
+        '`tool`: list, call. The same verbs are MCP tools at the app\'s `/mcp` route.',
       ],
     },
     {
@@ -285,7 +306,7 @@ export const reference: Guide = {
         'Node version: apps need Node 22.19+ or 24; `node --version` tells you which you have.',
         'Port in use: another app holds it; stop that app, or set `ACRYLBLENDS_PORT`.',
         'Desktop will not open: run `npm install` in the app first; it brings the Electron the window runs in.',
-        'Anything else: `npx acryl` > Check this machine, then `acryl doctor`.',
+        'Anything else: `npx acryl` > Check this machine, then open an issue at github.com/acryldev/acryl with what it printed.',
       ],
     },
   ],
