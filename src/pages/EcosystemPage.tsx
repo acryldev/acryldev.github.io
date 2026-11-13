@@ -1,5 +1,6 @@
-import { ArrowRight, ArrowUpRight, CalendarDays, History, Layers, Puzzle, Store, Users } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, CalendarDays, History, Layers, Network, Puzzle, Store, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { orcaRouter } from '../data/partners'
 
 const internal = [
   { icon: Puzzle, title: 'Community plugins', body: 'Every public Cordis plugin we can find, with its source, version and what it is compatible with. A listing is not a review.', to: '/ecosystem/plugins', cta: 'Browse plugins' },
@@ -31,6 +32,14 @@ export function EcosystemPage() {
             <span className="card-cta">{item.cta} <ArrowRight aria-hidden="true" /></span>
           </Link>
         ))}
+      </div>
+      <h2 className="ecosystem-group">Partners</h2>
+      <div className="atoms-grid">
+        <a className="atom-card link-card" href={orcaRouter.url} target="_blank" rel="noreferrer sponsored">
+          <div><Network aria-hidden="true" /></div>
+          <h3>{orcaRouter.name}</h3><p>{orcaRouter.headline}. Dynamic routing across models, the same prices as the direct providers. Referral link: ACRYL earns a share if you sign up.</p>
+          <span className="card-cta">orcarouter.ai <ArrowUpRight aria-hidden="true" /></span>
+        </a>
       </div>
       <h2 className="ecosystem-group">Registries and publishers</h2>
       <div className="atoms-grid">

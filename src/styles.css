@@ -529,3 +529,13 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .blend-guide code { padding: 1px 4px; border: 1px solid var(--border); background: var(--muted); color: var(--foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: .92em; overflow-wrap: anywhere; }
 .blend-guide-note { margin: 18px 0 0; padding-top: 14px; border-top: 1px dashed var(--border); color: var(--muted-foreground); font-size: 12px; }
 @media (max-width: 1100px) { .blend-guide { grid-template-columns: 1fr; } }
+
+/* News and the partner band */
+.news-list { margin-bottom: 40px; }
+.news-list > .eyebrow { margin: 0 0 14px; }
+.news-item { padding: 26px 28px; border: 1px solid var(--border); border-top: 3px solid var(--spectrum-mid); background: var(--card); }
+.news-item time { color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .04em; }
+.news-item h3 { margin: 8px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+.news-item p { max-width: 720px; margin: 10px 0 16px; color: var(--muted-foreground); font-size: 14px; line-height: 1.65; }
+.partner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+@media (max-width: 680px) { .partner-actions .button { width: 100%; } }

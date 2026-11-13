@@ -2,6 +2,7 @@ import { ArrowUpRight, Bug, Sparkles, Tag } from 'lucide-react'
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import updates from '../data/updates.json'
+import { news } from '../data/partners'
 
 interface Change {
   readonly type: 'feat' | 'fix'
@@ -60,6 +61,18 @@ export function UpdatesPage() {
         <h1>What is new in ACRYL.</h1>
         <p>Every feature and fix that lands on <code>main</code>, and every release, straight from the git history. Refreshed every 15 minutes.</p>
       </header>
+
+      <section className="news-list" aria-labelledby="news-heading">
+        <h2 id="news-heading" className="eyebrow">News</h2>
+        {news.map(item => (
+          <article className="news-item" key={item.title}>
+            <time dateTime={item.date}>{dayLabel(`${item.date}T12:00:00Z`)}</time>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <a className="card-cta" href={item.href} target="_blank" rel="noreferrer sponsored">{item.cta} <ArrowUpRight aria-hidden="true" /></a>
+          </article>
+        ))}
+      </section>
 
       <section className="release-strip" aria-label="Latest releases">
         {releases.slice(0, 4).map(release => (

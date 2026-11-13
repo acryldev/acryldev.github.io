@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
 import { CopyLine } from '../components/CopyLine'
 import { DownloadButtons } from '../components/DownloadButtons'
+import { orcaRouter } from '../data/partners'
 import { blendPageUrl, fetchBlendIndex, newAppCommand, type BlendEntry } from '../lib/registries'
 
 const ways = [
@@ -187,6 +188,17 @@ export function HomePage() {
           <article><Laptop aria-hidden="true" /><h3>Your machine</h3><p>Web with <code>npm run dev</code>, Desktop with <code>npm run desktop</code>. macOS, Windows, Linux.</p><span className="status-tag shipped">today</span></article>
           <article><Terminal aria-hidden="true" /><h3>Terminal surface</h3><p>The same app drawn in a terminal.</p><span className="status-tag planned">coming</span></article>
           <article><Cloud aria-hidden="true" /><h3>WebBoxes.ai</h3><p>Your apps hosted, with the same plugins and the same folder.</p><span className="status-tag planned">coming</span></article>
+        </div>
+      </section>
+
+      <section className="home-band page-width partner-band" aria-labelledby="partner-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">Partner</p><h2 id="partner-heading">{orcaRouter.name} is an ACRYL partner.<br /><span className="spectrum-text">200+ models, no markup.</span></h2></div>
+          <p>{orcaRouter.summary}</p>
+        </div>
+        <div className="partner-actions">
+          <a className="button" href={orcaRouter.url} target="_blank" rel="noreferrer sponsored">Get a key at {orcaRouter.name} <ArrowUpRight aria-hidden="true" /></a>
+          <span className="licence-note">Referral link: ACRYL earns a share if you sign up. You pay nothing extra.</span>
         </div>
       </section>
 
