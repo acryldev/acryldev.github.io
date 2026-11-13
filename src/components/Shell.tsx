@@ -92,7 +92,7 @@ export function Shell() {
           <Link to="/vision">Vision</Link>
           <Link to="/ecosystem">Ecosystem</Link>
           <Link to="/blends">Blends</Link>
-          <Link to="/packages">Community plugins</Link>
+          <Link to="/ecosystem/plugins">Community plugins</Link>
           <Link to="/docs">Framework docs</Link>
           <Link to="/ui">UI components</Link>
           <Link to="/updates">Changelog</Link>
@@ -118,7 +118,7 @@ export function Shell() {
         <p className="footer-note footer-scam-warning">
           <strong>Security notice:</strong> our only official accounts are listed above (x.com/acryldev,
           github.com/acryldev, and the others linked here). We have no token, no coin, and no crypto project.
-          <code>x.com/acryl_dev</code> is impersonating us and is <strong>not affiliated with ACRYL</strong> — do
+          <code>x.com/acryl_dev</code> is impersonating us and is <strong>not affiliated with ACRYL</strong>: do
           not trust anything it posts, especially about a token or airdrop.
         </p>
       </footer>

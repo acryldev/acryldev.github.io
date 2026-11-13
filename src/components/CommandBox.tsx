@@ -1,7 +1,7 @@
 import { Check, Copy, Terminal } from 'lucide-react'
 import { useState } from 'react'
 
-export function CommandBox({ command, label = 'Install with DSH' }: { readonly command: string; readonly label?: string }) {
+export function CommandBox({ command, label = 'Install' }: { readonly command: string; readonly label?: string }) {
   const [copied, setCopied] = useState(false)
   const copy = async () => {
     await navigator.clipboard.writeText(command)

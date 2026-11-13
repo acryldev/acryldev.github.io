@@ -2,7 +2,7 @@ import { ArrowRight, ArrowUpRight, CalendarDays, History, Layers, Puzzle, Store,
 import { Link } from 'react-router-dom'
 
 const internal = [
-  { icon: Puzzle, title: 'Community plugins', body: 'Every public Cordis plugin we can find, with its source, version and what it is compatible with. A listing is not a review.', to: '/packages', cta: 'Browse plugins' },
+  { icon: Puzzle, title: 'Community plugins', body: 'Every public Cordis plugin we can find, with its source, version and what it is compatible with. A listing is not a review.', to: '/ecosystem/plugins', cta: 'Browse plugins' },
   { icon: Layers, title: 'Blends', body: 'Apps made into starting points, live from the registry, with the command that makes your own copy.', to: '/blends', cta: 'Browse Blends' },
   { icon: CalendarDays, title: 'Workshop and events', body: 'Talks, the ACRYL Bootcamp, and where to meet the people building it.', to: '/events', cta: 'See events' },
   { icon: History, title: 'Changelog', body: 'What changed in ACRYL, release by release and commit by commit.', to: '/updates', cta: 'Read the changelog' },

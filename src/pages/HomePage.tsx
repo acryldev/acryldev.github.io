@@ -196,7 +196,7 @@ export function HomePage() {
         <p>The framework, the launcher, ADE and both registries are open source. Publish a plugin, start a Blend, or come to a workshop.</p>
         <div>
           <a className="button" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Github aria-hidden="true" /> GitHub</a>
-          <Link className="button secondary" to="/packages"><Puzzle aria-hidden="true" /> Community plugins</Link>
+          <Link className="button secondary" to="/ecosystem/plugins"><Puzzle aria-hidden="true" /> Community plugins</Link>
           <Link className="button secondary" to="/events/acrylbootcamp"><Users aria-hidden="true" /> Workshop</Link>
           <a className="button secondary" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Discord</a>
           <span className="licence-note"><Scale aria-hidden="true" /> MIT</span>

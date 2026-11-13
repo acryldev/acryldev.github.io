@@ -3,10 +3,10 @@
   "providerId": "dev.acryl.catalog",
   "name": "ACRYL Package Catalog",
   "description": "ACRYL packages auto-discovered on the npm registry via the acryl-package keyword. Static endpoint, refreshed every 15 minutes.",
-  "homepage": "https://acryl.dev/packages",
+  "homepage": "https://acryl.dev/ecosystem/plugins",
   "attribution": {
     "name": "acryl.dev",
-    "url": "https://acryl.dev/packages"
+    "url": "https://acryl.dev/ecosystem/plugins"
   },
   "transport": {
     "kind": "https-json",

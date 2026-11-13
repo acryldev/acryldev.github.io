@@ -24,7 +24,7 @@ function asSort(value: string | null): CatalogSort {
 }
 
 function formatMetric(value: number | null | undefined): string {
-  if (value === null || value === undefined) return '—'
+  if (value === null || value === undefined) return '-'
   return Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(value)
 }
 
@@ -63,7 +63,7 @@ function PackageCard({ plugin }: { readonly plugin: CatalogPlugin }) {
           <p>{plugin.description.en || 'Community plugin.'}</p>
           <div className="package-facts">
             <span>{author}</span>
-            <span className={`origin-chip ${plugin.source}`}>{plugin.source === 'acryl' ? 'ACRYL' : 'DSH'}</span>
+            <span className={`origin-chip ${plugin.source}`}>{plugin.source === 'acryl' ? 'ACRYL' : 'Community'}</span>
             <span className="type-chip">{plugin.category}</span>
             {plugin.installCount !== undefined && <span><Download aria-hidden="true" /> {formatMetric(plugin.installCount)}</span>}
             {plugin.stars !== undefined && <span><Star aria-hidden="true" /> {formatMetric(plugin.stars)}</span>}
@@ -159,7 +159,7 @@ export function PackagesPage() {
 
       {!hasFilters && page === 1 && (
         <section className="recent-section page-width" aria-labelledby="recent-heading">
-          <div className="directory-section-heading"><div><p>FRESH FROM THE DSH 1024STORE</p><h2 id="recent-heading">Recently added</h2></div><span>Updated continuously</span></div>
+          <div className="directory-section-heading"><div><p>FRESH FROM THE COMMUNITY STORE</p><h2 id="recent-heading">Recently added</h2></div><span>Updated continuously</span></div>
           <div className="recent-grid">
             {recent.map(plugin => (
               <Link to={packagePath(plugin)} className="recent-card" key={plugin.id}>
@@ -176,28 +176,28 @@ export function PackagesPage() {
         <div className="directory-section-heading"><div><p>DISCOVER COMMUNITY PLUGINS</p><h2 id="all-packages-heading">Community plugins</h2></div><span>{rangeStart.toLocaleString()}-{rangeEnd.toLocaleString()} / {catalogPage.total.toLocaleString()}</span></div>
         <div className="directory-action-bar">
           <label className="directory-search">
-            <span className="sr-only">Filter packages by name, description, or author</span>
+            <span className="sr-only">Filter plugins by name, description, or author</span>
             <Search aria-hidden="true" />
-            <input ref={searchInput} type="search" value={query} onChange={event => update({ q: event.target.value })} placeholder="Filter packages by name, description, or author" autoComplete="off" />
+            <input ref={searchInput} type="search" value={query} onChange={event => update({ q: event.target.value })} placeholder="Filter plugins by name, description, or author" autoComplete="off" />
             <kbd>/</kbd>
           </label>
           <label><span className="sr-only">Filter by category</span><select value={category} onChange={event => update({ category: event.target.value })}><option value="all">All categories</option>{categories.map(item => <option value={item.id} key={item.id}>{item.label}{item.count ? ` (${item.count.toLocaleString()})` : ''}</option>)}</select></label>
-          <label><span className="sr-only">Sort packages</span><select value={sort} onChange={event => update({ sort: event.target.value })}>{SORTS.map(option => <option value={option.value} key={option.value}>{option.label}</option>)}</select></label>
+          <label><span className="sr-only">Sort plugins</span><select value={sort} onChange={event => update({ sort: event.target.value })}>{SORTS.map(option => <option value={option.value} key={option.value}>{option.label}</option>)}</select></label>
           <button className="directory-reset" type="button" onClick={reset} disabled={!hasFilters}><X aria-hidden="true" /> Reset</button>
         </div>
 
         <div className="registry-status" role="status" aria-live="polite">
-          <span className={status}><i /> {status === 'live' ? 'Live DSH registry' : status === 'loading' ? 'Updating results' : 'Static catalog fallback'}</span>
+          <span className={status}><i /> {status === 'live' ? 'Live community registry' : status === 'loading' ? 'Updating results' : 'Static catalog fallback'}</span>
           <span>Source-aware discovery</span>
           {error && <span title={error}>Live source unavailable</span>}
         </div>
 
         {catalogPage.plugins.length > 0 ? <div className="discovery-grid">{catalogPage.plugins.map(plugin => <PackageCard plugin={plugin} key={plugin.id} />)}</div> : (
-          <div className="empty-state"><Search aria-hidden="true" /><h3>No matching packages</h3><p>Try a shorter name, a broader capability, or all categories.</p><button className="button secondary" type="button" onClick={reset}>Clear filters</button></div>
+          <div className="empty-state"><Search aria-hidden="true" /><h3>No matching plugins</h3><p>Try a shorter name, a broader capability, or all categories.</p><button className="button secondary" type="button" onClick={reset}>Clear filters</button></div>
         )}
 
         {catalogPage.totalPages > 1 && (
-          <nav className="catalog-pagination" aria-label="Package catalog pages">
+          <nav className="catalog-pagination" aria-label="Plugin catalog pages">
             <button type="button" disabled={page <= 1} onClick={() => update({ page: String(page - 1) })}><ChevronLeft aria-hidden="true" /> Previous</button>
             <span>Page <strong>{catalogPage.page.toLocaleString()}</strong> of {catalogPage.totalPages.toLocaleString()}</span>
             <button type="button" disabled={page >= catalogPage.totalPages} onClick={() => update({ page: String(page + 1) })}>Next <ChevronRight aria-hidden="true" /></button>
@@ -205,7 +205,7 @@ export function PackagesPage() {
         )}
 
         <aside className="directory-provenance">
-          <div><ShieldCheck aria-hidden="true" /><strong>Source-aware by design</strong><p>Catalog metadata comes from the DSH 1024Store registry. Package authors retain ownership and licenses.</p></div>
+          <div><ShieldCheck aria-hidden="true" /><strong>Source-aware by design</strong><p>Catalog metadata comes from the community plugin store. Plugin authors retain ownership and licenses.</p></div>
           <a href={catalog.upstream.repository} target="_blank" rel="noreferrer">View upstream catalog <ArrowUpRight aria-hidden="true" /></a>
         </aside>
       </section>

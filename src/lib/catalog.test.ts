@@ -30,7 +30,7 @@ describe('catalog', () => {
     expect(plugin).toBeDefined()
     if (!plugin) return
     expect(findPlugin(plugin.id.toUpperCase())).toEqual(plugin)
-    expect(packagePath(plugin)).toMatch(/^\/packages\//)
+    expect(packagePath(plugin)).toMatch(/^\/ecosystem\/plugins\//)
     expect(installCommand(plugin)).toBeNull()
   })
 })

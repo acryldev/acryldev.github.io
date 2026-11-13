@@ -3,6 +3,9 @@ import { ArrowUpRight, ChevronRight, Github, Plug, Search, X } from 'lucide-reac
 import { CopyLine } from './CopyLine'
 import { facetCounts, fetchPluginIndex, matches, PLUGIN_REGISTRY_INDEX, PLUGIN_REGISTRY_REPO, PLUGIN_REGISTRY_SITE, type PluginEntry } from '../lib/registries'
 
+/** What a reader sees for each compatibility value of the registry. */
+const compatibilityLabel: Readonly<Record<PluginEntry['compatibility'], string>> = { Both: 'ACRYL and stock', ACRYL: 'ACRYL', 'DSH stock': 'Stock' }
+
 type Load = { readonly state: 'loading' } | { readonly state: 'live'; readonly entries: readonly PluginEntry[] } | { readonly state: 'failed'; readonly reason: string }
 
 function PluginInstall({ entry }: { readonly entry: PluginEntry }) {
@@ -21,7 +24,7 @@ function PluginCard({ entry }: { readonly entry: PluginEntry }) {
           <p>{entry.description || 'A Cordis plugin.'}</p>
           <div className="package-facts">
             <span>{entry.publisher}</span>
-            <span className={entry.compatibility === 'DSH stock' ? 'origin-chip' : 'origin-chip acryl'}>{entry.compatibility}</span>
+            <span className={entry.compatibility === 'DSH stock' ? 'origin-chip' : 'origin-chip acryl'}>{compatibilityLabel[entry.compatibility]}</span>
             <span className="type-chip">{entry.category}</span>
             {entry.release && <span>v{entry.release.version}</span>}
             {entry.release?.published && <span>{entry.release.published}</span>}

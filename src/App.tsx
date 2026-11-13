@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { LegacyRedirect } from './components/LegacyRedirect'
 import { Shell } from './components/Shell'
 import { BlendsPage } from './pages/BlendsPage'
 import { BootcampPage } from './pages/BootcampPage'
@@ -28,8 +29,9 @@ export function App() {
         <Route path="vision" element={<GuidePage guide={vision} />} />
         <Route path="ecosystem" element={<EcosystemPage />} />
         <Route path="blends" element={<BlendsPage />} />
-        <Route path="packages" element={<PackagesPage />} />
-        <Route path="packages/:owner/*" element={<PackagePage />} />
+        <Route path="ecosystem/plugins" element={<PackagesPage />} />
+        <Route path="ecosystem/plugins/:owner/*" element={<PackagePage />} />
+        <Route path="packages/*" element={<LegacyRedirect from="/packages" to="/ecosystem/plugins" />} />
         <Route path="ui" element={<UiPage />} />
         <Route path="docs/platform" element={<DocsPage />} />
         <Route path="docs" element={<FrameworkDocsPage />} />

@@ -28,7 +28,7 @@ export function filterPlugins(
 }
 
 export function packagePath(plugin: CatalogPlugin): string {
-  return `/packages/${plugin.id.split('/').map(encodeURIComponent).join('/')}`
+  return `/ecosystem/plugins/${plugin.id.split('/').map(encodeURIComponent).join('/')}`
 }
 
 export function findPlugin(id: string): CatalogPlugin | undefined {

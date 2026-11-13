@@ -32,18 +32,18 @@ export function PackagePage() {
     return () => controller.abort()
   }, [id])
 
-  if (!plugin && !failed) return <div className="not-found page-width"><span>REGISTRY</span><h1>Loading package…</h1></div>
-  if (!plugin) return <div className="not-found page-width"><span>404</span><h1>Package not found.</h1><Link className="button" to="/packages">Return to packages</Link></div>
+  if (!plugin && !failed) return <div className="not-found page-width"><span>REGISTRY</span><h1>Loading plugin…</h1></div>
+  if (!plugin) return <div className="not-found page-width"><span>404</span><h1>Plugin not found.</h1><Link className="button" to="/ecosystem/plugins">All community plugins</Link></div>
 
   const category = catalog.categories.find(item => item.id === plugin.category)?.label ?? plugin.category
   const command = installCommand(plugin)
   return (
     <div className="package-detail page-width">
-      <Link className="back-link" to="/packages"><ArrowLeft aria-hidden="true" /> All packages</Link>
+      <Link className="back-link" to="/ecosystem/plugins"><ArrowLeft aria-hidden="true" /> All community plugins</Link>
       <section className="package-detail-hero">
         <div className="package-detail-icon"><Box aria-hidden="true" /></div>
         <div className="package-detail-title">
-          <p className="eyebrow">{plugin.source === 'acryl' ? 'ACRYL package ecosystem' : 'Community package ecosystem'}</p>
+          <p className="eyebrow">{plugin.source === 'acryl' ? 'ACRYL plugin' : 'Community plugin'}</p>
           <h1>{plugin.name}</h1>
           <p>{plugin.description.en}</p>
           <div className="detail-tags">
@@ -67,7 +67,7 @@ export function PackagePage() {
               </>
             ) : (
               <>
-                <h2>Browse-only package</h2>
+                <h2>Browse only</h2>
                 <p>No verified npm installation method is available in the upstream registry. Source installs are intentionally not offered. Review the repository while its package manifest is being verified.</p>
                 <a className="button secondary" href={plugin.repository} target="_blank" rel="noreferrer">Inspect repository <ArrowUpRight aria-hidden="true" /></a>
               </>
@@ -83,7 +83,7 @@ export function PackagePage() {
           </section>
         </main>
         <aside className="detail-aside">
-          <section><p className="panel-label">SOURCE</p><dl><dt>Registry</dt><dd>{plugin.source === 'acryl' ? 'npm · acryl-package' : 'DSH 1024Store'}</dd><dt>Repository</dt><dd>{repositorySlug(plugin.repository)}</dd>{plugin.version && <><dt>Version</dt><dd>{plugin.version}</dd></>}<dt>Package license</dt><dd>See upstream</dd><dt>Catalog source</dt><dd>{plugin.source === 'acryl' ? 'Automated npm discovery' : 'Live API with static fallback'}</dd><dt>Install status</dt><dd>{command ? 'Verified npm path' : 'Browse only'}</dd></dl></section>
+          <section><p className="panel-label">SOURCE</p><dl><dt>Registry</dt><dd>{plugin.source === 'acryl' ? 'npm · acryl-package' : 'Community store'}</dd><dt>Repository</dt><dd>{repositorySlug(plugin.repository)}</dd>{plugin.version && <><dt>Version</dt><dd>{plugin.version}</dd></>}<dt>Package license</dt><dd>See upstream</dd><dt>Catalog source</dt><dd>{plugin.source === 'acryl' ? 'Automated npm discovery' : 'Live API with static fallback'}</dd><dt>Install status</dt><dd>{command ? 'Verified npm path' : 'Browse only'}</dd></dl></section>
           <section className="security-callout"><ShieldAlert aria-hidden="true" /><div><strong>Third-party code</strong><p>Host plugins may access Node.js, files, and network resources. Install only code you trust.</p></div></section>
         </aside>
       </div>

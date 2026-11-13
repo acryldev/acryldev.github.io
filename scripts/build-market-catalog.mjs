@@ -37,7 +37,7 @@ export const PAGE_LIMIT = 50
 export const MANIFEST_URL = 'https://acryl.dev/.well-known/acryl-catalog-source.json'
 
 const ENDPOINT_URL = 'https://acryl.dev/v1/plugins'
-const PACKAGES_URL = 'https://acryl.dev/packages'
+const PACKAGES_URL = 'https://acryl.dev/ecosystem/plugins'
 
 // Patterns mirrored from dsh-community-market/docs/schemas so emitted
 // artifacts are validated with the same rules the Host applies.
