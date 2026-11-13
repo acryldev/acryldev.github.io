@@ -33,7 +33,7 @@ describe('Blend registry index', () => {
   it('links the manifest and the create command', () => {
     const [entry] = parseBlendIndex({ formatVersion: 1, entries: [gtd] })
     expect(blendManifestUrl(entry)).toBe('https://acrylblends.github.io/registry/blends/acryl.gtd/blend.yaml')
-    expect(newAppCommand(entry)).toBe('acryl new my-app --from acryl.gtd')
+    expect(newAppCommand(entry)).toBe('npx acryl new my-app --from acryl.gtd')
     expect(blendPageUrl(entry)).toBe('https://acrylblends.github.io/blends/b/acryl.gtd')
   })
 })

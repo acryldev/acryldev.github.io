@@ -48,7 +48,7 @@ describe('Shell community links', () => {
   it('offers a GitHub star link in the header and footer', () => {
     render(createElement(MemoryRouter, null, createElement(Shell)))
 
-    const starLinks = screen.getAllByRole('link', { name: /star/i })
+    const starLinks = screen.getAllByRole('link', { name: /\bstar\b/i })
 
     expect(starLinks).toHaveLength(2)
     for (const link of starLinks) {

@@ -158,7 +158,7 @@ export function blendPageUrl(entry: BlendEntry): string {
 
 /** The command that creates a new app from a registry Blend. */
 export function newAppCommand(entry: BlendEntry): string {
-  return `acryl new my-app --from ${entry.id}`
+  return `npx acryl new my-app --from ${entry.id}`
 }
 
 /** Text search over the fields a reader recognizes an entry by, plus one exact-match facet (category or compatibility); `all` means no facet. */

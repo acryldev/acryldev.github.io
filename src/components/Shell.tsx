@@ -5,13 +5,13 @@ import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
 
 const nav = [
-  ['Product', '/'],
+  ['Get started', '/start'],
+  ['Concepts', '/concepts'],
+  ['Build', '/build'],
   ['Blends', '/blends'],
-  ['Plugins', '/packages'],
-  ['UI', '/ui'],
-  ['Docs', '/docs'],
-  ['Updates', '/updates'],
-  ['Events', '/events'],
+  ['Reference', '/reference'],
+  ['Ecosystem', '/ecosystem'],
+  ['Vision', '/vision'],
 ] as const
 
 function formatStarCount(stars: number): string {
@@ -51,12 +51,10 @@ export function Shell() {
           </button>
           <nav className={open ? 'site-nav open' : 'site-nav'} aria-label="Primary navigation">
             {nav.map(([label, href]) => (
-              <NavLink key={href} to={href} end={href === '/'} onClick={() => setOpen(false)}>{label}</NavLink>
+              <NavLink key={href} to={href} onClick={() => setOpen(false)}>{label}</NavLink>
             ))}
-            <a className="community-link" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer">
-              <MessageCircle aria-hidden="true" />
-              Join Discord
-            </a>
+            <a className="github-link" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="/merch/">Merch</a>
           </nav>
           <div className="header-actions">
             <ThemeToggle />
@@ -73,7 +71,10 @@ export function Shell() {
             <a className="icon-button" href="https://github.com/acryldev" target="_blank" rel="noreferrer" aria-label="ACRYL on GitHub">
               <Github aria-hidden="true" />
             </a>
-            <Link className="button small" to="/packages">Explore plugins</Link>
+            <a className="icon-button" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer" aria-label="Join Discord">
+              <MessageCircle aria-hidden="true" />
+            </a>
+            <Link className="button small" to="/start">Get started</Link>
           </div>
         </div>
       </header>
@@ -81,17 +82,25 @@ export function Shell() {
       <footer className="site-footer">
         <div>
           <Brand />
-          <p>Agent Context Relay Yielding Lifecycles.</p>
+          <p>The platform for agentic apps. Everything is a plugin.</p>
         </div>
         <div className="footer-links">
+          <Link to="/start">Get started</Link>
+          <Link to="/concepts">Concepts</Link>
+          <Link to="/build">Build</Link>
+          <Link to="/reference">Reference</Link>
+          <Link to="/vision">Vision</Link>
+          <Link to="/ecosystem">Ecosystem</Link>
           <Link to="/blends">Blends</Link>
-          <Link to="/packages">Plugins</Link>
-          <Link to="/docs">Docs</Link>
-          <Link to="/updates">Updates</Link>
+          <Link to="/packages">Community plugins</Link>
+          <Link to="/docs">Framework docs</Link>
+          <Link to="/ui">UI components</Link>
+          <Link to="/updates">Changelog</Link>
           <Link to="/events">Events</Link>
+          <a href="/merch/">Merch</a>
           <Link to="/qr">QR codes</Link>
-          <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer">ACRYL Blends — the Blend registry</a>
-          <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins — the plugin registry</a>
+          <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer">ACRYL Blends: the Blend registry</a>
+          <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins: the plugin registry</a>
           <a href="https://agentcontextrelay.com/">Agent Context Relay</a>
           <a href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">Star on GitHub</a>
           <a href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer">Discord</a>

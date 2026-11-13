@@ -12,12 +12,21 @@ import { RebasedPage } from './pages/RebasedPage'
 import { QrPage } from './pages/QrPage'
 import { UiPage } from './pages/UiPage'
 import { UpdatesPage } from './pages/UpdatesPage'
+import { EcosystemPage } from './pages/EcosystemPage'
+import { GuidePage } from './pages/GuidePage'
+import { build, concepts, reference, start, vision } from './lib/guides'
 
 export function App() {
   return (
     <Routes>
       <Route element={<Shell />}>
         <Route index element={<HomePage />} />
+        <Route path="start" element={<GuidePage guide={start} />} />
+        <Route path="concepts" element={<GuidePage guide={concepts} />} />
+        <Route path="build" element={<GuidePage guide={build} />} />
+        <Route path="reference" element={<GuidePage guide={reference} />} />
+        <Route path="vision" element={<GuidePage guide={vision} />} />
+        <Route path="ecosystem" element={<EcosystemPage />} />
         <Route path="blends" element={<BlendsPage />} />
         <Route path="packages" element={<PackagesPage />} />
         <Route path="packages/:owner/*" element={<PackagePage />} />

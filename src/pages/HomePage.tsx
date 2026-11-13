@@ -1,234 +1,200 @@
-import { ArrowLeftRight, ArrowRight, ArrowUpRight, Boxes, Braces, Cable, Globe, KanbanSquare, Layers3, Layout, MessageCircle, Monitor, MousePointerClick, Network, Radio, RefreshCw, Shield, SplitSquareHorizontal, Star, Stethoscope, Terminal, Users, Workflow } from 'lucide-react'
+import {
+  ArrowRight, ArrowUpRight, Bot, Cloud, DoorOpen, Folder, Github, History, Laptop, Layers, MessageCircle, Monitor, PlugZap, Puzzle, Scale, Server, Share2,
+  Sparkles, Star, Terminal, Users,
+} from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
+import { CopyLine } from '../components/CopyLine'
 import { DownloadButtons } from '../components/DownloadButtons'
-import { acrylCatalog, catalog } from '../lib/catalog'
+import { blendPageUrl, fetchBlendIndex, newAppCommand, type BlendEntry } from '../lib/registries'
 
-const atoms = [
-  { icon: Network, n: '01', title: 'Context', body: 'Persistent project memory belongs to the workspace, not a disposable agent session.' },
-  { icon: RefreshCw, n: '02', title: 'Agents', body: 'Move work among Claude, Codex, Pi, OpenCode, DSH, and the next runtime without losing continuity.' },
-  { icon: Boxes, n: '03', title: 'Packages', body: 'Tools, skills, adapters, workflows, Blueprints, and StemCells are independently inspectable building blocks.' },
-  { icon: Cable, n: '04', title: 'Services', body: 'Cordis lifecycles let capabilities mount, replace, reconcile, and dispose through explicit contracts.' },
-  { icon: Braces, n: '05', title: 'Compatibility', body: 'Community Cordis plugins keep their original install path and source identity.' },
-  { icon: Layers3, n: '06', title: 'Lifecycles', body: 'A room outlives any one worker and becomes the evolving home for people, agents, artifacts, and decisions.' },
-]
+const ways = [
+  {
+    icon: Terminal, title: 'The launcher', command: 'npx acryl',
+    body: 'Every step offered in a terminal: create an app, install a Blend, open one, pull or share a plugin, check your machine.',
+    note: '--tui, --gui and --web pick the face: next release',
+  },
+  { icon: Sparkles, title: 'A blank app', command: 'npx acryl new my-app', body: 'An empty app with the agent inside it. Ask for what you need and it grows from there.' },
+  { icon: Layers, title: 'A Blend from the catalog', command: 'npx acryl new my-app --from acrylblends.csv-explorer', body: 'Start from a working app someone made, then make it yours.' },
+] as const
 
-const packageCount = catalog.plugins.length + acrylCatalog.plugins.length
+const nouns = [
+  { icon: Folder, name: 'App', line: 'A folder: blend.yaml, its plugins, its data. Copy the folder, copy the app.' },
+  { icon: Server, name: 'Host', line: 'One process per app. It loads plugins and swaps them while the app runs.' },
+  { icon: Puzzle, name: 'Plugin', line: 'The only unit of capability: a page, a tool, a service.' },
+  { icon: Monitor, name: 'Surface', line: 'Web or Desktop. It draws what the Host serves and owns no logic.' },
+  { icon: Bot, name: 'Driver', line: 'An agent working inside the app. The built-in chat is one of many.' },
+] as const
+
+const gets = [
+  { icon: PlugZap, title: 'An agent that builds plugins live', body: 'Ask in the chat. The agent writes a plugin into the running app; the page appears without a restart.' },
+  { icon: Share2, title: 'Share and pull plugins', body: 'Publish a plugin to your GitHub with one confirmed plan, pull anyone\'s into your app by its address.' },
+  { icon: History, title: 'Snapshots and versions', body: 'Every save is a version. Restore any one; history is never rewritten.' },
+  { icon: Laptop, title: 'Web and Desktop', body: 'The same app in the browser and in its own window.', soon: 'Terminal: coming' },
+  { icon: DoorOpen, title: 'A door for any agent', body: 'look, act, plugin, tool: on the command line and over MCP, so an outside agent can drive any app.' },
+  { icon: Bot, title: 'Bring your own agent', body: 'Claude Code, Codex, pi, Cursor CLI, Qwen Code, Amp and Goose have each built plugins into running apps.' },
+] as const
+
+type Preview = { readonly state: 'loading' } | { readonly state: 'live'; readonly entries: readonly BlendEntry[] } | { readonly state: 'failed' }
+const paints = ['var(--spectrum-start)', 'var(--spectrum-mid)', 'var(--spectrum-end)'] as const
+
+function BlendsPreview() {
+  const [load, setLoad] = useState<Preview>({ state: 'loading' })
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchBlendIndex(controller.signal)
+      .then(entries => setLoad({ state: 'live', entries: entries.filter(e => e.id.startsWith('acrylblends.')).slice(0, 6) }))
+      .catch(() => { if (!controller.signal.aborted) setLoad({ state: 'failed' }) })
+    return () => controller.abort()
+  }, [])
+  if (load.state === 'failed') return <p className="preview-note">The catalog could not be read just now. <Link to="/blends">Open the full catalog</Link>.</p>
+  if (load.state === 'loading') return <div className="blend-preview-grid" aria-busy="true">{[0, 1, 2, 3, 4, 5].map(i => <div key={i} className="blend-preview skeleton" />)}</div>
+  return (
+    <div className="blend-preview-grid">
+      {load.entries.map((entry, i) => (
+        <article className="blend-preview" key={entry.id} style={{ ['--paint' as string]: paints[i % 3] }}>
+          <a href={blendPageUrl(entry)} target="_blank" rel="noreferrer"><h3>{entry.name}</h3></a>
+          <p>{entry.description}</p>
+          <span className="blend-preview-meta">{entry.category} · v{entry.version}</span>
+          <CopyLine command={newAppCommand(entry)} label={`Copy the command that creates an app from ${entry.name}`} />
+        </article>
+      ))}
+    </div>
+  )
+}
+
+function HeroFilm() {
+  return (
+    <figure className="hero-film">
+      <video
+        src="/hero/acryl-how-it-works.mp4"
+        poster="/hero/acryl-how-it-works.jpg"
+        autoPlay muted loop playsInline preload="metadata"
+        aria-label="How ACRYL works: start a blank app, ask the agent, it builds plugins into the running app, share and pull plugins, versions, web and desktop, start from a Blend"
+      />
+      <figcaption>How ACRYL works, in 75 seconds. Every command in it is real.</figcaption>
+    </figure>
+  )
+}
 
 export function HomePage() {
   return (
     <>
       <section className="home-hero grid-surface">
         <div className="page-width hero-content">
-          <p className="eyebrow">Agent Context Relay Yielding Lifecycles</p>
-          <h1>Everything is a plugin.<br /><strong>Drive the app you run in.</strong></h1>
-          <p className="hero-lede">ACRYL is a living Agentic Development Environment and runtime for your agents — infinitely adaptive to you, yours to shape, extend and grow into any workflow, any idea, from the inside out. Bring any coding agent, it plugs in as a replaceable worker, and every decision, diff, and session survives the swap.</p>
-          <div className="hero-cta">
-            <Link className="button" to="/packages">Explore {packageCount.toLocaleString()} packages <ArrowRight aria-hidden="true" /></Link>
-            <Link className="button secondary" to="/docs">Read the architecture</Link>
-            <a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">
-              <Star aria-hidden="true" />
-              Support ACRYL on GitHub
-            </a>
+          <p className="eyebrow">The platform for agentic apps</p>
+          <h1>Everything is a plugin.<br /><strong className="spectrum-text">Build agentic apps.</strong></h1>
+          <p className="hero-lede">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own IDE is one app built on it.</p>
+          <div className="hero-actions">
+            <CommandBox command="npx acryl" label="Open the launcher" />
+            <div className="hero-cta">
+              <Link className="button" to="/start">Get started <ArrowRight aria-hidden="true" /></Link>
+              <Link className="button secondary" to="/blends">Browse Blends</Link>
+              <a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a>
+            </div>
           </div>
-          <CommandBox command="npm i -g acryl" label="Install ACRYL CLI" />
-          <DownloadButtons />
+          <HeroFilm />
         </div>
       </section>
 
-      <section className="foundation-strip" aria-label="Platform foundations">
-        <span>ACRYL IS BUILT WITH</span><strong>Cordis</strong><span>·</span><strong>Electron</strong><span>·</span><strong>Agent Context Relay</strong>
-      </section>
-
-      <section className="atoms-section page-width" aria-labelledby="atoms-heading">
+      <section className="home-band page-width" aria-labelledby="ways-heading">
         <div className="section-intro">
-          <div><p className="eyebrow">The molecule</p><h2 id="atoms-heading">Atoms bond into<br />working lifecycles.</h2></div>
-          <p>ACRYL treats the workspace as the center. Agents are interchangeable workers, while context, decisions, and project state remain durable.</p>
+          <div><p className="eyebrow">Three ways in</p><h2 id="ways-heading">Pick a door.<br /><span className="spectrum-text">Every one is a command.</span></h2></div>
+          <p>Node.js 22.19 or newer, npm and git are all you need. Nothing to install first: <code>npx</code> fetches ACRYL when you run it.</p>
         </div>
-        <div className="atoms-grid">
-          {atoms.map(({ icon: Icon, n, title, body }) => (
-            <article className="atom-card" key={title}>
-              <div><span>{n}</span><Icon aria-hidden="true" /></div>
-              <h3>{title}</h3><p>{body}</p>
+        <div className="ways-grid">
+          {ways.map(way => (
+            <article className="way-card" key={way.title}>
+              <way.icon aria-hidden="true" />
+              <h3>{way.title}</h3>
+              <p>{way.body}</p>
+              <CopyLine command={way.command} label={`Copy ${way.command}`} />
+              {'note' in way && <span className="status-tag next">{way.note}</span>}
             </article>
           ))}
         </div>
       </section>
 
-      <section className="continuity-section">
+      <section className="nouns-section" aria-labelledby="nouns-heading">
+        <div className="page-width">
+          <div className="section-intro">
+            <div><p className="eyebrow">How it works</p><h2 id="nouns-heading">Five nouns.<br /><span className="spectrum-text">That is the whole model.</span></h2></div>
+            <p>Every ACRYL app is made of the same five things. Learn them once and every app, including ADE, reads the same way. <Link to="/concepts">Read the concepts</Link>.</p>
+          </div>
+          <ol className="nouns-row">
+            {nouns.map(n => (
+              <li key={n.name}><n.icon aria-hidden="true" /><strong>{n.name}</strong><span>{n.line}</span></li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="home-band page-width" aria-labelledby="gets-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">What you get</p><h2 id="gets-heading">An app that keeps<br /><span className="spectrum-text">building itself.</span></h2></div>
+          <p>All of this works today from npm. Where something is still coming, the page says so.</p>
+        </div>
+        <div className="atoms-grid">
+          {gets.map(g => (
+            <article className="atom-card" key={g.title}>
+              <div><g.icon aria-hidden="true" />{'soon' in g && <span className="status-tag planned">{g.soon}</span>}</div>
+              <h3>{g.title}</h3><p>{g.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-band page-width" aria-labelledby="blends-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">Blends catalog</p><h2 id="blends-heading">Start from<br /><span className="spectrum-text">something that works.</span></h2></div>
+          <p>A Blend is an app made into a starting point. These come live from the registry. <Link to="/blends">See all Blends</Link>.</p>
+        </div>
+        <BlendsPreview />
+      </section>
+
+      <section className="continuity-section" aria-labelledby="ade-heading">
         <div className="page-width continuity-grid">
           <div className="continuity-content">
-            <p className="eyebrow">Continuity</p>
-            <h2>Swap agents.<br />Keep working.</h2>
-            <p>ACRYL treats every coding agent as an interchangeable worker. Claude Code, Codex, OpenCode, Gemini, Pi — the room owns the context, not the agent session. Swap mid-project without losing a decision, a file, or a thought.</p>
+            <p className="eyebrow">ACRYL ADE</p>
+            <h2 id="ade-heading">The agentic development environment<br /><span className="spectrum-text">is an app too.</span></h2>
+            <p>ADE is the ACRYL IDE: projects and worktrees, chats and terminals side by side, diffs and review. Run Claude Code, Codex or any other agent next to the built-in chat, and swap them without losing context. It is built on the same platform as your apps, and it is in the catalog as the Blend <code>acryl.ade</code>.</p>
             <div className="continuity-links">
-              <Link className="button inverse" to="/docs#architecture">How it works <ArrowRight aria-hidden="true" /></Link>
-              <a className="button inverse secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer">
-                <Star aria-hidden="true" /> Star on GitHub
-              </a>
+              <a className="button inverse" href="https://acrylblends.github.io/blends/ai/ade/acryl.ade" target="_blank" rel="noreferrer">ADE in the catalog <ArrowUpRight aria-hidden="true" /></a>
+              <span className="status-tag next on-dark">acryl ade opens it: next release</span>
             </div>
           </div>
           <div className="continuity-features">
-            <article>
-              <ArrowLeftRight aria-hidden="true" />
-              <h3>Swap mid-stream</h3>
-              <p>Claude hits a rate limit? Codex gives a weak answer? Pick another agent and continue from the same context. No restart, no lost history.</p>
-            </article>
-            <article>
-              <Shield aria-hidden="true" />
-              <h3>Rate-limit recovery</h3>
-              <p>Auth expires, tokens run out, a provider goes down — the room survives. Re-auth, switch runtimes, or pick a different model and pick up where you left off.</p>
-            </article>
-            <article>
-              <Users aria-hidden="true" />
-              <h3>A 33-agent roster</h3>
-              <p>Launch any of 33 built-in agent definitions — or your own custom agent — into any project. The attention queue flags the moment one needs you, so you can run several and stop babysitting terminals.</p>
-            </article>
-            <article>
-              <Workflow aria-hidden="true" />
-              <h3>Structured handoffs</h3>
-              <p>One agent finishes its slice, writes a handoff artifact, and the next agent reads it. No dump-the-chat, no lost context, no repeating yourself.</p>
-            </article>
+            <article><Users aria-hidden="true" /><h3>Any coding agent</h3><p>The project owns the context, not the agent session. Switch agents mid-task and keep every decision and file.</p></article>
+            <article><Terminal aria-hidden="true" /><h3>Terminals and chats</h3><p>Chats, terminals, files and diffs as tabs on one canvas, per project and worktree.</p></article>
+            <article className="ade-download"><Laptop aria-hidden="true" /><h3>Desktop app</h3><DownloadButtons /></article>
           </div>
         </div>
       </section>
 
-      <section className="runtime-section">
-        <div className="page-width runtime-grid">
-          <div>
-            <p className="eyebrow">One runtime, many sources</p>
-            <h2>Keep the upstream.<br />Add the lifecycle.</h2>
-            <p>ACRYL keeps the Cordis plugin ecosystem working in a desktop host instead of rewriting it. Community plugins install through their documented command and stay visibly attributed to their original source.</p>
-            <div className="runtime-links"><Link className="button inverse" to="/packages">Browse the registry <ArrowRight aria-hidden="true" /></Link><a className="button inverse secondary" href="https://github.com/acryldev" target="_blank" rel="noreferrer">GitHub</a></div>
-          </div>
-          <div className="formula-panel" aria-label="ACRYL composition example">
-            <div><i /><i /><i /><span>acryl.formula.ts</span></div>
-            <pre>{`export default Acryl.compose({
-  atoms: [
-    "agent",
-    "context",
-    "tooling",
-    "surfaces",
-  ],
-  bonds: {
-    agent: { context: "room" },
-  },
-})`}</pre>
-          </div>
-        </div>
-      </section>
-
-      <section className="canvas-section grid-surface" aria-labelledby="canvas-heading">
-        <div className="page-width canvas-content">
-          <div className="section-intro">
-            <div><p className="eyebrow">Development Canvas</p><h2 id="canvas-heading">A canvas,<br />not a chat window.</h2></div>
-            <p>Projects and git worktrees on the left, a tabbed canvas in the middle. Press <kbd>+</kbd> to add tiles — chats, terminals, editors, diffs, kanban, browsers — and arrange the environment around the work. Panes are disposable; the project is not.</p>
-          </div>
-          <div className="canvas-showcase">
-            <article className="canvas-card">
-              <div className="canvas-card-header"><MessageCircle aria-hidden="true" /><span>Chat</span></div>
-              <p>The conversation is always there. Chat tabs stay in the strip, switch between tiles without losing your agent mid-thought.</p>
-            </article>
-            <article className="canvas-card">
-              <div className="canvas-card-header"><Terminal aria-hidden="true" /><span>Terminal</span></div>
-              <p>Spawn a shell, run Claude Code, Codex, or any CLI tool. The Host starts the process, streams I/O into the tile, and disposes it cleanly when you close it.</p>
-            </article>
-            <article className="canvas-card">
-              <div className="canvas-card-header"><Layout aria-hidden="true" /><span>Editor</span></div>
-              <p>Open a text file directly in the canvas. Edit alongside your agent conversation — no alt-tabbing to a separate IDE.</p>
-            </article>
-            <article className="canvas-card">
-              <div className="canvas-card-header"><SplitSquareHorizontal aria-hidden="true" /><span>Diff review</span></div>
-              <p>Review agent edits line by line. Comment on any line and send it straight back to the agent — the session log stays the durable record.</p>
-            </article>
-            <article className="canvas-card">
-              <div className="canvas-card-header"><KanbanSquare aria-hidden="true" /><span>Kanban</span></div>
-              <p>Draggable notes for the state of the work — which agent is on what, what needs you — pinned next to the code, not in your head.</p>
-            </article>
-            <article className="canvas-card">
-              <div className="canvas-card-header"><Globe aria-hidden="true" /><span>Browser</span></div>
-              <p>Preview your local app while an agent works on it. Navigate to any HTTP or HTTPS URL in an embedded view.</p>
-            </article>
-          </div>
-          <div className="canvas-surfaces">
-            <div className="canvas-surfaces-intro">
-              <p className="eyebrow">Three surfaces, one runtime</p>
-              <h3>Same engine.<br />Choose your interface.</h3>
-            </div>
-            <div className="surface-cards">
-              <article className="surface-card">
-                <Terminal aria-hidden="true" />
-                <h4>Terminal</h4>
-                <p><code>npm i -g acryl</code> gives you the full TUI experience. pi-tui-powered, direct host, durable sessions.</p>
-              </article>
-              <article className="surface-card">
-                <Monitor aria-hidden="true" />
-                <h4>Desktop</h4>
-                <p>Electron app with the Development Canvas, plugin lifecycle control, and native OS integration.</p>
-              </article>
-              <article className="surface-card">
-                <Globe aria-hidden="true" />
-                <h4>Web</h4>
-                <p>Local web surface — same runtime, same plugins, same durable sessions, served over loopback.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="atoms-section page-width" aria-labelledby="agent-control-heading">
+      <section className="home-band page-width" aria-labelledby="run-heading">
         <div className="section-intro">
-          <div><p className="eyebrow">Agent Control</p><h2 id="agent-control-heading">Agents that can<br />drive the app.</h2></div>
-          <p>Computer-use, but for ACRYL itself. The agent inside the app can read the window, click, type, change settings, and switch plugins — governed, approved, and recorded, from inside and from your terminal.</p>
+          <div><p className="eyebrow">Run anywhere</p><h2 id="run-heading">Your machine today.<br /><span className="spectrum-text">The cloud next.</span></h2></div>
+          <p>An app is a folder on your computer, in your own git repository. Hosting is the next step.</p>
         </div>
-        <div className="atoms-grid">
-          <article className="atom-card">
-            <div><span>01</span><MousePointerClick aria-hidden="true" /></div>
-            <h3>Operate its own app</h3>
-            <p>The agent snapshots the accessibility tree, then clicks, types, opens panels, and enables or disables plugins. Every mutating action is approved by you per call, written to an audit log, and stoppable with one key.</p>
-          </article>
-          <article className="atom-card">
-            <div><span>02</span><Stethoscope aria-hidden="true" /></div>
-            <h3>Rescue from outside</h3>
-            <p>Install won't boot? <code>acryl doctor</code> names the cause, <code>acryl repair</code> applies a minimal, reversible fix — pre-image backup, atomic write, full undo.</p>
-          </article>
-          <article className="atom-card">
-            <div><span>03</span><Radio aria-hidden="true" /></div>
-            <h3>Drive a running app</h3>
-            <p><code>acryl control</code> drives the live instance from any terminal over an authenticated loopback channel: snapshot, click, type — same tool contract as the in-app agent, same audit log.</p>
-          </article>
+        <div className="run-grid">
+          <article><Laptop aria-hidden="true" /><h3>Your machine</h3><p>Web with <code>npm run dev</code>, Desktop with <code>npm run desktop</code>. macOS, Windows, Linux.</p><span className="status-tag shipped">today</span></article>
+          <article><Terminal aria-hidden="true" /><h3>Terminal surface</h3><p>The same app drawn in a terminal.</p><span className="status-tag planned">coming</span></article>
+          <article><Cloud aria-hidden="true" /><h3>WebBoxes.ai</h3><p>Your apps hosted, with the same plugins and the same folder.</p><span className="status-tag planned">coming</span></article>
         </div>
       </section>
 
-      <section className="portal-section page-width" aria-labelledby="portal-heading">
-        <div className="section-intro">
-          <div><p className="eyebrow">Registry</p><h2 id="portal-heading">The ACRYL<br />package portal.</h2></div>
-          <p>Discover native ACRYL packages and the wider community ecosystem in one source-aware directory. A catalog entry never implies compatibility or a security review.</p>
+      <section className="final-cta grid-surface" aria-labelledby="community-heading">
+        <p className="eyebrow">Open source and community</p>
+        <h2 id="community-heading">MIT licensed.<br /><span className="spectrum-text">Built in the open.</span></h2>
+        <p>The framework, the launcher, ADE and both registries are open source. Publish a plugin, start a Blend, or come to a workshop.</p>
+        <div>
+          <a className="button" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Github aria-hidden="true" /> GitHub</a>
+          <Link className="button secondary" to="/packages"><Puzzle aria-hidden="true" /> Community plugins</Link>
+          <Link className="button secondary" to="/events/acrylbootcamp"><Users aria-hidden="true" /> Workshop</Link>
+          <a className="button secondary" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Discord</a>
+          <span className="licence-note"><Scale aria-hidden="true" /> MIT</span>
         </div>
-        <div className="portal-command"><span>search</span><Link to="/packages">memory, browser, agent, workflow, Blueprints… <ArrowRight aria-hidden="true" /></Link></div>
-        <div className="portal-lines">
-          <Link to="/packages?category=memory"><strong>Persistent context</strong><span>Memory packages for evolving agent work.</span><em>Explore <ArrowRight aria-hidden="true" /></em></Link>
-          <Link to="/packages?category=tools"><strong>Capabilities</strong><span>Tools and integrations that extend the workspace.</span><em>Explore <ArrowRight aria-hidden="true" /></em></Link>
-          <Link to="/packages?category=workflow"><strong>Living workflows</strong><span>Repeatable systems that can develop into Blueprints.</span><em>Explore <ArrowRight aria-hidden="true" /></em></Link>
-        </div>
-      </section>
-
-      <section className="portal-section page-width" aria-labelledby="ecosystem-heading">
-        <div className="section-intro">
-          <div><p className="eyebrow">Ecosystem</p><h2 id="ecosystem-heading">Two sibling registries,<br />one composable ecosystem.</h2></div>
-          <p>ACRYL is one Blend among many possible ones — the flagship, maxed-out expression of a small, reusable protocol. These two sites are where the rest of that ecosystem lives.</p>
-        </div>
-        <div className="portal-lines">
-          <a href="https://acrylblends.github.io" target="_blank" rel="noreferrer"><strong>ACRYL Blends</strong><span>The Blend registry — complete, pullable Cordis compositions, browsable by a 100-category taxonomy.</span><em>acrylblends.github.io <ArrowUpRight aria-hidden="true" /></em></a>
-          <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer"><strong>Cordis Plugins</strong><span>The plugin registry — every real Cordis plugin this ecosystem has built, the atoms every Blend composes.</span><em>cordisplugins.github.io <ArrowUpRight aria-hidden="true" /></em></a>
-        </div>
-      </section>
-
-      <section className="final-cta grid-surface">
-        <p className="eyebrow">Community</p>
-        <h2>Publish an atom.<br />Change what agents can do.</h2>
-        <p>Publish a public npm package with one keyword. ACRYL discovers it automatically and keeps its source, version, and compatibility evidence explicit.</p>
-        <div><Link className="button" to="/docs#publish">Publish a package <ArrowRight aria-hidden="true" /></Link><Link className="button secondary" to="/packages">Explore the registry</Link><a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a><a className="button secondary" href="https://discord.gg/cY9KXMex69" target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" /> Join Discord</a></div>
       </section>
     </>
   )
