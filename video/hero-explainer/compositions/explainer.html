@@ -1,0 +1,463 @@
+<template>
+  <style>
+    @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope.woff2") format("woff2"); font-weight: 200 800; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-500.woff2") format("woff2"); font-weight: 500; }
+    #root {
+      --ground: oklch(0.985 0.003 230); --ink: oklch(0.18 0.016 240); --muted: oklch(0.49 0.018 240);
+      --border: oklch(0.86 0.012 230); --surface: oklch(0.965 0.006 230); --card: oklch(0.995 0.002 230);
+      --cyan: oklch(0.72 0.18 200); --magenta: oklch(0.7 0.2 320); --yellow: oklch(0.82 0.19 95); --green: oklch(0.6 0.15 155);
+      --term: oklch(0.16 0.016 240); --term-ink: oklch(0.92 0.02 210); --term-muted: oklch(0.62 0.02 225);
+      position: absolute; inset: 0; overflow: hidden; background: var(--ground); color: var(--ink);
+      font-family: "Manrope", sans-serif;
+    }
+    #root * { box-sizing: border-box; }
+    .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px),
+                        linear-gradient(to bottom, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px);
+      background-size: 56px 56px; }
+    .mono { font-family: "DM Mono", monospace; }
+    .abs { position: absolute; }
+
+    /* left column: eyebrow, caption, command */
+    .eyebrow { position: absolute; left: 192px; top: 330px; font: 500 22px/1 "DM Mono", monospace; letter-spacing: .16em; color: oklch(0.48 0.14 205); opacity: 0; }
+    .cap { position: absolute; left: 192px; top: 378px; width: 590px; font-size: 66px; font-weight: 750; line-height: 1.06; letter-spacing: -.025em; opacity: 0; }
+    .cap .w { display: inline-block; opacity: 0; filter: blur(8px); }
+    .hl { background: linear-gradient(100deg, var(--cyan), var(--magenta) 55%, var(--yellow)); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
+    .cmd { position: absolute; left: 192px; top: 660px; max-width: 620px; padding: 18px 24px; border: 2px solid var(--ink); border-radius: 3px; background: var(--card);
+           font: 400 27px/1.5 "DM Mono", monospace; opacity: 0; white-space: pre; }
+    .cmd .p { color: var(--muted); }
+    .type { display: inline-block; clip-path: inset(0 100% 0 0); vertical-align: top; }
+
+    /* shelf */
+    .rail { position: absolute; left: 840px; top: 244px; width: 900px; height: 3px; background: var(--ink); }
+    .shelf-lbl { position: absolute; right: 180px; top: 258px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--muted); }
+    #shelfReg { opacity: 0; }
+
+    /* the app window */
+    .app { position: absolute; left: 840px; top: 300px; width: 900px; height: 560px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card);
+           box-shadow: 0 24px 60px oklch(0.12 0.02 240 / .12); transform-origin: 0 0; overflow: hidden; }
+    .bar { position: absolute; left: 0; top: 0; right: 0; height: 54px; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 22px; gap: 9px; }
+    .bar i { width: 13px; height: 13px; border-radius: 50%; background: var(--border); }
+    .bar .name { margin-left: 16px; font: 500 23px/1 "DM Mono", monospace; }
+    .run { position: absolute; right: 22px; top: 16px; display: flex; align-items: center; gap: 10px; font: 400 20px/1 "DM Mono", monospace; color: var(--muted); }
+    .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--border); position: relative; }
+    .dot b { position: absolute; inset: 0; border-radius: 50%; background: var(--green); opacity: 0; }
+    .run span { opacity: 0; }
+    .run .alt { position: absolute; right: 0; top: 0; white-space: nowrap; }
+    .chat { position: absolute; left: 0; top: 54px; width: 300px; bottom: 0; border-right: 2px solid var(--border); background: var(--surface); }
+    .ubub { position: absolute; right: 16px; top: 22px; padding: 12px 16px; border-radius: 14px 14px 4px 14px; background: var(--ink); color: var(--card); font-size: 22px; font-weight: 600; opacity: 0; white-space: nowrap; }
+    .abub { position: absolute; left: 16px; top: 104px; padding: 12px 16px; border-radius: 14px 14px 14px 4px; background: var(--card); border: 2px solid var(--border); font-size: 21px; font-weight: 600; opacity: 0; white-space: nowrap; }
+    .abub .cur { display: inline-block; width: 10px; height: 22px; margin-left: 4px; background: var(--ink); vertical-align: -3px; }
+    .abub .done { position: absolute; left: 16px; top: 12px; opacity: 0; }
+    .input { position: absolute; left: 16px; right: 16px; bottom: 16px; height: 54px; border: 2px solid var(--border); border-radius: 4px; background: var(--card);
+             padding: 0 14px; display: flex; align-items: center; font-size: 20px; color: var(--muted); }
+    .input span { opacity: 0; }
+    .canvas { position: absolute; left: 300px; top: 54px; right: 0; bottom: 0; }
+    .empty { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font: 400 22px/1 "DM Mono", monospace; color: var(--muted); opacity: 0; }
+    .slot { position: absolute; top: 380px; width: 96px; height: 96px; border: 2px dashed var(--border); border-radius: 6px; opacity: 0; }
+    .plug { position: absolute; top: 380px; width: 96px; height: 96px; border-radius: 6px; opacity: 0; transform-origin: 50% 50%;
+            display: flex; align-items: flex-end; padding: 9px; font: 500 18px/1 "DM Mono", monospace; color: var(--ink); }
+    .c-cyan { background: var(--cyan); } .c-magenta { background: var(--magenta); } .c-yellow { background: var(--yellow); }
+    .s1 { left: 30px; } .s2 { left: 142px; } .s3 { left: 254px; }
+    .page-title { position: absolute; left: 30px; top: 26px; font-size: 36px; font-weight: 750; letter-spacing: -.02em; opacity: 0; }
+    .search { position: absolute; left: 30px; top: 82px; width: 540px; height: 48px; border: 2px solid var(--border); border-radius: 4px; padding: 0 14px;
+              display: flex; align-items: center; font: 400 20px/1 "DM Mono", monospace; color: var(--muted); opacity: 0; }
+    .row { position: absolute; left: 30px; width: 540px; height: 50px; border-left: 5px solid var(--magenta); background: var(--surface); padding: 0 16px;
+           display: flex; align-items: center; font-size: 22px; font-weight: 600; opacity: 0; }
+
+    /* versions strip */
+    #ver { position: absolute; left: 840px; top: 888px; width: 900px; height: 60px; opacity: 0; }
+    #ver .line { position: absolute; left: 190px; right: 120px; top: 29px; height: 2px; background: var(--border); }
+    #ver .lbl { position: absolute; left: 0; top: 18px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--muted); }
+    #ver .v { position: absolute; top: 18px; width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--ink); background: var(--card); }
+    #ver .vt { position: absolute; top: 48px; font: 500 19px/1 "DM Mono", monospace; }
+    #verMark { position: absolute; top: 18px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); }
+
+    /* second app (the pull) */
+    #team { position: absolute; left: 1308px; top: 300px; width: 432px; height: 269px; border: 2px solid var(--ink); border-radius: 8px; background: var(--card); opacity: 0; overflow: hidden; }
+    #team .tbar { height: 44px; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 16px; gap: 10px; font: 500 19px/1 "DM Mono", monospace; }
+    #team .tbar .dot b { opacity: 1; }
+    #team .tslot { position: absolute; left: 20px; top: 180px; width: 64px; height: 64px; border: 2px dashed var(--border); border-radius: 5px; }
+    #team .trow { position: absolute; left: 104px; width: 300px; height: 34px; border-left: 4px solid var(--magenta); background: var(--surface); opacity: 0; }
+
+    /* surfaces */
+    #bbar { position: absolute; left: 840px; top: 300px; width: 432px; height: 40px; border: 2px solid var(--ink); border-bottom: 0; border-radius: 8px 8px 0 0; background: var(--surface);
+            display: flex; align-items: center; padding: 0 12px; gap: 8px; opacity: 0; }
+    #bbar .url { flex: 1; height: 26px; border: 2px solid var(--border); border-radius: 13px; background: var(--card); font: 400 16px/22px "DM Mono", monospace; color: var(--muted); padding-left: 12px; }
+    #win { position: absolute; left: 1308px; top: 300px; width: 432px; height: 309px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card); opacity: 0; overflow: hidden; }
+    #win .wbar { height: 40px; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 14px; gap: 7px; font: 500 17px/1 "DM Mono", monospace; }
+    #win .wbar i { width: 11px; height: 11px; border-radius: 50%; }
+    #win .wchat { position: absolute; left: 0; top: 40px; bottom: 0; width: 144px; background: var(--surface); border-right: 2px solid var(--border); }
+    #win .wt { position: absolute; left: 160px; top: 54px; font-size: 18px; font-weight: 750; }
+    #win .wr { position: absolute; left: 160px; width: 252px; height: 22px; border-left: 3px solid var(--magenta); background: var(--surface); }
+    #win .wp { position: absolute; top: 222px; width: 46px; height: 46px; border-radius: 4px; }
+    .surf-lbl { position: absolute; top: 622px; font: 500 20px/1 "DM Mono", monospace; letter-spacing: .1em; color: var(--muted); opacity: 0; }
+    #chips { position: absolute; left: 840px; top: 690px; width: 900px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .chip { padding: 12px 18px; border: 2px solid var(--ink); border-radius: 3px; font: 500 21px/1 "DM Mono", monospace; opacity: 0; background: var(--card); }
+    .chip.soon { border-style: dashed; border-color: var(--border); color: var(--muted); }
+
+    /* registry cards */
+    .bcard { position: absolute; top: 132px; width: 138px; height: 104px; border: 2px solid var(--border); border-radius: 6px; background: var(--card); overflow: hidden; opacity: 0;
+             padding: 22px 10px 0; font-size: 18px; font-weight: 750; line-height: 1.1; }
+    .bcard::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: var(--paint); }
+    #bcsvRing { position: absolute; left: 1144px; top: 128px; width: 146px; height: 112px; border: 4px solid var(--ink); border-radius: 8px; opacity: 0; }
+
+    /* terminal (the launcher) */
+    #term { position: absolute; left: 840px; top: 300px; width: 900px; height: 560px; border-radius: 10px; background: var(--term); color: var(--term-ink); opacity: 0; overflow: hidden;
+            font: 400 25px/1 "DM Mono", monospace; }
+    #term .tl { position: absolute; left: 36px; white-space: pre; }
+    #term .m { color: var(--term-muted); }
+    #term .sel { position: absolute; left: 20px; width: 860px; height: 52px; border-left: 5px solid var(--cyan); background: oklch(0.72 0.18 200 / .16); opacity: 0; }
+    #term .menu, #term .list, #term .inst { position: absolute; inset: 0; opacity: 0; }
+    #term .pbar { position: absolute; left: 36px; top: 250px; width: 828px; height: 26px; border: 2px solid var(--term-muted); border-radius: 3px; }
+    #term .pfill { position: absolute; left: 3px; top: 3px; bottom: 3px; width: 818px; background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--yellow)); transform-origin: 0 50%; }
+
+    #csvFly { position: absolute; left: 1144px; top: 132px; width: 138px; height: 104px; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); overflow: hidden; opacity: 0;
+              padding: 22px 10px 0; font-size: 18px; font-weight: 750; transform-origin: 0 0; }
+    #csvFly::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: var(--yellow); }
+
+    /* the csv app's own page */
+    .tab { position: absolute; left: 30px; width: 540px; height: 40px; display: grid; grid-template-columns: 1.2fr 1fr .8fr; align-items: center; padding: 0 14px;
+           border-bottom: 2px solid var(--border); font: 400 19px/1 "DM Mono", monospace; }
+    .tab.h { color: var(--muted); font-weight: 500; }
+    .barc { position: absolute; bottom: 214px; width: 34px; transform-origin: 50% 100%; border-radius: 3px 3px 0 0; }
+    .fchip { position: absolute; top: 24px; padding: 8px 12px; border: 2px solid var(--magenta); border-radius: 3px; font: 500 18px/1 "DM Mono", monospace; opacity: 0; }
+  </style>
+
+  <div id="root" data-composition-id="explainer" data-width="1920" data-height="1080">
+    <div class="grid"></div>
+
+    <!-- shelf -->
+    <div class="rail"></div>
+    <div class="shelf-lbl" id="shelfGh">GITHUB</div>
+    <div class="shelf-lbl" id="shelfReg">REGISTRY · ACRYLBLENDS.GITHUB.IO</div>
+    <div class="bcard" id="bc1" style="left:840px;--paint:var(--cyan)">Notes</div>
+    <div class="bcard" id="bc2" style="left:992px;--paint:var(--magenta)">Small CRM</div>
+    <div class="bcard" id="bc3" style="left:1148px;--paint:var(--yellow)">CSV Explorer</div>
+    <div class="bcard" id="bc4" style="left:1300px;--paint:var(--cyan)">Prompt Lab</div>
+    <div class="bcard" id="bc5" style="left:1452px;--paint:var(--magenta)">Uptime</div>
+    <div class="bcard" id="bc6" style="left:1604px;--paint:var(--yellow)">GTD Planner</div>
+    <div id="bcsvRing"></div>
+
+    <!-- left column -->
+    <div class="eyebrow" id="eb1">BUILD IT</div>
+    <div class="eyebrow" id="eb2">START FROM A BLEND</div>
+
+    <div class="cap" id="c1"><span class="w">Start</span> <span class="w">a</span> <span class="w"><span class="hl">blank</span></span> <span class="w">app.</span></div>
+    <div class="cap" id="c2"><span class="w">Ask</span> <span class="w">the</span> <span class="w"><span class="hl">agent</span></span> <span class="w">for</span> <span class="w">a</span> <span class="w">feature.</span></div>
+    <div class="cap" id="c3"><span class="w">It</span> <span class="w">builds</span> <span class="w"><span class="hl">plugins</span></span> <span class="w">into</span> <span class="w">the</span> <span class="w">running</span> <span class="w">app.</span></div>
+    <div class="cap" id="c4"><span class="w"><span class="hl">Share</span></span> <span class="w">a</span> <span class="w">plugin</span> <span class="w">on</span> <span class="w">GitHub.</span></div>
+    <div class="cap" id="c5"><span class="w">Anyone</span> <span class="w"><span class="hl">pulls</span></span> <span class="w">it</span> <span class="w">into</span> <span class="w">their</span> <span class="w">app.</span></div>
+    <div class="cap" id="c6"><span class="w">Save</span> <span class="w">versions.</span> <span class="w"><span class="hl">Restore</span></span> <span class="w">any</span> <span class="w">one.</span></div>
+    <div class="cap" id="c7"><span class="w"><span class="hl">One</span></span> <span class="w">app,</span> <span class="w">in</span> <span class="w">the</span> <span class="w">browser</span> <span class="w">and</span> <span class="w">on</span> <span class="w">the</span> <span class="w">desktop.</span></div>
+    <div class="cap" id="c8"><span class="w">Save</span> <span class="w">the</span> <span class="w"><span class="hl">whole</span></span> <span class="w">app</span> <span class="w">to</span> <span class="w">your</span> <span class="w">GitHub.</span></div>
+    <div class="cap" id="c9"><span class="w">Or</span> <span class="w">start</span> <span class="w">from</span> <span class="w">a</span> <span class="w"><span class="hl">Blend.</span></span></div>
+    <div class="cap" id="c10"><span class="w">Pick</span> <span class="w">one</span> <span class="w">from</span> <span class="w">the</span> <span class="w"><span class="hl">registry.</span></span></div>
+    <div class="cap" id="c11"><span class="w">Pulled</span> <span class="w">and</span> <span class="w">installed</span> <span class="w">in</span> <span class="w"><span class="hl">one</span></span> <span class="w">command.</span></div>
+    <div class="cap" id="c12"><span class="w">It</span> <span class="w"><span class="hl">runs</span></span> <span class="w">right</span> <span class="w">away.</span></div>
+    <div class="cap" id="c13"><span class="w">Then</span> <span class="w"><span class="hl">grow</span></span> <span class="w">it</span> <span class="w">with</span> <span class="w">the</span> <span class="w">agent.</span></div>
+    <div class="cap" id="c14"><span class="w">Everything</span> <span class="w">is</span> <span class="w">a</span> <span class="w"><span class="hl">plugin.</span></span></div>
+
+    <div class="cmd" id="k1"><span class="p">$ </span><span class="type" id="k1t">npx acryl new my-app</span></div>
+    <div class="cmd" id="k2"><span class="p">$ </span><span class="type" id="k2t">npm run acryl -- \</span>
+<span class="p">  </span><span class="type" id="k2u">plugin publish notes</span></div>
+    <div class="cmd" id="k3"><span class="p">$ </span><span class="type" id="k3t">npm run acryl -- plugin pull \</span>
+<span class="p">  </span><span class="type" id="k3u">github:you/notes@0.1.0</span></div>
+    <div class="cmd" id="k4"><span class="p">$ </span><span class="type" id="k4t">npm run dev</span>
+<span class="p">$ </span><span class="type" id="k4u">npm run desktop</span></div>
+    <div class="cmd" id="k5"><span class="p">$ </span><span class="type" id="k5t">npm run save</span></div>
+    <div class="cmd" id="k6"><span class="p">$ </span><span class="type" id="k6t">npx acryl</span></div>
+    <div class="cmd" id="k7"><span class="p">$ </span><span class="type" id="k7t">npx acryl new csv-explorer \</span>
+<span class="p">  </span><span class="type" id="k7u">--from acrylblends.csv-explorer</span></div>
+    <div class="cmd" id="k8"><span class="p">$ </span><span class="type" id="k8t">npm run dev</span></div>
+
+    <!-- the shared plugin on the shelf, and its copy that is pulled -->
+    <div class="plug c-cyan" id="pub" style="left:1170px;top:730px;z-index:5">notes</div>
+    <div class="shelf-lbl" id="pubLbl" style="left:840px;right:auto;opacity:0">you/notes@0.1.0</div>
+    <div class="plug c-cyan" id="pull" style="left:860px;top:134px;transform-origin:0 0;z-index:5">notes</div>
+    <div class="shelf-lbl" id="appLbl" style="left:1140px;right:auto;opacity:0">you/my-app</div>
+
+    <!-- my-app -->
+    <div class="app" id="card">
+      <div class="bar"><i></i><i></i><i></i><span class="name">my-app</span>
+        <div class="run"><div class="dot"><b id="dotOn"></b></div><span id="runA">running</span><span id="runB" class="alt" style="right:0;left:24px">running · no restart</span></div>
+      </div>
+      <div class="chat">
+        <div class="ubub" id="ub"><span class="type" id="ubt">add a notes page</span></div>
+        <div class="abub" id="ab"><span id="abBuild">building plugins</span><span class="cur" id="cur"></span><span class="done" id="abDone">done · 3 plugins</span></div>
+        <div class="input"><span id="ph">Ask the agent…</span></div>
+      </div>
+      <div class="canvas">
+        <div class="empty" id="empty">an empty app</div>
+        <div class="page-title" id="nTitle">Notes</div>
+        <div class="search" id="nSearch">search notes</div>
+        <div class="row" id="r1" style="top:146px">Mix the paint</div>
+        <div class="row" id="r2" style="top:206px">Talk at rebased.wtf</div>
+        <div class="row" id="r3" style="top:266px">Ship v1</div>
+        <div class="slot s1" id="sl1"></div><div class="slot s2" id="sl2"></div><div class="slot s3" id="sl3"></div>
+        <div class="plug c-cyan s1" id="p1">notes</div>
+        <div class="plug c-magenta s2" id="p2">list</div>
+        <div class="plug c-yellow s3" id="p3">search</div>
+      </div>
+    </div>
+
+    <div id="ver">
+      <div class="lbl">VERSIONS</div><div class="line"></div>
+      <div class="v" style="left:300px"></div><div class="vt" style="left:298px">v1</div>
+      <div class="v" style="left:520px"></div><div class="vt" style="left:518px">v2</div>
+      <div class="v" style="left:740px"></div><div class="vt" style="left:738px">v3</div>
+      <div id="verMark" style="left:740px"></div>
+    </div>
+
+    <div id="team">
+      <div class="tbar"><div class="dot"><b></b></div>team-app</div>
+      <div class="tslot"></div>
+      <div class="trow" id="tr1" style="top:64px"></div><div class="trow" id="tr2" style="top:108px"></div><div class="trow" id="tr3" style="top:152px"></div>
+    </div>
+
+    <div id="bbar"><i style="width:10px;height:10px;border-radius:50%;background:var(--border)"></i><div class="url">127.0.0.1:5173</div></div>
+    <div id="win">
+      <div class="wbar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span style="margin-left:10px">my-app</span></div>
+      <div class="wchat"></div>
+      <div class="wt">Notes</div>
+      <div class="wr" style="top:90px"></div><div class="wr" style="top:122px"></div><div class="wr" style="top:154px"></div>
+      <div class="wp c-cyan" style="left:160px"></div><div class="wp c-magenta" style="left:214px"></div><div class="wp c-yellow" style="left:268px"></div>
+    </div>
+    <div class="surf-lbl" id="slB" style="left:840px">BROWSER · npm run dev</div>
+    <div class="surf-lbl" id="slW" style="left:1308px">WINDOW · npm run desktop</div>
+    <div id="chips">
+      <div class="chip" id="ch1">Web</div><div class="chip" id="ch2">Desktop</div>
+      <div class="chip soon" id="ch3">CLI (TUI) · coming</div><div class="chip soon" id="ch4">WebBoxes.ai · coming</div>
+    </div>
+
+    <!-- the launcher -->
+    <div id="term">
+      <div class="tl" style="top:36px"><span class="m">$ </span><span class="type" id="tp">npx acryl</span></div>
+      <div class="menu" id="tMenu">
+        <div class="sel" id="tSel" style="top:100px"></div>
+        <div class="tl" style="top:114px">Create an app    <span class="m">a new app, installed and started</span></div>
+        <div class="tl" style="top:166px">Install a Blend  <span class="m">a ready app from the registry</span></div>
+        <div class="tl" style="top:218px">Open an app</div>
+        <div class="tl" style="top:270px">Pull a plugin</div>
+        <div class="tl" style="top:322px">Share a plugin</div>
+        <div class="tl" style="top:374px">Update an app</div>
+        <div class="tl m" style="top:470px;font-size:20px">↑↓ choose · Enter go on · Esc back</div>
+      </div>
+      <div class="list" id="tList">
+        <div class="tl m" style="top:100px;font-size:21px">Which Blend</div>
+        <div class="sel" id="tSel2" style="top:136px"></div>
+        <div class="tl" style="top:150px">Notes, in a window  <span class="m">acrylblends.notes-desktop</span></div>
+        <div class="tl" style="top:202px">Small CRM          <span class="m">acrylblends.small-crm</span></div>
+        <div class="tl" style="top:254px">CSV Explorer       <span class="m">acrylblends.csv-explorer</span></div>
+        <div class="tl" style="top:306px">Prompt Lab         <span class="m">acrylblends.prompt-lab</span></div>
+        <div class="tl" style="top:358px">Uptime             <span class="m">acrylblends.uptime</span></div>
+      </div>
+      <div class="inst" id="tInst">
+        <div class="tl" style="top:110px"><span class="m">$ </span>acryl new csv-explorer \</div>
+        <div class="tl" style="top:150px">    --from acrylblends.csv-explorer</div>
+        <div class="pbar"><div class="pfill" id="pfill"></div></div>
+        <div class="tl m" id="tIng" style="top:300px;font-size:22px">installing…</div>
+        <div class="tl" id="tDone" style="top:300px;font-size:22px;opacity:0">done · <span class="m">cd csv-explorer &amp;&amp; npm run dev</span></div>
+      </div>
+    </div>
+    <div id="csvFly">CSV Explorer</div>
+
+    <!-- csv-explorer, the Blend once installed -->
+    <div class="app" id="csv" style="opacity:0">
+      <div class="bar"><i></i><i></i><i></i><span class="name">csv-explorer</span>
+        <div class="run"><div class="dot"><b style="opacity:1"></b></div><span style="opacity:1">running</span></div>
+      </div>
+      <div class="chat">
+        <div class="ubub" id="ub2"><span class="type" id="ub2t">add a chart</span></div>
+        <div class="input"><span style="opacity:1">Ask the agent…</span></div>
+      </div>
+      <div class="canvas">
+        <div class="page-title" style="opacity:1;font-size:30px">sales.csv</div>
+        <div class="fchip" id="f1" style="left:330px">2026</div><div class="fchip" id="f2" style="left:420px">paint</div>
+        <div class="tab h" style="top:80px"><span>date</span><span>item</span><span>amount</span></div>
+        <div class="tab" id="tb1" style="top:122px"><span>11-02</span><span>cyan</span><span>120</span></div>
+        <div class="tab" id="tb2" style="top:164px"><span>11-05</span><span>magenta</span><span>80</span></div>
+        <div class="tab" id="tb3" style="top:206px"><span>11-09</span><span>yellow</span><span>150</span></div>
+        <div class="barc c-cyan" id="bar1" style="left:420px;height:72px"></div>
+        <div class="barc c-magenta" id="bar2" style="left:466px;height:48px"></div>
+        <div class="barc c-yellow" id="bar3" style="left:512px;height:92px"></div>
+        <div class="slot s1" style="opacity:1"></div><div class="slot s2" style="opacity:1"></div><div class="slot s3" style="opacity:1"></div>
+        <div class="plug c-cyan s1" id="p4">chart</div>
+        <div class="plug c-magenta s2" id="p5">filter</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const E_IN = "expo.out", MOVE = "power3.inOut";
+
+    // Caption: the words blur in one after another; out: the whole line blurs away.
+    const capIn = (id, t) => {
+      tl.to(id, { opacity: 1, duration: 0.01 }, t);
+      tl.to(`${id} .w`, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.07, ease: "power4.out" }, t);
+    };
+    const capOut = (id, t) => tl.to(id, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power2.in" }, t);
+    const show = (id, t, d = 0.35) => tl.to(id, { opacity: 1, duration: d, ease: "power2.out" }, t);
+    const hide = (id, t, d = 0.22) => tl.to(id, { opacity: 0, duration: d, ease: "power2.in" }, t);
+    // Typing: the text is uncovered one character per step.
+    const type = (id, t, chars, cps = 18) => tl.to(id, { clipPath: "inset(0 0% 0 0)", duration: chars / cps, ease: `steps(${chars})` }, t);
+    // A plugin is made beside the agent's bubble, then snaps into its slot in the running app.
+    const build = (id, t, dx) => {
+      tl.fromTo(id, { opacity: 0, scale: 0.3, x: dx, y: -270 }, { opacity: 1, scale: 0.55, duration: 0.35, ease: E_IN, immediateRender: false }, t);
+      tl.to(id, { x: 0, y: 0, scale: 1, duration: 0.6, ease: MOVE }, t + 0.4);
+      tl.to(id, { scale: 1.08, duration: 0.1, ease: "power2.out" }, t + 1.0);
+      tl.to(id, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t + 1.1);
+    };
+
+    // A1 0-4.5: a blank app
+    show("#eb1", 0.2);
+    capIn("#c1", 0.4);
+    show("#k1", 0.3, 0.25); type("#k1t", 0.55, 20);
+    show("#dotOn", 2.1, 0.2); show("#runA", 2.1);
+    show("#ph", 2.3); show("#empty", 2.3); tl.to(["#sl1", "#sl2", "#sl3"], { opacity: 1, duration: 0.3, stagger: 0.08 }, 2.5);
+    capOut("#c1", 4.0); hide("#k1", 4.0);
+
+    // A2 4.5-9.5: ask the agent
+    capIn("#c2", 4.5);
+    hide("#ph", 4.6);
+    tl.fromTo("#ub", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E_IN, immediateRender: false }, 4.7);
+    type("#ubt", 4.9, 16, 14);
+    tl.fromTo("#ab", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E_IN, immediateRender: false }, 6.6);
+    for (let i = 0; i < 12; i++) tl.set("#cur", { opacity: i % 2 ? 1 : 0 }, 7.0 + i * 0.5);
+    capOut("#c2", 9.2);
+
+    // A3 9.5-17: plugins into the running app
+    capIn("#c3", 9.6);
+    hide("#empty", 9.6);
+    build("#p1", 9.8, -300);
+    show("#nTitle", 10.9);
+    build("#p2", 10.9, -412);
+    tl.to(["#r1", "#r2", "#r3"], { opacity: 1, duration: 0.3, stagger: 0.1 }, 12.0);
+    build("#p3", 12.0, -524);
+    show("#nSearch", 13.1);
+    hide(["#abBuild", "#cur"], 13.3, 0.15); show("#abDone", 13.4, 0.2);
+    hide("#runA", 13.5, 0.15); show("#runB", 13.6);
+    capOut("#c3", 16.6);
+    hide("#runB", 16.8, 0.15); show("#runA", 16.9);
+
+    // A4 17-22: publish a plugin to GitHub
+    capIn("#c4", 17.1);
+    show("#k2", 17.1, 0.25); type("#k2t", 17.3, 18, 22); type("#k2u", 18.2, 20, 22);
+    tl.set("#pub", { opacity: 1 }, 18.6);
+    tl.to("#pub", { x: 860 - 1170, y: 134 - 730, duration: 0.9, ease: MOVE }, 18.7);
+    show("#pubLbl", 19.6);
+    capOut("#c4", 21.7); hide("#k2", 21.7);
+
+    // A5 22-28: someone else pulls it
+    tl.to("#card", { scale: 0.48, duration: 0.7, ease: MOVE }, 22.0);
+    capIn("#c5", 22.3);
+    tl.fromTo("#team", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: E_IN, immediateRender: false }, 22.5);
+    show("#k3", 22.4, 0.25); type("#k3t", 22.6, 30, 26); type("#k3u", 23.5, 22, 22);
+    tl.set("#pull", { opacity: 1 }, 24.4);
+    tl.to("#pull", { x: 1328 - 860, y: 480 - 134, scale: 0.667, duration: 0.85, ease: MOVE }, 24.5);
+    tl.to(["#tr1", "#tr2", "#tr3"], { opacity: 1, duration: 0.3, stagger: 0.1 }, 25.4);
+    capOut("#c5", 27.6); hide("#k3", 27.6);
+
+    // A6 28-33: versions
+    tl.to(["#team", "#pull"], { opacity: 0, x: "+=40", duration: 0.35, ease: "power2.in" }, 28.0);
+    tl.to("#card", { scale: 1, duration: 0.7, ease: MOVE }, 28.1);
+    capIn("#c6", 28.6);
+    show("#ver", 28.9);
+    tl.to("#verMark", { x: -220, duration: 0.45, ease: MOVE }, 30.0);
+    tl.to("#p3", { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, 30.2); hide("#nSearch", 30.2);
+    tl.to("#verMark", { x: 0, duration: 0.45, ease: MOVE }, 31.2);
+    tl.to("#p3", { opacity: 1, y: 0, duration: 0.4, ease: E_IN }, 31.4); show("#nSearch", 31.4);
+    capOut("#c6", 32.6); hide("#ver", 32.7);
+
+    // A7 33-39: one app, every surface (36.5 s is the poster)
+    capIn("#c7", 33.1);
+    show("#k4", 33.1, 0.25); type("#k4t", 33.3, 11, 22); type("#k4u", 33.9, 15, 22);
+    tl.to("#card", { scale: 0.48, y: 40, duration: 0.7, ease: MOVE }, 33.1);
+    show("#bbar", 33.6, 0.3);
+    tl.fromTo("#win", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.7, ease: E_IN, immediateRender: false }, 33.9);
+    show(["#slB", "#slW"], 34.4);
+    tl.to(["#ch1", "#ch2", "#ch3", "#ch4"], { opacity: 1, duration: 0.3, stagger: 0.12 }, 34.7);
+    capOut("#c7", 38.4); hide("#k4", 38.4);
+    hide(["#ch1", "#ch2", "#ch3", "#ch4", "#slB", "#slW", "#bbar"], 38.5);
+    tl.to("#win", { opacity: 0, x: -80, duration: 0.35, ease: "power2.in" }, 38.5);
+    tl.to("#card", { scale: 1, y: 0, duration: 0.7, ease: MOVE }, 38.6);
+
+    // A8 39-44: the whole app goes to your GitHub
+    capIn("#c8", 39.4);
+    show("#k5", 39.4, 0.25); type("#k5t", 39.6, 12, 18);
+    tl.to("#card", { x: 1140 - 840, y: 134 - 300, scale: 0.16, duration: 1.0, ease: MOVE }, 40.6);
+    show("#appLbl", 41.7);
+    capOut("#c8", 43.6); hide("#k5", 43.6); hide("#eb1", 43.8);
+
+    // B1 44-49: or start from a Blend: the launcher
+    hide(["#pub", "#pubLbl", "#card", "#appLbl", "#shelfGh"], 44.0, 0.3);
+    show("#shelfReg", 44.3); show("#eb2", 44.2);
+    tl.fromTo(["#bc1", "#bc2", "#bc3", "#bc4", "#bc5", "#bc6"], { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, ease: E_IN, immediateRender: false }, 44.4);
+    capIn("#c9", 44.3);
+    show("#k6", 44.4, 0.25); type("#k6t", 44.6, 9, 18);
+    tl.fromTo("#term", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E_IN, immediateRender: false }, 45.0);
+    type("#tp", 45.3, 9, 18);
+    show("#tMenu", 46.0, 0.3);
+    show("#tSel", 46.5, 0.2);
+    tl.to("#tSel", { y: 52, duration: 0.3, ease: MOVE }, 47.4);
+    capOut("#c9", 48.6); hide("#k6", 48.6);
+
+    // B2 49-54: pick a Blend
+    hide("#tMenu", 49.0, 0.2); show("#tList", 49.1, 0.3);
+    capIn("#c10", 49.1);
+    show("#tSel2", 49.5, 0.2);
+    tl.to("#tSel2", { y: 52, duration: 0.3, ease: MOVE }, 50.1);
+    tl.to("#tSel2", { y: 104, duration: 0.3, ease: MOVE }, 50.7);
+    show("#bcsvRing", 50.8, 0.25);
+    capOut("#c10", 53.6);
+
+    // B3 54-59: pulled from the registry and installed
+    capIn("#c11", 54.1);
+    hide("#tList", 54.1, 0.2); show("#tInst", 54.3, 0.3);
+    show("#k7", 54.2, 0.25); type("#k7t", 54.4, 28, 26); type("#k7u", 55.4, 31, 24);
+    tl.set("#csvFly", { opacity: 1 }, 56.0); hide("#bcsvRing", 56.0, 0.2);
+    tl.to("#csvFly", { x: 1222 - 1144, y: 640 - 132, scale: 1.6, duration: 0.9, ease: MOVE }, 56.0);
+    tl.fromTo("#pfill", { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: "power1.inOut" }, 56.4);
+    hide("#tIng", 58.2, 0.15); show("#tDone", 58.3, 0.25);
+    capOut("#c11", 58.6); hide("#k7", 58.6);
+
+    // B4 59-63: it runs
+    tl.to("#term", { opacity: 0, scale: 0.98, duration: 0.35, ease: "power2.in" }, 59.0);
+    tl.to("#csvFly", { x: 840 - 1144, y: 300 - 132, scale: 900 / 138, duration: 0.7, ease: MOVE }, 59.0);
+    hide("#csvFly", 59.45, 0.25);
+    show("#csv", 59.3, 0.4);
+    capIn("#c12", 59.4);
+    show("#k8", 59.4, 0.25); type("#k8t", 59.6, 11, 18);
+    capOut("#c12", 62.6); hide("#k8", 62.6);
+
+    // B5 63-69: grow it with the agent
+    capIn("#c13", 63.1);
+    tl.fromTo("#ub2", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E_IN, immediateRender: false }, 63.2);
+    type("#ub2t", 63.4, 11, 14);
+    build("#p4", 64.6, -300);
+    tl.fromTo(["#bar1", "#bar2", "#bar3"], { scaleY: 0 }, { scaleY: 1, duration: 0.5, stagger: 0.12, ease: E_IN }, 65.7);
+    build("#p5", 65.8, -412);
+    tl.to(["#f1", "#f2"], { opacity: 1, duration: 0.3, stagger: 0.1 }, 66.9);
+    tl.to(["#tb2"], { opacity: 0.25, duration: 0.3 }, 67.2);
+    capOut("#c13", 68.6);
+
+    // B6 69-75: the one idea, then back to the first frame
+    capIn("#c14", 69.1);
+    capOut("#c14", 72.4); hide("#eb2", 72.4);
+    hide(["#bc1", "#bc2", "#bc3", "#bc4", "#bc5", "#bc6", "#shelfReg"], 72.6, 0.3);
+    show("#shelfGh", 72.9);
+    tl.to("#csv", { opacity: 0, filter: "blur(8px)", duration: 0.35, ease: "power2.in" }, 72.8);
+    // my-app comes back blank, exactly as it was at 0 s
+    tl.set(["#p1", "#p2", "#p3"], { opacity: 0, x: 0, y: 0, scale: 1 }, 73.0);
+    tl.set(["#nTitle", "#nSearch", "#r1", "#r2", "#r3", "#ub", "#ab", "#abDone", "#dotOn", "#runA", "#sl1", "#sl2", "#sl3"], { opacity: 0 }, 73.0);
+    tl.set(["#abBuild", "#cur"], { opacity: 1 }, 73.0);
+    tl.set("#ubt", { clipPath: "inset(0 100% 0 0)" }, 73.0);
+    tl.set("#card", { x: 0, y: 0, scale: 1, filter: "blur(8px)" }, 73.0);
+    tl.to("#card", { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power2.out" }, 73.1);
+    tl.set({}, {}, 75.0);
+
+    window.__timelines["explainer"] = tl;
+  </script>
+</template>
