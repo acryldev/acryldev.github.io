@@ -539,3 +539,14 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .news-item p { max-width: 720px; margin: 10px 0 16px; color: var(--muted-foreground); font-size: 14px; line-height: 1.65; }
 .partner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
 @media (max-width: 680px) { .partner-actions .button { width: 100%; } }
+
+/* ACRYL microVMs page */
+.mv-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.mv-code-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0 24px; }
+.mv-code-grid .guide-code:first-child { grid-row: span 2; margin-top: 0; }
+.mv-stands { display: grid; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.mv-stands li { display: grid; grid-template-columns: 130px 260px 1fr; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--border); font-size: 14px; line-height: 1.6; }
+.mv-stands .status-tag { margin: 0; justify-self: start; }
+.mv-stands li > span:last-child { color: var(--muted-foreground); }
+@media (max-width: 1100px) { .mv-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mv-code-grid { grid-template-columns: 1fr; } .mv-code-grid .guide-code:first-child { grid-row: auto; } }
+@media (max-width: 680px) { .mv-steps { grid-template-columns: 1fr; } .mv-stands li { grid-template-columns: 1fr; gap: 6px; } }

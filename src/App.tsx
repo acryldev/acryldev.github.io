@@ -14,6 +14,7 @@ import { QrPage } from './pages/QrPage'
 import { UiPage } from './pages/UiPage'
 import { UpdatesPage } from './pages/UpdatesPage'
 import { EcosystemPage } from './pages/EcosystemPage'
+import { AcrylMicrovmPage } from './pages/AcrylMicrovmPage'
 import { GuidePage } from './pages/GuidePage'
 import { build, concepts, reference, start, vision } from './lib/guides'
 
@@ -28,6 +29,7 @@ export function App() {
         <Route path="reference" element={<GuidePage guide={reference} />} />
         <Route path="vision" element={<GuidePage guide={vision} />} />
         <Route path="ecosystem" element={<EcosystemPage />} />
+        <Route path="acrylmicrovm" element={<AcrylMicrovmPage />} />
         <Route path="blends" element={<BlendsPage />} />
         <Route path="ecosystem/plugins" element={<PackagesPage />} />
         <Route path="ecosystem/plugins/:owner/*" element={<PackagePage />} />
