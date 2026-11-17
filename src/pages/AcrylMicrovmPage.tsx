@@ -1,5 +1,6 @@
 import { ArrowUpRight, Box, Cpu, Github, GitBranch, Globe, KeyRound, Laptop, Layers, Package, ShieldCheck, Terminal } from 'lucide-react'
 import { statusLabel, type Status } from '../lib/guides'
+import { MicrovmHeroLogo, MicrovmIllustrations } from '../components/MicrovmIllustrations'
 
 const repo = 'https://github.com/acryldev/acrylmicrovm'
 
@@ -46,7 +47,7 @@ export function AcrylMicrovmPage() {
     <>
       <section className="home-hero grid-surface">
         <div className="page-width hero-content mv-hero">
-          <img className="mv-logo" src="/acrylmicrovm/logo.webp" alt="ACRYL microVMs logo" width="280" height="280" />
+          <MicrovmHeroLogo />
           <div>
           <p className="eyebrow">ACRYL microVMs</p>
           <h1>A kernel for every box.<br /><strong className="spectrum-text">Run untrusted code safely.</strong></h1>
@@ -57,6 +58,14 @@ export function AcrylMicrovmPage() {
           </div>
           </div>
         </div>
+      </section>
+
+      <section className="home-band page-width" aria-labelledby="mv-watch">
+        <div className="section-intro">
+          <div><p className="eyebrow">Watch it work</p><h2 id="mv-watch">Where agent code<br /><span className="spectrum-text">actually runs.</span></h2></div>
+          <p>An agent writes code you have not read. These four pictures show where that code runs, what it can reach, and why a box is the safer place for it.</p>
+        </div>
+        <MicrovmIllustrations />
       </section>
 
       <section className="home-band page-width" aria-labelledby="mv-how">
