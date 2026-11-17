@@ -555,6 +555,7 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .mv-hero { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 48px; align-items: center; }
 .mv-hero > div:not(.mv-logo-wrap) { grid-column: 1; grid-row: 1; min-width: 0; }
 .mv-logo-wrap { position: relative; grid-column: 2; grid-row: 1; width: 280px; aspect-ratio: 1; }
+.mv-film { grid-column: 1 / -1; grid-row: 2; margin-top: 24px; }
 .mv-logo-float { position: relative; z-index: 1; animation: mv-float 7s ease-in-out infinite; }
 .mv-logo { display: block; width: 100%; height: auto; }
 .mv-logo-sheen { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 38%, rgb(255 255 255 / .42) 50%, transparent 62%) 100% 0 / 300% 100% no-repeat;
@@ -570,6 +571,7 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
   .mv-hero { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .mv-logo-wrap { grid-column: 1; grid-row: 1; width: 132px; }
   .mv-hero > div:not(.mv-logo-wrap) { grid-row: 2; }
+  .mv-film { grid-row: 3; }
   .mv-spawn { width: 18px; } .mv-spawn-0 { --dx: 120px; --dy: -20px; } .mv-spawn-1 { --dx: 190px; --dy: 30px; } .mv-spawn-2 { --dx: 150px; --dy: 70px; }
 }
 

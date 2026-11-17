@@ -57,6 +57,15 @@ export function AcrylMicrovmPage() {
             <span className="status-tag building">work in progress</span>
           </div>
           </div>
+          <figure className="hero-film mv-film">
+            <video
+              src="/acrylmicrovm/how-it-works.mp4"
+              poster="/acrylmicrovm/how-it-works.jpg"
+              autoPlay muted loop playsInline preload="metadata"
+              aria-label="How ACRYL microVMs works: an agent's code could reach everything on your machine; run it in a box with its own kernel instead; a bad command breaks only the box; prepare a box once and clone it per task; secrets stay outside the box and only allowed hosts are reachable"
+            />
+            <figcaption>Why a box, in 48 seconds. The command in it is the real one.</figcaption>
+          </figure>
         </div>
       </section>
 

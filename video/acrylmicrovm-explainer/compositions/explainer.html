@@ -1,0 +1,277 @@
+<template>
+  <style>
+    @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope.woff2") format("woff2"); font-weight: 200 800; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-500.woff2") format("woff2"); font-weight: 500; }
+    #root {
+      --ground: oklch(0.985 0.003 230); --ink: oklch(0.18 0.016 240); --muted: oklch(0.49 0.018 240);
+      --border: oklch(0.86 0.012 230); --surface: oklch(0.965 0.006 230); --card: oklch(0.995 0.002 230);
+      --cyan: oklch(0.72 0.18 200); --magenta: oklch(0.7 0.2 320); --yellow: oklch(0.82 0.19 95);
+      --green: oklch(0.6 0.15 155); --red: oklch(0.6 0.21 25); --red-tint: oklch(0.95 0.04 25); --teal: oklch(0.48 0.14 205);
+      position: absolute; inset: 0; overflow: hidden; background: var(--ground); color: var(--ink); font-family: "Manrope", sans-serif;
+    }
+    #root * { box-sizing: border-box; }
+    .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px),
+                        linear-gradient(to bottom, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px);
+      background-size: 56px 56px; }
+
+    /* left column: eyebrow, caption, command */
+    .eyebrow { position: absolute; left: 192px; top: 330px; font: 500 22px/1 "DM Mono", monospace; letter-spacing: .16em; color: var(--teal); opacity: 0; }
+    .cap { position: absolute; left: 192px; top: 378px; width: 590px; font-size: 66px; font-weight: 750; line-height: 1.06; letter-spacing: -.025em; opacity: 0; }
+    .cap .w { display: inline-block; opacity: 0; filter: blur(8px); }
+    .hl { background: linear-gradient(100deg, var(--cyan), var(--magenta) 55%, var(--yellow)); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
+    .cmd { position: absolute; left: 192px; top: 690px; max-width: 620px; padding: 18px 24px; border: 2px solid var(--ink); border-radius: 3px; background: var(--card);
+           font: 400 27px/1.5 "DM Mono", monospace; opacity: 0; white-space: pre; }
+    .cmd .p { color: var(--muted); }
+    .type { display: inline-block; clip-path: inset(0 100% 0 0); vertical-align: top; }
+
+    /* the agent */
+    #agent { position: absolute; left: 840px; top: 280px; width: 420px; height: 260px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card);
+             box-shadow: 0 24px 60px oklch(0.12 0.02 240 / .12); opacity: 0; overflow: hidden; }
+    #agent .bar { height: 50px; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 20px; gap: 9px; font: 500 22px/1 "DM Mono", monospace; }
+    #agent .bar i { width: 12px; height: 12px; border-radius: 50%; background: var(--border); }
+    #agent .bar span { margin-left: 12px; }
+    #agent .say { position: absolute; left: 20px; top: 72px; font-size: 22px; font-weight: 650; color: var(--muted); opacity: 0; }
+    #agent .code { position: absolute; left: 20px; right: 20px; top: 116px; padding: 16px 18px; border-radius: 4px; background: var(--surface); font: 400 23px/1.6 "DM Mono", monospace; white-space: pre; }
+
+    /* the host */
+    #host { position: absolute; left: 840px; top: 830px; width: 900px; height: 124px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card); opacity: 0; }
+    #host .lbl { position: absolute; left: 24px; top: 20px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .1em; color: var(--muted); }
+    #hostOk { position: absolute; right: 24px; top: 20px; font: 500 21px/1 "DM Mono", monospace; color: var(--green); opacity: 0; }
+    .files { position: absolute; left: 24px; top: 60px; display: flex; gap: 12px; }
+    .file { padding: 10px 16px; border: 2px solid var(--border); border-radius: 3px; background: var(--surface); font: 400 21px/1 "DM Mono", monospace; color: var(--ink); }
+    #hyp { position: absolute; left: 840px; top: 770px; width: 900px; height: 44px; border-top: 3px dashed var(--muted); opacity: 0; }
+    #hyp span { position: absolute; right: 0; top: 12px; font: 500 19px/1 "DM Mono", monospace; letter-spacing: .08em; color: var(--muted); white-space: nowrap; }
+
+    /* the box */
+    .cube { position: absolute; overflow: visible; }
+    .cube .t { fill: var(--card); } .cube .l { fill: var(--surface); } .cube .r { fill: oklch(0.93 0.01 230); }
+    .cube polygon { stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+    .cube .dot { fill: var(--teal); opacity: 0; }
+    #box { left: 1300px; top: 330px; width: 300px; height: 300px; opacity: 0; transform-origin: 50% 50%; }
+    #boxGlow, #boxRed { position: absolute; left: 1300px; top: 330px; width: 300px; height: 300px; opacity: 0; overflow: visible; }
+    #boxLbl { position: absolute; left: 1300px; top: 620px; width: 300px; text-align: center; font: 500 22px/1 "DM Mono", monospace; color: var(--muted); opacity: 0; }
+
+    /* chips that travel */
+    .chip { position: absolute; left: 0; top: 0; padding: 12px 18px; border: 2px solid var(--ink); border-radius: 3px; background: var(--card); white-space: nowrap;
+            font: 500 22px/1 "DM Mono", monospace; opacity: 0; }
+    .chip.ok { border-color: var(--teal); color: var(--teal); }
+    .chip.bad { border-color: var(--red); color: var(--red); background: var(--red-tint); }
+
+    /* state */
+    #prepLbl { position: absolute; left: 920px; top: 660px; width: 300px; text-align: center; font: 400 20px/1 "DM Mono", monospace; color: var(--muted); opacity: 0; }
+    #snap { position: absolute; left: 920px; top: 330px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, var(--card) 0 40%, transparent 70%); opacity: 0; }
+    .clone { width: 150px; height: 150px; left: 1440px; opacity: 0; }
+    .cl-lbl { position: absolute; left: 1610px; font: 500 22px/1 "DM Mono", monospace; color: var(--muted); opacity: 0; }
+
+    /* network */
+    #proxy { position: absolute; left: 1300px; top: 300px; width: 110px; height: 420px; border: 3px dashed var(--teal); border-radius: 8px; opacity: 0; }
+    #proxyLbl { position: absolute; left: 1250px; top: 262px; width: 210px; text-align: center; font: 500 20px/1 "DM Mono", monospace; letter-spacing: .1em; color: var(--teal); opacity: 0; }
+    .dest { position: absolute; left: 1500px; width: 240px; height: 64px; border: 2px solid var(--ink); border-radius: 4px; background: var(--card);
+            display: flex; align-items: center; justify-content: center; font: 500 22px/1 "DM Mono", monospace; opacity: 0; }
+    .dest.bad { border-color: var(--red); color: var(--red); }
+    #xMark { position: absolute; left: 1355px; top: 630px; font: 700 64px/1 "Manrope", sans-serif; color: var(--red); opacity: 0; transform: translate(-50%, -50%); }
+
+    #logo { position: absolute; left: 1050px; top: 230px; width: 560px; height: 560px; opacity: 0; transform-origin: 50% 50%; }
+  </style>
+
+  <div id="root" data-composition-id="explainer" data-width="1920" data-height="1080">
+    <div class="grid"></div>
+
+    <div class="eyebrow" id="eb1">THE PROBLEM</div>
+    <div class="eyebrow" id="eb2">THE BOX</div>
+    <div class="eyebrow" id="eb3">STATE</div>
+    <div class="eyebrow" id="eb4">NETWORK AND SECRETS</div>
+    <div class="eyebrow" id="eb5">ACRYL MICROVMS</div>
+
+    <div class="cap" id="c1"><span class="w">Your</span> <span class="w">agent</span> <span class="w">writes</span> <span class="w">code</span> <span class="w">nobody</span> <span class="w"><span class="hl">read.</span></span></div>
+    <div class="cap" id="c2"><span class="w">On</span> <span class="w">your</span> <span class="w">machine</span> <span class="w">it</span> <span class="w">reaches</span> <span class="w"><span class="hl">everything.</span></span></div>
+    <div class="cap" id="c3"><span class="w">Run</span> <span class="w">it</span> <span class="w">in</span> <span class="w">a</span> <span class="w"><span class="hl">box</span></span> <span class="w">instead.</span></div>
+    <div class="cap" id="c4"><span class="w">A</span> <span class="w">micro-VM</span> <span class="w">with</span> <span class="w">its</span> <span class="w"><span class="hl">own</span></span> <span class="w">kernel.</span></div>
+    <div class="cap" id="c5"><span class="w">A</span> <span class="w">bad</span> <span class="w">command</span> <span class="w">breaks</span> <span class="w"><span class="hl">only</span></span> <span class="w">the</span> <span class="w">box.</span></div>
+    <div class="cap" id="c6"><span class="w">Prepare</span> <span class="w">once.</span> <span class="w"><span class="hl">Clone</span></span> <span class="w">a</span> <span class="w">box</span> <span class="w">per</span> <span class="w">task.</span></div>
+    <div class="cap" id="c7"><span class="w">Secrets</span> <span class="w">stay</span> <span class="w"><span class="hl">outside</span></span> <span class="w">the</span> <span class="w">box.</span></div>
+    <div class="cap" id="c8"><span class="w">A</span> <span class="w">kernel</span> <span class="w">for</span> <span class="w"><span class="hl">every</span></span> <span class="w">box.</span></div>
+
+    <div class="cmd" id="k1"><span class="p">$ </span><span class="type" id="k1t">acrylmicrovm run python:slim \</span>
+<span class="p">  </span><span class="type" id="k1u">python -c 'print(1 + 1)'</span></div>
+
+    <div id="agent">
+      <div class="bar"><i></i><i></i><i></i><span>agent</span></div>
+      <div class="say" id="say">I wrote this, running it now</div>
+      <div class="code"><span class="type" id="cl1">pip install pandas</span>
+<span class="type" id="cl2">python clean.py</span></div>
+    </div>
+
+    <div id="hyp"><span>HYPERVISOR · KVM OR HYPERVISOR.FRAMEWORK</span></div>
+    <div id="host">
+      <div class="lbl">YOUR MACHINE · HOST KERNEL</div>
+      <div id="hostOk">✓ untouched</div>
+      <div class="files"><div class="file">~/.ssh</div><div class="file">~/projects</div><div class="file">.env</div><div class="file">~/Documents</div></div>
+    </div>
+
+    <svg class="cube" id="box" viewBox="0 0 300 300">
+      <polygon class="t" points="150,30 254,90 150,150 46,90" />
+      <polygon class="l" points="46,90 150,150 150,270 46,210" />
+      <polygon class="r" points="150,150 254,90 254,210 150,270" />
+      <circle class="dot" cx="112" cy="94" r="9" /><circle class="dot" cx="150" cy="88" r="9" /><circle class="dot" cx="188" cy="94" r="9" />
+    </svg>
+    <svg id="boxGlow" viewBox="0 0 300 300">
+      <defs><linearGradient id="spec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="oklch(0.72 0.18 200)" /><stop offset=".55" stop-color="oklch(0.7 0.2 320)" /><stop offset="1" stop-color="oklch(0.82 0.19 95)" /></linearGradient></defs>
+      <polygon points="150,30 254,90 254,210 150,270 46,210 46,90" fill="none" stroke="url(#spec)" stroke-width="9" stroke-linejoin="round" />
+    </svg>
+    <svg id="boxRed" viewBox="0 0 300 300"><polygon points="150,30 254,90 254,210 150,270 46,210 46,90" fill="oklch(0.6 0.21 25)" fill-opacity=".8" /></svg>
+    <div id="boxLbl">box · own kernel</div>
+
+    <div id="snap"></div>
+    <div id="prepLbl">packages · files · env</div>
+    <svg class="cube clone" id="cl_a" viewBox="0 0 300 300" style="top:250px"><polygon class="t" points="150,30 254,90 150,150 46,90" /><polygon class="l" points="46,90 150,150 150,270 46,210" /><polygon class="r" points="150,150 254,90 254,210 150,270" /><circle class="dot" style="opacity:1" cx="112" cy="94" r="11" /><circle class="dot" style="opacity:1" cx="150" cy="88" r="11" /><circle class="dot" style="opacity:1" cx="188" cy="94" r="11" /></svg>
+    <svg class="cube clone" id="cl_b" viewBox="0 0 300 300" style="top:420px"><polygon class="t" points="150,30 254,90 150,150 46,90" /><polygon class="l" points="46,90 150,150 150,270 46,210" /><polygon class="r" points="150,150 254,90 254,210 150,270" /><circle class="dot" style="opacity:1" cx="112" cy="94" r="11" /><circle class="dot" style="opacity:1" cx="150" cy="88" r="11" /><circle class="dot" style="opacity:1" cx="188" cy="94" r="11" /></svg>
+    <svg class="cube clone" id="cl_c" viewBox="0 0 300 300" style="top:590px"><polygon class="t" points="150,30 254,90 150,150 46,90" /><polygon class="l" points="46,90 150,150 150,270 46,210" /><polygon class="r" points="150,150 254,90 254,210 150,270" /><circle class="dot" style="opacity:1" cx="112" cy="94" r="11" /><circle class="dot" style="opacity:1" cx="150" cy="88" r="11" /><circle class="dot" style="opacity:1" cx="188" cy="94" r="11" /></svg>
+    <div class="cl-lbl" id="ll_a" style="top:318px">task a</div>
+    <div class="cl-lbl" id="ll_b" style="top:488px">task b</div>
+    <div class="cl-lbl" id="ll_c" style="top:658px">task c</div>
+
+    <div id="proxyLbl">HOST PROXY</div>
+    <div id="proxy"></div>
+    <div class="dest" id="gh" style="top:358px">api.github.com</div>
+    <div class="dest bad" id="evil" style="top:598px">evil.example</div>
+    <div id="xMark" data-layout-allow-overlap>✕</div>
+
+    <div class="chip" id="pkA">pip install pandas</div>
+    <div class="chip" id="pkB">print(1 + 1)</div>
+    <div class="chip ok" id="out">2 · exit 0</div>
+    <div class="chip bad" id="bad">rm -rf /</div>
+    <div class="chip" id="tok">$TOKEN</div>
+    <div class="chip ok" id="tokReal">ghp_••••</div>
+    <div class="chip bad" id="leak">POST key</div>
+
+    <img id="logo" src="assets/logo.webp" alt="" />
+  </div>
+
+  <script>
+    const master = gsap.timeline({ paused: true });
+    const tl = gsap.timeline(); // the story; it starts 2 s into the film, after the opening frame
+    const E_IN = "expo.out", MOVE = "power3.inOut";
+    const capIn = (id, t) => {
+      tl.to(id, { opacity: 1, duration: 0.01 }, t);
+      tl.to(`${id} .w`, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.07, ease: "power4.out" }, t);
+    };
+    const capOut = (id, t) => tl.to(id, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power2.in" }, t);
+    const show = (id, t, d = 0.35) => tl.to(id, { opacity: 1, duration: d, ease: "power2.out" }, t);
+    const hide = (id, t, d = 0.22) => tl.to(id, { opacity: 0, duration: d, ease: "power2.in" }, t);
+    const type = (id, t, chars, cps = 18) => tl.to(id, { clipPath: "inset(0 0% 0 0)", duration: chars / cps, ease: `steps(${chars})` }, t);
+    // A chip appears at (x0, y0), travels to (x1, y1) and fades there. Chips are centred on their point.
+    const fly = (id, t, [x0, y0], [x1, y1], d = 0.9, stay = 0.3) => {
+      tl.set(id, { x: x0, y: y0, xPercent: -50, yPercent: -50 }, t);
+      tl.fromTo(id, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.25, ease: E_IN, immediateRender: false }, t);
+      tl.to(id, { x: x1, y: y1, duration: d, ease: MOVE }, t + 0.25);
+      if (stay !== null) hide(id, t + 0.25 + d + stay, 0.2);
+    };
+    const files = "#host .file";
+
+    // A1 0-4: the agent writes code
+    show("#eb1", 0.2);
+    capIn("#c1", 0.4);
+    tl.fromTo("#agent", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E_IN, immediateRender: false }, 0.5);
+    type("#cl1", 1.2, 18, 16); type("#cl2", 2.4, 15, 16);
+    show("#say", 3.3);
+    capOut("#c1", 3.9);
+
+    // A2 4-9: run on your machine, it reaches everything
+    capIn("#c2", 4.2);
+    tl.fromTo("#host", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E_IN, immediateRender: false }, 4.2);
+    fly("#pkA", 5.0, [1050, 560], [1180, 820], 0.9, 0.1);
+    tl.to(files, { borderColor: "oklch(0.6 0.21 25)", backgroundColor: "oklch(0.95 0.04 25)", color: "oklch(0.6 0.21 25)", duration: 0.25, stagger: 0.12 }, 6.2);
+    capOut("#c2", 8.4); hide("#eb1", 8.4);
+    tl.to(files, { borderColor: "oklch(0.86 0.012 230)", backgroundColor: "oklch(0.965 0.006 230)", color: "oklch(0.18 0.016 240)", duration: 0.3 }, 8.6);
+    hide("#say", 8.6);
+
+    // B1 9-13: run it in a box
+    show("#eb2", 9.0);
+    capIn("#c3", 9.1);
+    show("#k1", 9.1, 0.25); type("#k1t", 9.3, 30, 24); type("#k1u", 10.6, 26, 24);
+    show("#hyp", 9.6);
+    tl.fromTo("#box", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: E_IN, immediateRender: false }, 10.0);
+    show("#boxLbl", 10.5);
+    capOut("#c3", 12.6);
+
+    // B2 13-18: its own kernel; the code goes in, the answer comes out (14.6 s is the poster)
+    capIn("#c4", 13.0);
+    fly("#pkB", 13.2, [1050, 520], [1450, 470], 0.9, 0.05);
+    show("#boxGlow", 14.2, 0.3);
+    fly("#out", 14.8, [1450, 520], [1050, 600], 0.9, 0.9);
+    hide("#boxGlow", 17.0, 0.3);
+    capOut("#c4", 17.4);
+
+    // C 18-24: a bad command breaks only the box
+    capIn("#c5", 17.9);
+    fly("#bad", 18.1, [1450, 230], [1450, 470], 0.7, 0.0);
+    tl.to("#boxRed", { opacity: 1, duration: 0.15, ease: "power2.out" }, 19.1);
+    tl.to(["#box", "#boxRed"], { scale: 0.55, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, 19.6);
+    show("#hostOk", 19.9);
+    tl.to("#host", { borderColor: "oklch(0.6 0.15 155)", duration: 0.3 }, 19.9);
+    tl.set("#boxRed", { scale: 1, filter: "blur(0px)" }, 20.2);
+    tl.fromTo("#box", { opacity: 0, scale: 0.9, filter: "blur(6px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: E_IN, immediateRender: false }, 21.0);
+    capOut("#c5", 23.4);
+    hide(["#k1", "#agent", "#eb2", "#hostOk", "#hyp"], 23.5, 0.3);
+    tl.to("#host", { borderColor: "oklch(0.18 0.016 240)", duration: 0.3 }, 23.5);
+
+    // D 24-31: prepare once, clone per task
+    show("#eb3", 24.0);
+    capIn("#c6", 24.1);
+    tl.to(["#box", "#boxLbl", "#boxGlow", "#boxRed"], { x: -380, duration: 0.7, ease: MOVE }, 24.0);
+    tl.to("#box .dot", { opacity: 1, duration: 0.25, stagger: 0.15 }, 24.9);
+    show("#prepLbl", 25.3);
+    tl.fromTo("#snap", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.2, duration: 0.25, ease: "power2.out", immediateRender: false }, 26.1);
+    hide("#snap", 26.4, 0.4);
+    ["#cl_a", "#cl_b", "#cl_c"].forEach((id, i) => {
+      tl.fromTo(id, { opacity: 0, x: -460, scale: 0.6 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: MOVE, immediateRender: false }, 26.5 + i * 0.25);
+    });
+    tl.to(["#ll_a", "#ll_b", "#ll_c"], { opacity: 1, duration: 0.3, stagger: 0.15 }, 27.4);
+    capOut("#c6", 30.8);
+    hide(["#cl_a", "#cl_b", "#cl_c", "#ll_a", "#ll_b", "#ll_c", "#prepLbl", "#box .dot", "#eb3"], 31.0, 0.3);
+
+    // E 31.5-39: only allowed hosts, and the real secret is added outside the box
+    show("#eb4", 31.6);
+    capIn("#c7", 31.7);
+    show(["#proxy", "#proxyLbl"], 31.9);
+    tl.fromTo(["#gh", "#evil"], { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.15, ease: E_IN, immediateRender: false }, 32.1);
+    fly("#tok", 32.9, [1150, 440], [1355, 390], 0.8, null);
+    tl.set("#tokReal", { x: 1355, y: 390, xPercent: -50, yPercent: -50 }, 33.0);
+    tl.to("#tok", { opacity: 0, duration: 0.15 }, 34.3);
+    tl.to("#tokReal", { opacity: 1, duration: 0.15 }, 34.3);
+    tl.to("#tokReal", { x: 1425, duration: 0.6, ease: MOVE }, 34.6);
+    tl.to("#gh", { borderColor: "oklch(0.48 0.14 205)", color: "oklch(0.48 0.14 205)", duration: 0.2 }, 35.2);
+    tl.to("#gh", { borderColor: "oklch(0.18 0.016 240)", color: "oklch(0.18 0.016 240)", duration: 0.3 }, 36.4);
+    hide("#tokReal", 35.7, 0.2);
+    fly("#leak", 35.9, [1150, 520], [1300, 630], 0.8, 0.0);
+    tl.fromTo("#xMark", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1.15, duration: 0.3, ease: "back.out(2.5)", immediateRender: false }, 36.9);
+    tl.to("#xMark", { scale: 1, duration: 0.2 }, 37.2);
+    capOut("#c7", 38.8);
+    hide(["#proxy", "#proxyLbl", "#gh", "#evil", "#xMark", "#box", "#boxLbl", "#host", "#eb4"], 39.0, 0.3);
+
+    // F 39.5-46: the idea, then back to the first frame (an empty grid)
+    tl.set("#c8", { filter: "blur(0px)" }, 39.5);
+    tl.set("#c8 .w", { opacity: 0, filter: "blur(8px)" }, 39.5);
+    tl.set("#logo", { filter: "blur(0px)" }, 39.5);
+    show("#eb5", 39.6);
+    capIn("#c8", 39.7);
+    tl.fromTo("#logo", { opacity: 0, scale: 0.9, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: E_IN, immediateRender: false }, 39.9);
+    tl.to("#logo", { y: -12, duration: 2.6, ease: "sine.inOut" }, 40.8);
+    tl.to("#logo", { y: 0, duration: 2.4, ease: "sine.inOut" }, 43.4);
+    tl.set(["#box", "#boxLbl", "#boxGlow", "#boxRed"], { x: 0 }, 45.0);
+    tl.set(["#cl1", "#cl2", "#k1t", "#k1u"], { clipPath: "inset(0 100% 0 0)" }, 45.0);
+    tl.set({}, {}, 46.0);
+
+    // 0-2 s: the opening frame equals the closing one (logo and the idea), then the story begins.
+    master.set(["#logo", "#eb5", "#c8"], { opacity: 1 }, 0);
+    master.set("#c8 .w", { opacity: 1, filter: "blur(0px)" }, 0);
+    master.to(["#c8", "#eb5"], { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in" }, 1.5);
+    master.to("#logo", { opacity: 0, filter: "blur(8px)", duration: 0.35, ease: "power2.in" }, 1.55);
+    master.add(tl, 2.0);
+
+    window.__timelines["explainer"] = master;
+  </script>
+</template>
