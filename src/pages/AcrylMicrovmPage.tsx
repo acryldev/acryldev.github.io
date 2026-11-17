@@ -27,7 +27,7 @@ const platforms = [
 ] as const
 
 const stands: readonly { readonly status: Status; readonly title: string; readonly body: string }[] = [
-  { status: 'building', title: 'Our own low-level builds', body: 'It builds and runs boxes on Linux. A few low-level parts are still being moved into our own repositories.' },
+  { status: 'building', title: 'Getting the first build green', body: 'The project was renamed recently. Some dependencies still resolve to their old locations and are being re-created under ours.' },
   { status: 'planned', title: 'Packages under our names', body: 'Python, Node.js and Rust packages and a binary installer. Until then, build from source.' },
   { status: 'planned', title: 'Our own benchmarks', body: 'Start-up time and memory per box, measured on our hardware and published here with the method. No numbers until then.' },
   { status: 'planned', title: 'A sandbox for ACRYL apps', body: 'We may use it to give an app\'s agent a safe place to run code. Nothing is wired up yet.' },
@@ -131,7 +131,7 @@ export function AcrylMicrovmPage() {
       <section className="home-band page-width" aria-labelledby="mv-stands">
         <div className="section-intro">
           <div><p className="eyebrow">Where it stands</p><h2 id="mv-stands">Early, and honest<br /><span className="spectrum-text">about it.</span></h2></div>
-          <p>Open-source Rust we can read, change and extend. What works, what is being built and what is only planned:</p>
+          <p>About 250,000 lines of Rust in 639 files in the repository. It is code we can read, change and extend.</p>
         </div>
         <ul className="mv-stands">
           {stands.map(s => (
