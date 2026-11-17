@@ -648,3 +648,7 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 
 @media (max-width: 760px) { .mvi-grid { grid-template-columns: minmax(0, 1fr); } .mvi-stage { padding: 14px 12px 4px; } .mvi-card figcaption { padding: 18px 16px 22px; } }
 @media (prefers-reduced-motion: reduce) { .mvi-svg *, .mv-logo-wrap * { animation: none !important; } }
+.mv-demo { margin: 0; }
+.mv-demo img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 30px 80px oklch(0.12 0.02 240 / .12); }
+.mv-demo figcaption { margin-top: 12px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 12px; }
+.mv-demo figcaption a { color: var(--muted-foreground); }

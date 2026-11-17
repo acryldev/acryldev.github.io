@@ -3,6 +3,7 @@ import { statusLabel, type Status } from '../lib/guides'
 import { MicrovmHeroLogo, MicrovmIllustrations } from '../components/MicrovmIllustrations'
 
 const repo = 'https://github.com/acryldev/acrylmicrovm'
+const demoVideo = 'https://www.youtube.com/watch?v=hg815xA5614'
 
 const steps = [
   { icon: Package, name: 'Pick an image', line: 'Any OCI image from a registry: python:slim, node:alpine, your own.' },
@@ -67,6 +68,19 @@ export function AcrylMicrovmPage() {
             <figcaption>Why a box, in 48 seconds. The command in it is the real one.</figcaption>
           </figure>
         </div>
+      </section>
+
+      <section className="home-band page-width" aria-labelledby="mv-demo">
+        <div className="section-intro">
+          <div><p className="eyebrow">Demo</p><h2 id="mv-demo">A terminal inside<br /><span className="spectrum-text">a running box.</span></h2></div>
+          <p>The dashboard from the repository, talking to a live server. Each box is a micro-VM with its own kernel; the shell, the files and Node.js are inside it.</p>
+        </div>
+        <figure className="mv-demo">
+          <a href={demoVideo} target="_blank" rel="noreferrer">
+            <img src="/acrylmicrovm/demo.gif" width="1067" height="715" loading="lazy" alt="The ACRYL microVMs dashboard: a list of boxes on the left and a shell inside the selected box on the right" />
+          </a>
+          <figcaption><a href={demoVideo} target="_blank" rel="noreferrer">Watch the full demo on YouTube</a></figcaption>
+        </figure>
       </section>
 
       <section className="home-band page-width" aria-labelledby="mv-watch">
