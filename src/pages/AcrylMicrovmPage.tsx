@@ -45,13 +45,16 @@ export function AcrylMicrovmPage() {
   return (
     <>
       <section className="home-hero grid-surface">
-        <div className="page-width hero-content">
+        <div className="page-width hero-content mv-hero">
+          <img className="mv-logo" src="/acrylmicrovm/logo.webp" alt="ACRYL microVMs logo" width="280" height="280" />
+          <div>
           <p className="eyebrow">ACRYL microVMs</p>
           <h1>A kernel for every box.<br /><strong className="spectrum-text">Run untrusted code safely.</strong></h1>
           <p className="hero-lede">ACRYL microVMs starts small virtual machines from ordinary container images. Code an agent writes runs inside one, on its own kernel, and the machine keeps its disk until you throw it away. Link it into your app as a library, or run it as a command or a service.</p>
           <div className="hero-cta">
             <a className="button" href={repo} target="_blank" rel="noreferrer"><Github aria-hidden="true" /> View on GitHub</a>
             <span className="status-tag building">work in progress</span>
+          </div>
           </div>
         </div>
       </section>

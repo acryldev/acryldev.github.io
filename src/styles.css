@@ -550,3 +550,13 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .mv-stands li > span:last-child { color: var(--muted-foreground); }
 @media (max-width: 1100px) { .mv-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mv-code-grid { grid-template-columns: 1fr; } .mv-code-grid .guide-code:first-child { grid-row: auto; } }
 @media (max-width: 680px) { .mv-steps { grid-template-columns: 1fr; } .mv-stands li { grid-template-columns: 1fr; gap: 6px; } }
+
+/* ACRYL microVMs hero: the logo sits right of the text, above it on narrow screens */
+.mv-hero { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 48px; align-items: center; }
+.mv-hero > div { grid-column: 1; grid-row: 1; min-width: 0; }
+.mv-logo { grid-column: 2; grid-row: 1; width: 280px; height: auto; }
+@media (max-width: 900px) {
+  .mv-hero { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .mv-logo { grid-column: 1; grid-row: 1; width: 132px; }
+  .mv-hero > div { grid-row: 2; }
+}
