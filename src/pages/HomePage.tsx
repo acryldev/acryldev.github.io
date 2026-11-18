@@ -179,6 +179,17 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="home-band page-width" aria-labelledby="microvm-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">ACRYL microVMs</p><h2 id="microvm-heading">Untrusted code<br /><span className="spectrum-text">gets its own kernel.</span></h2></div>
+          <p>ACRYL also makes micro-VMs: small virtual machines started from ordinary container images, for the code an agent writes. Use them as a library in Node.js or Rust, as a command, or as a service. Open source, Apache-2.0.</p>
+        </div>
+        <div className="partner-actions">
+          <div className="mv-try"><CopyLine command="npx acrylmicrovm run --rm alpine:latest echo hello" label="Copy the command that runs a first micro-VM" /></div>
+          <Link className="button secondary" to="/acrylmicrovm">About ACRYL microVMs <ArrowRight aria-hidden="true" /></Link>
+        </div>
+      </section>
+
       <section className="home-band page-width" aria-labelledby="run-heading">
         <div className="section-intro">
           <div><p className="eyebrow">Run anywhere</p><h2 id="run-heading">Your machine today.<br /><span className="spectrum-text">The cloud next.</span></h2></div>

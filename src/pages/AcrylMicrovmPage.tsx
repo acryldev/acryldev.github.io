@@ -1,9 +1,50 @@
-import { ArrowUpRight, Box, Cpu, Github, GitBranch, Globe, KeyRound, Laptop, Layers, Package, ShieldCheck, Terminal } from 'lucide-react'
+import { ArrowUpRight, BookOpen, Box, Cpu, Github, GitBranch, Globe, KeyRound, Laptop, Layers, Package, ShieldCheck, Terminal } from 'lucide-react'
+import { CopyLine } from '../components/CopyLine'
 import { statusLabel, type Status } from '../lib/guides'
 import { MicrovmHeroLogo, MicrovmIllustrations } from '../components/MicrovmIllustrations'
 
 const repo = 'https://github.com/acryldev/acrylmicrovm'
 const demoVideo = 'https://www.youtube.com/watch?v=hg815xA5614'
+const docs = `${repo}/tree/main/docs`
+const installDocs = `${repo}/blob/main/docs/getting-started/installation.md`
+const tryCommand = 'npx acrylmicrovm run --rm alpine:latest echo hello'
+
+const installs = [
+  { label: 'Run it now, nothing to install', lines: [
+    '$ npx acrylmicrovm run --rm alpine:latest echo hello',
+    '$ pnpm dlx acrylmicrovm run --rm alpine:latest echo hello',
+    '$ yarn dlx acrylmicrovm run --rm alpine:latest echo hello',
+    '$ bunx acrylmicrovm run --rm alpine:latest echo hello',
+    '$ deno run -A npm:acrylmicrovm run --rm alpine:latest echo hello',
+  ] },
+  { label: 'Install the command', lines: [
+    '$ npm install -g acrylmicrovm        # prebuilt, from npm',
+    '$ cargo binstall acrylmicrovm-cli    # prebuilt, through cargo',
+    '$ cargo install acrylmicrovm-cli     # built from crates.io',
+    '$ curl -fsSL \\',
+    '  https://github.com/acryldev/acrylmicrovm/releases/latest/download/install.sh \\',
+    '  | sh',
+  ] },
+  { label: 'The Node.js SDK (Node, Bun, Deno)', lines: [
+    '$ npm install acrylmicrovm',
+    '$ pnpm add acrylmicrovm',
+    '$ yarn add acrylmicrovm',
+    '$ bun add acrylmicrovm',
+  ] },
+  { label: 'The Rust library', lines: [
+    '$ cargo add acrylmicrovm tokio futures \\',
+    '    --features tokio/macros,tokio/rt-multi-thread',
+  ] },
+] as const
+
+const packages = [
+  { name: 'Installation guide', href: installDocs },
+  { name: 'Documentation', href: docs },
+  { name: 'npm: acrylmicrovm', href: 'https://www.npmjs.com/package/acrylmicrovm' },
+  { name: 'crates.io: acrylmicrovm', href: 'https://crates.io/crates/acrylmicrovm' },
+  { name: 'crates.io: acrylmicrovm-cli', href: 'https://crates.io/crates/acrylmicrovm-cli' },
+  { name: 'Prebuilt binaries', href: `${repo}/releases/latest` },
+] as const
 
 const steps = [
   { icon: Package, name: 'Pick an image', line: 'Any OCI image from a registry: python:slim, node:alpine, your own.' },
@@ -28,8 +69,8 @@ const platforms = [
 ] as const
 
 const stands: readonly { readonly status: Status; readonly title: string; readonly body: string }[] = [
-  { status: 'building', title: 'Getting the first build green', body: 'The project was renamed recently. Some dependencies still resolve to their old locations and are being re-created under ours.' },
-  { status: 'planned', title: 'Packages under our names', body: 'Python, Node.js and Rust packages and a binary installer. Until then, build from source.' },
+  { status: 'shipped', title: 'Packages you can install', body: 'The command and the Node.js SDK on npm, the library and the command on crates.io, prebuilt binaries and an install script on GitHub.' },
+  { status: 'planned', title: 'Python on PyPI', body: 'The Python SDK builds from source today; the published package comes next.' },
   { status: 'planned', title: 'Our own benchmarks', body: 'Start-up time and memory per box, measured on our hardware and published here with the method. No numbers until then.' },
   { status: 'planned', title: 'A sandbox for ACRYL apps', body: 'We may use it to give an app\'s agent a safe place to run code. Nothing is wired up yet.' },
 ]
@@ -54,9 +95,12 @@ export function AcrylMicrovmPage() {
           <h1>A kernel for every box.<br /><strong className="spectrum-text">Run untrusted code safely.</strong></h1>
           <p className="hero-lede">ACRYL microVMs starts small virtual machines from ordinary container images. Code an agent writes runs inside one, on its own kernel, and the machine keeps its disk until you throw it away. Link it into your app as a library, or run it as a command or a service.</p>
           <div className="hero-cta">
-            <a className="button" href={repo} target="_blank" rel="noreferrer"><Github aria-hidden="true" /> View on GitHub</a>
+            <a className="button" href="#install">Get started</a>
+            <a className="button secondary" href={docs} target="_blank" rel="noreferrer"><BookOpen aria-hidden="true" /> Docs</a>
+            <a className="button secondary" href={repo} target="_blank" rel="noreferrer"><Github aria-hidden="true" /> GitHub</a>
             <span className="status-tag building">work in progress</span>
           </div>
+          <div className="mv-try"><CopyLine command={tryCommand} label="Copy the command that runs a first box" /></div>
           </div>
           <figure className="hero-film mv-film">
             <video
@@ -111,21 +155,35 @@ export function AcrylMicrovmPage() {
         </div>
       </section>
 
+      <section className="home-band page-width" aria-labelledby="mv-install" id="install">
+        <div className="section-intro">
+          <div><p className="eyebrow">Get started</p><h2 id="mv-install">One command<br /><span className="spectrum-text">to a first box.</span></h2></div>
+          <p>Every way installs the same engine, and none of them needs a daemon or root. On Linux your user needs access to <code>/dev/kvm</code>; on a Mac, Apple Silicon. The installation guide has the details and the troubleshooting.</p>
+        </div>
+        <div className="mv-install-grid">
+          {installs.map(i => <Code key={i.label} label={i.label} lines={i.lines} />)}
+        </div>
+        <ul className="mv-links">
+          {packages.map(p => <li key={p.name}><a href={p.href} target="_blank" rel="noreferrer">{p.name} <ArrowUpRight aria-hidden="true" /></a></li>)}
+        </ul>
+      </section>
+
       <section className="home-band page-width" aria-labelledby="mv-run">
         <div className="section-intro">
           <div><p className="eyebrow">Three ways to run it</p><h2 id="mv-run">A library, a command,<br /><span className="spectrum-text">or a service.</span></h2></div>
-          <p>Bindings exist for Python, Node.js, Go, Rust and C. The commands below work once the first packages are published; until then, build from source.</p>
+          <p>Bindings exist for Node.js, Rust, Python, Go and C; Node.js and Rust are published. The same engine is behind all three ways.</p>
         </div>
         <div className="mv-code-grid">
-          <Code label="As a library (Python)" lines={[
-            'import asyncio, acrylmicrovm',
+          <Code label="As a library (Node.js)" lines={[
+            "import { SimpleBox } from 'acrylmicrovm'",
             '',
-            'async def main():',
-            '    async with acrylmicrovm.SimpleBox(image="python:slim") as box:',
-            '        result = await box.exec("python", "-c", "print(1 + 1)")',
-            '        print(result.stdout)',
-            '',
-            'asyncio.run(main())',
+            "const box = new SimpleBox({ image: 'python:slim' })",
+            'try {',
+            "  const result = await box.exec('python', '-c', 'print(1 + 1)')",
+            '  console.log(result.stdout)',
+            '} finally {',
+            '  await box.stop()',
+            '}',
           ]} />
           <Code label="As a command" lines={['$ acrylmicrovm run python:slim python -c \'print(1 + 1)\'']} />
           <Code label="As a service" lines={['$ acrylmicrovm serve', '# listens on 127.0.0.1:8100 and speaks REST']} />
@@ -164,6 +222,7 @@ export function AcrylMicrovmPage() {
         <p>The repository carries the full licence text, a NOTICE file with the attribution and the list of changes, and the source of every part described here.</p>
         <div>
           <a className="button" href={repo} target="_blank" rel="noreferrer"><Github aria-hidden="true" /> acryldev/acrylmicrovm <ArrowUpRight aria-hidden="true" /></a>
+          <a className="button secondary" href={docs} target="_blank" rel="noreferrer"><BookOpen aria-hidden="true" /> Documentation <ArrowUpRight aria-hidden="true" /></a>
         </div>
       </section>
     </>

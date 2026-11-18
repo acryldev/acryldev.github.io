@@ -652,3 +652,15 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .mv-demo img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 30px 80px oklch(0.12 0.02 240 / .12); }
 .mv-demo figcaption { margin-top: 12px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 12px; }
 .mv-demo figcaption a { color: var(--muted-foreground); }
+
+/* ACRYL microVMs: install commands, package links, the try line in the hero */
+.mv-install-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 0 24px; }
+.mv-install-grid pre { font-size: 12.5px; }
+.mv-install-grid .guide-code { margin-top: 0; margin-bottom: 24px; }
+.mv-links { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 8px 0 0; padding: 0; list-style: none; }
+.mv-links a { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; }
+.mv-links a svg { width: 14px; height: 14px; }
+.mv-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mv-try { max-width: 560px; margin-top: 20px; }
+@media (max-width: 900px) { .mv-install-grid { grid-template-columns: minmax(0, 1fr); } }
+.partner-actions .mv-try { flex: 1 1 360px; margin-top: 0; }

@@ -37,8 +37,8 @@ export function EcosystemPage() {
       <div className="atoms-grid">
         <Link className="atom-card link-card" to="/acrylmicrovm">
           <div><Boxes aria-hidden="true" /></div>
-          <h3>ACRYL microVMs</h3><p>Hardware-isolated micro-VMs for running untrusted code, started from ordinary container images. Open source, work in progress.</p>
-          <span className="card-cta">Read about it <ArrowRight aria-hidden="true" /></span>
+          <h3>ACRYL microVMs</h3><p>Hardware-isolated micro-VMs for running untrusted code, started from ordinary container images. On npm (<code>npx acrylmicrovm</code>) and crates.io. Open source, work in progress.</p>
+          <span className="card-cta">Get started <ArrowRight aria-hidden="true" /></span>
         </Link>
       </div>
       <h2 className="ecosystem-group">Partners</h2>
