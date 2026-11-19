@@ -50,8 +50,11 @@ export const EVENTS: readonly AcrylEvent[] = [
   },
 ]
 
-/** The bootcamp's registration database: a PocketBase on our own server in Vienna. Anyone may add a row; only we can read one. */
-export const REGISTRATIONS_ENDPOINT = 'https://acryl-events.5oyoufxtiwypemsxvsca58rs.213.47.80.26.sslip.io/api/collections/event_registrations/records'
+/** Our own server in Vienna: the bootcamp registrations and the WorkshopPanel's collections live in one PocketBase. */
+export const EVENTS_API = 'https://acryl-events.5oyoufxtiwypemsxvsca58rs.213.47.80.26.sslip.io'
+
+/** The bootcamp's registration database. Anyone may add a row; only we can read one. */
+export const REGISTRATIONS_ENDPOINT = `${EVENTS_API}/api/collections/event_registrations/records`
 
 /** Today's date in Vienna as YYYY-MM-DD, so an event stays "upcoming" for its whole day. */
 export function viennaToday(now: Date = new Date()): string {
