@@ -12,20 +12,8 @@ const PROVIDER_FIELDS: readonly (readonly [string, string])[] = [
   ['API key', 'the workshop key below'],
 ]
 
-/** The model the workshop runs on. */
-export const WORKSHOP_MODEL = 'deepseek/deepseek-v4.1-flash'
-
-/** Exactly the models the workshop's key may use. Fetch available models can list more: only these are added. */
-export const WORKSHOP_MODELS: readonly (readonly [string, string])[] = [
-  ['orcarouter/free', 'OrcaRouter Free'],
-  ['orcarouter/pod', 'OrcaRouter Pod'],
-  ['orcarouter/fusion', 'OrcaRouter Fusion'],
-  ['orcarouter/fusion-flash', 'OrcaRouter Fusion Flash'],
-  ['orcarouter/fusion-mini', 'OrcaRouter Fusion Mini'],
-  ['deepseek/deepseek-v4-flash', 'DeepSeek V4 Flash'],
-  ['deepseek/deepseek-v4.1-flash', 'DeepSeek V4.1 Flash'],
-  ['deepseek/deepseek-reasoner', 'DeepSeek Reasoner'],
-]
+/** The model the workshop runs on, as OrcaRouter lists it. */
+export const WORKSHOP_MODEL = 'deepseek-v4.1-flash'
 
 /** The model key for this workshop, sealed in the site and opened only with the password spoken in the room. Shown in My project only. */
 export function ModelKeyCard() {
@@ -64,7 +52,7 @@ export function ModelKeyCard() {
       <div>
         <p className="eyebrow">Your model key</p>
         <h3 id="workshop-model-key-title">Set up OrcaRouter</h3>
-        <p>In ACRYL Control Center, and the same way inside an ACRYL Blend app: open Settings (the gear) &gt; Models, click Add provider, and choose the <strong>Custom model API</strong> tab. Fill it in like this:</p>
+        <p>In ACRYL Control Center, and the same way inside an ACRYL Blend app: open Settings (the gear) &gt; Models, click Add provider, and choose the <strong>Custom model API</strong> tab. Fill in the four fields below, then press <strong>Fetch available models</strong>.</p>
       </div>
       <dl className="workshop-model-fields">
         {PROVIDER_FIELDS.map(([label, value]) => (
@@ -75,14 +63,9 @@ export function ModelKeyCard() {
         ))}
       </dl>
       <div className="workshop-model-catalog">
-        <p className="eyebrow">Models: add exactly these, no others</p>
-        <p>In this workshop, always use <strong>DeepSeek V4.1 Flash</strong> (<code>deepseek/deepseek-v4.1-flash</code>): it is the model every app here runs on. Do not switch to another one unless it fails.</p>
-        <ul>
-          {WORKSHOP_MODELS.map(([id, name]) => (
-            <li key={id}><code>{id}</code> <span>{name}</span>{id === WORKSHOP_MODEL && <em className="workshop-chip">workshop default</em>}</li>
-          ))}
-        </ul>
-        <p className="workshop-note-inline">Under Models, add each one with Add model (or paste an id). "Fetch available models" can list more; do not add them: this key is shared, and only this list belongs to the workshop.</p>
+        <p className="eyebrow">Models: press Fetch available models</p>
+        <p>The API key is enough: press <strong>Fetch available models</strong> and the list fills itself from OrcaRouter. Leave the fetched list as it is and do not add models by hand.</p>
+        <p>In this workshop, always use <strong>DeepSeek V4.1 Flash</strong> (<code>{WORKSHOP_MODEL}</code>): it is the model every app here runs on. Do not switch to another one unless it fails.</p>
       </div>
       {key === undefined
         ? (

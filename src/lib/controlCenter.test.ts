@@ -41,6 +41,8 @@ describe('the Control Center install block', () => {
     expect(AGENT_SETUP_PROMPT).toContain('OrcaRouter')
     expect(AGENT_SETUP_PROMPT).toContain('Custom model API')
     expect(AGENT_SETUP_PROMPT).toContain('Provider ID orcarouter')
+    expect(AGENT_SETUP_PROMPT).toContain('Fetch available models')
+    expect(AGENT_SETUP_PROMPT).toContain('deepseek-v4.1-flash')
     expect(AGENT_SETUP_PROMPT).toContain(WORKSHOP_ORG_INVITE_URL)
     expect(AGENT_SETUP_PROMPT).toContain('Do not accept the invitation for me')
     expect(WORKSHOP_ORG_STEPS.join(' ')).toContain('Join ACRYL WORKSHOP')
