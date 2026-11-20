@@ -72,7 +72,7 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
       <div className="workshop-bp-filters">
         <label className="workshop-search">
           <Search aria-hidden="true" />
-          <input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search by name, what it does or category" aria-label="Search the Blends catalogue" />
+          <input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search Blueprints" aria-label="Search the Blends catalogue" />
         </label>
         <label>
           <span>Category</span>
