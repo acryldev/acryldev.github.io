@@ -14,7 +14,7 @@ describe('the Control Center install block', () => {
     expect(INSTALLERS.filter(installer => installer.primary).map(installer => installer.id)).toEqual(['mac-arm64', 'mac-x64', 'win-x64', 'linux-x64'])
   })
   it('tells a participant where to click, with the Blueprint name in the path', () => {
-    expect(createPathOf('Notes')).toBe('In Control Center: Blends store > Notes > Make an app')
+    expect(createPathOf('Notes')).toBe('In Control Center: Blends store > Notes > Make an app > Make it')
     expect(MAKE_STEPS.join(' ')).toContain('Make an app')
   })
   it('keeps every step to one action and shows no terminal command', () => {

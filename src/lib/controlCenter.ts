@@ -40,14 +40,16 @@ export function platformOf(userAgent: string, platform = ''): Platform {
  */
 export const STORE = 'Blends store'
 export const MAKE_AN_APP = 'Make an app'
+export const CONFIRM_MAKE = 'Make it'
 
 export const MAKE_STEPS: readonly string[] = [
   'Open ACRYL Control Center.',
   `Click "${STORE}" on the left. Each card says Official or Community.`,
-  `Click "${MAKE_AN_APP}" on the card you like.`,
-  'The name is filled in. Change it if you like, then confirm.',
-  'First time on this computer, it says "Getting Node.js and GitHub\'s tool ready for your apps". Wait about a minute, then press "Make an app" again.',
-  'The app is made (about a minute) and starts. Click "Open".',
+  `Click "${MAKE_AN_APP}" on the card you like. The form is called "New app from" and the Blend's name.`,
+  `The Name is filled in. Change it if you like, choose Web or Desktop, then click "${CONFIRM_MAKE}".`,
+  `If you see "Getting Node.js and GitHub's tool ready for your apps", wait a minute and press "${CONFIRM_MAKE}" again.`,
+  'It says your app is made and starting. The card shows "running".',
+  'Click "Open in the browser" (a desktop app says "Open in a window").',
 ]
 
 const CONNECT_AND_SHARE: readonly string[] = [
@@ -59,7 +61,7 @@ const CONNECT_AND_SHARE: readonly string[] = [
 ]
 
 export const SHARE_APP_IN_CONTROL_CENTER: readonly string[] = ['In Control Center, open your app\'s card and click "Share".', ...CONNECT_AND_SHARE]
-export const SHARE_APP_IN_THE_APP: readonly string[] = ['Inside your running app, open Settings (the gear) and click "Share".', ...CONNECT_AND_SHARE]
+export const SHARE_APP_IN_THE_APP: readonly string[] = ['Only if your app shows the gear: open Settings (the gear) and click "Share".', ...CONNECT_AND_SHARE]
 
 export const SHARE_PLUGIN_STEPS: readonly string[] = [
   'Inside your app, open Settings and click "Plugins".',
@@ -69,4 +71,4 @@ export const SHARE_PLUGIN_STEPS: readonly string[] = [
 ]
 
 /** "In Control Center: Blends store > Notes > Make an app" */
-export const createPathOf = (blueprintName: string): string => `In Control Center: ${STORE} > ${blueprintName} > ${MAKE_AN_APP}`
+export const createPathOf = (blueprintName: string): string => `In Control Center: ${STORE} > ${blueprintName} > ${MAKE_AN_APP} > ${CONFIRM_MAKE}`

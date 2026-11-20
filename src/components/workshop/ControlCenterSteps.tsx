@@ -24,11 +24,11 @@ export function ShareSteps() {
     <div className="workshop-aside-card">
       <h3>Share what you made</h3>
       <details open>
-        <summary>Share your app, from Control Center</summary>
+        <summary>Share your app (works for every app)</summary>
         <Steps steps={SHARE_APP_IN_CONTROL_CENTER} />
       </details>
       <details>
-        <summary>Share your app, from inside it</summary>
+        <summary>Share your app from inside it (if it shows the gear)</summary>
         <Steps steps={SHARE_APP_IN_THE_APP} />
       </details>
       <details>
