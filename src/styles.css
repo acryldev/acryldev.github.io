@@ -867,3 +867,62 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-make .workshop-steps { margin: 0; }
 .workshop-aside-card details { margin: 0; }
 .workshop-aside-card summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+
+/* Workshop room chat: same tokens, square borders and spectrum headings as the panel. */
+.workshop-chat-page { padding-block: 24px 70px; }
+.workshop-chat-page .back-link { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.workshop-chat-page .back-link:hover { color: var(--foreground); }
+.workshop-chat-hero { padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.workshop-chat-hero h1 { max-width: 1000px; margin: 10px 0 0; font-size: clamp(34px, 4.4vw, 56px); font-weight: 650; letter-spacing: -.03em; line-height: 1.04; }
+.workshop-chat-hero .workshop-lede { max-width: 720px; margin: 12px 0 0; color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
+.workshop-chat-hero .workshop-facts { margin-top: 12px; }
+.workshop-chat-status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.workshop-chat-status::before { content: ''; width: 7px; height: 7px; flex: none; border: 1px solid currentColor; background: var(--muted-foreground); }
+.workshop-chat-status.live { color: var(--accent-foreground); }
+.workshop-chat-status.live::before { background: var(--accent-foreground); }
+.workshop-chat-status.connecting::before { background: var(--spectrum-end); }
+.workshop-chat-status.polling::before { background: var(--spectrum-mid); }
+.workshop-chat-status.offline { color: #b42318; }
+:root[data-theme='dark'] .workshop-chat-status.offline { color: #ff8a80; }
+.workshop-chat-card { display: flex; height: calc(100dvh - 400px); min-height: 380px; flex-direction: column; margin-top: 18px; border: 1px solid var(--border); background: var(--card); }
+.workshop-chat-card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+.workshop-chat-status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; }
+.workshop-chat-log { display: flex; flex: 1; flex-direction: column; gap: 12px; overflow-y: auto; padding: 18px; }
+.workshop-chat-empty { margin: auto; color: var(--muted-foreground); font-size: 13px; text-align: center; }
+.workshop-chat-older { align-self: center; }
+.workshop-chat-message { display: grid; gap: 8px; padding: 12px 14px; border: 1px solid var(--border); background: var(--background); }
+.workshop-chat-message.facilitator { border-color: var(--accent-foreground); background: color-mix(in srgb, var(--accent) 10%, var(--background)); }
+.workshop-chat-message header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.workshop-chat-message header strong { font-size: 14px; font-weight: 650; }
+.workshop-chat-message header time { margin-left: auto; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; }
+.workshop-chat-body { margin: 0; overflow-wrap: anywhere; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+.workshop-chat-body a { color: var(--accent-foreground); text-decoration: underline; text-underline-offset: 3px; }
+.workshop-chat-image { display: block; width: max-content; max-width: 100%; border: 1px solid var(--border); }
+.workshop-chat-image img { display: block; width: auto; max-width: 100%; max-height: 280px; height: auto; }
+.workshop-chat-attachment { display: inline-flex; align-items: center; gap: 8px; width: max-content; max-width: 100%; padding: 8px 12px; border: 1px solid var(--border); background: var(--background); color: var(--foreground); cursor: pointer; font-size: 12px; }
+.workshop-chat-attachment:hover { border-color: var(--foreground); }
+.workshop-chat-attachment em { color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; font-style: normal; text-transform: uppercase; }
+.workshop-chat-composer { display: grid; gap: 8px; padding: 12px 18px 14px; border-top: 1px solid var(--border); }
+.workshop-chat-composer textarea { width: 100%; min-height: 64px; padding: 10px 12px; border: 1px solid var(--border); background: var(--background); color: var(--foreground); font: inherit; font-size: 14px; line-height: 1.5; resize: vertical; }
+.workshop-chat-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.workshop-chat-warning { margin: 0; color: var(--muted-foreground); font-size: 11px; line-height: 1.5; }
+.workshop-chat-file-chip { display: inline-flex; align-items: center; gap: 8px; width: max-content; max-width: 100%; padding: 6px 10px; border: 1px dashed var(--border); font-size: 12px; }
+.workshop-chat-file-chip em { color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; font-style: normal; }
+.workshop-chat-file-chip button { display: grid; width: 22px; height: 22px; padding: 0; place-items: center; border: 0; background: transparent; cursor: pointer; }
+.workshop-chat-file-chip svg { width: 14px; height: 14px; }
+.workshop-chat-gate { display: grid; gap: 14px; max-width: 720px; margin-top: 32px; padding: 28px; border: 1px solid var(--border); background: var(--card); }
+.workshop-chat-gate h2 { margin: 0; font-size: 30px; font-weight: 650; letter-spacing: -.02em; }
+.workshop-chat-gate > p { margin: 0; color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
+.workshop-chat-gate > .button { justify-self: start; }
+.workshop-chat-signin { margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--border); }
+.workshop-chat-signin > summary { display: flex; align-items: center; gap: 6px; color: var(--muted-foreground); cursor: pointer; font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.workshop-chat-signin .workshop-form { margin-top: 14px; }
+@media (max-width: 900px) { .workshop-chat-card { height: calc(100dvh - 300px); } .workshop-chat-hero .workshop-lede { display: none; } }
+@media (max-width: 680px) {
+  .workshop-chat-page { padding-block: 26px 60px; }
+  .workshop-chat-hero h1 { font-size: clamp(36px, 11vw, 52px); }
+  .workshop-chat-card { height: calc(100dvh - 210px); min-height: 470px; margin-top: 14px; }
+  .workshop-chat-log { padding: 12px; }
+  .workshop-chat-message { padding: 10px 12px; }
+  .workshop-chat-composer { padding: 10px 12px 12px; }
+}

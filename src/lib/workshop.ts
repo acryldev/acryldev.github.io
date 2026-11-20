@@ -270,6 +270,8 @@ const ADMIN_KEY = 'acryl.workshop.admin'
 
 type PbList<T> = { readonly items: readonly T[]; readonly totalItems: number }
 
+export { pb as workshopApi }
+
 export class WorkshopError extends Error {
   constructor(message: string, readonly status?: number) { super(message) }
 }

@@ -191,6 +191,24 @@ const collections = [
     updateRule: '@request.auth.id != "" && participant = @request.auth.id && @request.body.frankensteinBlockReason:isset = false && (@request.body.frankensteinStatus:isset = false || @request.body.frankensteinStatus = "pending_review" || @request.body.frankensteinStatus = "not_opted_in") && @request.body.publicId:isset = false',
     deleteRule: '@request.auth.id != "" && participant = @request.auth.id',
   },
+  {
+    name: 'workshop_chat_messages',
+    type: 'base',
+    fields: [
+      optionalRelation('participant', 'workshop_participants'),
+      text('authorName', 50, true),
+      select('authorKind', ['participant', 'facilitator'], true),
+      text('body', 4000),
+      { name: 'file', type: 'file', maxSelect: 1, maxSize: 10485760, protected: true },
+      ...timestamps,
+    ],
+    indexes: ['CREATE INDEX `idx_workshop_chat_created` ON `workshop_chat_messages` (`created`)'],
+    listRule: '@request.auth.id != ""',
+    viewRule: '@request.auth.id != ""',
+    createRule: '@request.auth.id != "" && @request.body.authorKind = "participant" && @request.body.participant = @request.auth.id && @request.body.authorName = @request.auth.name',
+    updateRule: null,
+    deleteRule: null,
+  },
 ]
 
 const revealed = (alias) => `(${alias}.revealed = TRUE OR (${alias}.revealAt IS NOT NULL AND ${alias}.revealAt != '' AND datetime(${alias}.revealAt) <= datetime('now')))`
@@ -393,7 +411,14 @@ async function ensureCollection(definition) {
   const missing = definition.fields.filter((field) => !current.some((entry) => entry.name === field.name))
   const patch = { ...rulesOf(definition) }
   if (definition.type === 'view') patch.fields = definition.fields
-  else if (missing.length > 0) patch.fields = [...current, ...missing]
+  else {
+    // The definition is the source of truth for the fields it names; system fields it does not name stay untouched.
+    const merged = current.map((field) => {
+      const wanted = definition.fields.find((entry) => entry.name === field.name)
+      return wanted === undefined ? field : { ...field, ...wanted }
+    })
+    patch.fields = [...merged, ...missing]
+  }
   if (definition.viewQuery !== undefined) patch.viewQuery = definition.viewQuery
   if (definition.indexes !== undefined) patch.indexes = [...new Set([...(existing.indexes ?? []), ...definition.indexes])]
   const patched = await request(`/api/collections/${existing.id}`, { method: 'PATCH', body: patch })

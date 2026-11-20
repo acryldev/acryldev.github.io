@@ -14,6 +14,7 @@ import { QrPage } from './pages/QrPage'
 import { UiPage } from './pages/UiPage'
 import { UpdatesPage } from './pages/UpdatesPage'
 import { WorkshopPanelPage } from './pages/WorkshopPanelPage'
+import { WorkshopChatPage } from './pages/WorkshopChatPage'
 import { EcosystemPage } from './pages/EcosystemPage'
 import { AcrylMicrovmPage } from './pages/AcrylMicrovmPage'
 import { GuidePage } from './pages/GuidePage'
@@ -44,6 +45,7 @@ export function App() {
         <Route path="events/acrylbootcamp" element={<BootcampPage />} />
         <Route path="events/rebaseddotwtf" element={<RebasedPage />} />
         <Route path="workshoppanel" element={<WorkshopPanelPage />} />
+        <Route path="workshoppanel/chat" element={<WorkshopChatPage />} />
         <Route path="updates" element={<UpdatesPage />} />
         <Route path="*" element={<div className="not-found page-width"><span>404</span><h1>Page not found.</h1></div>} />
       </Route>

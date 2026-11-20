@@ -1,13 +1,13 @@
 import { ArrowUpRight, Check, Copy, ExternalLink, Github, Loader2, Star } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { CataloguePane } from '../components/workshop/CataloguePane'
 import { FacilitatorPanel } from '../components/workshop/FacilitatorPanel'
 import { CopyPrivateLink, ParticipantPanel } from '../components/workshop/ParticipantPanel'
 import {
   decodeRecovery, encodeRecovery, formatDateTime, formatTime, forgetCredentials, FRANKENSTEIN_LABELS, isRevealed, loadPublicWorkshop,
   PLUGIN_LABELS, PLUGIN_LIFECYCLE, PROJECT_LABELS, PROJECT_LIFECYCLE, PUBLICATION_LABELS, restoreSession, SOURCE_LABELS, storedCredentials,
-  storeCredentials, submitIdea, TAB_LABELS, TABS, validateIdea, type BoardEntry, type CatalogueEntry, type Credentials, type Idea, type Participant, type PublicPlugin,
+  storeCredentials, submitIdea, TAB_LABELS, TABS, validateIdea, WorkshopError, type BoardEntry, type CatalogueEntry, type Credentials, type Idea, type Participant, type PublicPlugin,
   type PublicWorkshop, type Session, type WorkshopTab, type WorkshopEvent,
 } from '../lib/workshop'
 import { InstallControlCenter } from '../components/workshop/InstallControlCenter'
@@ -35,6 +35,7 @@ export function WorkshopPanelPage() {
   const [sessionNotice, setSessionNotice] = useState<Notice>()
   const [pickedBlueprint, setPickedBlueprint] = useState<CatalogueEntry>()
   const [pickedIdea, setPickedIdea] = useState<string>()
+  const restored = useRef(false)
   const [hasProject, setHasProject] = useState(false)
   const [focusRequest, setFocusRequest] = useState(0)
   const tabsRef = useRef<HTMLElement>(null)
@@ -80,6 +81,9 @@ export function WorkshopPanelPage() {
 
   // One-time recovery link: `#restore=<code>` authenticates and is removed from the address bar at once.
   useEffect(() => {
+    if (restored.current) return
+    restored.current = true
+    const transient = (reason: unknown): boolean => !(reason instanceof WorkshopError) || reason.status === undefined || reason.status === 429
     const code = window.location.hash.startsWith('#restore=') ? window.location.hash.slice('#restore='.length) : undefined
     if (code !== undefined) {
       window.history.replaceState(null, '', window.location.pathname + window.location.search)
@@ -88,14 +92,17 @@ export function WorkshopPanelPage() {
       storeCredentials(credentials)
       restoreSession(credentials)
         .then(next => { setSession(next); setTab('mine') })
-        .catch(() => setSessionNotice({ kind: 'error', text: 'That edit code is no longer valid. Register again or ask the facilitator.' }))
+        .catch(reason => setSessionNotice({ kind: 'error', text: transient(reason) ? 'The session could not be opened right now. Reload to try again.' : 'That edit code is no longer valid. Register again or ask the facilitator.' }))
       return
     }
     const credentials = storedCredentials()
     if (credentials !== undefined) {
       restoreSession(credentials)
         .then(setSession)
-        .catch(() => { forgetCredentials() })
+        .catch(reason => {
+          if (transient(reason)) setSessionNotice({ kind: 'error', text: 'The participant session could not be opened right now. Reload to try again.' })
+          else forgetCredentials()
+        })
     }
   }, [setTab])
 
@@ -154,6 +161,7 @@ export function WorkshopPanelPage() {
         <div className="workshop-hero-actions">
           <button type="button" className="button" onClick={() => { setTab('mine'); askFocus() }}>{session === undefined ? 'Register and start' : hasProject ? 'Open my project' : 'Choose my idea'}</button>
           <button type="button" className="button secondary" onClick={() => setTab('board')}>See the participants</button>
+          <Link className="button secondary" to="/workshoppanel/chat">Room chat</Link>
           <a className="button secondary" href="#facilitator">Facilitator controls</a>
         </div>
       </header>
