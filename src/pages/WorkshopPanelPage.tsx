@@ -201,14 +201,12 @@ function RecoveryBanner({ code, onDismiss }: { readonly code: string; readonly o
   return (
     <div className="workshop-recovery" role="status">
       <div>
-        <strong>Your private edit code. Keep it somewhere safe.</strong>
-        <p>It signs you back in from another device. Anyone with it can edit your project, so do not post it.</p>
-        <code>{code}</code>
+        <strong>You're in. Your project is saved in this browser.</strong>
+        <p>Switching laptops later? Keep this link - it opens your project anywhere. It is private, so don't post it.</p>
       </div>
       <div className="workshop-aside-actions">
-        <button type="button" className="button small" onClick={() => void copy(code, 'code')}>{copied === 'code' ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied === 'code' ? 'Copied' : 'Copy code'}</button>
-        <button type="button" className="button secondary small" onClick={() => void copy(link, 'link')}>{copied === 'link' ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied === 'link' ? 'Copied' : 'Copy restore link'}</button>
-        <button type="button" className="button secondary small" onClick={onDismiss}>Done</button>
+        <button type="button" className="button small" onClick={onDismiss}>Start my project</button>
+        <button type="button" className="button secondary small" onClick={() => void copy(link, 'link')}>{copied === 'link' ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied === 'link' ? 'Copied' : 'Copy my private link'}</button>
       </div>
     </div>
   )

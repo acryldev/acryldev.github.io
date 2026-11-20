@@ -423,7 +423,7 @@ function RegistrationForm({ event, onRegistered }: { readonly event: WorkshopEve
           <p className="eyebrow">My project</p>
           <h2 id="workshop-mine">Register<br /><span className="spectrum-text">for the room.</span></h2>
         </div>
-        <p>A display name is all it takes. No password, no email. You get a private edit code so you can continue on another device.</p>
+        <p>A display name is all it takes. No password, no email, no account.</p>
       </div>
       <form className="workshop-form" onSubmit={input => { input.preventDefault(); void submit() }}>
         <label className="workshop-field">
