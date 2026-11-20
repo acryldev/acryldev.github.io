@@ -26,6 +26,7 @@ export function AgentSetup() {
           {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied ? 'Copied' : 'Copy for my agent'}
         </button>
       </div>
+      <p className="workshop-agent-note">Coding agents in the app's right panel use the ones installed on your computer: Pi <code>npm i -g @earendil-works/pi-coding-agent</code>, Claude Code <code>npm i -g @anthropic-ai/claude-code</code>, Codex <code>npm i -g @openai/codex</code>. Sign in to each once, in its own tab.</p>
       <textarea className="workshop-agent-text" readOnly value={AGENT_SETUP_PROMPT} rows={12} aria-label="Instructions for your AI agent" onFocus={event => event.currentTarget.select()} />
     </section>
   )

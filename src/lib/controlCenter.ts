@@ -120,6 +120,7 @@ export const WORKSHOP_ORG_STEPS: readonly string[] = [
  * installs nor starts it), `npm install` then `npm run dev` prints http://127.0.0.1:<port>/?token=... to open. Sharing is left to the person: the share steps need
  * their GitHub sign-in and their own yes, and `npm run share` exists only in some apps.
  */
+/** Verified on npm 2026-11-20: @earendil-works/pi-coding-agent, @anthropic-ai/claude-code, @openai/codex. */
 export const AGENT_SETUP_PROMPT = `Help me set up ACRYL for a workshop. Do these steps on my computer and tell me what you did after each one.
 
 1. Find my system: macOS Apple silicon, macOS Intel, Windows x64, Windows ARM, Linux x64 or Linux ARM.

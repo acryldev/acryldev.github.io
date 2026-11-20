@@ -35,6 +35,7 @@ describe('the Control Center install block', () => {
     expect(AGENT_SETUP_PROMPT).toContain('https://github.com/acrylblends/63-acryl-control-center/releases/latest/download/')
     expect(AGENT_SETUP_PROMPT).toContain('npm create @acryldev/blends@latest my-app -- --from acrylblends.link-shortener')
     expect(AGENT_SETUP_PROMPT).not.toContain('npm run share')
+    for (const name of ['@earendil-works/pi-coding-agent', '@anthropic-ai/claude-code', '@openai/codex']) expect(AGENT_SETUP_PROMPT).toContain(`npm i -g ${name}`)
     expect(AGENT_SETUP_PROMPT).toMatch(/Do not enter any password or API key/)
     expect(AGENT_SETUP_PROMPT).toContain('sudo xattr -cr "/Applications/ACRYL Control Center.app"')
     expect(AGENT_SETUP_PROMPT).toContain('Unblock')
