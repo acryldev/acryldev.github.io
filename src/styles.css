@@ -754,6 +754,8 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-choice label span { display: inline-flex; align-items: center; }
 .workshop-picked { display: grid; gap: 6px; margin-bottom: 14px; padding: 12px; border: 1px dashed var(--border); }
 .workshop-picked p { margin: 0; }
+.workshop-mine-grid > div > .workshop-ok { display: flex; margin: 14px 0 0; }
+.workshop-mine-grid > div > .button { margin-top: 18px; }
 .workshop-mine-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .9fr); gap: 44px; align-items: start; }
 .workshop-aside-card { display: grid; gap: 10px; margin-bottom: 16px; padding: 18px; border: 1px solid var(--border); background: var(--card); }
 .workshop-aside-card h3 { margin: 0; font-size: 16px; font-weight: 600; }
