@@ -772,6 +772,8 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-bp-meta { display: flex; flex-wrap: wrap; gap: 6px; }
 .workshop-bp-meta span { font-family: 'DM Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted-foreground); }
 .workshop-bp-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 0 16px 14px; }
+.workshop-bp-command { padding: 0 16px 10px; min-width: 0; }
+.workshop-bp-command .package-install { margin: 0; }
 .workshop-bp-actions .button svg { width: 13px; height: 13px; }
 @media (max-width: 1100px) { .workshop-bp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 680px) { .workshop-bp-grid { grid-template-columns: 1fr; } .workshop-bp-filters select { max-width: none; } }

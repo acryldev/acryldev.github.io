@@ -772,6 +772,16 @@ export async function loadCatalogue(signal: AbortSignal): Promise<readonly Catal
   return entries
 }
 
+/**
+ * The one command that makes an app from a catalogue Blueprint, or undefined when it cannot: `create-acrylblends --from <id>` reads the
+ * public registry only, so a Community entry and an ACRYL starter (runtime acryl) are refused. Run for two Blends on 1.6.0.
+ */
+export function createCommandOf(entry: CatalogueEntry): string | undefined {
+  if (entry.origin === 'community' || entry.runtime !== 'acrylblends') return undefined
+  const folder = entry.id.slice(entry.id.lastIndexOf('.') + 1)
+  return `npm create acrylblends@latest ${folder} -- --from ${entry.id}`
+}
+
 const BLENDS_DISCOVERED = `${BLEND_REGISTRY_BASE}discovered.json`
 
 /** Where a Blend sits in the Blends site's taxonomy, with its page and screenshot, from the registry's placement.json. */
