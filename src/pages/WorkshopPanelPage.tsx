@@ -200,6 +200,7 @@ export function WorkshopPanelPage() {
           pickedIdea={pickedIdea}
           onRegistered={onRegistered}
           onPickedConsumed={() => setPickedBlueprint(undefined)}
+          onBrowseCatalogue={() => setTab('blueprints')}
           onIdeaConsumed={() => setPickedIdea(undefined)}
           onParticipantUpdated={(participant: Participant) => setSession(current => current === undefined ? current : { ...current, participant })}
           onForget={onForget}

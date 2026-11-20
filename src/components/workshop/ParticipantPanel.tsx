@@ -149,6 +149,8 @@ export interface ParticipantPanelProps {
   /** Each new value moves focus to the first field to fill: the name before registering, else the project's first field. */
   readonly focusRequest: number
   readonly onProjectKnown: (exists: boolean) => void
+  /** Opens the catalogue in its own tab, where a Blueprint is picked. */
+  readonly onBrowseCatalogue: () => void
 }
 
 /** The panel's address without a hash, the base of every private link. */
@@ -169,7 +171,7 @@ export function CopyPrivateLink({ credentials, className = 'button secondary sma
 }
 
 export function ParticipantPanel(props: ParticipantPanelProps) {
-  const { event, ideas, session, pickedBlueprint, pickedIdea, onRegistered, onPickedConsumed, onIdeaConsumed, onParticipantUpdated, onForget, onPublicChanged, banner, focusRequest, onProjectKnown } = props
+  const { event, ideas, session, pickedBlueprint, pickedIdea, onRegistered, onPickedConsumed, onIdeaConsumed, onParticipantUpdated, onForget, onPublicChanged, banner, focusRequest, onProjectKnown, onBrowseCatalogue } = props
   const [mine, setMine] = useState<{ project?: MyProject; plugins: readonly MyPlugin[] }>()
   const [mineError, setMineError] = useState<string>()
   const [version, setVersion] = useState(0)
@@ -305,7 +307,7 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
             <legend>Starting path</legend>
             {([['idea_pool', 'Idea pool'], ['custom_idea', 'Own idea'], ['catalogue_blueprint', 'Catalogue Blueprint']] as const).map(([value, label]) => (
               <label key={value}>
-                <input type="radio" name="sourceMode" checked={projectForm.sourceMode === value} onChange={() => setProject({ sourceMode: value })} />
+                <input type="radio" name="sourceMode" checked={projectForm.sourceMode === value} onChange={() => { setProject({ sourceMode: value }); if (value === 'catalogue_blueprint' && projectForm.blueprintId === '') onBrowseCatalogue() }} />
                 <span>{label}</span>
               </label>
             ))}
@@ -329,11 +331,17 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
           {projectForm.sourceMode === 'catalogue_blueprint' && (
             <div className="workshop-picked">
               {projectForm.blueprintId === ''
-                ? <p className="workshop-note-inline">Pick a Blueprint in the Blueprints tab.</p>
+                ? <>
+                    <p className="workshop-note-inline">Pick a Blueprint in the catalogue: every category is open, with its subcategories and what is already published.</p>
+                    <button type="button" className="button secondary small" onClick={onBrowseCatalogue}>Browse the catalogue</button>
+                  </>
                 : <>
                     <p><strong>{projectForm.blueprintId}</strong> v{projectForm.blueprintVersion}</p>
                     <p className="workshop-note-inline">{projectForm.blueprintRuntime === 'acrylblends' ? 'Standalone ACRYL Blends app' : projectForm.blueprintRuntime === 'acryl' ? 'Starter for the ACRYL app' : 'Runtime not recorded'}{projectForm.blueprintOrigin === 'community' ? ' - Community Blueprint' : ''}</p>
-                    <button type="button" className="button secondary small" onClick={() => setProject({ blueprintId: '', blueprintVersion: '', blueprintRuntime: '', blueprintOrigin: '' })}>Clear</button>
+                    <div className="workshop-picked-actions">
+                      <button type="button" className="button secondary small" onClick={onBrowseCatalogue}>Change</button>
+                      <button type="button" className="button secondary small" onClick={() => setProject({ blueprintId: '', blueprintVersion: '', blueprintRuntime: '', blueprintOrigin: '' })}>Clear</button>
+                    </div>
                   </>}
             </div>
           )}

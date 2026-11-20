@@ -757,10 +757,31 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-choice label span { display: inline-flex; align-items: center; }
 .workshop-picked { display: grid; gap: 6px; margin-bottom: 14px; padding: 12px; border: 1px dashed var(--border); }
 .workshop-picked p { margin: 0; }
+.workshop-picked-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 /* Blueprint browser: a screenshot, what it is, where it sits, and two actions per card. */
 .workshop-bp-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
 .workshop-bp-filters > label:not(.workshop-search) { display: flex; align-items: center; gap: 8px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; }
 .workshop-bp-filters select { min-height: 40px; max-width: 220px; }
+/* The catalogue opened sideways: every category as a cell of one grid, then its subcategories, instead of a 100-entry dropdown. */
+.workshop-bp-browse { margin: 8px 0 20px; }
+.workshop-bp-browse-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.workshop-bp-browse-head h3 { margin: 0; font-size: 24px; font-weight: 600; }
+.workshop-bp-browse-head .workshop-note-inline { max-width: 480px; margin: 0; }
+.workshop-bp-cats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 18px; padding: 0; list-style: none; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+.workshop-bp-cats > li { display: flex; min-width: 0; }
+.workshop-bp-cat { display: grid; width: 100%; gap: 6px; padding: 16px 18px; text-align: left; border: 0; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--background); color: inherit; cursor: pointer; }
+.workshop-bp-cat:hover { background: var(--muted); }
+.workshop-bp-cat-num { font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .08em; color: var(--muted-foreground); }
+.workshop-bp-cat-name { font-size: 17px; font-weight: 600; }
+.workshop-bp-cat-subs { font-size: 12.5px; line-height: 1.45; color: var(--muted-foreground); }
+.workshop-bp-cat-count { margin-top: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; color: var(--muted-foreground); }
+.workshop-bp-space-actions { display: flex; }
+.workshop-bp-view { display: flex; gap: 0; border: 1px solid var(--border); }
+.workshop-bp-view button { padding: 8px 12px; border: 0; background: var(--background); color: inherit; font-size: 13px; cursor: pointer; }
+.workshop-bp-view button + button { border-left: 1px solid var(--border); }
+.workshop-bp-view button.active { background: var(--foreground); color: var(--background); }
+@media (max-width: 1100px) { .workshop-bp-cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .workshop-bp-cats { grid-template-columns: 1fr; } }
 .workshop-bp-count { margin: 0 0 14px; }
 .workshop-bp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .workshop-bp-card { display: flex; min-width: 0; flex-direction: column; border: 1px solid var(--border); background: var(--background); }

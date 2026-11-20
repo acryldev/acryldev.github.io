@@ -33,6 +33,8 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
   const [category, setCategory] = useState('all')
   const [subcategory, setSubcategory] = useState('all')
   const [runtime, setRuntime] = useState('all')
+  /** The two ways the catalogue opens: by category, or the flat list of every Blend. */
+  const [flat, setFlat] = useState(false)
   const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
@@ -90,22 +92,6 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
           <input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search Blueprints" aria-label="Search the Blends catalogue" />
         </label>
         <label>
-          <span>Category</span>
-          <select value={category} onChange={event => { setCategory(event.target.value); setSubcategory('all') }}>
-            <option value="all">All categories</option>
-            {categories.map(value => <option key={value} value={value}>{numberOf(value)}{value}{countIn(value) > 0 ? ` (${String(countIn(value))})` : ''}</option>)}
-          </select>
-        </label>
-        {subcategories.length > 0 && (
-          <label>
-            <span>Subcategory</span>
-            <select value={subcategory} onChange={event => setSubcategory(event.target.value)}>
-              <option value="all">All in {category}</option>
-              {subcategories.map(value => <option key={value} value={value}>{value}{countIn(category, value) > 0 ? ` (${String(countIn(category, value))})` : ''}</option>)}
-            </select>
-          </label>
-        )}
-        <label>
           <span>Kind</span>
           <select value={runtime} onChange={event => setRuntime(event.target.value)}>
             <option value="all">All kinds</option>
@@ -114,14 +100,51 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
           </select>
         </label>
       </div>
+      {load.state === 'live' && category === 'all' && (
+        <div className="workshop-bp-browse">
+          <div className="workshop-bp-browse-head">
+            <div>
+              <p className="eyebrow">The taxonomy</p>
+              <h3>{flat ? 'Every Blueprint' : 'Browse by category'}</h3>
+            </div>
+            <p className="workshop-note-inline">{flat ? 'The flat list: every published Blueprint, whichever category it sits in.' : 'Every category the Blends catalogue has, empty ones too: the address is ready before the first publication. Pick one, then a subcategory, or search above.'}</p>
+            <div className="workshop-bp-view" role="group" aria-label="Catalogue view">
+              <button type="button" className={flat ? 'active' : undefined} aria-pressed={!flat} onClick={() => setFlat(false)}>Categories</button>
+              <button type="button" className={flat ? undefined : 'active'} aria-pressed={flat} onClick={() => { setFlat(true); setSubcategory('all') }}>All Blueprints</button>
+            </div>
+          </div>
+          {!flat && <ul className="workshop-bp-cats">
+            {categories.map(name => {
+              const count = countIn(name)
+              const subs = taxonomy.find(item => item.name === name)?.subs.map(item => item.name) ?? []
+              return (
+                <li key={name}>
+                  <button type="button" className="workshop-bp-cat" onClick={() => { setCategory(name); setSubcategory('all') }}>
+                    <span className="workshop-bp-cat-num">{numberOf(name).trim() || '-'}</span>
+                    <span className="workshop-bp-cat-name">{name}</span>
+                    {subs.length > 0 && <span className="workshop-bp-cat-subs">{subs.slice(0, 3).join(' · ')}{subs.length > 3 ? ' · ...' : ''}</span>}
+                    <span className="workshop-bp-cat-count">{count === 0 ? 'Open space' : `${String(count)} ${count === 1 ? 'Blueprint' : 'Blueprints'}`}</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ul>}
+        </div>
+      )}
       {load.state === 'live' && category !== 'all' && (
         <div className="workshop-bp-space">
           <p className="eyebrow">{space === undefined ? 'Category' : `Category ${two(space.number)}`}</p>
           <h3>{category}</h3>
+          <div className="workshop-bp-space-actions">
+            <button type="button" className="button secondary small" onClick={() => { setCategory('all'); setSubcategory('all') }}>All categories</button>
+          </div>
           {subcategories.length > 0 && (
             <div className="workshop-bp-subs" role="group" aria-label={`Subcategories of ${category}`}>
+              <button type="button" className={subcategory === 'all' ? 'active' : undefined} aria-pressed={subcategory === 'all'} onClick={() => setSubcategory('all')}>
+                All of {category}
+              </button>
               {subcategories.map(value => (
-                <button key={value} type="button" className={subcategory === value ? 'active' : undefined} aria-pressed={subcategory === value} onClick={() => setSubcategory(subcategory === value ? 'all' : value)}>
+                <button key={value} type="button" className={subcategory === value ? 'active' : undefined} aria-pressed={subcategory === value} onClick={() => setSubcategory(value)}>
                   {value}{countIn(category, value) > 0 && <em>{countIn(category, value)}</em>}
                 </button>
               ))}
