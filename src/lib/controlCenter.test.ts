@@ -10,7 +10,7 @@ describe('the Control Center install block', () => {
     expect(platformOf('Mozilla/5.0 (Linux; Android 14) Chrome/130')).toBe('other')
   })
   it('links every installer on the latest release', () => {
-    expect(INSTALLERS.map(downloadUrl)).toContain('https://github.com/acryldev/acryl/releases/download/control-center-v0.2.0/ACRYL-Control-Center-mac-arm64.dmg')
+    expect(INSTALLERS.map(downloadUrl)).toContain('https://github.com/acryldev/acryl/releases/download/control-center-v0.2.1/ACRYL-Control-Center-mac-arm64.dmg')
     expect(INSTALLERS).toHaveLength(6)
     expect(INSTALLERS.filter(installer => installer.primary).map(installer => installer.id)).toEqual(['mac-arm64', 'mac-x64', 'win-x64', 'linux-x64'])
   })

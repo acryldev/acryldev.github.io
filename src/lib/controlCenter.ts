@@ -1,7 +1,7 @@
 /** Where participants get the ACRYL Control Center and how they use it. Participants use this app only, never a terminal. */
 
 /** The published Control Center release the installers belong to; move it with each new release. */
-const RELEASE_TAG = 'control-center-v0.2.0'
+const RELEASE_TAG = 'control-center-v0.2.1'
 export const CONTROL_CENTER_RELEASES = `https://github.com/acryldev/acryl/releases/tag/${RELEASE_TAG}`
 const DOWNLOAD = `https://github.com/acryldev/acryl/releases/download/${RELEASE_TAG}/`
 
@@ -79,6 +79,9 @@ export const SHARE_PLUGIN_STEPS: readonly string[] = [
   'Choose Private or Public, then confirm.',
   'It gets its own GitHub repository and release. A public one shows in the Cordis registry as Community.',
 ]
+
+/** For a shared Public app that should be online: the card's Deploy to WebBoxes.ai (Control Center 0.2.1). */
+export const DEPLOY_LINE = 'To put a shared Public app online: its card > Deploy to WebBoxes.ai, sign in, Create WebBox, then Publish.'
 
 /** "In Control Center: Blends store > Notes > Make an app" */
 export const createPathOf = (blueprintName: string): string => `In Control Center: ${STORE} > ${blueprintName} > ${MAKE_AN_APP} > ${CONFIRM_MAKE}`

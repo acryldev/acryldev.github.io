@@ -1,4 +1,4 @@
-import { MAKE_STEPS, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS } from '../../lib/controlCenter'
+import { DEPLOY_LINE, MAKE_STEPS, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS } from '../../lib/controlCenter'
 
 function Steps({ steps }: { readonly steps: readonly string[] }) {
   return <ol className="workshop-steps">{steps.map(step => <li key={step}>{step}</li>)}</ol>
@@ -35,6 +35,7 @@ export function ShareSteps() {
         <summary>Share a plugin</summary>
         <Steps steps={SHARE_PLUGIN_STEPS} />
       </details>
+      <p className="workshop-note-inline">{DEPLOY_LINE}</p>
       <p className="workshop-note-inline">Then paste the links above. Registry discovery runs hourly: until your entry appears, keep <strong>Published - indexing pending</strong> selected. Sharing is not a catalogue entry.</p>
       <p className="workshop-note-inline">Community plugins and Blends are community-maintained and not reviewed by ACRYL.</p>
     </div>
