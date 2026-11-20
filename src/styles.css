@@ -754,6 +754,27 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-choice label span { display: inline-flex; align-items: center; }
 .workshop-picked { display: grid; gap: 6px; margin-bottom: 14px; padding: 12px; border: 1px dashed var(--border); }
 .workshop-picked p { margin: 0; }
+/* Blueprint browser: a screenshot, what it is, where it sits, and two actions per card. */
+.workshop-bp-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+.workshop-bp-filters > label:not(.workshop-search) { display: flex; align-items: center; gap: 8px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; }
+.workshop-bp-filters select { min-height: 40px; max-width: 220px; }
+.workshop-bp-count { margin: 0 0 14px; }
+.workshop-bp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.workshop-bp-card { display: flex; min-width: 0; flex-direction: column; border: 1px solid var(--border); background: var(--background); }
+.workshop-bp-shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--accent) 8%, var(--background)); }
+.workshop-bp-shot.bare { aspect-ratio: 16 / 4; }
+.workshop-bp-shot.bare .workshop-bp-shot-empty { font-size: 28px; }
+.workshop-bp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.workshop-bp-shot-empty { display: grid; width: 100%; height: 100%; place-items: center; color: var(--muted-foreground); font-size: 44px; }
+.workshop-bp-body { display: grid; flex: 1; align-content: start; gap: 8px; padding: 14px 16px; }
+.workshop-bp-body h3 { margin: 0; font-size: 19px; }
+.workshop-bp-body p { margin: 0; color: var(--muted-foreground); font-size: 13px; line-height: 1.55; }
+.workshop-bp-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.workshop-bp-meta span { font-family: 'DM Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted-foreground); }
+.workshop-bp-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 0 16px 14px; }
+.workshop-bp-actions .button svg { width: 13px; height: 13px; }
+@media (max-width: 1100px) { .workshop-bp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .workshop-bp-grid { grid-template-columns: 1fr; } .workshop-bp-filters select { max-width: none; } }
 .workshop-mine-grid > div > .workshop-ok { display: flex; margin: 14px 0 0; }
 .workshop-mine-grid > div > .button { margin-top: 18px; }
 .workshop-mine-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .9fr); gap: 44px; align-items: start; }

@@ -774,6 +774,36 @@ export async function loadCatalogue(signal: AbortSignal): Promise<readonly Catal
 
 const BLENDS_DISCOVERED = `${BLEND_REGISTRY_BASE}discovered.json`
 
+/** Where a Blend sits in the Blends site's taxonomy, with its page and screenshot, from the registry's placement.json. */
+export interface BlendPlacement {
+  readonly category: string | undefined
+  readonly subcategory: string | undefined
+  readonly page: string | undefined
+  readonly screenshot: string | undefined
+}
+
+/** id -> placement. Optional enrichment: when the file is missing the catalogue still lists every Blend, just without categories and pictures. */
+export async function loadPlacement(signal: AbortSignal): Promise<ReadonlyMap<string, BlendPlacement>> {
+  const result = new Map<string, BlendPlacement>()
+  try {
+    const response = await fetch(`${BLEND_REGISTRY_BASE}placement.json`, { signal })
+    if (!response.ok) return result
+    const document: unknown = await response.json()
+    const entries = typeof document === 'object' && document !== null ? (document as { entries?: unknown }).entries : undefined
+    if (typeof entries !== 'object' || entries === null) return result
+    const text = (value: unknown): string | undefined => typeof value === 'string' && value !== '' ? value : undefined
+    const https = (value: unknown): string | undefined => { const url = text(value); return url !== undefined && url.startsWith('https://') ? url : undefined }
+    for (const [id, value] of Object.entries(entries)) {
+      if (typeof value !== 'object' || value === null) continue
+      const record = value as Record<string, unknown>
+      result.set(id, { category: text(record.category), subcategory: text(record.subcategory), page: https(record.page), screenshot: https(record.screenshot) })
+    }
+  } catch (cause) {
+    if (signal.aborted) throw cause
+  }
+  return result
+}
+
 function parseDiscovered(value: unknown): CatalogueEntry | undefined {
   if (typeof value !== 'object' || value === null) return undefined
   const record = value as Record<string, unknown>
