@@ -144,6 +144,8 @@ export const AGENT_SETUP_PROMPT = `Help me set up ACRYL for a workshop. Do these
 
 6. Make sure I have joined the ACRYL WORKSHOP GitHub organization with my own account: open https://github.com/orgs/acrylworkshop/invitation in my browser, sign in as me, and click "Join ACRYL WORKSHOP" (the Copilot seat is optional). Do not accept the invitation for me, do not create an account for me, and never ask for my GitHub password.
 
-7. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
+7. The coding agents in the right panel of an app (Pi, Claude Code, Codex) use the ones installed on my computer. If a tab says "command not found in PATH", install the one I want (needs Node.js and npm): Pi `npm i -g @earendil-works/pi-coding-agent`, Claude Code `npm i -g @anthropic-ai/claude-code`, Codex `npm i -g @openai/codex`. I sign in to each once, myself, in its own tab.
+
+8. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
 
 Do not enter any password or API key for me: ask me to type them myself.`
