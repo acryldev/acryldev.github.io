@@ -679,6 +679,9 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-tabs button { min-height: 36px; padding: 0 12px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
 .workshop-tabs button:hover { border-color: var(--foreground); }
 .workshop-tabs button.active { border-color: var(--foreground); background: var(--foreground); color: var(--background); }
+.workshop-tabs .workshop-tab-chat { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 12px; border: 1px solid var(--accent-foreground); color: var(--accent-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.workshop-tabs .workshop-tab-chat:hover { border-color: var(--foreground); background: var(--foreground); color: var(--background); }
+.workshop-tabs .workshop-tab-chat svg { width: 12px; height: 12px; }
 .workshop-section { padding-block: 44px 8px; }
 .workshop-section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 26px; }
 .workshop-section-head h2 { margin: 10px 0 0; font-size: clamp(28px, 3.4vw, 44px); font-weight: 650; letter-spacing: -.02em; line-height: 1.1; }

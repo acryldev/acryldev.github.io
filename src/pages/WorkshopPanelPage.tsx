@@ -177,6 +177,7 @@ export function WorkshopPanelPage() {
             {TAB_LABELS[value]}
           </button>
         ))}
+        <Link className="workshop-tab-chat" to="/workshoppanel/chat">Room chat <ArrowUpRight aria-hidden="true" /></Link>
       </nav>
 
       {tab === 'overview' && <Overview event={event} stats={stats} board={board} plugins={plugins} revealed={revealed} onJoin={() => setTab('mine')} onBoard={() => setTab('board')} />}
@@ -212,7 +213,7 @@ export function WorkshopPanelPage() {
       <FacilitatorPanel event={event} ideas={ideas} board={board} plugins={plugins} onChanged={refresh} />
       <footer className="workshop-footer">
         <p>Built with the public Blends catalogue and Cordis Plugins registry. Community plugins and Blends are community-maintained and not reviewed by ACRYL. The site never installs, builds or runs participant code.</p>
-        <p><a href="https://acrylblends.github.io/blends" target="_blank" rel="noreferrer">Blends catalogue <ArrowUpRight aria-hidden="true" /></a> · <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins <ArrowUpRight aria-hidden="true" /></a></p>
+        <p><Link to="/workshoppanel/chat">Room chat <ArrowUpRight aria-hidden="true" /></Link> · <a href="https://acrylblends.github.io/blends" target="_blank" rel="noreferrer">Blends catalogue <ArrowUpRight aria-hidden="true" /></a> · <a href="https://cordisplugins.github.io" target="_blank" rel="noreferrer">Cordis Plugins <ArrowUpRight aria-hidden="true" /></a></p>
       </footer>
     </div>
   )
