@@ -1,9 +1,9 @@
 /** Where participants get the ACRYL Control Center and how they use it. Participants use this app only, never a terminal. */
 
-/** The published Control Center release the installers belong to; move it with each new release. */
-const RELEASE_TAG = 'control-center-v0.2.1'
-export const CONTROL_CENTER_RELEASES = `https://github.com/acryldev/acryl/releases/tag/${RELEASE_TAG}`
-const DOWNLOAD = `https://github.com/acryldev/acryl/releases/download/${RELEASE_TAG}/`
+/** Control Center's own release repository: its releases/latest/download links never change, whichever version is the latest. */
+const RELEASE_REPO = 'https://github.com/acrylblends/63-acryl-control-center'
+export const CONTROL_CENTER_RELEASES = `${RELEASE_REPO}/releases/latest`
+const DOWNLOAD = `${RELEASE_REPO}/releases/latest/download/`
 
 export type Platform = 'mac' | 'windows' | 'linux' | 'other'
 
