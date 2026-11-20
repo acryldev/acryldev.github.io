@@ -8,8 +8,22 @@ const PROVIDER_FIELDS: readonly (readonly [string, string])[] = [
   ['Base URL', 'https://api.orcarouter.ai/v1'],
   ['API protocol', 'OpenAI Chat Completions'],
   ['Retry policy', 'Default (Transient errors)'],
-  ['Models', 'keep orcarouter/free (OrcaRouter Free), or click Fetch available models'],
   ['API key', 'the workshop key below'],
+]
+
+/** The model the workshop runs on. */
+export const WORKSHOP_MODEL = 'deepseek/deepseek-v4.1-flash'
+
+/** Exactly the models the workshop's key may use. Fetch available models can list more: only these are added. */
+export const WORKSHOP_MODELS: readonly (readonly [string, string])[] = [
+  ['orcarouter/free', 'OrcaRouter Free'],
+  ['orcarouter/pod', 'OrcaRouter Pod'],
+  ['orcarouter/fusion', 'OrcaRouter Fusion'],
+  ['orcarouter/fusion-flash', 'OrcaRouter Fusion Flash'],
+  ['orcarouter/fusion-mini', 'OrcaRouter Fusion Mini'],
+  ['deepseek/deepseek-v4-flash', 'DeepSeek V4 Flash'],
+  ['deepseek/deepseek-v4.1-flash', 'DeepSeek V4.1 Flash'],
+  ['deepseek/deepseek-reasoner', 'DeepSeek Reasoner'],
 ]
 
 /** The model key for this workshop, sealed in the site and opened only with the password spoken in the room. Shown in My project only. */
@@ -59,6 +73,16 @@ export function ModelKeyCard() {
           </div>
         ))}
       </dl>
+      <div className="workshop-model-catalog">
+        <p className="eyebrow">Models: add exactly these, no others</p>
+        <p>In this workshop, always use <strong>DeepSeek V4.1 Flash</strong> (<code>deepseek/deepseek-v4.1-flash</code>): it is the model every app here runs on. Do not switch to another one unless it fails.</p>
+        <ul>
+          {WORKSHOP_MODELS.map(([id, name]) => (
+            <li key={id}><code>{id}</code> <span>{name}</span>{id === WORKSHOP_MODEL && <em className="workshop-chip">workshop default</em>}</li>
+          ))}
+        </ul>
+        <p className="workshop-note-inline">Under Models &gt; Customized model catalog. "Fetch available models" can list more; do not add them: this key is shared, and only this list belongs to the workshop.</p>
+      </div>
       {key === undefined
         ? (
             <form className="workshop-model-reveal" onSubmit={event => { event.preventDefault(); void reveal() }}>

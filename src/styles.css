@@ -769,6 +769,11 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-model-reveal { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
 .workshop-model-reveal .workshop-field { flex: 1 1 260px; }
 .workshop-model-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.workshop-model-catalog { display: grid; gap: 8px; }
+.workshop-model-catalog ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.workshop-model-catalog li { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding: 4px 0; border-bottom: 1px dashed var(--border); font-size: 13.5px; }
+.workshop-model-catalog code { font-family: 'DM Mono', ui-monospace, monospace; font-size: 12.5px; }
+.workshop-model-catalog li span { color: var(--muted-foreground); }
 @media (max-width: 680px) { .workshop-model-fields > div { grid-template-columns: 1fr; } .workshop-model-fields dt { border-right: 0; border-bottom: 1px solid var(--border); } }
 
 /* Blueprint browser: a screenshot, what it is, where it sits, and two actions per card. */

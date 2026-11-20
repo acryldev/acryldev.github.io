@@ -70,7 +70,7 @@ Never public: email, password hash, participant ids, auth tokens, unpublished (c
   is blocked, right-click > Properties > Unblock, and Linux needs nothing. The same instructions are in the agent brief (`AGENT_SETUP_PROMPT`), so an agent
   setting the machine up tells the person exactly that.
 - The workshop model key (OrcaRouter) is set up in Settings > Models, with Display name OrcaRouter, Base URL `https://api.orcarouter.ai/v1`, API protocol
-  OpenAI Chat Completions, Retry policy Default, and the free model `orcarouter/free`. `ModelKeyCard` in My project shows those fields and reveals the key
+  OpenAI Chat Completions, Retry policy Default, and exactly this model catalog, no others: `orcarouter/free`, `orcarouter/pod`, `orcarouter/fusion`, `orcarouter/fusion-flash`, `orcarouter/fusion-mini`, `deepseek/deepseek-v4-flash`, `deepseek/deepseek-v4.1-flash`, `deepseek/deepseek-reasoner`. The workshop always prefers `deepseek/deepseek-v4.1-flash` (DeepSeek V4.1 Flash), shown on the card as the workshop default; participants are told to switch only if it fails. `ModelKeyCard` in My project shows those fields and reveals the key
   only after the room's password is entered. The key is sealed in `src/lib/workshopKey.ts` (PBKDF2-SHA-256 with 310 000 rounds, AES-256-GCM): the repository
   holds only the ciphertext, and the password is spoken in the room and never written to this repo, so reading the source does not reveal it.
 
