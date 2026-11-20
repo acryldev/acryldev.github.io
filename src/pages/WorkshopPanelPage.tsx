@@ -117,6 +117,7 @@ export function WorkshopPanelPage() {
   }
 
   const { event, ideas, stats, board, plugins } = load.data
+  const titleParts = event.title.split(': ')
   const revealed = isRevealed(event)
   const projects = board.filter(entry => entry.projectId !== '')
 
@@ -124,7 +125,11 @@ export function WorkshopPanelPage() {
     <div className="workshop-page page-width">
       <header className="workshop-hero">
         <p className="eyebrow">ACRYL Workshop · {formatDateTime(event.startsAt, event.timezone)}</p>
-        <h1>{event.title}</h1>
+        <h1>
+          {titleParts.length > 1
+            ? <>{titleParts[0]}:<br /><span className="spectrum-text">{titleParts.slice(1).join(': ')}</span></>
+            : event.title}
+        </h1>
         <p className="workshop-lede">{event.description}</p>
         <div className="workshop-facts">
           <span className="workshop-chip accent">{event.phase}</span>
@@ -226,7 +231,7 @@ function Overview({ event, stats, board, plugins, revealed, onJoin, onBoard }: {
         <div className="workshop-section-head">
           <div>
             <p className="eyebrow">At a glance</p>
-            <h2 id="workshop-overview">One room, twenty applications, one plugin pool</h2>
+            <h2 id="workshop-overview">One room, twenty applications,<br /><span className="spectrum-text">one plugin pool.</span></h2>
           </div>
           <p>Each participant builds a real app, turns its features into Cordis Plugins, and publishes the links here. The public board opens after the topic reveal.</p>
         </div>
@@ -292,7 +297,7 @@ function IdeaPool({ ideas, session, onPick, onChanged }: {
   return (
     <section className="workshop-section" aria-labelledby="workshop-ideas">
       <div className="workshop-section-head">
-        <div><p className="eyebrow">Idea pool</p><h2 id="workshop-ideas">Pick a direction, or bring your own</h2></div>
+        <div><p className="eyebrow">Idea pool</p><h2 id="workshop-ideas">Pick a direction,<br /><span className="spectrum-text">or bring your own.</span></h2></div>
         <p>Every idea suggests two or three features that become separate Cordis Plugins. Duplicate themes are fine when the product or the user differs.</p>
       </div>
       <div className="workshop-ideas">
@@ -350,7 +355,7 @@ function Board({ board, plugins }: { readonly board: readonly BoardEntry[]; read
   return (
     <section className="workshop-section" aria-labelledby="workshop-board">
       <div className="workshop-section-head">
-        <div><p className="eyebrow">Participants</p><h2 id="workshop-board">Who is building what</h2></div>
+        <div><p className="eyebrow">Participants</p><h2 id="workshop-board">Who is building<br /><span className="spectrum-text">what, right now.</span></h2></div>
         <p>Only people who chose to be on the board appear here. Progress is self-reported; a published link is the participant's own record, not an ACRYL review.</p>
       </div>
       {board.length === 0 && <p className="workshop-empty">No one has opted into the public board yet.</p>}
@@ -426,7 +431,7 @@ function PluginPool({ plugins }: { readonly plugins: readonly PublicPlugin[] }) 
   return (
     <section className="workshop-section" aria-labelledby="workshop-plugins">
       <div className="workshop-section-head">
-        <div><p className="eyebrow">Plugin pool</p><h2 id="workshop-plugins">Every contribution, in one place</h2></div>
+        <div><p className="eyebrow">Plugin pool</p><h2 id="workshop-plugins">Every contribution,<br /><span className="spectrum-text">in one place.</span></h2></div>
         <p>Community plugins run inside the app once installed. They are community-maintained and not reviewed by ACRYL.</p>
       </div>
       <div className="workshop-filters">
@@ -483,7 +488,7 @@ function Gallery({ projects, plugins }: { readonly projects: readonly BoardEntry
   return (
     <section className="workshop-section" aria-labelledby="workshop-gallery">
       <div className="workshop-section-head">
-        <div><p className="eyebrow">App gallery</p><h2 id="workshop-gallery">The applications of the room</h2></div>
+        <div><p className="eyebrow">App gallery</p><h2 id="workshop-gallery">The applications<br /><span className="spectrum-text">of the room.</span></h2></div>
         <p>Published links are the participants' own. A registry link appears only after the hourly discovery has catalogued the app.</p>
       </div>
       <div className="workshop-filters">
@@ -525,7 +530,7 @@ function Frankenstein({ event, plugins, revealed }: { readonly event: WorkshopEv
   return (
     <section className="workshop-section" aria-labelledby="workshop-frankenstein">
       <div className="workshop-section-head">
-        <div><p className="eyebrow">Frankenstein App</p><h2 id="workshop-frankenstein">One app from the room's plugins</h2></div>
+        <div><p className="eyebrow">Frankenstein App</p><h2 id="workshop-frankenstein">One app<br /><span className="spectrum-text">from the room's plugins.</span></h2></div>
         <p>A curated composition, not a blind execution. The facilitator mounts only opted-in, reviewed plugins in a separate test environment without production secrets.</p>
       </div>
       <div className="workshop-frankenstein-card">

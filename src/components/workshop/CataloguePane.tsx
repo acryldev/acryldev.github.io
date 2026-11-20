@@ -39,7 +39,7 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
       <div className="workshop-section-head">
         <div>
           <p className="eyebrow">Start from a Blueprint</p>
-          <h2 id="workshop-blueprints">The public Blends catalogue</h2>
+          <h2 id="workshop-blueprints">The public<br /><span className="spectrum-text">Blends catalogue.</span></h2>
         </div>
         <p>Read live from the ACRYL Blends registry. A Blueprint is a starting point, not a constraint: make the app your own and add an original plugin.</p>
       </div>
