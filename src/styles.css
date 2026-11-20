@@ -77,6 +77,9 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
 :root[data-theme='dark'] .brand-logo { filter: invert(1); }
 .brand-word { font-size: 13px; font-weight: 800; letter-spacing: .28em; }
 .site-nav { display: flex; align-items: center; gap: 28px; }
+/* The page caps at 1240px, so the full nav and the header actions run out of room above the 1100 breakpoint: at the
+   default 28px gap the last item (Merch) touches the theme button. Free space by tightening the nav above that line. */
+@media (min-width: 1101px) { .site-nav { gap: 18px; } }
 .site-nav a { color: var(--muted-foreground); font-size: 13px; font-weight: 600; letter-spacing: 0; transition: color 160ms ease; }
 .site-nav a:hover, .site-nav a.active { color: var(--foreground); }
 .site-nav .community-link { display: inline-flex; align-items: center; gap: 6px; }
