@@ -1,6 +1,7 @@
 import { Check, Copy, Loader2, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { createPathOf, sharePathOf } from '../../lib/controlCenter'
+import { createPathOf } from '../../lib/controlCenter'
+import { ShareSteps } from './ControlCenterSteps'
 import {
   deletePlugin, loadMine, PLUGIN_LABELS, PLUGIN_LIFECYCLE, PROJECT_LABELS, PROJECT_LIFECYCLE, PUBLICATION, PUBLICATION_LABELS,
   privateLinkOf, registerParticipant, parseServiceList, storedCredentials, savePlugin, saveProject, updateParticipant, validateParticipant, validatePlugin, validateProject,
@@ -397,7 +398,7 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
 
         <aside>
           <ParticipantSettings participant={session.participant} session={session} onUpdated={onParticipantUpdated} onForget={onForget} />
-          <PublishHelp />
+          <ShareSteps />
         </aside>
       </div>
 
@@ -550,18 +551,6 @@ function ParticipantSettings({ participant, session, onUpdated, onForget }: {
           <div className="workshop-aside-actions"><CopyPrivateLink credentials={credentials} /></div>
         </>
       )}
-    </div>
-  )
-}
-
-function PublishHelp() {
-  return (
-    <div className="workshop-aside-card">
-      <h3>Publishing</h3>
-      <p className="workshop-note-inline">The site never publishes for you. Share from the app, then paste the links above.</p>
-      <p className="workshop-bp-path">{sharePathOf('your app')}</p>
-      <p className="workshop-note-inline">Registry discovery runs hourly. Until your entry appears, keep <strong>Published - indexing pending</strong> selected. Sharing is not a catalogue entry.</p>
-      <p className="workshop-note-inline">Community plugins and Blends are community-maintained and not reviewed by ACRYL.</p>
     </div>
   )
 }

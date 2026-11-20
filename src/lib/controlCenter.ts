@@ -35,16 +35,38 @@ export function platformOf(userAgent: string, platform = ''): Platform {
 }
 
 /*
- * The menu path inside Control Center. PLACEHOLDER until the Mac walk confirms the exact labels: change these two
- * constants and every place that tells a participant what to click follows.
+ * What a participant clicks, in the words Control Center shows (confirmed against Control Center main bcd27361). One action per line.
+ * Change a label here and every place that tells a participant where to click follows.
  */
-export const CREATE_STEPS = ['Blends', '{name}', 'Create'] as const
-export const SHARE_STEPS = ['My apps', '{name}', 'Share'] as const
+export const STORE = 'Blends store'
+export const MAKE_AN_APP = 'Make an app'
 
-const follow = (steps: readonly string[], name: string): string => `In Control Center: ${steps.map(step => step.replace('{name}', name)).join(' > ')}`
+export const MAKE_STEPS: readonly string[] = [
+  'Open ACRYL Control Center.',
+  `Click "${STORE}" on the left. Each card says Official or Community.`,
+  `Click "${MAKE_AN_APP}" on the card you like.`,
+  'The name is filled in. Change it if you like, then confirm.',
+  'First time on this computer, it says "Getting Node.js and GitHub\'s tool ready for your apps". Wait about a minute, then press "Make an app" again.',
+  'The app is made (about a minute) and starts. Click "Open".',
+]
 
-/** "In Control Center: Blends > Notes > Create" */
-export const createPathOf = (blueprintName: string): string => follow(CREATE_STEPS, blueprintName)
+const CONNECT_AND_SHARE: readonly string[] = [
+  'If it asks, click "Connect GitHub". A code appears and github.com/login/device opens: enter the code and click Authorize.',
+  'It says "GitHub: signed in as" and your name.',
+  'Choose "Private: only you and people you invite", or "Public: anyone, listed as Community".',
+  'Click "Review what would be sent".',
+  'Click "Yes, share" your app.',
+]
 
-/** "In Control Center: My apps > Your app > Share" */
-export const sharePathOf = (appName: string): string => follow(SHARE_STEPS, appName)
+export const SHARE_APP_IN_CONTROL_CENTER: readonly string[] = ['In Control Center, open your app\'s card and click "Share".', ...CONNECT_AND_SHARE]
+export const SHARE_APP_IN_THE_APP: readonly string[] = ['Inside your running app, open Settings (the gear) and click "Share".', ...CONNECT_AND_SHARE]
+
+export const SHARE_PLUGIN_STEPS: readonly string[] = [
+  'Inside your app, open Settings and click "Plugins".',
+  'Find your plugin\'s row and click "Share".',
+  'Choose Private or Public, then confirm.',
+  'It gets its own GitHub repository and release. A public one shows in the Cordis registry as Community.',
+]
+
+/** "In Control Center: Blends store > Notes > Make an app" */
+export const createPathOf = (blueprintName: string): string => `In Control Center: ${STORE} > ${blueprintName} > ${MAKE_AN_APP}`

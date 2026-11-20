@@ -11,6 +11,7 @@ import {
   type PublicWorkshop, type Session, type WorkshopTab, type WorkshopEvent,
 } from '../lib/workshop'
 import { InstallControlCenter } from '../components/workshop/InstallControlCenter'
+import { MakeAppSteps } from '../components/workshop/ControlCenterSteps'
 
 type Load =
   | { readonly state: 'loading' }
@@ -160,6 +161,7 @@ export function WorkshopPanelPage() {
       {sessionNotice !== undefined && <p className={sessionNotice.kind === 'error' ? 'workshop-error' : 'workshop-ok'} role={sessionNotice.kind === 'error' ? 'alert' : 'status'}>{sessionNotice.text}</p>}
 
       <InstallControlCenter />
+      <MakeAppSteps />
 
       <nav ref={tabsRef} className="workshop-tabs" aria-label="Workshop sections">
         {TABS.map(value => (
