@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { AGENT_SETUP_PROMPT, createPathOf, downloadUrl, INSTALLERS, MAKE_STEPS, FIRST_START, platformOf, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS } from './controlCenter'
+import { AGENT_SETUP_PROMPT, createPathOf, downloadUrl, INSTALLERS, MAKE_STEPS, FIRST_START, platformOf, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS, TRUST_HELP } from './controlCenter'
 
 describe('the Control Center install block', () => {
   it('reads the visitor system from the browser', () => {
@@ -22,6 +22,11 @@ describe('the Control Center install block', () => {
     for (const line of Object.values(FIRST_START)) expect(line).not.toMatch(/\bsudo\b|\bapt\b|\bnpm\b/)
     expect(FIRST_START.linux).toContain('Double-click')
   })
+  it('tells a blocked system what to do, with the one macOS command the app needs', () => {
+    expect(TRUST_HELP.mac.join(' ')).toContain('sudo xattr -cr "/Applications/ACRYL Control Center.app"')
+    expect(TRUST_HELP.windows.join(' ')).toContain('More info')
+    expect(TRUST_HELP.windows.join(' ')).toContain('Unblock')
+  })
   it('keeps every step to one action and shows no terminal command', () => {
     for (const step of [...MAKE_STEPS, ...SHARE_APP_IN_CONTROL_CENTER, ...SHARE_APP_IN_THE_APP, ...SHARE_PLUGIN_STEPS]) expect(step).not.toMatch(/\bnpm\b|\bnpx\b|\$ /)
   })
@@ -31,5 +36,8 @@ describe('the Control Center install block', () => {
     expect(AGENT_SETUP_PROMPT).toContain('npm create @acryldev/blends@latest my-app -- --from acrylblends.link-shortener')
     expect(AGENT_SETUP_PROMPT).not.toContain('npm run share')
     expect(AGENT_SETUP_PROMPT).toMatch(/Do not enter any password or API key/)
+    expect(AGENT_SETUP_PROMPT).toContain('sudo xattr -cr "/Applications/ACRYL Control Center.app"')
+    expect(AGENT_SETUP_PROMPT).toContain('Unblock')
+    expect(AGENT_SETUP_PROMPT).toContain('OrcaRouter')
   })
 })

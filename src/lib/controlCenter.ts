@@ -32,6 +32,24 @@ export const FIRST_START: Readonly<Record<Exclude<Platform, 'other'>, string>> =
   linux: 'Double-click the .deb file to open it in the Software app.',
 }
 
+/**
+ * What a person does when their system blocks the unsigned app. FIRST_START stays one line with no terminal; these are the follow-ups, and macOS needs one
+ * Terminal command, so they live here and in the agent brief on purpose.
+ */
+export const TRUST_HELP: Readonly<Record<Exclude<Platform, 'other'>, readonly string[]>> = {
+  mac: [
+    'If macOS says "ACRYL Control Center can\'t be opened because it is from an unidentified developer", or the icon says the app is damaged:',
+    'Open Terminal and run: sudo xattr -cr "/Applications/ACRYL Control Center.app"',
+    'Type your Mac password when it asks (it does not show), then open ACRYL Control Center again.',
+  ],
+  windows: [
+    'If SmartScreen says "Windows protected your PC": click "More info", then "Run anyway".',
+    'If Windows blocks the file instead: right-click the .exe > Properties > check "Unblock" > OK, then run it again.',
+    'Windows 10 and Windows 11 show these the same way.',
+  ],
+  linux: ['Nothing extra: Linux installs the .deb you chose to open and does not block ACRYL Control Center.'],
+}
+
 export const downloadUrl = (installer: Installer): string => `${DOWNLOAD}${installer.file}`
 
 /** The visitor's system from the browser's own words; a phone or an unknown browser is 'other' and sees every installer. */
@@ -97,9 +115,9 @@ export const AGENT_SETUP_PROMPT = `Help me set up ACRYL for a workshop. Do these
 1. Find my system: macOS Apple silicon, macOS Intel, Windows x64, Windows ARM, Linux x64 or Linux ARM.
 
 2. Download ACRYL Control Center for it from https://github.com/acrylblends/63-acryl-control-center/releases/latest/download/<file>, where <file> is one of: ACRYL-Control-Center-mac-arm64.dmg, ACRYL-Control-Center-mac-x64.dmg, ACRYL-Control-Center-win-x64.exe, ACRYL-Control-Center-win-arm64.exe, ACRYL-Control-Center-linux-x64.deb, ACRYL-Control-Center-linux-arm64.deb. Then install it:
-- macOS: open the .dmg and drag the app to Applications. The app is not signed yet, so the first time I open it, right-click it and choose Open.
-- Windows: run the .exe. If SmartScreen asks, click "More info" and then "Run anyway".
-- Linux (Debian or Ubuntu): sudo apt install ./<file>.deb
+- macOS: open the .dmg and drag the app to Applications. The app is not signed yet, so the first time I open it, right-click it and choose Open. If macOS says "ACRYL Control Center can't be opened because it is from an unidentified developer", run in Terminal: sudo xattr -cr "/Applications/ACRYL Control Center.app" and open the app again.
+- Windows: run the .exe. If SmartScreen says "Windows protected your PC", click "More info" and then "Run anyway". If Windows blocks the file instead, right-click the .exe > Properties > check "Unblock" > OK, then run it again. Windows 10 and 11 show these the same way.
+- Linux (Debian or Ubuntu): sudo apt install ./<file>.deb. Linux does not block ACRYL Control Center.
 
 3. Start ACRYL Control Center. On its first start it gets what it needs by itself (Node.js and GitHub's gh tool); nothing else has to be installed.
 
@@ -111,6 +129,8 @@ export const AGENT_SETUP_PROMPT = `Help me set up ACRYL for a workshop. Do these
    npm run dev
    The last command prints an address (http://127.0.0.1:<port>/?token=...). Open it in my browser.
 
-5. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
+5. Set up the workshop model key when I ask: in ACRYL Control Center, and the same way inside an ACRYL Blend app, open Settings (the gear) > Models, add a provider (or open the OrcaRouter card and click Edit), and fill in: Display name OrcaRouter; Base URL https://api.orcarouter.ai/v1; API protocol OpenAI Chat Completions; Retry policy Default (Transient errors); Models: keep orcarouter/free (OrcaRouter Free) or click Fetch available models; API key: I paste the workshop key myself from https://acryl.dev/workshoppanel, My project, "Your model key", after I enter the workshop password. Never enter that key, a password or any secret for me, and never write the key into a file, a commit, a screenshot or a chat.
+
+6. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
 
 Do not enter any password or API key for me: ask me to type them myself.`

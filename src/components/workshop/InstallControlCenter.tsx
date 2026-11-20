@@ -1,6 +1,6 @@
 import { Download } from 'lucide-react'
 import { useMemo } from 'react'
-import { downloadUrl, FIRST_START, INSTALLERS, platformOf, CONTROL_CENTER_RELEASES, type Installer } from '../../lib/controlCenter'
+import { downloadUrl, FIRST_START, INSTALLERS, platformOf, CONTROL_CENTER_RELEASES, TRUST_HELP, type Installer } from '../../lib/controlCenter'
 
 function Button({ installer, highlighted }: { readonly installer: Installer; readonly highlighted: boolean }) {
   return (
@@ -33,6 +33,12 @@ export function InstallControlCenter() {
         {lead.length > 1 && <p className="workshop-note-inline">{lead[1]?.hint}.</p>}
         {lead.length === 1 && <p className="workshop-note-inline">{lead[0]?.hint}.</p>}
         {platform !== 'other' && <p className="workshop-note-inline"><strong>First time:</strong> {FIRST_START[platform]}</p>}
+        <details className="workshop-install-more">
+          <summary>If the system blocks the app</summary>
+          <ul>
+            {(platform === 'other' ? (['mac', 'windows', 'linux'] as const) : [platform]).map(system => TRUST_HELP[system].map((line, index) => <li key={`${system}-${String(index)}`}>{system === 'mac' ? 'macOS: ' : system === 'windows' ? 'Windows: ' : 'Linux: '}{line}</li>))}
+          </ul>
+        </details>
         {(small.length > 0 || rest.length > 0) && (
           <details className="workshop-install-more">
             <summary>Another system</summary>

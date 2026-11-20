@@ -758,6 +758,19 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-picked { display: grid; gap: 6px; margin-bottom: 14px; padding: 12px; border: 1px dashed var(--border); }
 .workshop-picked p { margin: 0; }
 .workshop-picked-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+/* The workshop model key: the provider fields, then the password that opens it. Shown in My project only. */
+.workshop-model-key { display: grid; gap: 14px; margin: 18px 0; padding: 18px; border: 1px solid var(--border); background: var(--card); }
+.workshop-model-key h3 { margin: 0 0 6px; font-size: 22px; font-weight: 600; }
+.workshop-model-key p { margin: 0; color: var(--muted-foreground); }
+.workshop-model-fields { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+.workshop-model-fields > div { display: grid; grid-template-columns: 180px minmax(0, 1fr); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.workshop-model-fields dt { padding: 8px 12px; border-right: 1px solid var(--border); color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; }
+.workshop-model-fields dd { margin: 0; padding: 8px 12px; font-size: 13.5px; overflow-wrap: anywhere; }
+.workshop-model-reveal { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.workshop-model-reveal .workshop-field { flex: 1 1 260px; }
+.workshop-model-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 680px) { .workshop-model-fields > div { grid-template-columns: 1fr; } .workshop-model-fields dt { border-right: 0; border-bottom: 1px solid var(--border); } }
+
 /* Blueprint browser: a screenshot, what it is, where it sits, and two actions per card. */
 .workshop-bp-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
 .workshop-bp-filters > label:not(.workshop-search) { display: flex; align-items: center; gap: 8px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; }

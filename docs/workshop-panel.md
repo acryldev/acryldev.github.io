@@ -63,6 +63,17 @@ Never public: email, password hash, participant ids, auth tokens, unpublished (c
 - No websockets: 15 s polling plus refresh on focus.
 - No code execution or installation of participant artifacts anywhere in the site.
 
+## Participant setup that is easy to miss
+
+- An unsigned app is blocked differently on each system. The install card's "If the system blocks the app" carries the words: macOS asks for
+  `sudo xattr -cr "/Applications/ACRYL Control Center.app"` in Terminal, Windows 10/11 need SmartScreen's "More info" > "Run anyway" and, when the file itself
+  is blocked, right-click > Properties > Unblock, and Linux needs nothing. The same instructions are in the agent brief (`AGENT_SETUP_PROMPT`), so an agent
+  setting the machine up tells the person exactly that.
+- The workshop model key (OrcaRouter) is set up in Settings > Models, with Display name OrcaRouter, Base URL `https://api.orcarouter.ai/v1`, API protocol
+  OpenAI Chat Completions, Retry policy Default, and the free model `orcarouter/free`. `ModelKeyCard` in My project shows those fields and reveals the key
+  only after the room's password is entered. The key is sealed in `src/lib/workshopKey.ts` (PBKDF2-SHA-256 with 310 000 rounds, AES-256-GCM): the repository
+  holds only the ciphertext, and the password is spoken in the room and never written to this repo, so reading the source does not reveal it.
+
 ## Verification
 
 - Unit tests cover validation, session encoding, lifecycle metadata and the catalogue parser use.

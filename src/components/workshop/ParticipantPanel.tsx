@@ -8,6 +8,7 @@ import {
   type CatalogueEntry, type Credentials, type Idea, type MyPlugin, type MyProject, type Participant, type PluginInput, type PluginStatus, type ProjectInput,
   type ProjectStatus, type PublicationStatus, type Session, type SourceMode, type WorkshopEvent,
 } from '../../lib/workshop'
+import { ModelKeyCard } from './ModelKeyCard'
 
 interface ProjectFormState {
   readonly sourceMode: SourceMode
@@ -409,6 +410,8 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
           <ShareSteps />
         </aside>
       </div>
+
+      <ModelKeyCard />
 
       <h3 className="workshop-subhead">Plugin contributions</h3>
       <p className="workshop-note-inline">Each feature is one independently understandable Cordis Plugin. One showcase plugin is required; a second for your own app is encouraged.</p>
