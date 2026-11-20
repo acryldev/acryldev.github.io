@@ -1,7 +1,7 @@
 import { ArrowUpRight, Search } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { CopyLine } from '../CopyLine'
-import { createCommandOf, loadCatalogue, loadPlacement, type BlendPlacement, type CatalogueEntry } from '../../lib/workshop'
+import { createPathOf } from '../../lib/controlCenter'
+import { loadCatalogue, loadPlacement, type BlendPlacement, type CatalogueEntry } from '../../lib/workshop'
 
 type Load =
   | { readonly state: 'loading' }
@@ -125,9 +125,9 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
                   </div>
                   <h3>{entry.name}</h3>
                   <p>{entry.description}</p>
+                  <p className="workshop-bp-path">{createPathOf(entry.name)}</p>
                   <p className="workshop-note-inline">{RUNTIME_LABEL[entry.runtime]} · v{entry.version}{entry.parent !== undefined ? ` · grew from ${entry.parent}` : ''}</p>
                 </div>
-                {createCommandOf(entry) !== undefined && <div className="workshop-bp-command"><CopyLine command={createCommandOf(entry) ?? ''} label={`Copy the command that creates ${entry.name}`} /></div>}
                 <div className="workshop-bp-actions">
                   {placement?.page !== undefined
                     ? <a className="button secondary small" href={placement.page} target="_blank" rel="noreferrer">See it on Blends <ArrowUpRight aria-hidden="true" /></a>

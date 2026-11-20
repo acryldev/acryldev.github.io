@@ -1,6 +1,6 @@
 import { Check, Copy, Loader2, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { CopyLine } from '../CopyLine'
+import { createPathOf, sharePathOf } from '../../lib/controlCenter'
 import {
   deletePlugin, loadMine, PLUGIN_LABELS, PLUGIN_LIFECYCLE, PROJECT_LABELS, PROJECT_LIFECYCLE, PUBLICATION, PUBLICATION_LABELS,
   privateLinkOf, registerParticipant, parseServiceList, storedCredentials, savePlugin, saveProject, updateParticipant, validateParticipant, validatePlugin, validateProject,
@@ -213,7 +213,7 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
       blueprintOrigin: pickedBlueprint.origin ?? '',
       appName: form.appName === '' ? pickedBlueprint.name : form.appName,
     }))
-    setProjectNotice({ kind: 'ok', text: `Blueprint ${pickedBlueprint.name} is selected. Save your project to keep it.` })
+    setProjectNotice({ kind: 'ok', text: `Blueprint ${pickedBlueprint.name} is selected. Save your project to keep it. ${createPathOf(pickedBlueprint.name)}.` })
     onPickedConsumed()
   }, [pickedBlueprint, onPickedConsumed])
 
@@ -558,10 +558,9 @@ function PublishHelp() {
   return (
     <div className="workshop-aside-card">
       <h3>Publishing</h3>
-      <p className="workshop-note-inline">The site never pushes code for you. Run these locally, then paste the links above.</p>
-      <CopyLine command="npm run acryl -- plugin publish <plugin-name>" label="Copy the plugin publish command" />
-      <CopyLine command="npm run share" label="Copy the app share command" />
-      <p className="workshop-note-inline">Registry discovery runs hourly. Until your entry appears, keep <strong>Published - indexing pending</strong> selected. A publish command is not a catalogue entry.</p>
+      <p className="workshop-note-inline">The site never publishes for you. Share from the app, then paste the links above.</p>
+      <p className="workshop-bp-path">{sharePathOf('your app')}</p>
+      <p className="workshop-note-inline">Registry discovery runs hourly. Until your entry appears, keep <strong>Published - indexing pending</strong> selected. Sharing is not a catalogue entry.</p>
       <p className="workshop-note-inline">Community plugins and Blends are community-maintained and not reviewed by ACRYL.</p>
     </div>
   )

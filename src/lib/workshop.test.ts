@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  createCommandOf, decodeRecovery, encodeRecovery, privateLinkOf, isArtifactUrl, isHttpsUrl, isRevealed, parseDate, parseServiceList, progressOf,
+  decodeRecovery, encodeRecovery, privateLinkOf, isArtifactUrl, isHttpsUrl, isRevealed, parseDate, parseServiceList, progressOf,
   validateDisplayName, validateIdea, validateParticipant, validatePlugin, validateProject, type PluginInput, type ProjectInput,
   type WorkshopEvent,
 } from './workshop'
@@ -140,16 +140,5 @@ describe('reveal and progress', () => {
     expect(parseDate('')).toBeUndefined()
     expect(progressOf('registered')).toBe(1)
     expect(progressOf('presented')).toBe(9)
-  })
-})
-
-describe('the create command of a Blueprint', () => {
-  const entry = (patch: Record<string, unknown>) => ({ id: 'acrylblends.csv-explorer', runtime: 'acrylblends', origin: undefined, ...patch }) as unknown as Parameters<typeof createCommandOf>[0]
-  it('names the folder after the Blueprint and pulls it by id', () => {
-    expect(createCommandOf(entry({}))).toBe('npm create acrylblends@latest csv-explorer -- --from acrylblends.csv-explorer')
-  })
-  it('gives none for a Community entry or an ACRYL starter, which the command refuses', () => {
-    expect(createCommandOf(entry({ origin: 'community' }))).toBeUndefined()
-    expect(createCommandOf(entry({ runtime: 'acryl' }))).toBeUndefined()
   })
 })

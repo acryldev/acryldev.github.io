@@ -10,6 +10,7 @@ import {
   storeCredentials, submitIdea, TAB_LABELS, TABS, validateIdea, type BoardEntry, type CatalogueEntry, type Credentials, type Idea, type Participant, type PublicPlugin,
   type PublicWorkshop, type Session, type WorkshopTab, type WorkshopEvent,
 } from '../lib/workshop'
+import { InstallControlCenter } from '../components/workshop/InstallControlCenter'
 
 type Load =
   | { readonly state: 'loading' }
@@ -157,6 +158,8 @@ export function WorkshopPanelPage() {
       </header>
 
       {sessionNotice !== undefined && <p className={sessionNotice.kind === 'error' ? 'workshop-error' : 'workshop-ok'} role={sessionNotice.kind === 'error' ? 'alert' : 'status'}>{sessionNotice.text}</p>}
+
+      <InstallControlCenter />
 
       <nav ref={tabsRef} className="workshop-tabs" aria-label="Workshop sections">
         {TABS.map(value => (
