@@ -85,3 +85,32 @@ export const DEPLOY_LINE = 'To put a shared Public app online: its card > Deploy
 
 /** "In Control Center: Blends store > Notes > Make an app" */
 export const createPathOf = (blueprintName: string): string => `In Control Center: ${STORE} > ${blueprintName} > ${MAKE_AN_APP} > ${CONFIRM_MAKE}`
+
+/**
+ * What a participant pastes into their own coding agent (Claude Code, Codex, Cursor, ChatGPT...) when they cannot do the setup themselves. Every link and command in it
+ * was run for this text: the six download links answer, `npm create @acryldev/blends@latest my-app -- --from acrylblends.link-shortener` only MAKES the app (it neither
+ * installs nor starts it), `npm install` then `npm run dev` prints http://127.0.0.1:<port>/?token=... to open. Sharing is left to the person: the share steps need
+ * their GitHub sign-in and their own yes, and `npm run share` exists only in some apps.
+ */
+export const AGENT_SETUP_PROMPT = `Help me set up ACRYL for a workshop. Do these steps on my computer and tell me what you did after each one.
+
+1. Find my system: macOS Apple silicon, macOS Intel, Windows x64, Windows ARM, Linux x64 or Linux ARM.
+
+2. Download ACRYL Control Center for it from https://github.com/acrylblends/63-acryl-control-center/releases/latest/download/<file>, where <file> is one of: ACRYL-Control-Center-mac-arm64.dmg, ACRYL-Control-Center-mac-x64.dmg, ACRYL-Control-Center-win-x64.exe, ACRYL-Control-Center-win-arm64.exe, ACRYL-Control-Center-linux-x64.deb, ACRYL-Control-Center-linux-arm64.deb. Then install it:
+- macOS: open the .dmg and drag the app to Applications. The app is not signed yet, so the first time I open it, right-click it and choose Open.
+- Windows: run the .exe. If SmartScreen asks, click "More info" and then "Run anyway".
+- Linux (Debian or Ubuntu): sudo apt install ./<file>.deb
+
+3. Start ACRYL Control Center. On its first start it gets what it needs by itself (Node.js and GitHub's gh tool); nothing else has to be installed.
+
+4. If the window cannot be used, the same works in a terminal with Node.js 22.19 or newer:
+   npm create @acryldev/blends@latest my-app -- --from acrylblends.link-shortener
+   (that only makes the app: it does not install or start it. --from names a Blend of the store, https://acrylblends.github.io/blends; leave it out for an empty app)
+   cd my-app
+   npm install
+   npm run dev
+   The last command prints an address (http://127.0.0.1:<port>/?token=...). Open it in my browser.
+
+5. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
+
+Do not enter any password or API key for me: ask me to type them myself.`

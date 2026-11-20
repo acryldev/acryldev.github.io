@@ -929,3 +929,11 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
   .workshop-chat-message { padding: 10px 12px; }
   .workshop-chat-composer { padding: 10px 12px 12px; }
 }
+.workshop-agent { display: grid; gap: 14px; margin: 0 0 28px; padding: 22px; border: 2px solid var(--foreground); background: var(--card); }
+.workshop-agent h2 { margin: 4px 0 8px; font-size: 24px; font-weight: 600; }
+.workshop-agent p { margin: 0; }
+.workshop-agent-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.workshop-agent-head > div { flex: 1 1 360px; min-width: 0; }
+.workshop-agent .button svg { width: 15px; height: 15px; }
+.workshop-agent-text { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid var(--border); background: var(--background); color: var(--foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.55; resize: vertical; }
+@media (max-width: 760px) { .workshop-agent { padding: 16px; } .workshop-agent h2 { font-size: 20px; } .workshop-agent-head .button { width: 100%; justify-content: center; } }

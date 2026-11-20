@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { createPathOf, downloadUrl, INSTALLERS, MAKE_STEPS, FIRST_START, platformOf, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS } from './controlCenter'
+import { AGENT_SETUP_PROMPT, createPathOf, downloadUrl, INSTALLERS, MAKE_STEPS, FIRST_START, platformOf, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS } from './controlCenter'
 
 describe('the Control Center install block', () => {
   it('reads the visitor system from the browser', () => {
@@ -24,5 +24,12 @@ describe('the Control Center install block', () => {
   })
   it('keeps every step to one action and shows no terminal command', () => {
     for (const step of [...MAKE_STEPS, ...SHARE_APP_IN_CONTROL_CENTER, ...SHARE_APP_IN_THE_APP, ...SHARE_PLUGIN_STEPS]) expect(step).not.toMatch(/\bnpm\b|\bnpx\b|\$ /)
+  })
+  it('gives an agent every installer by the same fixed link the page uses, and keeps sharing with the person', () => {
+    for (const installer of INSTALLERS) expect(AGENT_SETUP_PROMPT).toContain(installer.file)
+    expect(AGENT_SETUP_PROMPT).toContain('https://github.com/acrylblends/63-acryl-control-center/releases/latest/download/')
+    expect(AGENT_SETUP_PROMPT).toContain('npm create @acryldev/blends@latest my-app -- --from acrylblends.link-shortener')
+    expect(AGENT_SETUP_PROMPT).not.toContain('npm run share')
+    expect(AGENT_SETUP_PROMPT).toMatch(/Do not enter any password or API key/)
   })
 })

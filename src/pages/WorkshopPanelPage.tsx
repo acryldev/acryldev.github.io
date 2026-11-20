@@ -12,6 +12,7 @@ import {
 } from '../lib/workshop'
 import { InstallControlCenter } from '../components/workshop/InstallControlCenter'
 import { MakeAppSteps } from '../components/workshop/ControlCenterSteps'
+import { AgentSetup } from '../components/workshop/AgentSetup'
 
 type Load =
   | { readonly state: 'loading' }
@@ -170,6 +171,7 @@ export function WorkshopPanelPage() {
 
       <InstallControlCenter />
       <MakeAppSteps />
+      <AgentSetup />
 
       <nav ref={tabsRef} className="workshop-tabs" aria-label="Workshop sections">
         {TABS.map(value => (
