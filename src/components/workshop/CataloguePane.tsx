@@ -1,16 +1,18 @@
 import { ArrowUpRight, Search } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { createPathOf } from '../../lib/controlCenter'
-import { loadCatalogue, loadPlacement, type BlendPlacement, type CatalogueEntry } from '../../lib/workshop'
+import { loadCatalogue, loadPlacement, type BlendPlacement, type CatalogueEntry, type Placements, type TaxonomyCategory } from '../../lib/workshop'
 
 type Load =
   | { readonly state: 'loading' }
-  | { readonly state: 'live'; readonly entries: readonly CatalogueEntry[]; readonly placement: ReadonlyMap<string, BlendPlacement> }
+  | { readonly state: 'live'; readonly entries: readonly CatalogueEntry[]; readonly placement: Placements }
   | { readonly state: 'failed'; readonly reason: string }
 
 const RUNTIME_LABEL = { acrylblends: 'Standalone app', acryl: 'ACRYL starter', other: 'Other runtime' } as const
 
 /** The category an entry is filed under: the Blends site's own taxonomy, else the short one the publisher wrote. */
+const two = (value: number): string => String(value).padStart(2, '0')
+
 const categoryOf = (entry: CatalogueEntry, placement: BlendPlacement | undefined): string => placement?.category ?? entry.category
 
 function Screenshot({ entry, placement }: { readonly entry: CatalogueEntry; readonly placement: BlendPlacement | undefined }) {
@@ -45,12 +47,24 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
   }, [attempt])
 
   const entries = load.state === 'live' ? load.entries : []
-  const placements = load.state === 'live' ? load.placement : new Map<string, BlendPlacement>()
-  const categories = useMemo(() => [...new Set(entries.map(entry => categoryOf(entry, placements.get(entry.id))))].sort((a, b) => a.localeCompare(b)), [entries, placements])
-  const subcategories = useMemo(() => category === 'all' ? [] : [...new Set(entries
-    .filter(entry => categoryOf(entry, placements.get(entry.id)) === category)
-    .map(entry => placements.get(entry.id)?.subcategory)
-    .filter((value): value is string => value !== undefined))].sort((a, b) => a.localeCompare(b)), [entries, placements, category])
+  const placements = load.state === 'live' ? load.placement.entries : new Map<string, BlendPlacement>()
+  const taxonomy: readonly TaxonomyCategory[] = load.state === 'live' ? load.placement.taxonomy : []
+  const inCategory = (value: string) => entries.filter(entry => categoryOf(entry, placements.get(entry.id)) === value)
+  // Every category of the Blends site, empty ones too: a name with nothing in it yet is still an invitation. Without the taxonomy, only the filled ones.
+  const categories = useMemo(() => {
+    const known = taxonomy.map(item => item.name)
+    const extra = [...new Set(entries.map(entry => categoryOf(entry, placements.get(entry.id))))].filter(name => !known.includes(name)).sort((a, b) => a.localeCompare(b))
+    return [...known, ...extra]
+  }, [entries, placements, taxonomy])
+  const space = taxonomy.find(item => item.name === category)
+  const subcategories = useMemo(() => {
+    if (category === 'all') return []
+    const filed = [...new Set(inCategory(category).map(entry => placements.get(entry.id)?.subcategory).filter((value): value is string => value !== undefined))]
+    const listed = space?.subs.map(item => item.name) ?? []
+    return [...listed, ...filed.filter(name => !listed.includes(name)).sort((a, b) => a.localeCompare(b))]
+  }, [entries, placements, category, space])
+  const countIn = (name: string, sub?: string): number => inCategory(name).filter(entry => sub === undefined || placements.get(entry.id)?.subcategory === sub).length
+  const numberOf = (name: string): string => { const item = taxonomy.find(entry => entry.name === name); return item === undefined ? '' : `${two(item.number)}  ` }
   const needle = query.trim().toLowerCase()
   const shown = entries.filter(entry => {
     const placement = placements.get(entry.id)
@@ -79,7 +93,7 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
           <span>Category</span>
           <select value={category} onChange={event => { setCategory(event.target.value); setSubcategory('all') }}>
             <option value="all">All categories</option>
-            {categories.map(value => <option key={value} value={value}>{value}</option>)}
+            {categories.map(value => <option key={value} value={value}>{numberOf(value)}{value}{countIn(value) > 0 ? ` (${String(countIn(value))})` : ''}</option>)}
           </select>
         </label>
         {subcategories.length > 0 && (
@@ -87,7 +101,7 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
             <span>Subcategory</span>
             <select value={subcategory} onChange={event => setSubcategory(event.target.value)}>
               <option value="all">All in {category}</option>
-              {subcategories.map(value => <option key={value} value={value}>{value}</option>)}
+              {subcategories.map(value => <option key={value} value={value}>{value}{countIn(category, value) > 0 ? ` (${String(countIn(category, value))})` : ''}</option>)}
             </select>
           </label>
         )}
@@ -100,6 +114,27 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
           </select>
         </label>
       </div>
+      {load.state === 'live' && category !== 'all' && (
+        <div className="workshop-bp-space">
+          <p className="eyebrow">{space === undefined ? 'Category' : `Category ${two(space.number)}`}</p>
+          <h3>{category}</h3>
+          {subcategories.length > 0 && (
+            <div className="workshop-bp-subs" role="group" aria-label={`Subcategories of ${category}`}>
+              {subcategories.map(value => (
+                <button key={value} type="button" className={subcategory === value ? 'active' : undefined} aria-pressed={subcategory === value} onClick={() => setSubcategory(subcategory === value ? 'all' : value)}>
+                  {value}{countIn(category, value) > 0 && <em>{countIn(category, value)}</em>}
+                </button>
+              ))}
+            </div>
+          )}
+          {shown.length === 0 && needle === '' && runtime === 'all' && (
+            <p>No Blueprint here yet. This space is open: pick an idea that fits {subcategory === 'all' ? category : subcategory} and build the first one.</p>
+          )}
+          {(space?.subs.find(item => item.name === subcategory)?.page ?? space?.page) !== undefined && (
+            <a className="button secondary small" href={space?.subs.find(item => item.name === subcategory)?.page ?? space?.page} target="_blank" rel="noreferrer">This space on Blends <ArrowUpRight aria-hidden="true" /></a>
+          )}
+        </div>
+      )}
       {load.state === 'live' && <p className="workshop-note-inline workshop-bp-count" role="status">{shown.length === entries.length ? `${String(entries.length)} Blueprints` : `${String(shown.length)} of ${String(entries.length)} Blueprints`}</p>}
 
       {load.state === 'loading' && <p className="workshop-note" role="status">Loading the Blends registry...</p>}
@@ -109,7 +144,7 @@ export function CataloguePane({ onPick }: { readonly onPick?: (entry: CatalogueE
           <button type="button" className="button secondary small" onClick={() => setAttempt(value => value + 1)}>Try again</button>
         </div>
       )}
-      {load.state === 'live' && shown.length === 0 && <p className="workshop-note">No Blueprint matches that search. Clear the filters or start from Blank.</p>}
+      {load.state === 'live' && shown.length === 0 && (needle !== '' || runtime !== 'all' || category === 'all') && <p className="workshop-note">No Blueprint matches that search. Clear the filters or start from Blank.</p>}
 
       {load.state === 'live' && shown.length > 0 && (
         <div className="workshop-bp-grid">

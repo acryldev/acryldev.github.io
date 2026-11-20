@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  decodeRecovery, encodeRecovery, privateLinkOf, isArtifactUrl, isHttpsUrl, isRevealed, parseDate, parseServiceList, progressOf,
+  decodeRecovery, encodeRecovery, parsePlacements, privateLinkOf, isArtifactUrl, isHttpsUrl, isRevealed, parseDate, parseServiceList, progressOf,
   validateDisplayName, validateIdea, validateParticipant, validatePlugin, validateProject, type PluginInput, type ProjectInput,
   type WorkshopEvent,
 } from './workshop'
@@ -140,5 +140,27 @@ describe('reveal and progress', () => {
     expect(parseDate('')).toBeUndefined()
     expect(progressOf('registered')).toBe(1)
     expect(progressOf('presented')).toBe(9)
+  })
+})
+
+describe('the Blends placement file', () => {
+  it('keeps every category of the taxonomy in its order, empty ones too, and skips what is malformed', () => {
+    const { entries, taxonomy } = parsePlacements({
+      entries: { 'a.one': { category: 'AI', subcategory: 'AI assistants', page: 'https://x.test/p', screenshot: null }, broken: 3 },
+      taxonomy: [
+        { number: 1, name: 'System', page: 'https://x.test/system', subs: [{ name: 'Kernels', page: 'https://x.test/system/kernels' }, { nope: true }] },
+        { name: 'Cloud', subs: [] },
+        { number: 3 },
+      ],
+    })
+    expect([...entries.keys()]).toEqual(['a.one'])
+    expect(entries.get('a.one')?.screenshot).toBeUndefined()
+    expect(taxonomy.map(item => item.name)).toEqual(['System', 'Cloud'])
+    expect(taxonomy[0]?.subs).toEqual([{ name: 'Kernels', page: 'https://x.test/system/kernels' }])
+    expect(taxonomy[1]?.number).toBe(2)
+  })
+  it('is empty, not an error, for anything else', () => {
+    expect(parsePlacements(null).taxonomy).toEqual([])
+    expect(parsePlacements('text').entries.size).toBe(0)
   })
 })

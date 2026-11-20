@@ -854,3 +854,12 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-install-more ul { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 13px; }
 .workshop-install-more li span { color: var(--muted-foreground); }
 @media (max-width: 760px) { .workshop-install { grid-template-columns: 1fr; gap: 16px; padding: 16px; } .workshop-install h2 { font-size: 20px; } }
+.workshop-bp-space { display: grid; gap: 10px; justify-items: start; margin: 0 0 18px; padding: 18px; border: 1px solid var(--border); background: var(--card); }
+.workshop-bp-space h3 { margin: 0; font-size: 22px; font-weight: 600; }
+.workshop-bp-space p { margin: 0; color: var(--muted-foreground); }
+.workshop-bp-space .eyebrow { color: inherit; }
+.workshop-bp-subs { display: flex; flex-wrap: wrap; gap: 8px; }
+.workshop-bp-subs button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid var(--border); background: var(--background); color: var(--foreground); font-size: 13px; cursor: pointer; }
+.workshop-bp-subs button:hover { background: var(--muted); }
+.workshop-bp-subs button.active { border-color: var(--foreground); background: var(--foreground); color: var(--background); }
+.workshop-bp-subs em { font-style: normal; font-family: 'DM Mono', ui-monospace, monospace; font-size: 11px; opacity: .7; }

@@ -782,26 +782,58 @@ export interface BlendPlacement {
   readonly screenshot: string | undefined
 }
 
-/** id -> placement. Optional enrichment: when the file is missing the catalogue still lists every Blend, just without categories and pictures. */
-export async function loadPlacement(signal: AbortSignal): Promise<ReadonlyMap<string, BlendPlacement>> {
-  const result = new Map<string, BlendPlacement>()
+/** One of the Blends site's categories with its subcategories, whether or not a Blend sits in it yet. */
+export interface TaxonomyCategory {
+  readonly number: number
+  readonly name: string
+  readonly page: string | undefined
+  readonly subs: readonly { readonly name: string; readonly page: string | undefined }[]
+}
+
+export interface Placements {
+  readonly entries: ReadonlyMap<string, BlendPlacement>
+  /** In the Blends site's own order, empty categories included; empty when the registry does not publish it. */
+  readonly taxonomy: readonly TaxonomyCategory[]
+}
+
+const asText = (value: unknown): string | undefined => typeof value === 'string' && value !== '' ? value : undefined
+const asHttps = (value: unknown): string | undefined => { const url = asText(value); return url !== undefined && url.startsWith('https://') ? url : undefined }
+const asRecord = (value: unknown): Record<string, unknown> | undefined => typeof value === 'object' && value !== null && !Array.isArray(value) ? value as Record<string, unknown> : undefined
+
+/** Reads placement.json defensively: anything malformed is skipped, never thrown, because it only enriches the catalogue. */
+export function parsePlacements(document: unknown): Placements {
+  const entries = new Map<string, BlendPlacement>()
+  const root = asRecord(document)
+  for (const [id, value] of Object.entries(asRecord(root?.entries) ?? {})) {
+    const record = asRecord(value)
+    if (record === undefined) continue
+    entries.set(id, { category: asText(record.category), subcategory: asText(record.subcategory), page: asHttps(record.page), screenshot: asHttps(record.screenshot) })
+  }
+  const taxonomy: TaxonomyCategory[] = []
+  const listed: unknown = root?.taxonomy
+  for (const value of Array.isArray(listed) ? listed : []) {
+    const record = asRecord(value)
+    const name = asText(record?.name)
+    if (record === undefined || name === undefined) continue
+    const subs = (Array.isArray(record.subs) ? record.subs as unknown[] : []).flatMap(sub => {
+      const item = asRecord(sub)
+      const subName = asText(item?.name)
+      return item === undefined || subName === undefined ? [] : [{ name: subName, page: asHttps(item.page) }]
+    })
+    taxonomy.push({ number: typeof record.number === 'number' ? record.number : taxonomy.length + 1, name, page: asHttps(record.page), subs })
+  }
+  return { entries, taxonomy }
+}
+
+/** Optional enrichment: when the file is missing the catalogue still lists every Blend, just without categories and pictures. */
+export async function loadPlacement(signal: AbortSignal): Promise<Placements> {
   try {
     const response = await fetch(`${BLEND_REGISTRY_BASE}placement.json`, { signal })
-    if (!response.ok) return result
-    const document: unknown = await response.json()
-    const entries = typeof document === 'object' && document !== null ? (document as { entries?: unknown }).entries : undefined
-    if (typeof entries !== 'object' || entries === null) return result
-    const text = (value: unknown): string | undefined => typeof value === 'string' && value !== '' ? value : undefined
-    const https = (value: unknown): string | undefined => { const url = text(value); return url !== undefined && url.startsWith('https://') ? url : undefined }
-    for (const [id, value] of Object.entries(entries)) {
-      if (typeof value !== 'object' || value === null) continue
-      const record = value as Record<string, unknown>
-      result.set(id, { category: text(record.category), subcategory: text(record.subcategory), page: https(record.page), screenshot: https(record.screenshot) })
-    }
+    if (response.ok) return parsePlacements(await response.json())
   } catch (cause) {
     if (signal.aborted) throw cause
   }
-  return result
+  return { entries: new Map(), taxonomy: [] }
 }
 
 function parseDiscovered(value: unknown): CatalogueEntry | undefined {
