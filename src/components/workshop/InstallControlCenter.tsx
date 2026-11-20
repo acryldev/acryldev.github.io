@@ -1,6 +1,6 @@
 import { Download } from 'lucide-react'
 import { useMemo } from 'react'
-import { downloadUrl, INSTALLERS, platformOf, CONTROL_CENTER_RELEASES, type Installer } from '../../lib/controlCenter'
+import { downloadUrl, FIRST_START, INSTALLERS, platformOf, CONTROL_CENTER_RELEASES, type Installer } from '../../lib/controlCenter'
 
 function Button({ installer, highlighted }: { readonly installer: Installer; readonly highlighted: boolean }) {
   return (
@@ -32,11 +32,13 @@ export function InstallControlCenter() {
         </div>
         {lead.length > 1 && <p className="workshop-note-inline">{lead[1]?.hint}.</p>}
         {lead.length === 1 && <p className="workshop-note-inline">{lead[0]?.hint}.</p>}
+        {platform !== 'other' && <p className="workshop-note-inline"><strong>First time:</strong> {FIRST_START[platform]}</p>}
         {(small.length > 0 || rest.length > 0) && (
           <details className="workshop-install-more">
             <summary>Another system</summary>
             <ul>
               {[...small, ...rest].map(installer => <li key={installer.id}><a href={downloadUrl(installer)} download>{installer.label}</a> <span>{installer.hint}</span></li>)}
+              {platform === 'other' && (['mac', 'windows', 'linux'] as const).map(system => <li key={system}><span><strong>First time:</strong> {FIRST_START[system]}</span></li>)}
               <li><a href={CONTROL_CENTER_RELEASES} target="_blank" rel="noreferrer">All downloads</a></li>
             </ul>
           </details>

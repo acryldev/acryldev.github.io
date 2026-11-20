@@ -1,7 +1,9 @@
 /** Where participants get the ACRYL Control Center and how they use it. Participants use this app only, never a terminal. */
 
-export const CONTROL_CENTER_RELEASES = 'https://github.com/acrylblends/63-acryl-control-center/releases/latest'
-const DOWNLOAD = `${CONTROL_CENTER_RELEASES}/download/`
+/** The published Control Center release the installers belong to; move it with each new release. */
+const RELEASE_TAG = 'control-center-v0.2.0'
+export const CONTROL_CENTER_RELEASES = `https://github.com/acryldev/acryl/releases/tag/${RELEASE_TAG}`
+const DOWNLOAD = `https://github.com/acryldev/acryl/releases/download/${RELEASE_TAG}/`
 
 export type Platform = 'mac' | 'windows' | 'linux' | 'other'
 
@@ -20,7 +22,15 @@ export const INSTALLERS: readonly Installer[] = [
   { id: 'win-x64', platform: 'windows', label: 'Windows', hint: 'Windows 10 or 11 on a normal PC', file: 'ACRYL-Control-Center-win-x64.exe', primary: true },
   { id: 'win-arm64', platform: 'windows', label: 'Windows on ARM', hint: 'Only for ARM PCs, such as Surface Pro X', file: 'ACRYL-Control-Center-win-arm64.exe', primary: false },
   { id: 'linux-x64', platform: 'linux', label: 'Linux', hint: 'Debian or Ubuntu (.deb)', file: 'ACRYL-Control-Center-linux-x64.deb', primary: true },
+  { id: 'linux-arm64', platform: 'linux', label: 'Linux on ARM', hint: 'Only for ARM computers', file: 'ACRYL-Control-Center-linux-arm64.deb', primary: false },
 ]
+
+/** The one line a person needs the first time, per system (the same words as the release page). No terminal command: Linux opens the file by double-click. */
+export const FIRST_START: Readonly<Record<Exclude<Platform, 'other'>, string>> = {
+  mac: 'The app is not signed yet: the first time, right-click it and choose Open.',
+  windows: 'If SmartScreen asks, click "More info" and then "Run anyway".',
+  linux: 'Double-click the .deb file to open it in the Software app.',
+}
 
 export const downloadUrl = (installer: Installer): string => `${DOWNLOAD}${installer.file}`
 
