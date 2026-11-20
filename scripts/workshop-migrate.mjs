@@ -96,7 +96,7 @@ const collections = [
     listRule: null,
     viewRule: null,
     createRule: '',
-    updateRule: 'id = @request.auth.id',
+    updateRule: 'id = @request.auth.id && @request.body.publicId:isset = false',
     deleteRule: null,
   },
   {
@@ -155,8 +155,8 @@ const collections = [
     indexes: ['CREATE INDEX `idx_workshop_projects_participant` ON `workshop_projects` (`participant`)'],
     listRule: '@request.auth.id != "" && participant = @request.auth.id',
     viewRule: '@request.auth.id != "" && participant = @request.auth.id',
-    createRule: '@request.auth.id != "" && @request.body.participant = @request.auth.id',
-    updateRule: '@request.auth.id != "" && participant = @request.auth.id',
+    createRule: '@request.auth.id != "" && @request.body.participant = @request.auth.id && @request.body.featured:isset = false',
+    updateRule: '@request.auth.id != "" && participant = @request.auth.id && @request.body.featured:isset = false && @request.body.publicId:isset = false',
     deleteRule: null,
   },
   {
@@ -187,8 +187,8 @@ const collections = [
     indexes: ['CREATE INDEX `idx_workshop_plugins_participant` ON `workshop_plugins` (`participant`)'],
     listRule: '@request.auth.id != "" && participant = @request.auth.id',
     viewRule: '@request.auth.id != "" && participant = @request.auth.id',
-    createRule: '@request.auth.id != "" && @request.body.participant = @request.auth.id',
-    updateRule: '@request.auth.id != "" && participant = @request.auth.id',
+    createRule: '@request.auth.id != "" && @request.body.participant = @request.auth.id && @request.body.frankensteinBlockReason:isset = false && (@request.body.frankensteinStatus:isset = false || @request.body.frankensteinStatus = "pending_review" || @request.body.frankensteinStatus = "not_opted_in")',
+    updateRule: '@request.auth.id != "" && participant = @request.auth.id && @request.body.frankensteinBlockReason:isset = false && (@request.body.frankensteinStatus:isset = false || @request.body.frankensteinStatus = "pending_review" || @request.body.frankensteinStatus = "not_opted_in") && @request.body.publicId:isset = false',
     deleteRule: '@request.auth.id != "" && participant = @request.auth.id',
   },
 ]

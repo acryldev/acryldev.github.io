@@ -617,16 +617,17 @@ export async function saveProject(session: Session, current: MyProject | undefin
 }
 
 export async function savePlugin(session: Session, projectId: string, current: MyPlugin | undefined, input: PluginInput): Promise<void> {
-  const frankenstein = input.frankensteinOptIn
-    ? (current === undefined || current.frankensteinStatus === 'not_opted_in' ? 'pending_review' : current.frankensteinStatus)
-    : 'not_opted_in'
+  // A participant may only opt in (pending review) or out; every other status is the facilitator's, so an unchanged choice sends none.
+  const frankenstein: FrankensteinStatus | undefined = !input.frankensteinOptIn
+    ? 'not_opted_in'
+    : current === undefined || current.frankensteinStatus === 'not_opted_in' ? 'pending_review' : undefined
   const body = {
     participant: session.participant.id,
     project: projectId,
     workshop: WORKSHOP_SLUG,
     ...(current === undefined ? { publicId: newPublicId('pl') } : {}),
     ...input,
-    frankensteinStatus: frankenstein,
+    ...(frankenstein === undefined ? {} : { frankensteinStatus: frankenstein }),
   }
   if (current === undefined) {
     await pb('/api/collections/workshop_plugins/records', { method: 'POST', token: session.token, body })
@@ -635,7 +636,7 @@ export async function savePlugin(session: Session, projectId: string, current: M
   await pb(`/api/collections/workshop_plugins/records/${current.id}`, {
     method: 'PATCH',
     token: session.token,
-    body: { ...input, frankensteinStatus: frankenstein },
+    body: { ...input, ...(frankenstein === undefined ? {} : { frankensteinStatus: frankenstein }) },
   })
 }
 
