@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { AGENT_SETUP_PROMPT, createPathOf, downloadUrl, INSTALLERS, MAKE_STEPS, FIRST_START, platformOf, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS, TRUST_HELP } from './controlCenter'
+import { AGENT_SETUP_PROMPT, createPathOf, downloadUrl, INSTALLERS, MAKE_STEPS, FIRST_START, platformOf, SHARE_APP_IN_CONTROL_CENTER, SHARE_APP_IN_THE_APP, SHARE_PLUGIN_STEPS, TRUST_HELP, WORKSHOP_ORG_INVITE_URL, WORKSHOP_ORG_STEPS } from './controlCenter'
 
 describe('the Control Center install block', () => {
   it('reads the visitor system from the browser', () => {
@@ -39,5 +39,8 @@ describe('the Control Center install block', () => {
     expect(AGENT_SETUP_PROMPT).toContain('sudo xattr -cr "/Applications/ACRYL Control Center.app"')
     expect(AGENT_SETUP_PROMPT).toContain('Unblock')
     expect(AGENT_SETUP_PROMPT).toContain('OrcaRouter')
+    expect(AGENT_SETUP_PROMPT).toContain(WORKSHOP_ORG_INVITE_URL)
+    expect(AGENT_SETUP_PROMPT).toContain('Do not accept the invitation for me')
+    expect(WORKSHOP_ORG_STEPS.join(' ')).toContain('Join ACRYL WORKSHOP')
   })
 })

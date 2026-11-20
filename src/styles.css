@@ -907,6 +907,8 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-bp-subs em { font-style: normal; font-family: 'DM Mono', ui-monospace, monospace; font-size: 11px; opacity: .7; }
 .workshop-steps { margin: 8px 0 0; padding-left: 26px; list-style: decimal; display: grid; gap: 6px; font-size: 14px; line-height: 1.5; }
 .workshop-make .workshop-steps { margin: 0; }
+.workshop-org-body { display: grid; gap: 12px; justify-items: start; }
+.workshop-org-body .workshop-steps { margin: 0; }
 .workshop-aside-card details { margin: 0; }
 .workshop-aside-card summary { cursor: pointer; font-weight: 600; font-size: 14px; }
 

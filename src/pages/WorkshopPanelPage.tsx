@@ -2,6 +2,7 @@ import { ArrowUpRight, Check, Copy, ExternalLink, Github, Loader2, Star } from '
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { CataloguePane } from '../components/workshop/CataloguePane'
+import { OrgInvite } from '../components/workshop/OrgInvite'
 import { FacilitatorPanel } from '../components/workshop/FacilitatorPanel'
 import { CopyPrivateLink, ParticipantPanel } from '../components/workshop/ParticipantPanel'
 import {
@@ -171,6 +172,7 @@ export function WorkshopPanelPage() {
 
       <InstallControlCenter />
       <MakeAppSteps />
+      <OrgInvite />
       <AgentSetup />
 
       <nav ref={tabsRef} className="workshop-tabs" aria-label="Workshop sections">

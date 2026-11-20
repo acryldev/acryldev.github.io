@@ -104,6 +104,16 @@ export const DEPLOY_LINE = 'To put a shared Public app online: its card > Deploy
 /** "In Control Center: Blends store > Notes > Make an app" */
 export const createPathOf = (blueprintName: string): string => `In Control Center: ${STORE} > ${blueprintName} > ${MAKE_AN_APP} > ${CONFIRM_MAKE}`
 
+/** The shared workshop's GitHub organization: the invitation page, and what joining it means. */
+export const WORKSHOP_ORG_INVITE_URL = 'https://github.com/orgs/acrylworkshop/invitation'
+
+export const WORKSHOP_ORG_STEPS: readonly string[] = [
+  'Sign in at github.com with your own GitHub account (create one if you do not have one: it is free).',
+  'Open the invitation, sent by email to the address you registered with: ' + WORKSHOP_ORG_INVITE_URL,
+  'Click "Join ACRYL WORKSHOP". The Copilot seat offer is optional: tick or untick it as you like.',
+  'The shared workshop repositories are under github.com/acrylworkshop. Use your own account: never a shared one.',
+]
+
 /**
  * What a participant pastes into their own coding agent (Claude Code, Codex, Cursor, ChatGPT...) when they cannot do the setup themselves. Every link and command in it
  * was run for this text: the six download links answer, `npm create @acryldev/blends@latest my-app -- --from acrylblends.link-shortener` only MAKES the app (it neither
@@ -131,6 +141,8 @@ export const AGENT_SETUP_PROMPT = `Help me set up ACRYL for a workshop. Do these
 
 5. Set up the workshop model key when I ask: in ACRYL Control Center, and the same way inside an ACRYL Blend app, open Settings (the gear) > Models, add a provider (or open the OrcaRouter card and click Edit), and fill in: Display name OrcaRouter; Base URL https://api.orcarouter.ai/v1; API protocol OpenAI Chat Completions; Retry policy Default (Transient errors); Models: add exactly these and no others, under Models > Customized model catalog: orcarouter/free (OrcaRouter Free), orcarouter/pod (OrcaRouter Pod), orcarouter/fusion (OrcaRouter Fusion), orcarouter/fusion-flash (OrcaRouter Fusion Flash), orcarouter/fusion-mini (OrcaRouter Fusion Mini), deepseek/deepseek-v4-flash (DeepSeek V4 Flash), deepseek/deepseek-v4.1-flash (DeepSeek V4.1 Flash), deepseek/deepseek-reasoner (DeepSeek Reasoner) - Fetch available models can list more, do not add them. Always use deepseek/deepseek-v4.1-flash (DeepSeek V4.1 Flash) as my model in this workshop and prefer it in every app we make; switch to another only if it fails; API key: I paste the workshop key myself from https://acryl.dev/workshoppanel, My project, "Your model key", after I enter the workshop password. Never enter that key, a password or any secret for me, and never write the key into a file, a commit, a screenshot or a chat.
 
-6. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
+6. Make sure I have joined the ACRYL WORKSHOP GitHub organization with my own account: open https://github.com/orgs/acrylworkshop/invitation in my browser, sign in as me, and click "Join ACRYL WORKSHOP" (the Copilot seat is optional). Do not accept the invitation for me, do not create an account for me, and never ask for my GitHub password.
+
+7. Do not share anything to GitHub for me. When I want to share my app, I do it myself: in Control Center, the app's card, Share, then Connect GitHub.
 
 Do not enter any password or API key for me: ask me to type them myself.`
