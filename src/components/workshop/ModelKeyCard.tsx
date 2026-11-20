@@ -4,10 +4,11 @@ import { openModelKey } from '../../lib/workshopKey'
 
 /** The provider form in Control Center's Settings > Models, as the workshop wants it filled in. */
 const PROVIDER_FIELDS: readonly (readonly [string, string])[] = [
+  ['Kind', 'Custom model API (the second tab, not Third-party model provider)'],
+  ['Provider ID', 'orcarouter'],
   ['Display name', 'OrcaRouter'],
   ['Base URL', 'https://api.orcarouter.ai/v1'],
   ['API protocol', 'OpenAI Chat Completions'],
-  ['Retry policy', 'Default (Transient errors)'],
   ['API key', 'the workshop key below'],
 ]
 
@@ -63,7 +64,7 @@ export function ModelKeyCard() {
       <div>
         <p className="eyebrow">Your model key</p>
         <h3 id="workshop-model-key-title">Set up OrcaRouter</h3>
-        <p>In ACRYL Control Center, and the same way inside an ACRYL Blend app: open Settings (the gear) &gt; Models, then add a provider (or open the OrcaRouter card and click Edit). Fill it in like this:</p>
+        <p>In ACRYL Control Center, and the same way inside an ACRYL Blend app: open Settings (the gear) &gt; Models, click Add provider, and choose the <strong>Custom model API</strong> tab. Fill it in like this:</p>
       </div>
       <dl className="workshop-model-fields">
         {PROVIDER_FIELDS.map(([label, value]) => (
@@ -81,7 +82,7 @@ export function ModelKeyCard() {
             <li key={id}><code>{id}</code> <span>{name}</span>{id === WORKSHOP_MODEL && <em className="workshop-chip">workshop default</em>}</li>
           ))}
         </ul>
-        <p className="workshop-note-inline">Under Models &gt; Customized model catalog. "Fetch available models" can list more; do not add them: this key is shared, and only this list belongs to the workshop.</p>
+        <p className="workshop-note-inline">Under Models, add each one with Add model (or paste an id). "Fetch available models" can list more; do not add them: this key is shared, and only this list belongs to the workshop.</p>
       </div>
       {key === undefined
         ? (

@@ -39,6 +39,8 @@ describe('the Control Center install block', () => {
     expect(AGENT_SETUP_PROMPT).toContain('sudo xattr -cr "/Applications/ACRYL Control Center.app"')
     expect(AGENT_SETUP_PROMPT).toContain('Unblock')
     expect(AGENT_SETUP_PROMPT).toContain('OrcaRouter')
+    expect(AGENT_SETUP_PROMPT).toContain('Custom model API')
+    expect(AGENT_SETUP_PROMPT).toContain('Provider ID orcarouter')
     expect(AGENT_SETUP_PROMPT).toContain(WORKSHOP_ORG_INVITE_URL)
     expect(AGENT_SETUP_PROMPT).toContain('Do not accept the invitation for me')
     expect(WORKSHOP_ORG_STEPS.join(' ')).toContain('Join ACRYL WORKSHOP')
