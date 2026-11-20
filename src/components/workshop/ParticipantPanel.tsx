@@ -1,9 +1,9 @@
-import { Check, Loader2, Trash2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Check, Copy, Loader2, Trash2 } from 'lucide-react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { CopyLine } from '../CopyLine'
 import {
   deletePlugin, loadMine, PLUGIN_LABELS, PLUGIN_LIFECYCLE, PROJECT_LABELS, PROJECT_LIFECYCLE, PUBLICATION, PUBLICATION_LABELS,
-  registerParticipant, parseServiceList, savePlugin, saveProject, updateParticipant, validateParticipant, validatePlugin, validateProject,
+  privateLinkOf, registerParticipant, parseServiceList, storedCredentials, savePlugin, saveProject, updateParticipant, validateParticipant, validatePlugin, validateProject,
   type CatalogueEntry, type Credentials, type Idea, type MyPlugin, type MyProject, type Participant, type PluginInput, type PluginStatus, type ProjectInput,
   type ProjectStatus, type PublicationStatus, type Session, type SourceMode, type WorkshopEvent,
 } from '../../lib/workshop'
@@ -143,16 +143,41 @@ export interface ParticipantPanelProps {
   readonly onParticipantUpdated: (participant: Participant) => void
   readonly onForget: () => void
   readonly onPublicChanged: () => void
+  /** Shown above the project form, e.g. the welcome after registering. */
+  readonly banner?: ReactNode
+  /** Each new value moves focus to the first field to fill: the name before registering, else the project's first field. */
+  readonly focusRequest: number
+  readonly onProjectKnown: (exists: boolean) => void
+}
+
+/** The panel's address without a hash, the base of every private link. */
+const pageUrl = (): string => `${window.location.origin}${window.location.pathname}`
+
+export function CopyPrivateLink({ credentials, className = 'button secondary small' }: { readonly credentials: Credentials; readonly className?: string }) {
+  const [copied, setCopied] = useState(false)
+  const copy = async (): Promise<void> => {
+    await navigator.clipboard.writeText(privateLinkOf(pageUrl(), credentials))
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <button type="button" className={className} onClick={() => void copy()}>
+      {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied ? 'Copied' : 'Copy my private link'}
+    </button>
+  )
 }
 
 export function ParticipantPanel(props: ParticipantPanelProps) {
-  const { event, ideas, session, pickedBlueprint, pickedIdea, onRegistered, onPickedConsumed, onIdeaConsumed, onParticipantUpdated, onForget, onPublicChanged } = props
+  const { event, ideas, session, pickedBlueprint, pickedIdea, onRegistered, onPickedConsumed, onIdeaConsumed, onParticipantUpdated, onForget, onPublicChanged, banner, focusRequest, onProjectKnown } = props
   const [mine, setMine] = useState<{ project?: MyProject; plugins: readonly MyPlugin[] }>()
   const [mineError, setMineError] = useState<string>()
   const [version, setVersion] = useState(0)
   const [projectForm, setProjectForm] = useState<ProjectFormState>(EMPTY_PROJECT)
   const [projectNotice, setProjectNotice] = useState<Notice>()
   const [savingProject, setSavingProject] = useState(false)
+  const firstField = useRef<HTMLSelectElement & HTMLInputElement>(null)
+  const appNameField = useRef<HTMLInputElement>(null)
+  const handledFocus = useRef(0)
 
   useEffect(() => {
     if (session === undefined) { setMine(undefined); return undefined }
@@ -165,6 +190,17 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
   }, [session, version])
 
   useEffect(() => { setProjectForm(projectStateOf(mine?.project)) }, [mine?.project?.id, mine?.project?.updated])
+
+  const loaded = mine !== undefined
+  useEffect(() => { if (loaded) onProjectKnown(mine.project !== undefined) }, [loaded, mine?.project, onProjectKnown])
+
+  useEffect(() => {
+    if (!loaded || focusRequest === handledFocus.current) return
+    handledFocus.current = focusRequest
+    const field = firstField.current ?? appNameField.current
+    field?.focus({ preventScroll: true })
+    field?.scrollIntoView({ block: 'center' })
+  }, [loaded, focusRequest])
 
   useEffect(() => {
     if (pickedBlueprint === undefined) return
@@ -188,7 +224,7 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
     onIdeaConsumed()
   }, [pickedIdea, onIdeaConsumed])
 
-  if (session === undefined) return <RegistrationForm event={event} onRegistered={onRegistered} />
+  if (session === undefined) return <RegistrationForm event={event} focusRequest={focusRequest} onRegistered={onRegistered} />
   if (mine === undefined && mineError === undefined) return <p className="workshop-note" role="status">Loading your project...</p>
   if (mineError !== undefined) {
     return (
@@ -255,8 +291,11 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
           <p className="eyebrow">My project</p>
           <h2 id="workshop-mine">{session.participant.name}</h2>
         </div>
-        <p>Everything you type here is yours. The public board only shows what you chose to publish, and your generated sign-in email is never shown.</p>
+        <p>{project === undefined
+          ? 'Your place is saved. Pick an idea and name your app to create your project; everything else can wait.'
+          : 'Everything you type here is yours. The public board only shows what you chose to publish, and your generated sign-in email is never shown.'}</p>
       </div>
+      {banner}
 
       <div className="workshop-mine-grid">
         <div>
@@ -274,7 +313,10 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
           {projectForm.sourceMode === 'idea_pool' && (
             <label className="workshop-field">
               <span>Idea</span>
-              <select aria-label="Idea" value={projectForm.idea} onChange={event => setProject({ idea: event.target.value })}>
+              <select ref={firstField} aria-required="true" value={projectForm.idea} onChange={event => {
+                setProject({ idea: event.target.value })
+                if (event.target.value !== '' && projectForm.appName === '') appNameField.current?.focus()
+              }}>
                 <option value="">Pick an idea</option>
                 {ideas.map(idea => <option key={idea.id} value={idea.id}>{idea.title}</option>)}
               </select>
@@ -298,8 +340,13 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
           <div className="workshop-fields">
             <label className="workshop-field">
               <span>App name</span>
-              <input value={projectForm.appName} maxLength={80} onChange={event => setProject({ appName: event.target.value })} placeholder="What are you building?" />
+              <input ref={appNameField} aria-required="true" value={projectForm.appName} maxLength={80} onChange={event => setProject({ appName: event.target.value })} onKeyDown={event => { if (event.key === 'Enter') void submitProject() }} placeholder="What are you building?" />
             </label>
+          </div>
+          {project !== undefined && (
+          <details className="workshop-more">
+            <summary>More details <em>optional</em></summary>
+          <div className="workshop-fields">
             <label className="workshop-field">
               <span>Who is it for, and what problem does it solve?</span>
               <input value={projectForm.targetUser} maxLength={300} onChange={event => setProject({ targetUser: event.target.value })} />
@@ -340,6 +387,8 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
               <input type="url" value={projectForm.demoUrl} onChange={event => setProject({ demoUrl: event.target.value })} placeholder="https://..." />
             </label>
           </div>
+          </details>
+          )}
           {projectNotice !== undefined && <p className={projectNotice.kind === 'error' ? 'workshop-error' : 'workshop-ok'} role={projectNotice.kind === 'error' ? 'alert' : 'status'}>{projectNotice.text}</p>}
           <button type="button" className="button" disabled={savingProject} onClick={() => void submitProject()}>
             {savingProject ? <><Loader2 className="spin" aria-hidden="true" /> Saving</> : project === undefined ? 'Create my project' : 'Save my project'}
@@ -379,7 +428,7 @@ export function ParticipantPanel(props: ParticipantPanelProps) {
   )
 }
 
-function RegistrationForm({ event, onRegistered }: { readonly event: WorkshopEvent; readonly onRegistered: (session: Session, credentials: Credentials) => void }) {
+function RegistrationForm({ event, focusRequest, onRegistered }: { readonly event: WorkshopEvent; readonly focusRequest: number; readonly onRegistered: (session: Session, credentials: Credentials) => void }) {
   const [name, setName] = useState('')
   const [githubLogin, setGithubLogin] = useState('')
   const [os, setOs] = useState('')
@@ -388,7 +437,7 @@ function RegistrationForm({ event, onRegistered }: { readonly event: WorkshopEve
   const [error, setError] = useState<string>()
   const first = useRef<HTMLInputElement>(null)
 
-  useEffect(() => { first.current?.focus() }, [])
+  useEffect(() => { first.current?.focus() }, [focusRequest])
 
   if (!event.registrationOpen) {
     return (
@@ -465,6 +514,7 @@ function ParticipantSettings({ participant, session, onUpdated, onForget }: {
   const [githubLogin, setGithubLogin] = useState(participant.githubLogin)
   const [notice, setNotice] = useState<Notice>()
   const [busy, setBusy] = useState(false)
+  const credentials = storedCredentials()
   const save = async (): Promise<void> => {
     setBusy(true)
     try {
@@ -493,6 +543,13 @@ function ParticipantSettings({ participant, session, onUpdated, onForget }: {
         <button type="button" className="button small" disabled={busy} onClick={() => void save()}>Save settings</button>
         <button type="button" className="button secondary small" onClick={onForget}>Use another identity</button>
       </div>
+      {credentials !== undefined && (
+        <>
+          <h3>Another device</h3>
+          <p className="workshop-note-inline">This link opens your project in any browser. It is private, so don't post it.</p>
+          <div className="workshop-aside-actions"><CopyPrivateLink credentials={credentials} /></div>
+        </>
+      )}
     </div>
   )
 }

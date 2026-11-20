@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  decodeRecovery, encodeRecovery, isArtifactUrl, isHttpsUrl, isRevealed, parseDate, parseServiceList, progressOf,
+  decodeRecovery, encodeRecovery, privateLinkOf, isArtifactUrl, isHttpsUrl, isRevealed, parseDate, parseServiceList, progressOf,
   validateDisplayName, validateIdea, validateParticipant, validatePlugin, validateProject, type PluginInput, type ProjectInput,
   type WorkshopEvent,
 } from './workshop'
@@ -120,6 +120,9 @@ describe('the private edit code', () => {
     const credentials = { identity: 'w-abc@workshop.acryl.dev', password: 'p'.repeat(32) }
     expect(decodeRecovery(encodeRecovery(credentials))).toEqual(credentials)
     expect(decodeRecovery('not-base64')).toBeUndefined()
+    const link = privateLinkOf('https://acryl.dev/workshoppanel', credentials)
+    expect(link.startsWith('https://acryl.dev/workshoppanel#restore=')).toBe(true)
+    expect(decodeRecovery(link.slice(link.indexOf('#restore=') + '#restore='.length))).toEqual(credentials)
     expect(decodeRecovery(btoa('{"identity":"x","password":"short"}'))).toBeUndefined()
   })
 })

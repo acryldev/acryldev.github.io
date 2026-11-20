@@ -474,6 +474,11 @@ export function encodeRecovery(credentials: Credentials): string {
   return base64url(JSON.stringify(credentials))
 }
 
+/** The private address that signs this participant in on any browser; `pageUrl` is the panel's address without a hash. */
+export function privateLinkOf(pageUrl: string, credentials: Credentials): string {
+  return `${pageUrl}#restore=${encodeRecovery(credentials)}`
+}
+
 export function decodeRecovery(code: string): Credentials | undefined {
   try {
     const parsed: unknown = JSON.parse(fromBase64url(code))

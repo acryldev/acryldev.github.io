@@ -758,7 +758,12 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .workshop-aside-card { display: grid; gap: 10px; margin-bottom: 16px; padding: 18px; border: 1px solid var(--border); background: var(--card); }
 .workshop-aside-card h3 { margin: 0; font-size: 16px; font-weight: 600; }
 .workshop-aside-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.workshop-recovery { display: grid; gap: 12px; margin-top: 24px; padding: 18px; border: 1px solid var(--accent-foreground); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.workshop-recovery { scroll-margin-top: 140px; display: grid; gap: 12px; margin-top: 24px; padding: 18px; border: 1px solid var(--accent-foreground); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.workshop-more { margin-top: 18px; border: 1px solid var(--border); }
+.workshop-more > summary { min-height: 44px; padding: 12px 14px; cursor: pointer; font-family: 'DM Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.workshop-more > summary em { color: var(--muted-foreground); font-style: normal; }
+.workshop-more[open] > summary { border-bottom: 1px solid var(--border); }
+.workshop-more > .workshop-fields { padding: 14px; }
 .workshop-recovery p { margin: 6px 0 10px; color: var(--muted-foreground); font-size: 13px; }
 .workshop-recovery code { display: block; overflow-wrap: anywhere; font-family: 'DM Mono', ui-monospace, monospace; font-size: 12px; }
 .workshop-plugin-editor { margin-top: 12px; padding: 0 16px; border: 1px solid var(--border); background: var(--card); }
@@ -802,7 +807,13 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 }
 @media (max-width: 680px) {
   .workshop-page { padding-block: 46px 80px; }
-  .workshop-tabs { top: 0; flex-wrap: nowrap; overflow-x: auto; }
+  .workshop-tabs { top: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; background:
+    linear-gradient(to right, var(--background) 30%, transparent) left center / 40px 100% no-repeat local,
+    linear-gradient(to left, var(--background) 30%, transparent) right center / 40px 100% no-repeat local,
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) 22%, transparent), transparent) left center / 18px 100% no-repeat scroll,
+    linear-gradient(to left, color-mix(in srgb, var(--foreground) 22%, transparent), transparent) right center / 18px 100% no-repeat scroll,
+    var(--background); }
+  .workshop-tabs::-webkit-scrollbar { display: none; }
   .workshop-tabs button { flex: none; }
   .workshop-fields.two, .workshop-gallery { grid-template-columns: 1fr; }
   .workshop-stats strong { font-size: 32px; }

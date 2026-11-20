@@ -1,9 +1,9 @@
 import { ArrowUpRight, Check, Copy, ExternalLink, Github, Loader2, Star } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { CataloguePane } from '../components/workshop/CataloguePane'
 import { FacilitatorPanel } from '../components/workshop/FacilitatorPanel'
-import { ParticipantPanel } from '../components/workshop/ParticipantPanel'
+import { CopyPrivateLink, ParticipantPanel } from '../components/workshop/ParticipantPanel'
 import {
   decodeRecovery, encodeRecovery, formatDateTime, formatTime, forgetCredentials, FRANKENSTEIN_LABELS, isRevealed, loadPublicWorkshop,
   PLUGIN_LABELS, PLUGIN_LIFECYCLE, PROJECT_LABELS, PROJECT_LIFECYCLE, PUBLICATION_LABELS, restoreSession, SOURCE_LABELS, storedCredentials,
@@ -29,9 +29,13 @@ export function WorkshopPanelPage() {
   const [attempt, setAttempt] = useState(0)
   const [session, setSession] = useState<Session>()
   const [recovery, setRecovery] = useState<string>()
+  const [credentials, setCredentials] = useState<Credentials>()
   const [sessionNotice, setSessionNotice] = useState<Notice>()
   const [pickedBlueprint, setPickedBlueprint] = useState<CatalogueEntry>()
   const [pickedIdea, setPickedIdea] = useState<string>()
+  const [hasProject, setHasProject] = useState(false)
+  const [focusRequest, setFocusRequest] = useState(0)
+  const tabsRef = useRef<HTMLElement>(null)
 
   const setTab = useCallback((next: WorkshopTab) => {
     setParams(previous => {
@@ -43,6 +47,12 @@ export function WorkshopPanelPage() {
   }, [setParams])
 
   const refresh = useCallback(() => setAttempt(value => value + 1), [])
+  const askFocus = useCallback(() => setFocusRequest(value => value + 1), [])
+
+  // On a phone the tab bar scrolls sideways: keep the chosen tab in view.
+  useEffect(() => {
+    tabsRef.current?.querySelector<HTMLElement>('[aria-current="page"]')?.scrollIntoView({ block: 'nearest', inline: 'center' })
+  }, [tab])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -87,9 +97,10 @@ export function WorkshopPanelPage() {
     }
   }, [setTab])
 
-  const onRegistered = (next: Session, credentials: Credentials): void => {
+  const onRegistered = (next: Session, fresh: Credentials): void => {
     setSession(next)
-    setRecovery(encodeRecovery(credentials))
+    setRecovery(encodeRecovery(fresh))
+    setCredentials(fresh)
     setSessionNotice(undefined)
     setTab('mine')
     refresh()
@@ -139,16 +150,15 @@ export function WorkshopPanelPage() {
           <span>{revealed ? `${board.length} on the public board` : `Board reveals ${formatDateTime(event.revealAt, event.timezone)}`}</span>
         </div>
         <div className="workshop-hero-actions">
-          <button type="button" className="button" onClick={() => setTab('mine')}>{session === undefined ? 'Register and start' : 'Open my project'}</button>
+          <button type="button" className="button" onClick={() => { setTab('mine'); askFocus() }}>{session === undefined ? 'Register and start' : hasProject ? 'Open my project' : 'Choose my idea'}</button>
           <button type="button" className="button secondary" onClick={() => setTab('board')}>See the participants</button>
           <a className="button secondary" href="#facilitator">Facilitator controls</a>
         </div>
       </header>
 
-      {recovery !== undefined && <RecoveryBanner code={recovery} onDismiss={() => setRecovery(undefined)} />}
       {sessionNotice !== undefined && <p className={sessionNotice.kind === 'error' ? 'workshop-error' : 'workshop-ok'} role={sessionNotice.kind === 'error' ? 'alert' : 'status'}>{sessionNotice.text}</p>}
 
-      <nav className="workshop-tabs" aria-label="Workshop sections">
+      <nav ref={tabsRef} className="workshop-tabs" aria-label="Workshop sections">
         {TABS.map(value => (
           <button key={value} type="button" className={tab === value ? 'active' : undefined} aria-current={tab === value ? 'page' : undefined} onClick={() => setTab(value)}>
             {TAB_LABELS[value]}
@@ -178,6 +188,11 @@ export function WorkshopPanelPage() {
           onParticipantUpdated={(participant: Participant) => setSession(current => current === undefined ? current : { ...current, participant })}
           onForget={onForget}
           onPublicChanged={refresh}
+          focusRequest={focusRequest}
+          onProjectKnown={setHasProject}
+          banner={recovery !== undefined && credentials !== undefined
+            ? <RecoveryBanner credentials={credentials} onStart={() => { setRecovery(undefined); askFocus() }} />
+            : undefined}
         />
       )}
 
@@ -190,23 +205,22 @@ export function WorkshopPanelPage() {
   )
 }
 
-function RecoveryBanner({ code, onDismiss }: { readonly code: string; readonly onDismiss: () => void }) {
-  const [copied, setCopied] = useState<'code' | 'link'>()
-  const link = `${window.location.origin}${window.location.pathname}#restore=${code}`
-  const copy = async (value: string, kind: 'code' | 'link'): Promise<void> => {
-    await navigator.clipboard.writeText(value)
-    setCopied(kind)
-    window.setTimeout(() => setCopied(undefined), 2000)
-  }
+function RecoveryBanner({ credentials, onStart }: { readonly credentials: Credentials; readonly onStart: () => void }) {
+  const box = useRef<HTMLDivElement>(null)
+  // Registering re-renders the page from its top; bring the welcome into view and give it focus so a phone user, a screen reader and the keyboard all land on it.
+  useEffect(() => {
+    box.current?.scrollIntoView({ block: 'start' })
+    box.current?.focus({ preventScroll: true })
+  }, [])
   return (
-    <div className="workshop-recovery" role="status">
+    <div className="workshop-recovery" role="status" ref={box} tabIndex={-1}>
       <div>
-        <strong>You're in. Your project is saved in this browser.</strong>
-        <p>Switching laptops later? Keep this link - it opens your project anywhere. It is private, so don't post it.</p>
+        <strong>You're in. Your place is saved in this browser.</strong>
+        <p>Next: choose an idea and name your app. Switching laptops later? Copy your private link - it brings you back anywhere. Don't post it.</p>
       </div>
       <div className="workshop-aside-actions">
-        <button type="button" className="button small" onClick={onDismiss}>Start my project</button>
-        <button type="button" className="button secondary small" onClick={() => void copy(link, 'link')}>{copied === 'link' ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied === 'link' ? 'Copied' : 'Copy my private link'}</button>
+        <button type="button" className="button small" onClick={onStart}>Choose my idea</button>
+        <CopyPrivateLink credentials={credentials} />
       </div>
     </div>
   )
