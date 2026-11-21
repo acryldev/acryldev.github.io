@@ -85,6 +85,14 @@ function HeroFilm() {
   )
 }
 
+const layerSteps = [
+  { title: 'Building blocks, not source code', body: 'Every app is assembled from Cordis plugins: UI, data and actions behind stable services.' },
+  { title: 'The agent builds with those blocks', body: "ACRYL's chat, and Claude Code, Codex or Pi, operate the app through its door. The core code stays untouched." },
+  { title: 'Sandboxed per person', body: 'Every app runs in its own instance, on your machine or in your own WebBox, with your rights only.' },
+  { title: 'Your change is a versioned layer: a Blend', body: 'Save, roll back, share it to GitHub, list it in the store.' },
+  { title: 'The foundation keeps shipping', body: 'acrylblends update merges new releases under your layer, and your changes stay.' },
+] as const
+
 export function HomePage() {
   return (
     <>
@@ -92,7 +100,9 @@ export function HomePage() {
         <div className="page-width hero-content">
           <p className="eyebrow">The platform for agentic apps</p>
           <h1>Everything is a plugin.<br /><strong className="spectrum-text">Build agentic apps.</strong></h1>
-          <p className="hero-lede">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own IDE is one app built on it.</p>
+          <p className="hero-subhero">Let your users build the product they need.</p>
+          <p className="hero-lede">Every ACRYL app has its own agent. Your users say &ldquo;add XYZ&rdquo;, and seconds later the change is live for them and their team. You keep shipping the foundation; they keep their layer.</p>
+          <p className="hero-lede hero-lede-follow">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own IDE is one app built on it.</p>
           <div className="hero-actions">
             <CommandBox command="npx acryl" label="Open the launcher" />
             <div className="hero-cta">
@@ -103,6 +113,23 @@ export function HomePage() {
           </div>
           <HeroFilm />
         </div>
+      </section>
+
+      <section className="home-band page-width" aria-labelledby="layer-heading">
+        <div className="section-intro">
+          <div><p className="eyebrow">How your users build</p><h2 id="layer-heading">Five steps.<br /><span className="spectrum-text">Your foundation, their layer.</span></h2></div>
+          <p>A prompt box inside the product instead of a feature request and six months of waiting. This is how ACRYL makes it safe.</p>
+        </div>
+        <ol className="atoms-grid layer-steps">
+          {layerSteps.map((step, index) => (
+            <li className="atom-card" key={step.title}>
+              <div><span>{String(index + 1).padStart(2, '0')}</span></div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))}
+          <li className="atom-card layer-closing"><p>Stop selling features. <span className="spectrum-text">Sell a platform your customers finish themselves.</span></p></li>
+        </ol>
       </section>
 
       <section className="home-band page-width" aria-labelledby="ways-heading">
