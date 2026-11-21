@@ -37,6 +37,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm updates:sync
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm stars:sync
       - run: pnpm check
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

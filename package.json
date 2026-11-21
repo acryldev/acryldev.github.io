@@ -18,7 +18,8 @@
     "catalog:sync:dsh": "node scripts/sync-upstream-catalog.mjs",
     "catalog:sync:acryl": "node scripts/sync-acryl-catalog.mjs && node scripts/build-market-catalog.mjs",
     "catalog:market": "node scripts/build-market-catalog.mjs",
-    "updates:sync": "node scripts/sync-updates.mjs"
+    "updates:sync": "node scripts/sync-updates.mjs",
+    "stars:sync": "node scripts/sync-stars.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -24,10 +24,10 @@ describe('Shell community links', () => {
     }
   })
 
-  it('renders the current GitHub stargazer count in the header star link', async () => {
+  it('renders the star count the deploy wrote (stars.json) in the header star link', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => ({ stargazers_count: 1234 }),
+      json: async () => ({ repository: 'acryldev/acryl', stars: 1234 }),
     }))
 
     render(createElement(MemoryRouter, null, createElement(Shell)))
