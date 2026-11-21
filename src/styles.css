@@ -432,6 +432,11 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .hero-actions .command-block { max-width: 420px; }
 .hero-film { margin: 56px 0 0; }
 .hero-film video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--border); border-radius: 6px; background: oklch(0.985 0.003 230); box-shadow: 0 30px 80px oklch(0.12 0.02 240 / .12); }
+.film-switch { display: inline-flex; margin-bottom: 14px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--card); }
+.film-switch button { padding: 10px 18px; border: 0; background: transparent; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 13px; cursor: pointer; }
+.film-switch button + button { border-left: 1px solid var(--border); }
+.film-switch button.active { background: var(--foreground); color: var(--background); }
+.film-switch button:focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: -2px; }
 .hero-film figcaption { margin-top: 12px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 11px; }
 .home-band { padding-block: 104px 0; }
 .home-band + .home-band { padding-top: 96px; }

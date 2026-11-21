@@ -1,0 +1,449 @@
+<template>
+  <style>
+    @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope.woff2") format("woff2"); font-weight: 200 800; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-500.woff2") format("woff2"); font-weight: 500; }
+    #root {
+      --ground: oklch(0.985 0.003 230); --ink: oklch(0.18 0.016 240); --muted: oklch(0.49 0.018 240);
+      --border: oklch(0.86 0.012 230); --surface: oklch(0.965 0.006 230); --card: oklch(0.995 0.002 230);
+      --cyan: oklch(0.72 0.18 200); --magenta: oklch(0.7 0.2 320); --yellow: oklch(0.82 0.19 95); --green: oklch(0.6 0.15 155);
+      position: absolute; inset: 0; overflow: hidden; background: var(--ground); color: var(--ink);
+      font-family: "Manrope", sans-serif;
+    }
+    #root * { box-sizing: border-box; }
+    .grid { position: absolute; inset: 0;
+      background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px),
+                        linear-gradient(to bottom, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px);
+      background-size: 56px 56px; }
+    .mono { font-family: "DM Mono", monospace; }
+
+    /* left column: eyebrow, caption, command */
+    .eyebrow { position: absolute; left: 192px; top: 330px; font: 500 22px/1 "DM Mono", monospace; letter-spacing: .16em; color: oklch(0.48 0.14 205); opacity: 0; }
+    .cap { position: absolute; left: 192px; top: 378px; width: 590px; font-size: 66px; font-weight: 750; line-height: 1.06; letter-spacing: -.025em; opacity: 0; }
+    .cap .w { display: inline-block; opacity: 0; filter: blur(8px); }
+    .hl { background: linear-gradient(100deg, var(--cyan), var(--magenta) 55%, var(--yellow)); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
+    .cmd { position: absolute; left: 192px; top: 700px; max-width: 620px; padding: 18px 24px; border: 2px solid var(--ink); border-radius: 3px; background: var(--card);
+           font: 400 27px/1.5 "DM Mono", monospace; opacity: 0; white-space: pre; }
+    .cmd .p { color: var(--muted); }
+    .type { display: inline-block; clip-path: inset(0 100% 0 0); vertical-align: top; }
+
+    /* the customer's app */
+    .app { position: absolute; left: 840px; top: 300px; width: 900px; height: 560px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card);
+           box-shadow: 0 24px 60px oklch(0.12 0.02 240 / .12); transform-origin: 0 0; overflow: hidden; }
+    .app.mini-in { left: 0; top: 0; transform: scale(.5); box-shadow: none; }
+    .mini { position: absolute; width: 450px; height: 280px; opacity: 0; overflow: hidden; }
+    .bar { position: absolute; left: 0; top: 0; right: 0; height: 54px; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 22px; gap: 9px; }
+    .bar i { width: 13px; height: 13px; border-radius: 50%; background: var(--border); }
+    .bar .name { margin-left: 16px; font: 500 23px/1 "DM Mono", monospace; }
+    .run { position: absolute; right: 22px; top: 16px; display: flex; align-items: center; gap: 10px; font: 400 20px/1 "DM Mono", monospace; color: var(--muted); }
+    .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--border); position: relative; }
+    .dot b { position: absolute; inset: 0; border-radius: 50%; background: var(--green); }
+    .chat { position: absolute; left: 0; top: 54px; width: 300px; bottom: 0; border-right: 2px solid var(--border); background: var(--surface); }
+    .nav { position: absolute; left: 16px; right: 16px; height: 40px; padding: 0 12px; display: flex; align-items: center; font-size: 21px; font-weight: 650; color: var(--muted); border-radius: 4px; }
+    .nav.on { color: var(--ink); background: var(--card); border-left: 4px solid var(--ink); }
+    .ubub { position: absolute; right: 16px; top: 232px; width: 236px; padding: 12px 16px; border-radius: 14px 14px 4px 14px; background: var(--ink); color: var(--card); font-size: 21px; font-weight: 600; line-height: 1.25; opacity: 0; }
+    .ubub .w2 { display: inline-block; opacity: 0; }
+    .abub { position: absolute; left: 16px; top: 352px; padding: 12px 16px; border-radius: 14px 14px 14px 4px; background: var(--card); border: 2px solid var(--border); font-size: 21px; font-weight: 600; opacity: 0; white-space: nowrap; min-width: 200px; min-height: 52px; }
+    .abub .cur { display: inline-block; width: 10px; height: 22px; margin-left: 4px; background: var(--ink); vertical-align: -3px; }
+    .abub .done { position: absolute; left: 16px; top: 12px; opacity: 0; }
+    .input { position: absolute; left: 16px; right: 16px; bottom: 16px; height: 54px; border: 2px solid var(--ink); border-radius: 4px; background: var(--card);
+             padding: 0 14px; display: flex; align-items: center; font-size: 20px; color: var(--muted); opacity: 0; }
+    .canvas { position: absolute; left: 300px; top: 54px; right: 0; bottom: 0; }
+    .page-title { position: absolute; left: 30px; top: 26px; font-size: 36px; font-weight: 750; letter-spacing: -.02em; }
+    .reqlink { position: absolute; right: 30px; top: 38px; font: 400 17px/1 "DM Mono", monospace; color: var(--muted); border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+    .tbl { position: absolute; left: 0; top: 96px; width: 600px; height: 170px; }
+    .tab { position: absolute; left: 30px; width: 540px; height: 40px; display: grid; grid-template-columns: 1.2fr 1fr .8fr; align-items: center; padding: 0 14px;
+           border-bottom: 2px solid var(--border); font: 400 19px/1 "DM Mono", monospace; }
+    .tab.h { color: var(--muted); font-weight: 500; }
+    .over { position: absolute; left: 30px; top: 96px; width: 540px; height: 128px; border-left: 5px solid var(--magenta); background: var(--surface); }
+    .over .ot { position: absolute; left: 14px; top: 8px; font-size: 22px; font-weight: 750; }
+    .over .tab.o { left: 0; width: 100%; border-bottom: 0; height: 28px; }
+    .over .tab.o:nth-child(2) { top: 40px; } .over .tab.o:nth-child(3) { top: 68px; } .over .tab.o:nth-child(4) { top: 96px; }
+    .slot { position: absolute; top: 380px; width: 96px; height: 96px; border: 2px dashed var(--border); border-radius: 6px; opacity: 0; }
+    .plug { position: absolute; width: 96px; height: 96px; border-radius: 6px; opacity: 0; transform-origin: 50% 50%;
+            display: flex; align-items: flex-end; padding: 9px; font: 500 18px/1 "DM Mono", monospace; color: var(--ink); }
+    .canvas .plug { top: 380px; }
+    .c-cyan { background: var(--cyan); } .c-magenta { background: var(--magenta); } .c-yellow { background: var(--yellow); }
+    .s1 { left: 30px; } .s2 { left: 142px; }
+
+    /* the request, the queue, the clone */
+    #form { position: absolute; left: 1010px; top: 420px; width: 520px; height: 240px; border: 2px solid var(--ink); border-radius: 8px; background: var(--card); opacity: 0; box-shadow: 0 24px 60px oklch(0.12 0.02 240 / .12); z-index: 4; }
+    #form .ft { position: absolute; left: 24px; top: 20px; font-size: 28px; font-weight: 750; letter-spacing: -.02em; }
+    #form .fx { position: absolute; left: 24px; right: 24px; top: 74px; height: 74px; border: 2px solid var(--border); border-radius: 4px; padding: 12px 14px; font: 400 21px/1.35 "DM Mono", monospace; background: var(--surface); }
+    #form .fb { position: absolute; right: 24px; bottom: 20px; padding: 10px 26px; border-radius: 3px; background: var(--ink); color: var(--card); font: 500 21px/1 "DM Mono", monospace; transform-origin: 50% 50%; }
+    #road { position: absolute; left: 840px; top: 900px; width: 900px; height: 90px; opacity: 0; }
+    #road .rl { position: absolute; left: 0; top: 30px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--muted); }
+    #road .rline { position: absolute; left: 160px; right: 0; top: 41px; height: 2px; background: var(--border); }
+    #road .tick { position: absolute; top: 34px; width: 2px; height: 16px; background: var(--border); }
+    #road .tk { position: absolute; top: 20px; width: 40px; height: 40px; border-radius: 4px; background: var(--border); }
+    #road .tk.mine { background: var(--card); border: 3px solid var(--ink); }
+    #rmark { position: absolute; left: 160px; top: 33px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); }
+    #clone { position: absolute; left: 1308px; top: 300px; width: 432px; height: 309px; border: 2px dashed var(--ink); border-radius: 10px; background: var(--card); opacity: 0; overflow: hidden; }
+    #clone .cbar { height: 44px; border-bottom: 2px dashed var(--border); display: flex; align-items: center; padding: 0 14px; gap: 7px; font: 500 17px/1 "DM Mono", monospace; }
+    #clone .cbar i { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+    #clone .cbar span { margin-left: 10px; }
+    #clone .cl { position: absolute; left: 24px; width: 384px; height: 26px; border-left: 4px solid var(--border); background: var(--surface); }
+    #clone .cl.short { width: 230px; }
+
+    /* the team */
+    .who { position: absolute; font: 500 19px/1 "DM Mono", monospace; letter-spacing: .1em; color: var(--muted); opacity: 0; }
+    .team-line { position: absolute; left: 840px; top: 246px; width: 900px; height: 3px; background: var(--ink); opacity: 0; transform-origin: 0 50%; }
+    .team-lbl { position: absolute; left: 840px; top: 214px; font: 500 20px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--ink); opacity: 0; }
+
+    /* blocks */
+    .grp { position: absolute; top: 338px; font: 500 20px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--muted); opacity: 0; }
+    .grp.mag { color: oklch(0.5 0.17 320); }
+    .rail { position: absolute; left: 840px; top: 504px; width: 900px; height: 3px; background: var(--ink); opacity: 0; transform-origin: 0 50%; }
+    .rail-lbl { position: absolute; right: 180px; top: 518px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--muted); opacity: 0; }
+    .core { position: absolute; left: 840px; top: 522px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--ink); opacity: 0; }
+    .door { position: absolute; left: 1594px; top: 480px; width: 3px; height: 150px; background: var(--ink); opacity: 0; transform-origin: 50% 100%; }
+    .door-lbl { position: absolute; left: 1612px; top: 560px; font: 400 19px/1 "DM Mono", monospace; color: var(--muted); opacity: 0; }
+    .agent { position: absolute; left: 1548px; top: 630px; width: 96px; padding: 12px 0; text-align: center; border-radius: 14px 14px 14px 4px; background: var(--ink); color: var(--card); font: 600 21px/1 "Manrope", sans-serif; opacity: 0; }
+
+    /* instances, versions, stack */
+    .inst { position: absolute; top: 340px; width: 280px; height: 330px; border: 2px dashed var(--ink); border-radius: 8px; background: var(--card); opacity: 0; }
+    .inst .il { position: absolute; left: 20px; top: 20px; font: 500 20px/1 "DM Mono", monospace; letter-spacing: .1em; }
+    .inst .it { position: absolute; width: 64px; height: 64px; border-radius: 5px; display: flex; align-items: flex-end; padding: 6px; font: 500 12px/1 "DM Mono", monospace; }
+    .inst .ifoot { position: absolute; left: 20px; bottom: 18px; font: 400 17px/1 "DM Mono", monospace; color: var(--muted); }
+    .chip { position: absolute; padding: 12px 18px; border: 2px solid var(--ink); border-radius: 3px; font: 500 21px/1 "DM Mono", monospace; opacity: 0; background: var(--card); }
+    .chip.soon { border-style: dashed; border-color: var(--border); color: var(--muted); }
+    #ver { position: absolute; left: 840px; top: 380px; width: 900px; height: 90px; opacity: 0; }
+    #ver .line { position: absolute; left: 190px; right: 40px; top: 29px; height: 2px; background: var(--border); }
+    #ver .lbl { position: absolute; left: 0; top: 18px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .12em; color: var(--muted); }
+    #ver .v { position: absolute; top: 18px; width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--ink); background: var(--card); }
+    #ver .vt { position: absolute; top: 52px; font: 500 19px/1 "DM Mono", monospace; white-space: nowrap; }
+    #verMark { position: absolute; top: 18px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); }
+    .bcard { position: absolute; border: 2px solid var(--border); border-radius: 6px; background: var(--card); overflow: hidden; opacity: 0; font-weight: 750; line-height: 1.1; }
+    .bcard::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: var(--paint); }
+    .band { position: absolute; left: 840px; width: 900px; height: 90px; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); opacity: 0; }
+    .band span { position: absolute; left: 24px; top: 34px; font: 500 21px/1 "DM Mono", monospace; letter-spacing: .1em; }
+    #layerBand { border-top: 12px solid var(--magenta); }
+    #layerBand span { top: 24px; }
+    #relBand { border-color: var(--ink); border-top: 12px solid var(--cyan); }
+    #relBand span { top: 24px; }
+    #foundBand { position: absolute; }
+    #foundBand .newstripe { position: absolute; left: -2px; right: -2px; top: -2px; height: 12px; background: var(--cyan); opacity: 0; border-radius: 4px 4px 0 0; }
+  </style>
+
+  <div id="root" data-composition-id="explainer" data-width="1920" data-height="1080">
+    <div class="grid"></div>
+    <div class="eyebrow" id="eb1">THE PROBLEM</div>
+    <div class="eyebrow" id="eb2">THE TURN</div>
+    <div class="eyebrow" id="eb3">WHY IT IS SAFE</div>
+    <div class="eyebrow" id="eb4">THE PLATFORM</div>
+    <div class="cap" id="c1"><span class="w">Your</span> <span class="w">customer</span> <span class="w">needs</span> <span class="w">one</span> <span class="w"><span class="hl">small</span></span> <span class="w">thing.</span></div>
+    <div class="cap" id="c2"><span class="w">It</span> <span class="w">joins</span> <span class="w">the</span> <span class="w"><span class="hl">queue.</span></span></div>
+    <div class="cap" id="c3"><span class="w"><span class="hl">Months</span></span> <span class="w">pass.</span></div>
+    <div class="cap" id="c4"><span class="w">So</span> <span class="w">they</span> <span class="w">build</span> <span class="w">their</span> <span class="w"><span class="hl">own</span></span> <span class="w">copy.</span></div>
+    <div class="cap" id="c5"><span class="w">Put</span> <span class="w">a</span> <span class="w"><span class="hl">prompt</span></span> <span class="w">box</span> <span class="w">in</span> <span class="w">the</span> <span class="w">product.</span></div>
+    <div class="cap" id="c6"><span class="w">They</span> <span class="w">say</span> <span class="w">it.</span> <span class="w">The</span> <span class="w">agent</span> <span class="w"><span class="hl">builds</span></span> <span class="w">it.</span></div>
+    <div class="cap" id="c7"><span class="w">Live</span> <span class="w">for</span> <span class="w">them</span> <span class="w">and</span> <span class="w">their</span> <span class="w"><span class="hl">team.</span></span></div>
+    <div class="cap" id="c8"><span class="w">Everyone</span> <span class="w">else</span> <span class="w">keeps</span> <span class="w"><span class="hl">theirs.</span></span></div>
+    <div class="cap" id="c9"><span class="w">Built</span> <span class="w">from</span> <span class="w"><span class="hl">blocks,</span></span> <span class="w">not</span> <span class="w">source</span> <span class="w">code.</span></div>
+    <div class="cap" id="c10"><span class="w">The</span> <span class="w">agent</span> <span class="w">uses</span> <span class="w">the</span> <span class="w">blocks.</span> <span class="w">Your</span> <span class="w">core</span> <span class="w">stays</span> <span class="w"><span class="hl">untouched.</span></span></div>
+    <div class="cap" id="c11"><span class="w">Every</span> <span class="w">person</span> <span class="w">gets</span> <span class="w">their</span> <span class="w">own</span> <span class="w"><span class="hl">instance.</span></span></div>
+    <div class="cap" id="c12"><span class="w">Every</span> <span class="w">change</span> <span class="w">is</span> <span class="w">a</span> <span class="w"><span class="hl">version.</span></span></div>
+    <div class="cap" id="c13"><span class="w">The</span> <span class="w">foundation</span> <span class="w">keeps</span> <span class="w"><span class="hl">shipping.</span></span></div>
+    <div class="cap" id="c14"><span class="w">Stop</span> <span class="w">selling</span> <span class="w"><span class="hl">features.</span></span></div>
+    <div class="cap" id="c15"><span class="w">Sell</span> <span class="w">a</span> <span class="w"><span class="hl">platform</span></span> <span class="w">your</span> <span class="w">customers</span> <span class="w">finish</span> <span class="w">themselves.</span></div>
+    <div class="cmd" id="k1"><span class="p">$ </span><span class="type" id="k1t">acrylblends update</span></div>
+    <div class="cmd" id="k2"><span class="type" id="k2t" style="clip-path:none">acryl.dev</span></div>
+    <div class="app" id="card">
+      <div class="bar"><i></i><i></i><i></i><span class="name">billing</span>
+        <div class="run"><div class="dot"><b id="dotOn" style="opacity:0"></b></div><span id="runA" style="opacity:0">running</span></div>
+      </div>
+      <div class="chat">
+        <div class="nav on" style="top:22px">Invoices</div><div class="nav" style="top:70px">Customers</div><div class="nav" style="top:118px">Reports</div><div class="nav" style="top:166px">Settings</div>
+        <div class="ubub" id="ub"><span class="w2">add</span> <span class="w2">overdue</span> <span class="w2">invoices</span> <span class="w2">to</span> <span class="w2">my</span> <span class="w2">dashboard</span></div>
+        <div data-layout-allow-overlap class="abub" id="ab"><span id="abBuild">building plugins</span><span class="cur" id="cur"></span><span class="done" id="abDone">done · 1 plugin</span></div>
+        <div class="input" id="inputBox"><span id="ph">Ask the agent…</span></div>
+      </div>
+      <div class="canvas">
+        <div class="page-title" style="opacity:1">Invoices</div>
+        <div class="reqlink" id="reqLink">Request a feature</div>
+        <div data-layout-allow-overlap class="over" id="over" style="opacity:0">
+          <div class="ot">Overdue</div>
+          <div class="tab o"><span>Harbor Co</span><span>14 days</span><span>1,200</span></div>
+          <div class="tab o"><span>Pine &amp; Co</span><span>9 days</span><span>640</span></div>
+          <div class="tab o"><span>Oak Works</span><span>3 days</span><span>310</span></div>
+        </div>
+        <div class="tbl" id="tbl" style="">
+          <div class="tab h" style="top:0"><span>customer</span><span>status</span><span>amount</span></div>
+          <div class="tab" style="top:42px"><span>Harbor Co</span><span>open</span><span>1,200</span></div>
+          <div class="tab" style="top:84px"><span>Lumen Ltd</span><span>paid</span><span>980</span></div>
+          <div class="tab" style="top:126px"><span>Pine &amp; Co</span><span>open</span><span>640</span></div>
+        </div>
+        <div class="slot s1" id="sl1"></div><div class="slot s2" id="sl2"></div>
+        <div class="plug c-magenta s1" id="p1" data-layout-allow-overlap>overdue</div>
+      </div>
+    </div>
+    <div id="form" data-layout-allow-overlap><div class="ft">Request a feature</div>
+      <div class="fx"><span class="type" id="fxt" style="clip-path:inset(0 100% 0 0)">Add overdue invoices to my dashboard</span></div>
+      <div class="fb" id="fbtn">Send</div></div>
+    <div id="road">
+      <div class="rl">ROADMAP</div><div class="rline"></div><i class="tick" style="left:190px"></i><i class="tick" style="left:250px"></i><i class="tick" style="left:310px"></i><i class="tick" style="left:370px"></i><i class="tick" style="left:430px"></i><i class="tick" style="left:490px"></i><i class="tick" style="left:550px"></i><i class="tick" style="left:610px"></i><i class="tick" style="left:670px"></i><i class="tick" style="left:730px"></i><i class="tick" style="left:790px"></i><i class="tick" style="left:850px"></i>
+      <div id="rmark"></div><div class="tk" id="tk1" style="left:236px"></div><div class="tk" id="tk2" style="left:282px"></div><div class="tk" id="tk3" style="left:328px"></div><div class="tk" id="tk4" style="left:374px"></div><div class="tk" id="tk5" style="left:420px"></div><div class="tk" id="tk6" style="left:466px"></div><div class="tk" id="tk7" style="left:512px"></div>
+      <div class="tk mine" id="tkMine" style="left:520px"></div>
+    </div>
+    <div id="clone"><div class="cbar"><i></i><i></i><i></i><span>a copy, built with a prompt</span></div>
+      <div class="cl" style="top:70px"></div><div class="cl" style="top:112px"></div><div class="cl" style="top:154px"></div><div class="cl short" style="top:196px"></div></div>
+    <div class="mini" id="bwin" style="left:1290px;top:300px"><div class="app mini-in">
+      <div class="bar"><i></i><i></i><i></i><span class="name">billing · Ben</span>
+        <div class="run"><div class="dot"><b style="opacity:0"></b></div><span style="opacity:0">running</span></div>
+      </div>
+      <div class="chat">
+        <div class="nav on" style="top:22px">Invoices</div><div class="nav" style="top:70px">Customers</div><div class="nav" style="top:118px">Reports</div><div class="nav" style="top:166px">Settings</div>
+        <div class="ubub"></div>
+        <div data-layout-allow-overlap class="abub"><span>building plugins</span><span class="cur"></span><span class="done">done · 1 plugin</span></div>
+        <div class="input"><span>Ask the agent…</span></div>
+      </div>
+      <div class="canvas">
+        <div class="page-title" style="opacity:1">Invoices</div>
+        <div class="reqlink">Request a feature</div>
+        <div data-layout-allow-overlap class="over" id="bOver" style="opacity:0">
+          <div class="ot">Overdue</div>
+          <div class="tab o"><span>Harbor Co</span><span>14 days</span><span>1,200</span></div>
+          <div class="tab o"><span>Pine &amp; Co</span><span>9 days</span><span>640</span></div>
+          <div class="tab o"><span>Oak Works</span><span>3 days</span><span>310</span></div>
+        </div>
+        <div class="tbl" id="bTbl" style="">
+          <div class="tab h" style="top:0"><span>customer</span><span>status</span><span>amount</span></div>
+          <div class="tab" style="top:42px"><span>Harbor Co</span><span>open</span><span>1,200</span></div>
+          <div class="tab" style="top:84px"><span>Lumen Ltd</span><span>paid</span><span>980</span></div>
+          <div class="tab" style="top:126px"><span>Pine &amp; Co</span><span>open</span><span>640</span></div>
+        </div>
+        
+      </div></div></div>
+    <div class="mini" id="cwin" style="left:840px;top:640px"><div class="app mini-in">
+      <div class="bar"><i></i><i></i><i></i><span class="name">billing · another company</span>
+        <div class="run"><div class="dot"><b style="opacity:0"></b></div><span style="opacity:0">running</span></div>
+      </div>
+      <div class="chat">
+        <div class="nav on" style="top:22px">Invoices</div><div class="nav" style="top:70px">Customers</div><div class="nav" style="top:118px">Reports</div><div class="nav" style="top:166px">Settings</div>
+        <div class="ubub"></div>
+        <div data-layout-allow-overlap class="abub"><span>building plugins</span><span class="cur"></span><span class="done">done · 1 plugin</span></div>
+        <div class="input"><span>Ask the agent…</span></div>
+      </div>
+      <div class="canvas">
+        <div class="page-title" style="opacity:1">Invoices</div>
+        <div class="reqlink">Request a feature</div>
+        <div data-layout-allow-overlap class="over" style="opacity:0">
+          <div class="ot">Overdue</div>
+          <div class="tab o"><span>Harbor Co</span><span>14 days</span><span>1,200</span></div>
+          <div class="tab o"><span>Pine &amp; Co</span><span>9 days</span><span>640</span></div>
+          <div class="tab o"><span>Oak Works</span><span>3 days</span><span>310</span></div>
+        </div>
+        <div class="tbl" style="">
+          <div class="tab h" style="top:0"><span>customer</span><span>status</span><span>amount</span></div>
+          <div class="tab" style="top:42px"><span>Harbor Co</span><span>open</span><span>1,200</span></div>
+          <div class="tab" style="top:84px"><span>Lumen Ltd</span><span>paid</span><span>980</span></div>
+          <div class="tab" style="top:126px"><span>Pine &amp; Co</span><span>open</span><span>640</span></div>
+        </div>
+        
+      </div></div></div>
+    <div class="team-line" id="tLine"></div><div class="team-lbl" id="tLbl">ANNA AND HER TEAM · ONE SHARED LAYER</div>
+    <div class="who" id="w1" style="left:840px;top:262px">ANNA</div>
+    <div class="who" id="w2" style="left:1290px;top:262px">BEN</div>
+    <div class="who" id="w3" style="left:840px;top:602px">ANOTHER COMPANY · ITS OWN INSTANCE</div>
+    <div class="plug c-cyan" id="b0" style="left:840px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">invoices</div>
+    <div class="plug c-cyan" id="b1" style="left:958px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">customers</div>
+    <div class="plug c-magenta" id="b2" style="left:1076px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">ledger</div>
+    <div class="plug c-magenta" id="b3" style="left:1194px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">people</div>
+    <div class="plug c-yellow" id="b4" style="left:1312px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">email</div>
+    <div class="plug c-yellow" id="b5" style="left:1430px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">export</div>
+    <div class="grp" id="g1" style="left:840px">UI</div><div class="grp" id="g2" style="left:1076px">DATA</div><div class="grp" id="g3" style="left:1312px">ACTIONS</div>
+    <div class="grp mag" id="g4" style="left:1548px">THEIR LAYER</div>
+    <div class="slot" id="bslot" style="left:1548px;top:380px;width:96px;height:96px"></div>
+    <div class="plug c-magenta" id="b6" style="left:1548px;top:380px;width:96px;height:96px;opacity:0;font-size:16px">overdue</div>
+    <div class="rail" id="srail"></div><div class="rail-lbl" id="srailL">STABLE SERVICES</div>
+    <div class="core" id="core">YOUR CORE · UNTOUCHED</div>
+    <div class="door" id="door"></div><div class="door-lbl" id="doorL">the door</div>
+    <div class="agent" id="agentChip">agent</div>
+    <div class="inst" id="i1" style="left:840px"><div class="il">ANNA</div><div class="it c-cyan" style="left:20px;top:70px">invoices</div><div class="it c-magenta" style="left:96px;top:70px">overdue</div><div class="it c-yellow" style="left:20px;top:146px">email</div><div class="ifoot">OWN INSTANCE</div></div>
+    <div class="inst" id="i2" style="left:1160px"><div class="il">BEN</div><div class="it c-cyan" style="left:20px;top:70px">invoices</div><div class="it c-magenta" style="left:96px;top:70px">overdue</div><div class="ifoot">OWN INSTANCE</div></div>
+    <div class="inst" id="i3" style="left:1480px"><div class="il">ANOTHER COMPANY</div><div class="it c-cyan" style="left:20px;top:70px">invoices</div><div class="it c-yellow" style="left:96px;top:70px">export</div><div class="ifoot">OWN INSTANCE</div></div>
+    <div class="chip" id="ch1" style="left:840px;top:720px">ON THEIR MACHINE</div>
+    <div class="chip" id="ch2" style="left:1110px;top:720px">IN YOUR WEBBOX</div>
+    <div class="chip soon" id="ch3" style="left:1366px;top:720px">THEIR RIGHTS ONLY</div>
+    <div id="ver">
+      <div class="lbl">VERSIONS</div><div class="line"></div>
+      <div class="v" style="left:250px"></div><div class="vt" style="left:248px">v1</div>
+      <div class="v" style="left:470px"></div><div class="vt" style="left:468px">v2</div>
+      <div class="v" style="left:690px"></div><div class="vt" style="left:688px">v3 · overdue</div>
+      <div id="verMark" style="left:690px"></div>
+    </div>
+    <div class="chip" id="vc1" style="left:840px;top:560px">SAVE</div><div class="chip" id="vc2" style="left:950px;top:560px">ROLL BACK</div>
+    <div class="chip" id="vc3" style="left:1100px;top:560px">SHARE TO GITHUB</div><div class="chip" id="vc4" style="left:1330px;top:560px">LIST IN THE STORE</div>
+    <div class="bcard" id="vbc" style="left:840px;top:650px;width:290px;height:112px;--paint:var(--magenta);font-size:22px;padding-top:28px">overdue-invoices<br><span class="mono" style="font-size:16px;font-weight:400;color:var(--muted)">a Blend</span></div>
+    <div class="band" id="layerBand" style="top:520px"><span>THEIR LAYER · KEPT</span></div>
+    <div class="band base" id="foundBand" style="top:626px"><span>FOUNDATION · YOUR RELEASES</span><i class="newstripe" id="newStripe"></i></div>
+    <div class="band rel" id="relBand" style="top:790px"><span>NEW RELEASE</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const E_IN = "expo.out", MOVE = "power3.inOut";
+    const capIn = (id, t) => {
+      tl.to(id, { opacity: 1, duration: 0.01 }, t);
+      tl.to(`${id} .w`, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.07, ease: "power4.out" }, t);
+    };
+    const capOut = (id, t) => tl.to(id, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power2.in" }, t);
+    const show = (id, t, d = 0.35) => tl.to(id, { opacity: 1, duration: d, ease: "power2.out" }, t);
+    const hide = (id, t, d = 0.22) => tl.to(id, { opacity: 0, duration: d, ease: "power2.in" }, t);
+    const rise = (id, t, d = 0.5) => tl.fromTo(id, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: d, ease: E_IN, immediateRender: false }, t);
+    const type = (id, t, chars, cps = 18) => tl.to(id, { clipPath: "inset(0 0% 0 0)", duration: chars / cps, ease: `steps(${chars})` }, t);
+    // A plugin is made, then snaps into its slot.
+    const build = (id, t, dx, dy) => {
+      tl.fromTo(id, { opacity: 0, scale: 0.3, x: dx, y: dy }, { opacity: 1, scale: 0.55, duration: 0.35, ease: E_IN, immediateRender: false }, t);
+      tl.to(id, { x: 0, y: 0, scale: 1, duration: 0.6, ease: MOVE }, t + 0.4);
+      tl.to(id, { scale: 1.08, duration: 0.1, ease: "power2.out" }, t + 1.0);
+      tl.to(id, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t + 1.1);
+    };
+
+    // P1 0-4: one customer, one small request
+    show("#eb1", 0.2);
+    capIn("#c1", 0.4);
+    tl.fromTo("#form", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E_IN, immediateRender: false }, 0.6);
+    type("#fxt", 1.0, 36, 16);
+    tl.to("#fbtn", { scale: 0.92, duration: 0.1, ease: "power2.out" }, 3.4);
+    tl.to("#fbtn", { scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 3.5);
+    capOut("#c1", 3.9);
+
+    // P2 4.2-8.4: it joins the queue
+    capIn("#c2", 4.3);
+    show("#road", 3.6, 0.4);
+    tl.to("#form", { opacity: 0, y: 20, duration: 0.3, ease: "power2.in" }, 4.4);
+    tl.fromTo("#tkMine", { opacity: 0, y: -380, scale: 6 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: MOVE, immediateRender: false }, 4.5);
+    capOut("#c2", 8.1);
+
+    // P3 8.4-12.4: months pass
+    capIn("#c3", 8.5);
+    tl.to("#card", { opacity: 0.45, duration: 0.5, ease: "power2.out" }, 8.6);
+    tl.to("#rmark", { x: 700, duration: 3.4, ease: "none" }, 8.6);
+    tl.to("#tk1", { opacity: 0, duration: 0.3 }, 9.3);
+    tl.to(["#tk2", "#tk3", "#tk4", "#tk5", "#tk6", "#tk7", "#tkMine"], { x: -46, duration: 0.6, ease: MOVE }, 9.4);
+    tl.to("#tk2", { opacity: 0, duration: 0.3 }, 10.9);
+    tl.to(["#tk3", "#tk4", "#tk5", "#tk6", "#tk7", "#tkMine"], { x: -92, duration: 0.6, ease: MOVE }, 11.0);
+    capOut("#c3", 12.2);
+
+    // P4 12.4-16: so they build their own copy
+    capIn("#c4", 12.5);
+    tl.fromTo("#clone", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.7, ease: E_IN, immediateRender: false }, 12.6);
+    tl.to("#card", { opacity: 0.18, duration: 0.6, ease: "power2.out" }, 13.2);
+    capOut("#c4", 15.7);
+    hide(["#clone", "#road", "#eb1"], 15.7, 0.25);
+    tl.to("#card", { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in" }, 15.7);
+
+    // T1 16-20: a prompt box in the product
+    tl.set("#card", { filter: "blur(8px)" }, 15.96);
+    tl.to("#card", { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power2.out" }, 16.1);
+    show("#eb2", 16.1);
+    capIn("#c5", 16.3);
+    hide("#reqLink", 16.8);
+    show("#inputBox", 17.2); 
+    capOut("#c5", 19.7);
+
+    // T2 20-26: they say it, the agent builds it
+    capIn("#c6", 20.1);
+    tl.to("#ub", { opacity: 1, duration: 0.3 }, 20.4);
+    tl.to("#ub .w2", { opacity: 1, duration: 0.01, stagger: 0.14 }, 20.5);
+    tl.fromTo("#ab", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E_IN, immediateRender: false }, 22.0);
+    for (let i = 0; i < 6; i++) tl.set("#cur", { opacity: i % 2 ? 1 : 0 }, 22.4 + i * 0.4);
+    tl.to(["#sl1", "#sl2"], { opacity: 1, duration: 0.3, stagger: 0.1 }, 22.4);
+    build("#p1", 22.9, -240, -60);
+    tl.set(["#abBuild", "#cur"], { opacity: 0 }, 24.2);
+    show("#abDone", 24.2, 0.25);
+    tl.to("#tbl", { y: 130, duration: 0.55, ease: MOVE }, 24.5);
+    show("#over", 24.7, 0.4);
+    show("#dotOn", 24.7, 0.2); show("#runA", 24.7);
+    capOut("#c6", 26.0);
+
+    // T3 26-30: live for them and their team
+    capIn("#c7", 26.5);
+    tl.to("#card", { scale: 0.5, duration: 0.7, ease: MOVE }, 26.5);
+    show("#w1", 27.2); show("#w2", 27.3); show("#tLine", 27.2); show("#tLbl", 27.2);
+    show("#bwin", 27.3, 0.4);
+    tl.to("#bTbl", { y: 130, duration: 0.5, ease: MOVE }, 27.9);
+    show("#bOver", 28.0, 0.4);
+    capOut("#c7", 29.8);
+
+    // T4 30-34: everyone else keeps theirs
+    capIn("#c8", 30.0);
+    show("#cwin", 30.1, 0.4); show("#w3", 30.2);
+    capOut("#c8", 33.5);
+    hide(["#card", "#bwin", "#cwin", "#w1", "#w2", "#w3", "#tLine", "#tLbl", "#eb2"], 33.7, 0.25);
+
+    // W1 34-38: building blocks
+    show("#eb3", 34.0);
+    capIn("#c9", 34.1);
+    for (let k = 0; k < 6; k++) rise(`#b${k}`, 34.4 + k * 0.1);
+    show(["#g1", "#g2", "#g3"], 35.2);
+    tl.fromTo("#srail", { opacity: 1, scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: MOVE, immediateRender: false }, 35.0);
+    show("#srailL", 35.6);
+    capOut("#c9", 37.7);
+
+    // W2 38-42: the agent uses the blocks, the core is untouched
+    capIn("#c10", 38.1);
+    show("#core", 38.4);
+    show(["#bslot", "#g4"], 38.6);
+    show("#agentChip", 38.8);
+    tl.fromTo("#door", { opacity: 1, scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: MOVE, immediateRender: false }, 39.2);
+    show("#doorL", 39.6);
+    build("#b6", 39.9, 0, 220);
+    capOut("#c10", 41.5);
+    hide(["#b0", "#b1", "#b2", "#b3", "#b4", "#b5", "#b6", "#g1", "#g2", "#g3", "#g4", "#bslot", "#srail", "#srailL", "#core", "#door", "#doorL", "#agentChip"], 41.7, 0.25);
+
+    // W3 42-46: every person gets their own instance
+    capIn("#c11", 42.1);
+    for (const [id, t] of [["#i1", 42.3], ["#i2", 42.6], ["#i3", 42.9]]) rise(id, t);
+    show("#ch1", 43.6); show("#ch2", 43.9); show("#ch3", 44.4);
+    capOut("#c11", 45.6);
+    hide(["#i1", "#i2", "#i3", "#ch1", "#ch2", "#ch3"], 45.75, 0.25);
+
+    // W4 46-50: every change is a version
+    capIn("#c12", 46.1);
+    show("#ver", 46.3);
+    tl.to("#verMark", { x: -220, duration: 0.6, ease: MOVE }, 47.2);
+    tl.to("#verMark", { x: 0, duration: 0.6, ease: MOVE }, 48.2);
+    show("#vc1", 46.8); show("#vc2", 47.0); show("#vc3", 47.2); show("#vc4", 47.4);
+    rise("#vbc", 48.6);
+    capOut("#c12", 49.6);
+    hide(["#ver", "#vc1", "#vc2", "#vc3", "#vc4", "#vbc"], 49.75, 0.25);
+
+    // W5 50-54: the foundation keeps shipping
+    capIn("#c13", 50.1);
+    show("#k1", 50.4, 0.25); type("#k1t", 50.6, 18, 14);
+    rise("#layerBand", 50.4); rise("#foundBand", 50.7);
+    tl.fromTo("#relBand", { opacity: 0, y: 200 }, { opacity: 1, y: 0, duration: 0.5, ease: E_IN, immediateRender: false }, 52.0);
+    tl.to("#relBand", { y: -150, duration: 0.7, ease: MOVE }, 52.7);
+    tl.to("#relBand", { opacity: 0, duration: 0.25 }, 53.3);
+    tl.to("#newStripe", { opacity: 1, duration: 0.3 }, 53.2);
+    capOut("#c13", 53.8);
+
+    // Z 54-60: the line, then back to the first frame
+    hide("#eb3", 54.0); show("#eb4", 54.1);
+    capIn("#c14", 54.2);
+    capOut("#c14", 56.3);
+    capIn("#c15", 56.5);
+    hide("#k1", 56.4); show("#k2", 56.9, 0.3);
+    capOut("#c15", 59.0);
+    hide(["#k2", "#layerBand", "#foundBand", "#eb4"], 59.0, 0.25);
+
+    // The customer's app comes back exactly as it was at 0 s
+    tl.set("#card", { scale: 1, x: 0, y: 0, opacity: 0, filter: "blur(8px)" }, 59.3);
+    tl.set("#tbl", { y: 0 }, 59.3);
+    tl.set(["#over", "#dotOn", "#runA", "#ub", "#ub .w2", "#ab", "#abDone", "#sl1", "#sl2", "#p1", "#inputBox"], { opacity: 0 }, 59.3);
+    tl.set("#p1", { x: 0, y: 0, scale: 1 }, 59.3);
+    tl.set(["#abBuild", "#cur", "#reqLink"], { opacity: 1 }, 59.3);
+    tl.set("#fxt", { clipPath: "inset(0 100% 0 0)" }, 59.3);
+    tl.set("#rmark", { x: 0 }, 59.3);
+    tl.set(["#tk1", "#tk2", "#tk3", "#tk4", "#tk5", "#tk6", "#tk7", "#tkMine"], { x: 0, y: 0, scale: 1 }, 59.3);
+    tl.set("#newStripe", { opacity: 0 }, 59.3);
+    tl.set("#relBand", { y: 0 }, 59.3);
+    tl.set("#bTbl", { y: 0 }, 59.3);
+    tl.to("#card", { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power2.out" }, 59.4);
+    tl.set({}, {}, 60.0);
+
+    window.__timelines["explainer"] = tl;
+
+  </script>
+</template>

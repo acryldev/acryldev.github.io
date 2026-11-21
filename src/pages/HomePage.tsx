@@ -71,16 +71,43 @@ function BlendsPreview() {
   )
 }
 
+const heroFilms = [
+  {
+    id: 'teams',
+    tab: 'For product teams',
+    src: '/hero/acryl-how-it-works.mp4',
+    poster: '/hero/acryl-how-it-works.jpg',
+    label: 'How ACRYL works: start a blank app, ask the agent, it builds plugins into the running app, share and pull plugins, versions, web and desktop, start from a Blend',
+    caption: 'How ACRYL works, in 75 seconds. Every command in it is real.',
+  },
+  {
+    id: 'business',
+    tab: 'For business',
+    src: '/hero/acryl-for-business.mp4',
+    poster: '/hero/acryl-for-business.jpg',
+    label: 'Let your users build the product they need: a customer request waits in the roadmap queue, then the same request typed into a prompt box in the product is live for them and their team, and why that is safe: building blocks, an agent that uses them, one instance per person, versions, and a foundation that keeps shipping',
+    caption: 'Let your users build the product they need, in 60 seconds.',
+  },
+] as const
+
 function HeroFilm() {
+  const [active, setActive] = useState<(typeof heroFilms)[number]['id']>('teams')
+  const film = heroFilms.find(item => item.id === active) ?? heroFilms[0]
   return (
     <figure className="hero-film">
+      <div className="film-switch" role="tablist" aria-label="Choose the film">
+        {heroFilms.map(item => (
+          <button key={item.id} type="button" role="tab" aria-selected={item.id === active} className={item.id === active ? 'active' : undefined} onClick={() => setActive(item.id)}>{item.tab}</button>
+        ))}
+      </div>
       <video
-        src="/hero/acryl-how-it-works.mp4"
-        poster="/hero/acryl-how-it-works.jpg"
+        key={film.id}
+        src={film.src}
+        poster={film.poster}
         autoPlay muted loop playsInline preload="metadata"
-        aria-label="How ACRYL works: start a blank app, ask the agent, it builds plugins into the running app, share and pull plugins, versions, web and desktop, start from a Blend"
+        aria-label={film.label}
       />
-      <figcaption>How ACRYL works, in 75 seconds. Every command in it is real.</figcaption>
+      <figcaption>{film.caption}</figcaption>
     </figure>
   )
 }
