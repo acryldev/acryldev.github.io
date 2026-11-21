@@ -219,10 +219,10 @@ export function HomePage() {
           <div className="continuity-content">
             <p className="eyebrow">ACRYL ADE</p>
             <h2 id="ade-heading">The agentic development environment<br /><span className="spectrum-text">is an app too.</span></h2>
-            <p>ADE is the ACRYL IDE: projects and worktrees, chats and terminals side by side, diffs and review. Run Claude Code, Codex or any other agent next to the built-in chat, and swap them without losing context. It is built on the same platform as your apps, and it is in the catalog as the Blend <code>acryl.ade</code>.</p>
+            <p>ADE is ACRYL's own development environment, made as an ACRYL app: projects and worktrees, chats and terminals side by side, diffs and review. Run Claude Code, Codex or any other agent next to the built-in chat, and swap them without losing context. It is built on the same platform as your apps, and it is in the catalog as the Blend <code>acryl.ade</code>.</p>
             <div className="continuity-links">
               <a className="button inverse" href="https://acrylblends.github.io/blends/ai/ade/acryl.ade" target="_blank" rel="noreferrer">ADE in the catalog <ArrowUpRight aria-hidden="true" /></a>
-              <span className="status-tag next on-dark">acryl ade opens it: next release</span>
+              <span className="status-tag shipped on-dark"><code>npx acryl ade</code> opens it</span>
             </div>
           </div>
           <div className="continuity-features">

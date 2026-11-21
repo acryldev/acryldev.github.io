@@ -1,7 +1,6 @@
 /**
- * Where the latest ACRYL Desktop installers are. From 0.2.2 every surface (CLI, Web, Desktop) is one `v<version>` GitHub release, so `releases/latest` is the one;
- * releases up to 0.2.1 kept the installers in a separate `desktop-v<version>` release. This finds the highest-version published release that really carries
- * installers, whichever of the two it is, and builds one direct link per platform from the constant asset names the release workflow publishes.
+ * Where ACRYL ADE's installers are: its own release repository, whose `releases/latest/download/<file>` links never change, whichever version is the latest
+ * (the same arrangement as Control Center, src/lib/controlCenter.ts). The earlier ACRYL desktop's installers in acryldev/acryl are no longer offered here.
  */
 
 export type DesktopOs = 'macOS' | 'Windows' | 'Linux'
@@ -11,84 +10,24 @@ export interface DesktopDownload {
   readonly os: DesktopOs
   /** What the person picks between inside one OS: the CPU or the package kind. */
   readonly detail: string
-  /** Matches this platform's installer in a release: `acryl-desktop-<platform>-v<version>.<ext>` (0.2.2 and later) or the older version-less `acryl-desktop-<platform>.<ext>`. */
-  readonly pattern: RegExp
+  /** The installer's file name in every ADE release. */
+  readonly file: string
 }
 
-const installer = (platform: string, extension: string): RegExp => new RegExp(`^acryl-desktop-${platform}(?:-v\\d+\\.\\d+\\.\\d+)?\\.${extension}$`, 'u')
+export const ADE_REPOSITORY = 'https://github.com/acrylblends/05-acryl-ade'
+export const ADE_RELEASES = `${ADE_REPOSITORY}/releases/latest`
 
 export const DESKTOP_DOWNLOADS: readonly DesktopDownload[] = [
-  { id: 'mac-arm64', os: 'macOS', detail: 'Apple Silicon · DMG', pattern: installer('mac-arm64', 'dmg') },
-  { id: 'mac-x64', os: 'macOS', detail: 'Intel · DMG', pattern: installer('mac-x64', 'dmg') },
-  { id: 'win-x64', os: 'Windows', detail: 'x64 · Installer', pattern: installer('win-x64', 'exe') },
-  { id: 'linux-amd64', os: 'Linux', detail: 'x64 · Debian .deb', pattern: installer('linux-amd64', 'deb') },
-  { id: 'linux-arm64', os: 'Linux', detail: 'arm64 · Debian .deb', pattern: installer('linux-arm64', 'deb') },
+  { id: 'mac-arm64', os: 'macOS', detail: 'Apple Silicon · DMG', file: 'ACRYL-ADE-mac-arm64.dmg' },
+  { id: 'mac-x64', os: 'macOS', detail: 'Intel · DMG', file: 'ACRYL-ADE-mac-x64.dmg' },
+  { id: 'win-x64', os: 'Windows', detail: 'x64 · Installer', file: 'ACRYL-ADE-win-x64.exe' },
+  { id: 'win-arm64', os: 'Windows', detail: 'ARM · Installer', file: 'ACRYL-ADE-win-arm64.exe' },
+  { id: 'linux-x64', os: 'Linux', detail: 'x64 · Debian .deb', file: 'ACRYL-ADE-linux-x64.deb' },
+  { id: 'linux-arm64', os: 'Linux', detail: 'arm64 · Debian .deb', file: 'ACRYL-ADE-linux-arm64.deb' },
 ]
 
-export const REPOSITORY = 'https://github.com/acryldev/acryl'
-/** Where every release is listed; the target of a button until (or unless) the newest Desktop release is known. */
-export const ALL_RELEASES_URL = `${REPOSITORY}/releases?q=desktop-v&expanded=true`
-export const RELEASES_API = 'https://api.github.com/repos/acryldev/acryl/releases?per_page=30'
-
-/** The part of a GitHub release this reads. */
-export interface GithubRelease {
-  readonly tag_name?: unknown
-  readonly draft?: unknown
-  readonly prerelease?: unknown
-  readonly assets?: unknown
-}
-
-export interface DesktopRelease {
-  readonly tag: string
-  readonly version: string
-  /** Asset names the release really has, so a button never links an installer that was not published. */
-  readonly assets: ReadonlySet<string>
-}
-
-const DESKTOP_TAG = /^(?:desktop-)?v(\d+)\.(\d+)\.(\d+)$/u
-
-function compare(a: readonly number[], b: readonly number[]): number {
-  for (let index = 0; index < 3; index += 1) {
-    const difference = (a[index] ?? 0) - (b[index] ?? 0)
-    if (difference !== 0) return difference
-  }
-  return 0
-}
-
-/**
- * The highest-version published, non-prerelease release in a GitHub releases listing that carries at least one Desktop installer, or undefined when there is none.
- * Highest version, not newest date: a patch release of an older line must not displace a newer minor. A release without installers (a CLI-only one) is skipped, so
- * the buttons never point at a release that has nothing to download; on an equal version the `v` release wins over the old `desktop-v` one.
- */
-export function latestDesktopRelease(releases: readonly GithubRelease[]): DesktopRelease | undefined {
-  let best: { release: DesktopRelease; parts: readonly number[] } | undefined
-  for (const release of releases) {
-    if (typeof release.tag_name !== 'string' || release.draft === true || release.prerelease === true) continue
-    const match = DESKTOP_TAG.exec(release.tag_name)
-    if (match === null) continue
-    const parts = [Number(match[1]), Number(match[2]), Number(match[3])]
-    const assets = new Set<string>()
-    if (Array.isArray(release.assets)) {
-      for (const asset of release.assets as ReadonlyArray<{ readonly name?: unknown }>) if (typeof asset.name === 'string') assets.add(asset.name)
-    }
-    if (!DESKTOP_DOWNLOADS.some(item => assetFor(assets, item) !== undefined)) continue
-    const order = best === undefined ? 1 : compare(parts, best.parts)
-    if (order < 0 || (order === 0 && !release.tag_name.startsWith('v'))) continue
-    best = { parts, release: { tag: release.tag_name, version: parts.join('.'), assets } }
-  }
-  return best?.release
-}
-
-/** The file name of one platform's installer in a release's asset names, or undefined when the release has none for it. */
-export function assetFor(assets: ReadonlySet<string>, item: DesktopDownload): string | undefined {
-  for (const name of assets) if (item.pattern.test(name)) return name
-  return undefined
-}
-
-/** The direct download link of one installer in a Desktop release. */
-export function downloadUrl(tag: string, asset: string): string {
-  return `${REPOSITORY}/releases/download/${tag}/${asset}`
-}
+/** The direct link of one installer in ADE's latest release. */
+export const downloadUrl = (item: DesktopDownload): string => `${ADE_RELEASES}/download/${item.file}`
 
 /** The OS a browser reports, or undefined when it cannot be told (a phone, an unknown agent). */
 export function detectOs(userAgent: string): DesktopOs | undefined {

@@ -320,8 +320,8 @@ export const vision: Guide = {
   intro: 'A small core, a framework on top, and apps on top of that, including ADE. Each line says whether it is shipped, being built or planned.',
   sections: [
     { id: 'framework', title: 'The framework: apps from plugins', status: 'shipped', body: ['Blank apps, Blends from the registry, plugins built by an agent into a running app, plugin sharing, versions, Web and Desktop.'] },
-    { id: 'launcher', title: 'The launcher', status: 'shipped', body: ['`npx acryl`: every step offered in a terminal. A window and a browser face of the same launcher ship in the next release.'] },
-    { id: 'ade', title: 'ADE, the agentic development environment', status: 'building', body: ['The ACRYL IDE as one app on the platform: workspace, terminals, any coding agent. Available as the Blend `acryl.ade`; `acryl ade` opens it from the next release.'] },
+    { id: 'launcher', title: 'The launcher: ACRYL Control Center', status: 'shipped', body: ['`npx acryl`: ACRYL Control Center in a terminal, `npx acryl --gui` in a window, `npx acryl --web` in the browser; also a download for macOS, Windows and Linux.'] },
+    { id: 'ade', title: 'ADE, the agentic development environment', status: 'shipped', body: ['One app on the platform: workspace, terminals, any coding agent. `npx acryl ade` opens it; installers for macOS, Windows and Linux are in its releases; the Blend `acryl.ade` makes your own copy.'] },
     { id: 'core', title: 'A lightweight core with no built-in agent', status: 'building', body: ['`@acryl/core`: the Host, the plugin loader and the door, with the agent as an optional driver plugin.'] },
     { id: 'tui', title: 'A terminal surface for apps', status: 'planned', body: ['The third surface next to Web and Desktop.'] },
     { id: 'one-file', title: 'One-file desktop apps', status: 'planned', body: ['An app packed as a single installable desktop file.'] },
