@@ -29,7 +29,7 @@ const SECTIONS: { title: string; folder?: string; keys: string[] }[] = [
   { title: "Getting started", folder: "getting-started", keys: ["getting-started/basic", "getting-started/nodejs", "getting-started/bun", "getting-started/deno", "getting-started/other-runtimes"] },
   { title: "API", folder: "api", keys: ["api/index", "api/acryl", "api/routing", "api/context", "api/request", "api/exception", "api/presets", "api/summary"] },
   { title: "Concepts", folder: "concepts", keys: ["concepts/motivation", "concepts/web-standard", "concepts/routers", "concepts/middleware", "concepts/developer-experience", "concepts/stacks", "concepts/benchmarks"] },
-  { title: "Guides", folder: "guides", keys: ["guides/best-practices", "guides/helpers", "guides/middleware", "guides/validation", "guides/rpc", "guides/testing", "guides/create-acrylblends", "guides/jsx", "guides/jsx-dom", "guides/faq", "guides/examples"] },
+  { title: "Guides", folder: "guides", keys: ["guides/best-practices", "guides/helpers", "guides/middleware", "guides/validation", "guides/rpc", "guides/testing", "guides/create-acrylblends", "guides/share-blends", "guides/share-plugins", "guides/jsx", "guides/jsx-dom", "guides/faq", "guides/examples"] },
   { title: "Helpers", folder: "helpers", keys: [] },
   { title: "Middleware", folder: "middleware", keys: [] },
   { title: "Cordis", folder: "cordis", keys: ["cordis/acryl-in-a-cordis-app", "cordis/concepts", "cordis/mounting", "cordis/validation", "cordis/middleware", "cordis/transport-and-cancellation", "cordis/plugin-lifecycle", "cordis/node-server", "cordis/surfaces", "cordis/migration-from-0-3", "cordis/migration-from-dsh-webserver"] },

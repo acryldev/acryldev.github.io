@@ -42,10 +42,10 @@ function BlendGuide() {
       <div>
         <p className="eyebrow">Make your own</p>
         <ol>
-          <li><Inline text="Start an app with `npx acryl new my-app` and grow it with the agent." /></li>
+          <li><Inline text="Start an app with `npx acryl@latest new my-app` and grow it with the agent." /></li>
           <li><Inline text="Add an `acryl.template.json` with a `name` and a `description`." /></li>
           <li><Inline text="`npm run save` commits it and pushes it to your GitHub." /></li>
-          <li><Inline text="Anyone starts from it with `npx acryl new their-app --from github:you/my-app`. No registry needed." /></li>
+          <li><Inline text="Anyone starts from it with `npx acryl@latest new their-app --from github:you/my-app`. No registry needed." /></li>
         </ol>
       </div>
       <div>

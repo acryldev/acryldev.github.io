@@ -166,7 +166,7 @@ export function blendPageUrl(entry: BlendEntry): string {
 
 /** The command that creates a new app from a registry Blend, or undefined for a Blend `acryl new` cannot make an app from. */
 export function newAppCommand(entry: BlendEntry): string | undefined {
-  return entry.runtime === 'acrylblends' ? `npx acryl new my-app --from ${entry.id}` : undefined
+  return entry.runtime === 'acrylblends' ? `npx acryl@latest new my-app --from ${entry.id}` : undefined
 }
 
 /** Text search over the fields a reader recognizes an entry by, plus one exact-match facet (category or compatibility); `all` means no facet. */

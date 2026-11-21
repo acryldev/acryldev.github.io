@@ -40,7 +40,7 @@ describe('Blend registry index', () => {
 
   it('offers the create command only for a Blend acryl new can make an app from', () => {
     const [app, starter, unknown] = parseBlendIndex({ formatVersion: 1, entries: [csv, gtd, { ...csv, id: 'x.future', runtime: 'future' }] })
-    expect(newAppCommand(app)).toBe('npx acryl new my-app --from acrylblends.csv-explorer')
+    expect(newAppCommand(app)).toBe('npx acryl@latest new my-app --from acrylblends.csv-explorer')
     expect(starter.runtime).toBe('acryl')
     expect(newAppCommand(starter)).toBeUndefined()
     expect(unknown.runtime).toBe('other')

@@ -421,7 +421,7 @@ svg { width: 18px; height: 18px; stroke-width: 1.5; }
 .md-doc .hljs-title, .md-doc .hljs-section { color: #fcd34d; }
 .md-doc .hljs-built_in, .md-doc .hljs-type, .md-doc .hljs-attr, .md-doc .hljs-tag, .md-doc .hljs-name { color: #c4b5fd; }
 .md-pager { display: flex; justify-content: space-between; gap: 24px; margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 600; }
-@media (max-width: 900px) { .fw-docs { grid-template-columns: 1fr; gap: 24px; } .fw-docs .docs-nav { position: static; max-height: none; } }
+@media (max-width: 900px) { .fw-docs { grid-template-columns: minmax(0, 1fr); gap: 24px; } .fw-docs .docs-content { min-width: 0; } .fw-docs .docs-content :is(p, li, td, th) code { overflow-wrap: anywhere; } .fw-docs .docs-nav { position: static; max-height: none; } }
 
 /* Platform site (2026-11-13): hero film, home bands, guides. Tokens and type follow acrylblends.github.io. */
 main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); border-radius: 2px; background: var(--surface); font-family: 'DM Mono', ui-monospace, monospace; font-size: .86em; }

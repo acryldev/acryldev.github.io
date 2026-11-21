@@ -12,12 +12,12 @@ import { blendPageUrl, fetchBlendIndex, newAppCommand, type BlendEntry } from '.
 
 const ways = [
   {
-    icon: Terminal, title: 'The launcher', command: 'npx acryl',
+    icon: Terminal, title: 'The launcher', command: 'npx acryl@latest',
     body: 'Every step offered in a terminal: create an app, install a Blend, open one, pull or share a plugin, check your machine.',
     note: '--tui, --gui and --web pick the face: next release',
   },
-  { icon: Sparkles, title: 'A blank app', command: 'npx acryl new my-app', body: 'An empty app with the agent inside it. Ask for what you need and it grows from there.' },
-  { icon: Layers, title: 'A Blend from the catalog', command: 'npx acryl new my-app --from acrylblends.csv-explorer', body: 'Start from a working app someone made, then make it yours.' },
+  { icon: Sparkles, title: 'A blank app', command: 'npx acryl@latest new my-app', body: 'An empty app with the agent inside it. Ask for what you need and it grows from there.' },
+  { icon: Layers, title: 'A Blend from the catalog', command: 'npx acryl@latest new my-app --from acrylblends.csv-explorer', body: 'Start from a working app someone made, then make it yours.' },
 ] as const
 
 const nouns = [
@@ -131,7 +131,7 @@ export function HomePage() {
           <p className="hero-lede">Every ACRYL app has its own agent. Your users say &ldquo;add XYZ&rdquo;, and seconds later the change is live for them and their team. You keep shipping the foundation; they keep their layer.</p>
           <p className="hero-lede hero-lede-follow">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own IDE is one app built on it.</p>
           <div className="hero-actions">
-            <CommandBox command="npx acryl" label="Open the launcher" />
+            <CommandBox command="npx acryl@latest" label="Open the launcher" />
             <div className="hero-cta">
               <Link className="button" to="/start">Get started <ArrowRight aria-hidden="true" /></Link>
               <Link className="button secondary" to="/blends">Browse Blends</Link>
@@ -222,7 +222,7 @@ export function HomePage() {
             <p>ADE is ACRYL's own development environment, made as an ACRYL app: projects and worktrees, chats and terminals side by side, diffs and review. Run Claude Code, Codex or any other agent next to the built-in chat, and swap them without losing context. It is built on the same platform as your apps, and it is in the catalog as the Blend <code>acryl.ade</code>.</p>
             <div className="continuity-links">
               <a className="button inverse" href="https://acrylblends.github.io/blends/ai/ade/acryl.ade" target="_blank" rel="noreferrer">ADE in the catalog <ArrowUpRight aria-hidden="true" /></a>
-              <span className="status-tag shipped on-dark"><code>npx acryl ade</code> opens it</span>
+              <span className="status-tag shipped on-dark"><code>npx acryl@latest ade</code> opens it</span>
             </div>
           </div>
           <div className="continuity-features">
