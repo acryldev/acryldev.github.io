@@ -33,10 +33,15 @@ export const EVENTS: readonly AcrylEvent[] = [
     slug: 'acrylbootcamp',
     title: 'ACRYL Bootcamp',
     date: '2026-11-20',
-    when: 'Friday, projected date',
-    place: null,
-    summary: 'A hands-on day with ACRYL: build your own app with an agent inside, write a plugin for it while it runs, and share it. Bring a laptop.',
+    when: 'Friday evening',
+    place: 'E3 Hub, 1010 Vienna',
+    summary: 'A room of builders made their own apps with an agent inside, in one evening, and shared them. Watch the 31-minute recording and the Shorts.',
     href: '/events/acrylbootcamp',
+    cardLabel: 'recording and apps',
+    links: [
+      { label: 'Apps', href: 'https://github.com/acrylworkshop' },
+      { label: 'Luma', href: 'https://luma.com/nvede5nv' },
+    ],
   },
   {
     slug: 'ownmyai-5',

@@ -1,3 +1,4 @@
+import { BootcampRecap } from '../components/BootcampRecap'
 import { ArrowUpRight, Check, Copy, ExternalLink, Github, Loader2, Star } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -169,6 +170,8 @@ export function WorkshopPanelPage() {
       </header>
 
       {sessionNotice !== undefined && <p className={sessionNotice.kind === 'error' ? 'workshop-error' : 'workshop-ok'} role={sessionNotice.kind === 'error' ? 'alert' : 'status'}>{sessionNotice.text}</p>}
+
+      <BootcampRecap headingId="workshop-recording" />
 
       <InstallControlCenter />
       <MakeAppSteps />
