@@ -6,15 +6,17 @@ import { HomePage } from './HomePage'
 
 afterEach(cleanup)
 
-describe('home hero films', () => {
-  it('opens on the product-team film and switches to the business film and back', () => {
+describe('home hero gallery', () => {
+  it('opens on Control Center and switches through ADE and WebBoxes.ai and back', () => {
     const { container } = render(createElement(MemoryRouter, null, createElement(HomePage)))
-    const src = () => container.querySelector('.hero-film video')?.getAttribute('src')
-    expect(src()).toBe('/hero/acryl-how-it-works.mp4')
-    fireEvent.click(screen.getByRole('tab', { name: 'For business' }))
-    expect(src()).toBe('/hero/acryl-for-business.mp4')
-    expect(screen.getByRole('tab', { name: 'For business' }).getAttribute('aria-selected')).toBe('true')
-    fireEvent.click(screen.getByRole('tab', { name: 'For product teams' }))
-    expect(src()).toBe('/hero/acryl-how-it-works.mp4')
+    const src = () => container.querySelector('.hero-film img')?.getAttribute('src')
+    expect(src()).toBe('/img/home/control-center.png')
+    fireEvent.click(screen.getByRole('tab', { name: 'ADE' }))
+    expect(src()).toBe('/img/home/ade.png')
+    expect(screen.getByRole('tab', { name: 'ADE' }).getAttribute('aria-selected')).toBe('true')
+    fireEvent.click(screen.getByRole('tab', { name: 'WebBoxes.ai' }))
+    expect(src()).toBe('/img/home/webboxes.webp')
+    fireEvent.click(screen.getByRole('tab', { name: 'Control Center' }))
+    expect(src()).toBe('/img/home/control-center.png')
   })
 })

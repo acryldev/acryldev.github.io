@@ -14,7 +14,7 @@ const ways = [
   {
     icon: Terminal, title: 'The launcher', command: 'npx acryl@latest',
     body: 'Every step offered in a terminal: create an app, install a Blend, open one, pull or share a plugin, check your machine.',
-    note: '--tui, --gui and --web pick the face: next release',
+    note: 'terminal, window and browser',
   },
   { icon: Sparkles, title: 'A blank app', command: 'npx acryl@latest new my-app', body: 'An empty app with the agent inside it. Ask for what you need and it grows from there.' },
   { icon: Layers, title: 'A Blend from the catalog', command: 'npx acryl@latest new my-app --from acrylblends.csv-explorer', body: 'Start from a working app someone made, then make it yours.' },
@@ -32,7 +32,7 @@ const gets = [
   { icon: PlugZap, title: 'An agent that builds plugins live', body: 'Ask in the chat. The agent writes a plugin into the running app; the page appears without a restart.' },
   { icon: Share2, title: 'Share and pull plugins', body: 'Publish a plugin to your GitHub with one confirmed plan, pull anyone\'s into your app by its address.' },
   { icon: History, title: 'Snapshots and versions', body: 'Every save is a version. Restore any one; history is never rewritten.' },
-  { icon: Laptop, title: 'Web and Desktop', body: 'The same app in the browser and in its own window.', soon: 'Terminal: coming' },
+  { icon: Laptop, title: 'Web, desktop and terminal', body: 'The same app in the browser, in its own window, or in your terminal.' },
   { icon: DoorOpen, title: 'A door for any agent', body: 'look, act, plugin, tool: on the command line and over MCP, so an outside agent can drive any app.' },
   { icon: Bot, title: 'Bring your own agent', body: 'Claude Code, Codex, pi, Cursor CLI, Qwen Code, Amp and Goose have each built plugins into running apps.' },
 ] as const
@@ -71,43 +71,62 @@ function BlendsPreview() {
   )
 }
 
-const heroFilms = [
+const heroShots = [
   {
-    id: 'teams',
-    tab: 'For product teams',
-    src: '/hero/acryl-how-it-works.mp4',
-    poster: '/hero/acryl-how-it-works.jpg',
-    label: 'How ACRYL works: start a blank app, ask the agent, it builds plugins into the running app, share and pull plugins, versions, web and desktop, start from a Blend',
-    caption: 'How ACRYL works, in 75 seconds. Every command in it is real.',
+    id: 'control-center',
+    tab: 'Control Center',
+    src: '/img/home/control-center.png',
+    alt: 'ACRYL Control Center: the Blends store, with ready-made apps and Deploy to WebBoxes.ai on every card',
+    caption: 'ACRYL Control Center: the Blends store, with Deploy to WebBoxes.ai on every card.',
+    href: 'https://github.com/acrylblends/63-acryl-control-center/releases/latest',
+    link: 'Download for macOS, Windows or Linux',
+    width: 1440,
+    height: 956,
   },
   {
-    id: 'business',
-    tab: 'For business',
-    src: '/hero/acryl-for-business.mp4',
-    poster: '/hero/acryl-for-business.jpg',
-    label: 'Let your users build the product they need: a customer request waits in the roadmap queue, then the same request typed into a prompt box in the product is live for them and their team, and why that is safe: building blocks, an agent that uses them, one instance per person, versions, and a foundation that keeps shipping',
-    caption: 'Let your users build the product they need, in 60 seconds.',
+    id: 'ade',
+    tab: 'ADE',
+    src: '/img/home/ade.png',
+    alt: 'ACRYL ADE: projects and worktrees on the left, a chat in the middle, and the menu of terminals and coding agents',
+    caption: 'ACRYL ADE: projects and worktrees, chats and terminals, and any coding agent on one canvas.',
+    href: 'https://acrylblends.github.io/blends/ai/ade/acryl.ade',
+    link: 'ADE in the catalog',
+    width: 1440,
+    height: 900,
+  },
+  {
+    id: 'webboxes',
+    tab: 'WebBoxes.ai',
+    src: '/img/home/webboxes.webp',
+    alt: 'A real WebBox: the Productivity Hub app, its code and versions, and the agent chat',
+    caption: 'A real WebBox: the Productivity Hub app, its agent, and its own address.',
+    href: 'https://webboxes.ai',
+    link: 'Open WebBoxes.ai',
+    width: 1440,
+    height: 1000,
   },
 ] as const
 
-function HeroFilm() {
-  const [active, setActive] = useState<(typeof heroFilms)[number]['id']>('teams')
-  const film = heroFilms.find(item => item.id === active) ?? heroFilms[0]
+function HeroGallery() {
+  const [active, setActive] = useState<(typeof heroShots)[number]['id']>('control-center')
+  const shot = heroShots.find(item => item.id === active) ?? heroShots[0]
   return (
     <figure className="hero-film">
-      <div className="film-switch" role="tablist" aria-label="Choose the film">
-        {heroFilms.map(item => (
+      <div className="film-switch" role="tablist" aria-label="Choose the product">
+        {heroShots.map(item => (
           <button key={item.id} type="button" role="tab" aria-selected={item.id === active} className={item.id === active ? 'active' : undefined} onClick={() => setActive(item.id)}>{item.tab}</button>
         ))}
       </div>
-      <video
-        key={film.id}
-        src={film.src}
-        poster={film.poster}
-        autoPlay muted loop playsInline preload="metadata"
-        aria-label={film.label}
+      <img
+        key={shot.id}
+        className="hero-shot"
+        src={shot.src}
+        alt={shot.alt}
+        width={shot.width}
+        height={shot.height}
+        decoding="async"
       />
-      <figcaption>{film.caption}</figcaption>
+      <figcaption>{shot.caption} <a href={shot.href} target="_blank" rel="noreferrer">{shot.link}</a>.</figcaption>
     </figure>
   )
 }
@@ -129,7 +148,7 @@ export function HomePage() {
           <h1>Everything is a plugin.<br /><strong className="spectrum-text">Build agentic apps.</strong></h1>
           <p className="hero-subhero">Let your users build the product they need.</p>
           <p className="hero-lede">Every ACRYL app has its own agent. Your users say &ldquo;add XYZ&rdquo;, and seconds later the change is live for them and their team. You keep shipping the foundation; they keep their layer.</p>
-          <p className="hero-lede hero-lede-follow">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own IDE is one app built on it.</p>
+          <p className="hero-lede hero-lede-follow">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own development environment, ACRYL ADE, is one app built on it.</p>
           <div className="hero-actions">
             <CommandBox command="npx acryl@latest" label="Open the launcher" />
             <div className="hero-cta">
@@ -138,7 +157,7 @@ export function HomePage() {
               <a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a>
             </div>
           </div>
-          <HeroFilm />
+          <HeroGallery />
         </div>
       </section>
 
@@ -171,7 +190,7 @@ export function HomePage() {
               <h3>{way.title}</h3>
               <p>{way.body}</p>
               <CopyLine command={way.command} label={`Copy ${way.command}`} />
-              {'note' in way && <span className="status-tag next">{way.note}</span>}
+              {'note' in way && <span className="status-tag shipped">{way.note}</span>}
             </article>
           ))}
         </div>
@@ -194,12 +213,12 @@ export function HomePage() {
       <section className="home-band page-width" aria-labelledby="gets-heading">
         <div className="section-intro">
           <div><p className="eyebrow">What you get</p><h2 id="gets-heading">An app that keeps<br /><span className="spectrum-text">building itself.</span></h2></div>
-          <p>All of this works today from npm. Where something is still coming, the page says so.</p>
+          <p>All of this works today from npm.</p>
         </div>
         <div className="atoms-grid">
           {gets.map(g => (
             <article className="atom-card" key={g.title}>
-              <div><g.icon aria-hidden="true" />{'soon' in g && <span className="status-tag planned">{g.soon}</span>}</div>
+              <div><g.icon aria-hidden="true" /></div>
               <h3>{g.title}</h3><p>{g.body}</p>
             </article>
           ))}
@@ -246,13 +265,13 @@ export function HomePage() {
 
       <section className="home-band page-width" aria-labelledby="run-heading">
         <div className="section-intro">
-          <div><p className="eyebrow">Run anywhere</p><h2 id="run-heading">Your machine today.<br /><span className="spectrum-text">The cloud next.</span></h2></div>
-          <p>An app is a folder on your computer, in your own git repository. Hosting is the next step.</p>
+          <div><p className="eyebrow">Run anywhere</p><h2 id="run-heading">Your machine today.<br /><span className="spectrum-text">The terminal and the cloud too.</span></h2></div>
+          <p>An app is a folder in your own git repository. Run it on your machine, in a terminal, or host it at WebBoxes.ai.</p>
         </div>
         <div className="run-grid">
           <article><Laptop aria-hidden="true" /><h3>Your machine</h3><p>Web with <code>npm run dev</code>, Desktop with <code>npm run desktop</code>. macOS, Windows, Linux.</p><span className="status-tag shipped">today</span></article>
-          <article><Terminal aria-hidden="true" /><h3>Terminal surface</h3><p>The same app drawn in a terminal.</p><span className="status-tag planned">coming</span></article>
-          <article><Cloud aria-hidden="true" /><h3>WebBoxes.ai</h3><p>Your apps hosted, with the same plugins and the same folder.</p><span className="status-tag planned">coming</span></article>
+          <article><Terminal aria-hidden="true" /><h3>Terminal surface</h3><p>The same app drawn in a terminal, with <code>acryl</code> or <code>acryl --tui</code>.</p><span className="status-tag shipped">today</span></article>
+          <article><Cloud aria-hidden="true" /><h3>WebBoxes.ai</h3><p>Your apps hosted, with the same plugins and the same folder. A new WebBox adds about 3.5 MB of its own files on one shared, read-only package store, and publishes at <code>name.webboxes.ai</code>. <a href="https://webboxes.ai" target="_blank" rel="noreferrer">Open WebBoxes.ai</a>.</p><span className="status-tag shipped">live</span></article>
         </div>
       </section>
 
