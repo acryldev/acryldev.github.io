@@ -71,62 +71,43 @@ function BlendsPreview() {
   )
 }
 
-const heroShots = [
+const heroFilms = [
   {
-    id: 'control-center',
-    tab: 'Control Center',
-    src: '/img/home/control-center.png',
-    alt: 'ACRYL Control Center: the Blends store, with ready-made apps and Deploy to WebBoxes.ai on every card',
-    caption: 'ACRYL Control Center: the Blends store, with Deploy to WebBoxes.ai on every card.',
-    href: 'https://github.com/acrylblends/63-acryl-control-center/releases/latest',
-    link: 'Download for macOS, Windows or Linux',
-    width: 1440,
-    height: 956,
+    id: 'teams',
+    tab: 'For product teams',
+    src: '/hero/acryl-how-it-works.mp4',
+    poster: '/hero/acryl-how-it-works.jpg',
+    label: 'How ACRYL works: start a blank app, ask the agent, it builds plugins into the running app, share and pull plugins, versions, web and desktop, start from a Blend',
+    caption: 'How ACRYL works, in 75 seconds. Every command in it is real.',
   },
   {
-    id: 'ade',
-    tab: 'ADE',
-    src: '/img/home/ade.png',
-    alt: 'ACRYL ADE: projects and worktrees on the left, a chat in the middle, and the menu of terminals and coding agents',
-    caption: 'ACRYL ADE: projects and worktrees, chats and terminals, and any coding agent on one canvas.',
-    href: 'https://acrylblends.github.io/blends/ai/ade/acryl.ade',
-    link: 'ADE in the catalog',
-    width: 1440,
-    height: 900,
-  },
-  {
-    id: 'webboxes',
-    tab: 'WebBoxes.ai',
-    src: '/img/home/webboxes.webp',
-    alt: 'A real WebBox: the Productivity Hub app, its code and versions, and the agent chat',
-    caption: 'A real WebBox: the Productivity Hub app, its agent, and its own address.',
-    href: 'https://webboxes.ai',
-    link: 'Open WebBoxes.ai',
-    width: 1440,
-    height: 1000,
+    id: 'business',
+    tab: 'For business',
+    src: '/hero/acryl-for-business.mp4',
+    poster: '/hero/acryl-for-business.jpg',
+    label: 'Let your users build the product they need: a customer request waits in the roadmap queue, then the same request typed into a prompt box in the product is live for them and their team, and why that is safe: building blocks, an agent that uses them, one instance per person, versions, and a foundation that keeps shipping',
+    caption: 'Let your users build the product they need, in 60 seconds.',
   },
 ] as const
 
-function HeroGallery() {
-  const [active, setActive] = useState<(typeof heroShots)[number]['id']>('control-center')
-  const shot = heroShots.find(item => item.id === active) ?? heroShots[0]
+function HeroFilm() {
+  const [active, setActive] = useState<(typeof heroFilms)[number]['id']>('teams')
+  const film = heroFilms.find(item => item.id === active) ?? heroFilms[0]
   return (
     <figure className="hero-film">
-      <div className="film-switch" role="tablist" aria-label="Choose the product">
-        {heroShots.map(item => (
+      <div className="film-switch" role="tablist" aria-label="Choose the film">
+        {heroFilms.map(item => (
           <button key={item.id} type="button" role="tab" aria-selected={item.id === active} className={item.id === active ? 'active' : undefined} onClick={() => setActive(item.id)}>{item.tab}</button>
         ))}
       </div>
-      <img
-        key={shot.id}
-        className="hero-shot"
-        src={shot.src}
-        alt={shot.alt}
-        width={shot.width}
-        height={shot.height}
-        decoding="async"
+      <video
+        key={film.id}
+        src={film.src}
+        poster={film.poster}
+        autoPlay muted loop playsInline preload="metadata"
+        aria-label={film.label}
       />
-      <figcaption>{shot.caption} <a href={shot.href} target="_blank" rel="noreferrer">{shot.link}</a>.</figcaption>
+      <figcaption>{film.caption}</figcaption>
     </figure>
   )
 }
@@ -157,7 +138,7 @@ export function HomePage() {
               <a className="button secondary" href="https://github.com/acryldev/acryl" target="_blank" rel="noreferrer"><Star aria-hidden="true" /> Star on GitHub</a>
             </div>
           </div>
-          <HeroGallery />
+          <HeroFilm />
         </div>
       </section>
 
