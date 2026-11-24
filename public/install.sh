@@ -1,18 +1,91 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# Install ACRYL Control Center on macOS or Linux, from its latest release, with one line:
 #
-# The standalone ACRYL terminal installer is retired (it installed the old acryl-cli archive). Nothing is installed or changed.
+#   curl -fsSL https://acryl.dev/install.sh | bash
 #
-#   curl -fsSL https://acryl.dev/install | bash     prints this and exits 1
+# No administrator, git, Node or npm: the app carries its own. The download is checked against the sha256 GitHub publishes for the release
+# asset, and nothing is installed when it differs. Downloaded with curl, the app carries no quarantine flag, so macOS opens it without the
+# "unidentified developer" step (the app is open source and not notarized). Running it again updates to the latest release; your apps and
+# data live in ~/.acryl and stay.
 #
-# Kept as a real file so the old one-line command prints a pointer instead of piping the site's web page into bash.
-cat >&2 <<'MESSAGE'
-The standalone ACRYL terminal installer is retired. Nothing was installed.
+# Settings (environment): ACRYL_VERSION=v0.2.19   a release tag instead of the latest
+#                         ACRYL_PREFIX=<folder>     where the app goes (macOS ~/Applications; Linux ~/.local/share/acryl-control-center)
+#                         ACRYL_NO_LAUNCH=1         install, do not start
+set -eu
 
-ACRYL Control Center is the main entry now, in this terminal, a window or your browser:
+REPO="acrylblends/63-acryl-control-center"
+NAME="ACRYL Control Center"
+say() { printf '%s\n' "acryl: $*"; }
+die() { printf '%s\n' "acryl: $*" >&2; exit 1; }
+need() { command -v "$1" >/dev/null 2>&1 || die "this needs '$1', which this computer does not have"; }
 
-  npx acryl@latest
+need curl
+case "$(uname -s)-$(uname -m)" in
+  Darwin-arm64) ASSET="ACRYL-Control-Center-mac-arm64.dmg" ;;
+  Darwin-x86_64) ASSET="ACRYL-Control-Center-mac-x64.dmg" ;;
+  Linux-x86_64 | Linux-amd64) ASSET="ACRYL-Control-Center-linux-x64.tar.gz" ;;
+  Linux-aarch64 | Linux-arm64) ASSET="ACRYL-Control-Center-linux-arm64.tar.gz" ;;
+  *) die "no build for $(uname -s) $(uname -m); on Windows run in PowerShell: irm https://acryl.dev/install.ps1 | iex" ;;
+esac
 
-The terminal coding agent opens from it (acryl ade --tui) and is downloaded on first use.
-Its source and release archives: https://github.com/acryldev/acryl-terminal
-MESSAGE
-exit 1
+if [ -n "${ACRYL_VERSION:-}" ]; then API="https://api.github.com/repos/$REPO/releases/tags/$ACRYL_VERSION"
+else API="https://api.github.com/repos/$REPO/releases/latest"; fi
+
+WORK="$(mktemp -d "${TMPDIR:-/tmp}/acryl-install.XXXXXX")"
+MOUNT=""
+cleanup() {
+  [ -z "$MOUNT" ] || hdiutil detach "$MOUNT" >/dev/null 2>&1 || true
+  rm -rf "$WORK"
+}
+trap cleanup EXIT INT TERM
+
+curl -fsSL -o "$WORK/release.json" "$API" || die "could not read the release from GitHub ($API)"
+TAG="$(sed -n 's/^  "tag_name": "\(.*\)",$/\1/p' "$WORK/release.json" | head -n 1)"
+# The asset's own block: its download URL and digest sit a few lines after its name.
+BLOCK="$(grep -A 40 "\"name\": \"$ASSET\"" "$WORK/release.json" | head -n 40 || true)"
+URL="$(printf '%s\n' "$BLOCK" | sed -n 's/.*"browser_download_url": "\(.*\)".*/\1/p' | head -n 1)"
+WANT="$(printf '%s\n' "$BLOCK" | sed -n 's/.*"digest": "sha256:\([0-9a-f]*\)".*/\1/p' | head -n 1)"
+[ -n "$URL" ] || die "release $TAG has no $ASSET"
+[ -n "$WANT" ] || die "GitHub gives no checksum for $ASSET in $TAG; nothing was installed"
+
+say "downloading $NAME $TAG ($ASSET)"
+curl -fL --progress-bar -o "$WORK/$ASSET" "$URL" || die "could not download $URL"
+if command -v shasum >/dev/null 2>&1; then GOT="$(shasum -a 256 "$WORK/$ASSET" | cut -d' ' -f1)"; else GOT="$(sha256sum "$WORK/$ASSET" | cut -d' ' -f1)"; fi
+[ "$WANT" = "$GOT" ] || die "the download is not the release's file (sha256 $GOT, expected $WANT); nothing was installed"
+say "checksum ok"
+
+if [ "$(uname -s)" = Darwin ]; then
+  need hdiutil
+  PREFIX="${ACRYL_PREFIX:-$HOME/Applications}"
+  mkdir -p "$PREFIX"
+  MOUNT="$WORK/mount"
+  mkdir -p "$MOUNT"
+  hdiutil attach -nobrowse -readonly -mountpoint "$MOUNT" "$WORK/$ASSET" >/dev/null || die "could not open the disk image"
+  APP="$PREFIX/$NAME.app"
+  [ ! -e "$APP" ] || { say "replacing the installed app (your apps and data in ~/.acryl stay)"; rm -rf "$APP"; }
+  cp -R "$MOUNT/$NAME.app" "$APP"
+  say "installed $APP (Spotlight and Launchpad find it)"
+  [ "${ACRYL_NO_LAUNCH:-}" = 1 ] || open "$APP"
+else
+  need tar
+  PREFIX="${ACRYL_PREFIX:-$HOME/.local/share/acryl-control-center}"
+  rm -rf "$PREFIX"
+  mkdir -p "$PREFIX"
+  tar -xzf "$WORK/$ASSET" -C "$PREFIX" --strip-components=1
+  BIN="$HOME/.local/bin"
+  APPS="$HOME/.local/share/applications"
+  ICONS="$HOME/.local/share/icons/hicolor/512x512/apps"
+  mkdir -p "$BIN" "$APPS" "$ICONS"
+  # A small script, not a symlink: the app finds its files beside its own path.
+  printf '#!/bin/sh\nexec "%s/acryl-control-center" "$@"\n' "$PREFIX" > "$BIN/acryl-control-center"
+  chmod +x "$BIN/acryl-control-center"
+  cp "$PREFIX/acryl-control-center.png" "$ICONS/acryl-control-center.png"
+  sed -e "s|^Exec=.*|Exec=\"$PREFIX/acryl-control-center\" %U|" "$PREFIX/acryl-control-center.desktop" > "$APPS/acryl-control-center.desktop"
+  command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$APPS" >/dev/null 2>&1 || true
+  say "installed $PREFIX (find it in your app menu, or run: acryl-control-center)"
+  if [ "${ACRYL_NO_LAUNCH:-}" != 1 ]; then
+    if [ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]; then (nohup "$PREFIX/acryl-control-center" >/dev/null 2>&1 &)
+    else say "no display here: start it from your desktop"; fi
+  fi
+fi
+say "done"

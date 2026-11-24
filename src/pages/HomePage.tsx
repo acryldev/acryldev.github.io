@@ -5,6 +5,7 @@ import {
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
+import { InstallBox } from '../components/InstallBox'
 import { CopyLine } from '../components/CopyLine'
 import { DownloadButtons } from '../components/DownloadButtons'
 import { orcaRouter } from '../data/partners'
@@ -131,6 +132,7 @@ export function HomePage() {
           <p className="hero-lede">Every ACRYL app has its own agent. Your users say &ldquo;add XYZ&rdquo;, and seconds later the change is live for them and their team. You keep shipping the foundation; they keep their layer.</p>
           <p className="hero-lede hero-lede-follow">Build agentic apps from plugins. Start blank, grow with an agent, share what you make. ACRYL is the open platform and framework underneath: the agent is one part of your app, and our own development environment, ACRYL ADE, is one app built on it.</p>
           <div className="hero-actions">
+            <InstallBox />
             <CommandBox command="npx acryl@latest" label="Open the launcher" />
             <div className="hero-cta">
               <Link className="button" to="/start">Get started <ArrowRight aria-hidden="true" /></Link>
