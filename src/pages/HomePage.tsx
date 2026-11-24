@@ -24,7 +24,7 @@ const nouns = [
   { icon: Folder, name: 'App', line: 'A folder: blend.yaml, its plugins, its data. Copy the folder, copy the app.' },
   { icon: Server, name: 'Host', line: 'One process per app. It loads plugins and swaps them while the app runs.' },
   { icon: Puzzle, name: 'Plugin', line: 'The only unit of capability: a page, a tool, a service.' },
-  { icon: Monitor, name: 'Surface', line: 'Web or Desktop. It draws what the Host serves and owns no logic.' },
+  { icon: Monitor, name: 'Surface', line: 'Web, Desktop or Terminal. It draws what the Host serves and owns no logic.' },
   { icon: Bot, name: 'Driver', line: 'An agent working inside the app. The built-in chat is one of many.' },
 ] as const
 
