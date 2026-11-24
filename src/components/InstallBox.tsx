@@ -20,6 +20,7 @@ export function InstallBox() {
         ))}
       </div>
       <CommandBox command={installs[os].command} label={installs[os].label} />
+      <p className="install-note">No admin, no Node. The download is checked against GitHub's sha256; Windows and macOS open it without warnings because it is not browser-downloaded.</p>
     </div>
   )
 }
