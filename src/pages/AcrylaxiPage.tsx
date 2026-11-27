@@ -138,8 +138,8 @@ export function AcrylaxiPage() {
           </div>
           <p>
             Annotate an element or a text range, queue a batch of proven layout failures, turn a Mermaid diagram into
-            an editable whiteboard, or review from a phone on the same tailnet. The conversation panel is the only
-            queue.
+            an editable whiteboard, reveal what changed between revisions, or review from a phone on the same tailnet.
+            The conversation panel is the only queue.
           </p>
         </div>
         <Shot
@@ -167,6 +167,21 @@ export function AcrylaxiPage() {
             src="/acrylaxi/media/mobile.png"
             alt="ACRYL AXI review on a phone with the conversation sheet raised"
             caption="On a phone the conversation becomes a bottom sheet. The session link works over Tailscale, not the internet."
+          />
+          <Shot
+            src="/acrylaxi/media/revisions.png"
+            alt="Revisions drawer listing two review rounds with summaries and reveal controls"
+            caption="Revisions: the agent declares what changed each round, and Reveal flashes those blocks instead of restyling the page."
+          />
+          <Shot
+            src="/acrylaxi/media/inbox.png"
+            alt="Layout issues drawer showing a severe horizontal overflow finding with queue controls"
+            caption="Layout issues: proven overflow, clipping, or occlusion is filed passively, then queued as one fix batch when you choose."
+          />
+          <Shot
+            src="/acrylaxi/media/share.png"
+            alt="Publish dialog warning that ht-ml.app is a third-party host"
+            caption="Export one portable file, or publish explicitly. ht-ml.app is a third-party host, not part of Acrylaxi."
           />
         </div>
       </section>
