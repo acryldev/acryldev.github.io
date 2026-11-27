@@ -177,6 +177,30 @@ export function AcrylaxiPage() {
             </article>
           ))}
         </div>
+
+        <div className="loop-video">
+          <div className="loop-video-head">
+            <div>
+              <p className="eyebrow">45-second loop film</p>
+              <h3>One round, in motion.</h3>
+            </div>
+            <p>
+              A real round, animated: the file opens, an annotation lands, the poll returns prompts, the artifact
+              changes and the review reloads — captured from the running CLI and re-rendered with HyperFrames.
+            </p>
+          </div>
+          <video
+            className="explainer-video"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/acrylaxi/media/acrylaxi-how-it-works-poster.jpg"
+          >
+            <source src="/acrylaxi/media/acrylaxi-how-it-works.mp4" type="video/mp4" />
+            <source src="/acrylaxi/media/acrylaxi-how-it-works.webm" type="video/webm" />
+            Your browser does not support the video element.
+          </video>
+        </div>
       </section>
 
       <section className="shot-section page-width" aria-labelledby="shots-heading">
