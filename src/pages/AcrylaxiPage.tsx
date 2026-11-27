@@ -1,6 +1,54 @@
 import { ArrowRight, ArrowUpRight, Github, MessageCircle, ShieldCheck, Sparkles, Terminal, Wifi } from 'lucide-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CommandBox } from '../components/CommandBox'
+
+const PAGE_TITLE = 'ACRYL AXI — Agent External Interface'
+const PAGE_DESCRIPTION =
+  'HTML is the new markdown. ACRYL AXI opens the HTML artifacts your agent writes as a local review surface: annotate elements, select text, edit whiteboards, queue fixes, and send feedback back as text instead of screenshots.'
+const PAGE_URL = 'https://acryl.dev/acrylaxi'
+
+function usePageMetadata() {
+  useEffect(() => {
+    const previousTitle = document.title
+    const tags: Array<{ element: HTMLMetaElement; content: string }> = []
+    const setMeta = (attribute: 'name' | 'property', key: string, content: string) => {
+      const selector = `meta[${attribute}="${key}"]`
+      let element = document.head.querySelector<HTMLMetaElement>(selector)
+      if (!element) {
+        element = document.createElement('meta')
+        element.setAttribute(attribute, key)
+        document.head.appendChild(element)
+      }
+      tags.push({ element, content: element.getAttribute('content') ?? '' })
+      element.setAttribute('content', content)
+    }
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    const previousCanonical = canonical?.getAttribute('href') ?? null
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    document.title = `${PAGE_TITLE} | ACRYL`
+    canonical.href = PAGE_URL
+    setMeta('name', 'description', PAGE_DESCRIPTION)
+    setMeta('property', 'og:title', PAGE_TITLE)
+    setMeta('property', 'og:description', PAGE_DESCRIPTION)
+    setMeta('property', 'og:type', 'website')
+    setMeta('property', 'og:url', PAGE_URL)
+    setMeta('property', 'og:image', `${PAGE_URL}/media/og.png`)
+    setMeta('name', 'twitter:card', 'summary_large_image')
+    setMeta('name', 'twitter:title', PAGE_TITLE)
+    setMeta('name', 'twitter:description', PAGE_DESCRIPTION)
+    setMeta('name', 'twitter:image', `${PAGE_URL}/media/og.png`)
+    return () => {
+      document.title = previousTitle
+      for (const { element, content } of tags) element.setAttribute('content', content)
+      if (canonical) canonical.href = previousCanonical ?? PAGE_URL
+    }
+  }, [])
+}
 
 const loop = [
   'The agent writes one self-contained HTML artifact: a plan, a comparison, a diagram, a table, a diff, or an interactive prototype.',
@@ -43,6 +91,7 @@ function Shot({ src, alt, caption }: { readonly src: string; readonly alt: strin
 }
 
 export function AcrylaxiPage() {
+  usePageMetadata()
   return (
     <>
       <section className="acrylaxi-hero grid-surface">
