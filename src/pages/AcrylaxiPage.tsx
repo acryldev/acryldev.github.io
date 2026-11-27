@@ -321,8 +321,13 @@ export function AcrylaxiPage() {
             <p>Installs the <code>acrylaxi</code> skill in the Agent Skills format. Then invoke <code>/acrylaxi</code> in agents that expose skills as slash commands.</p>
             <CommandBox command="npx skills add acryldev/acrylaxi --skill acrylaxi" label="Agent Skills" />
             <h3>Zero setup</h3>
-            <p>Any shell-capable agent can skip installation entirely and call the CLI on demand.</p>
-            <CommandBox command="npx -y acrylaxi <artifact.html>" label="On demand" />
+            <p>
+              Any shell-capable agent can call the CLI on demand. The npm package is not published yet, so install a
+              checkout once and agents use the <code>acrylaxi</code> binary; after the release,{' '}
+              <code>npx -y acrylaxi</code> needs no install at all.
+            </p>
+            <CommandBox command="git clone https://github.com/acryldev/acrylaxi && cd acrylaxi && corepack pnpm install && npm i -g ." label="Run from a checkout (today)" />
+            <CommandBox command="npx -y acrylaxi <artifact.html>" label="Once published" />
             <h3>Hooks or plugin</h3>
             <p>Install globally, then opt into session context or register the package with VS Code, Cursor, and GitHub Copilot CLI.</p>
             <CommandBox command="npm i -g acrylaxi && acrylaxi setup hooks" label="Session hooks" />
