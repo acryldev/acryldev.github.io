@@ -17,6 +17,7 @@ import { WorkshopPanelPage } from './pages/WorkshopPanelPage'
 import { WorkshopChatPage } from './pages/WorkshopChatPage'
 import { EcosystemPage } from './pages/EcosystemPage'
 import { AcrylMicrovmPage } from './pages/AcrylMicrovmPage'
+import { AcrylaxiPage } from './pages/AcrylaxiPage'
 import { GuidePage } from './pages/GuidePage'
 import { build, concepts, reference, start, vision } from './lib/guides'
 
@@ -25,6 +26,7 @@ export function App() {
     <Routes>
       <Route element={<Shell />}>
         <Route index element={<HomePage />} />
+        <Route path="acrylaxi" element={<AcrylaxiPage />} />
         <Route path="start" element={<GuidePage guide={start} />} />
         <Route path="concepts" element={<GuidePage guide={concepts} />} />
         <Route path="build" element={<GuidePage guide={build} />} />

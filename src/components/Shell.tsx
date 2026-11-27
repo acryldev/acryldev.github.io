@@ -9,6 +9,7 @@ const nav = [
   ['Concepts', '/concepts'],
   ['Build', '/build'],
   ['Blends', '/blends'],
+  ['ACRYL AXI', '/acrylaxi'],
   ['Reference', '/reference'],
   ['Ecosystem', '/ecosystem'],
   ['Vision', '/vision'],
@@ -99,6 +100,7 @@ export function Shell() {
           <Link to="/vision">Vision</Link>
           <Link to="/ecosystem">Ecosystem</Link>
           <Link to="/blends">Blends</Link>
+          <Link to="/acrylaxi">ACRYL AXI</Link>
           <Link to="/ecosystem/plugins">Community plugins</Link>
           <Link to="/docs">Framework docs</Link>
           <Link to="/ui">UI components</Link>

@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ACRYL AXI — a plan you can point at</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;650&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --canvas: #fbfbf9;
+        --ink: #171717;
+        --muted: #6f6f6a;
+        --line: #dededa;
+        --panel: #ffffff;
+        --soft: #f2f2ee;
+        --accent: #171717;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+        --sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        background: var(--canvas);
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      .shell {
+        width: min(1120px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 40px 0 72px;
+      }
+      .eyebrow {
+        margin: 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      header.doc-head {
+        display: grid;
+        gap: 18px;
+        padding-bottom: 34px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .mark {
+        display: grid;
+        width: 26px;
+        height: 26px;
+        place-items: center;
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      h1 {
+        margin: 6px 0 0;
+        max-width: 780px;
+        font-size: clamp(38px, 5.6vw, 62px);
+        font-weight: 400;
+        letter-spacing: -0.05em;
+        line-height: 1.02;
+      }
+      h1 strong {
+        font-weight: 650;
+      }
+      .lede {
+        max-width: 640px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .chip.live::before {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ink);
+        content: "";
+      }
+      main {
+        display: grid;
+        gap: 54px;
+        padding-top: 44px;
+      }
+      section {
+        display: grid;
+        gap: 16px;
+      }
+      h2 {
+        margin: 0;
+        font-size: 25px;
+        font-weight: 500;
+        letter-spacing: -0.035em;
+      }
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+      p {
+        margin: 0;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: 20px;
+        align-items: start;
+      }
+      .panel {
+        padding: 24px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+      .panel.soft {
+        background: var(--soft);
+      }
+      .panel-label {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .step-list {
+        display: grid;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .step-list li {
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 12px;
+        padding: 15px 0;
+        border-top: 1px solid var(--line);
+      }
+      .step-list li:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .step-list li:last-child {
+        padding-bottom: 0;
+      }
+      .step-n {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      .step-list p {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .step-list strong {
+        display: block;
+        color: var(--ink);
+        font-weight: 500;
+        font-size: 15px;
+      }
+      code,
+      kbd {
+        font-family: var(--mono);
+        font-size: 0.86em;
+      }
+      .cmd {
+        display: block;
+        overflow-x: auto;
+        padding: 13px 15px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        font-family: var(--mono);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .cmd .prompt {
+        margin-right: 8px;
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      th,
+      td {
+        padding: 13px 14px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: var(--soft);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      td:first-child {
+        font-weight: 500;
+      }
+      td.no {
+        color: var(--muted);
+      }
+      .choice {
+        display: grid;
+        gap: 8px;
+      }
+      label.option {
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        cursor: pointer;
+      }
+      label.option:hover {
+        background: var(--soft);
+      }
+      label.option input {
+        margin: 4px 0 0;
+        accent-color: var(--accent);
+      }
+      label.option span {
+        display: block;
+      }
+      label.option small {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .note {
+        padding: 12px 14px;
+        border: 1px dashed var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .mermaid-wrap {
+        padding: 18px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+      .mermaid {
+        display: flex;
+        justify-content: center;
+      }
+      .checklist {
+        display: grid;
+        gap: 8px;
+      }
+      label.check {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 11px 13px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        font-size: 14px;
+        cursor: pointer;
+      }
+      label.check:hover {
+        background: var(--soft);
+      }
+      label.check input {
+        accent-color: var(--accent);
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .card {
+        padding: 16px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+      .card h3 {
+        margin-bottom: 5px;
+      }
+      .card p {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .card .n {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+      footer {
+        margin-top: 64px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      footer a {
+        color: inherit;
+      }
+      .rev {
+        outline: 2px solid transparent;
+      }
+      [data-acrylaxi-revision] {
+        scroll-margin-top: 20px;
+      }
+      @media (max-width: 880px) {
+        .cols,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .shell {
+          width: calc(100% - 32px);
+          padding-top: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell" data-acrylaxi-live-reload-root>
+      <header class="doc-head">
+        <div class="brand-row">
+          <span class="mark" aria-hidden="true">AX</span>
+          <p class="eyebrow">ACRYL AXI · Interactive demo artifact</p>
+        </div>
+        <div>
+          <p class="eyebrow">Revision R2 · product plan</p>
+          <h1>A plan you can point at.<br /><strong>And answer in place.</strong></h1>
+        </div>
+        <p class="lede">
+          This page is a plain HTML file written by an agent. It is open in ACRYL AXI, so every element and every
+          sentence below is something you can attach a note to instead of describing it in chat.
+        </p>
+        <div class="hero-meta">
+          <span class="chip live">Live review session</span>
+          <span class="chip">Local-first</span>
+          <span class="chip">No screenshots</span>
+          <span class="chip">Agent-agnostic</span>
+        </div>
+      </header>
+
+      <main>
+        <section aria-labelledby="loop-heading" data-acrylaxi-revision="r2">
+          <p class="eyebrow">01 · the loop</p>
+          <h2 id="loop-heading">Write, open, point, answer.</h2>
+          <div class="cols">
+            <div class="panel">
+              <p class="panel-label">How a review round travels</p>
+              <ol class="step-list">
+                <li>
+                  <span class="step-n">01</span>
+                  <div>
+                    <strong>Agent writes the artifact</strong>
+                    <p>
+                      A plan, comparison, diagram, table, diff or interactive prototype — one self-contained HTML file.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-n">02</span>
+                  <div>
+                    <strong>ACRYL AXI opens it locally</strong>
+                    <p>The CLI starts a loopback review server and a browser surface. Nothing is uploaded.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-n">03</span>
+                  <div>
+                    <strong>You point at what is wrong</strong>
+                    <p>
+                      An element, a range of selected text, a table cell, a diagram, or a whole batch of layout
+                      findings. Each becomes one queued prompt.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-n">04</span>
+                  <div>
+                    <strong>The agent receives it as text</strong>
+                    <p>
+                      Selectors, anchors and local image paths, not screenshots. It edits the file, the page
+                      live-reloads, the round repeats.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+            <div class="panel soft">
+              <p class="panel-label">The commands the agent runs</p>
+              <code class="cmd"><span class="prompt">$</span>npx -y acrylaxi plan.html</code>
+              <p style="height: 10px"></p>
+              <code class="cmd"><span class="prompt">$</span>npx -y acrylaxi poll plan.html</code>
+              <p class="note" style="margin-top: 16px">
+                <code>poll</code> long-polls until you send feedback, queue layout fixes, or end the session. Requests
+                arrive in the same turn the agent is already holding.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="why-heading" data-acrylaxi-revision="r1">
+          <p class="eyebrow">02 · why not screenshots</p>
+          <h2 id="why-heading">Feedback should cost tokens, not pixels.</h2>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Loop</th>
+                <th scope="col">What the agent gets</th>
+                <th scope="col">What it costs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="no">Screenshots in chat</td>
+                <td class="no">An image, read back as pixels</td>
+                <td class="no">Vision tokens per round, lossy anchors</td>
+              </tr>
+              <tr>
+                <td class="no">Prose description</td>
+                <td class="no">“the card in the second row”</td>
+                <td class="no">Ambiguity, re-asks, slow rounds</td>
+              </tr>
+              <tr>
+                <td>ACRYL AXI</td>
+                <td>One prompt per note with an exact CSS selector, text range, or table cell</td>
+                <td>Text only, precise, replayable</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="grid-3">
+            <div class="card">
+              <span class="n">A</span>
+              <h3>Local-first</h3>
+              <p>Session state lives in <code>~/.acrylaxi/</code>. Hosted sharing is explicit and opt-in.</p>
+            </div>
+            <div class="card">
+              <span class="n">B</span>
+              <h3>Any agent</h3>
+              <p>Claude Code, Codex, OpenCode, Copilot CLI, DSH or ACRYL. It is one CLI command.</p>
+            </div>
+            <div class="card">
+              <span class="n">C</span>
+              <h3>Agent-authored</h3>
+              <p>Design guidance, playbooks and snippets are served by the CLI itself, so they never go stale.</p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="decide-heading">
+          <p class="eyebrow">03 · a decision to answer here</p>
+          <h2 id="decide-heading">Which capability leads the explainer?</h2>
+          <p style="max-width: 700px; color: var(--muted)">
+            Answer by clicking an option, then annotate anything that feels wrong. The agent reads your choice from the
+            conversation panel — not from a screenshot of this form.
+          </p>
+          <div class="choice" data-acrylaxi-question="which-capability-leads">
+            <label class="option">
+              <input type="radio" name="lead" value="annotations" />
+              <span
+                ><strong>Element + text annotations</strong
+                ><small
+                  >The core loop: point at a card or a sentence, queue one prompt with an exact anchor.</small
+                ></span
+              >
+            </label>
+            <label class="option">
+              <input type="radio" name="lead" value="whiteboard" />
+              <span
+                ><strong>Whiteboards</strong
+                ><small
+                  >An agent-authored Mermaid diagram becomes an editable canvas; the source stays authoritative.</small
+                ></span
+              >
+            </label>
+            <label class="option">
+              <input type="radio" name="lead" value="layout" />
+              <span
+                ><strong>Layout-issues inbox</strong
+                ><small
+                  >Passive detection files real overflow and occlusion findings; you queue the fixes as one
+                  batch.</small
+                ></span
+              >
+            </label>
+            <label class="option">
+              <input type="radio" name="lead" value="mobile" />
+              <span
+                ><strong>Phone review over Tailscale</strong
+                ><small
+                  >The review link is reachable from your phone on the same tailnet, with a bottom-sheet
+                  conversation.</small
+                ></span
+              >
+            </label>
+          </div>
+          <p class="note">Options are local form state until you queue one answer from the panel.</p>
+        </section>
+
+        <section aria-labelledby="whiteboard-heading">
+          <p class="eyebrow">04 · a diagram you can edit</p>
+          <h2 id="whiteboard-heading">The loop, as a whiteboard.</h2>
+          <div class="mermaid-wrap">
+            <pre class="mermaid">
+flowchart LR
+  A[Agent writes<br/>artifact.html] --> B[acrylaxi opens<br/>local review]
+  B --> C{Human response}
+  C -->|annotate element| D[Queued prompts]
+  C -->|select text| D
+  C -->|edit whiteboard| D
+  C -->|layout fix batch| D
+  D --> E[acrylaxi poll]
+  E --> F[Agent edits the file]
+  F --> B
+</pre>
+          </div>
+          <p class="note">
+            In ACRYL AXI, click the diagram to convert it into an editable whiteboard. The agent receives a bounded edit
+            summary and updates this Mermaid source; the file stays the source of truth.
+          </p>
+        </section>
+
+        <section aria-labelledby="check-heading">
+          <p class="eyebrow">05 · what to try next</p>
+          <h2 id="check-heading">Mark what you want to see first.</h2>
+          <div class="checklist" data-acrylaxi-question="what-to-see-first">
+            <label class="check"
+              ><input type="checkbox" name="try" value="annotate" /> Annotate a paragraph and queue it</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="try" value="layout" /> Trigger a layout check and read the inbox</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="try" value="revisions" /> Reveal what changed in revision R2</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="try" value="whiteboard" /> Open the diagram as a whiteboard</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="try" value="export" /> Export this page as one portable HTML file</label
+            >
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>ACRYL AXI — Agent External Interface. Demo artifact, written for a review round.</span>
+        <span>Extended from Lavish Editor by Kun Chen · MIT</span>
+      </footer>
+    </div>
+
+    <script type="application/json" data-acrylaxi-revisions>
+      [
+        {
+          "id": "r1",
+          "label": "R1",
+          "timestamp": "2026-11-27T09:12:00Z",
+          "summary": "First plan: the loop and the token argument."
+        },
+        {
+          "id": "r2",
+          "label": "R2",
+          "timestamp": "2026-11-27T10:05:00Z",
+          "summary": "Added the decision block and the whiteboard section after review."
+        }
+      ]
+    </script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "base",
+        themeVariables: {
+          fontFamily: "Space Grotesk, sans-serif",
+          lineColor: "#171717",
+          primaryColor: "#f2f2ee",
+          primaryTextColor: "#171717",
+          primaryBorderColor: "#171717",
+        },
+      });
+    </script>
+  </body>
+</html>
