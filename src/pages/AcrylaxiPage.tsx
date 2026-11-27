@@ -137,7 +137,7 @@ export function AcrylaxiPage() {
       <section className="acrylaxi-video-section page-width" aria-labelledby="explainer-heading">
         <div className="section-intro">
           <div>
-            <p className="eyebrow">60-second explainer</p>
+            <p className="eyebrow">72-second explainer</p>
             <h2 id="explainer-heading">From prose to<br />point-and-answer.</h2>
           </div>
           <p>
@@ -145,17 +145,23 @@ export function AcrylaxiPage() {
             selectors, and text. Rendered with HyperFrames; the same artifact-first discipline the product is for.
           </p>
         </div>
-        <video
-          className="explainer-video"
-          controls
-          playsInline
-          preload="metadata"
-          poster="/acrylaxi/media/acrylaxi-explainer-poster.jpg"
-        >
-          <source src="/acrylaxi/media/acrylaxi-explainer.mp4" type="video/mp4" />
-          <source src="/acrylaxi/media/acrylaxi-explainer.webm" type="video/webm" />
-          Your browser does not support the video element.
-        </video>
+        <figure className="acrylaxi-film">
+          <video
+            className="explainer-video"
+            aria-label="ACRYL AXI explainer: why agents and humans keep trading screenshots, and how one local HTML page replaces that loop with annotations, anchors, selectors and a long poll"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/acrylaxi/media/acrylaxi-explainer-poster.jpg"
+          >
+            <source src="/acrylaxi/media/acrylaxi-explainer.mp4" type="video/mp4" />
+            <source src="/acrylaxi/media/acrylaxi-explainer.webm" type="video/webm" />
+            Your browser does not support the video element.
+          </video>
+          <figcaption>From prose to point-and-answer, in 72 seconds. Every screen in it is the real product.</figcaption>
+        </figure>
       </section>
 
       <section className="loop-section page-width" aria-labelledby="loop-heading">
@@ -181,7 +187,7 @@ export function AcrylaxiPage() {
         <div className="loop-video">
           <div className="loop-video-head">
             <div>
-              <p className="eyebrow">45-second loop film</p>
+              <p className="eyebrow">49-second loop film</p>
               <h3>One round, in motion.</h3>
             </div>
             <p>
@@ -189,17 +195,23 @@ export function AcrylaxiPage() {
               changes and the review reloads — captured from the running CLI and re-rendered with HyperFrames.
             </p>
           </div>
-          <video
-            className="explainer-video"
-            controls
-            playsInline
-            preload="metadata"
-            poster="/acrylaxi/media/acrylaxi-how-it-works-poster.jpg"
-          >
-            <source src="/acrylaxi/media/acrylaxi-how-it-works.mp4" type="video/mp4" />
-            <source src="/acrylaxi/media/acrylaxi-how-it-works.webm" type="video/webm" />
-            Your browser does not support the video element.
-          </video>
+          <figure className="acrylaxi-film">
+            <video
+              className="explainer-video"
+              aria-label="How a review round works: the artifact opens locally, an annotation is queued and sent, the poll returns the prompts, the agent edits the file and the review reloads, then a whiteboard edit, the layout inbox, publishing and phone review"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/acrylaxi/media/acrylaxi-how-it-works-poster.jpg"
+            >
+              <source src="/acrylaxi/media/acrylaxi-how-it-works.mp4" type="video/mp4" />
+              <source src="/acrylaxi/media/acrylaxi-how-it-works.webm" type="video/webm" />
+              Your browser does not support the video element.
+            </video>
+            <figcaption>One real round, in 50 seconds — written, opened, annotated, queued, polled, reloaded.</figcaption>
+          </figure>
         </div>
       </section>
 

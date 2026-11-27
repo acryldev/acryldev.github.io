@@ -1121,3 +1121,8 @@ main p code, main li code { padding: 1px 5px; border: 1px solid var(--border); b
 .loop-video-head > p { max-width: 560px; margin: 0; color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
 .loop-video .explainer-video { margin-top: 0; }
 @media (max-width: 860px) { .loop-video-head { grid-template-columns: 1fr; gap: 18px; } }
+
+.acrylaxi-film { margin: 40px 0 0; }
+.acrylaxi-film .explainer-video { margin-top: 0; border-radius: 6px; box-shadow: 0 30px 80px oklch(0.12 0.02 240 / .12); }
+.acrylaxi-film figcaption { margin-top: 12px; color: var(--muted-foreground); font-family: 'DM Mono', ui-monospace, monospace; font-size: 11px; }
+.loop-video .acrylaxi-film { margin-top: 0; }
